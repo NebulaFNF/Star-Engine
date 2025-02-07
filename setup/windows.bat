@@ -8,7 +8,7 @@ haxelib install flixel-demos 2.9.0
 haxelib install flixel-ui 2.4.0
 haxelib install flixel 4.11.0
 haxelib install flxanimate 3.0.4
-haxelib git hxCodec https://github.com/SyncGit12/hxCodec
+haxelib install hxCodec 2.5.1
 haxelib install openfl 9.3.0
 haxelib install lime
 haxelib run lime setup flixel
