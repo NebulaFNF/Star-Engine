@@ -36,7 +36,7 @@ class MainMenuState extends MusicBeatState
 		'story_mode',
 		'freeplay',
 		#if MODS_ALLOWED 'mods', #end
-		//#if ACHIEVEMENTS_ALLOWED 'awards', #end // who needs this?
+		#if ACHIEVEMENTS_ALLOWED 'awards', #end // who needs this?
 		'credits',
 		//#if !switch 'donate', #end
 		'options'
