@@ -43,7 +43,7 @@ class StartupState extends MusicBeatState
 		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
 			switch (theIntro) {
 				case 0:
-					FlxG.sound.play(Paths.sound('confirmMenu'));
+					FlxG.sound.play(Paths.sound('confirmMenuOld'));
 					logo.scale.set(0.1,0.1);
 					logo.updateHitbox();
 					logo.screenCenter();

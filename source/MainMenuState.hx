@@ -20,6 +20,10 @@ import lime.app.Application;
 import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
+import flixel.addons.display.FlxBackdrop;
+import openfl.display.BlendMode;
+import flixel.util.FlxAxes;
+import flixel.addons.display.FlxGridOverlay;
 
 using StringTools;
 
@@ -74,12 +78,14 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menuBG'));
+		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("aboutMenu", "preload"));
+		//bg = new FlxSprite(-80).loadGraphic(Paths.image('aboutMenu', 'preload'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.color = 0xFFFF8C19;
 		add(bg);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
@@ -87,7 +93,24 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menuDesat'));
+		/*var checker:FlxBackdrop;
+		checker = new FlxBackdrop(Paths.image("checker", "preload"));
+		checker.scale.set(1.4, 1.4);
+		checker.color = 0xFFFFFFFF;
+		checker.blend = BlendMode.LAYER;
+		checker.scrollFactor.set(0, 0.07);
+		add(checker);
+		checker.alpha = 0.5;
+		checker.updateHitbox();*/
+		
+		// universe engine code
+		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+		grid.velocity.set(40, 20);
+		grid.alpha = 0;
+		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(grid);
+
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('aboutMenu', 'preload'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -96,6 +119,22 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+
+		/*var checkerAgain:FlxBackdrop;
+		checkerAgain = new FlxBackdrop(Paths.image("checker", "preload"));
+		checkerAgain.scale.set(1.4, 1.4);
+		checkerAgain.color = 0xFFFFFFFF;
+		checkerAgain.blend = BlendMode.LAYER;
+		checkerAgain.scrollFactor.set(0, 0.07);
+		add(checkerAgain);
+		checkerAgain.alpha = 0.5;
+		checkerAgain.updateHitbox();*/
+
+		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+		grid.velocity.set(40, 20);
+		grid.alpha = 0;
+		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
+		add(grid);
 		
 		// magenta.scrollFactor.set();
 
