@@ -28,5 +28,6 @@ haxelib set lime 8.2.1
 haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp
 haxelib git linc_luajit https://github.com/superpowers04/linc_luajit
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
+haxelib git hxCodec https://github.com/SyncGit12/hxCodec
 echo fucking done folks
 exit
