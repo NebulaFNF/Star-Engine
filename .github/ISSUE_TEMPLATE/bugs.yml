@@ -14,8 +14,8 @@ body:
     attributes:
       label: 'Did you see if the "bug" occurs on the latest commit?'
       options:
-        - "Yes"
         - "No"
+        - "Yes"
     validations:
       required: true
 
