@@ -457,6 +457,8 @@ class PlayState extends MusicBeatState
 					curStage = 'schoolEvil';
 				case 'ugh' | 'guns' | 'stress':
 					curStage = 'tank';
+				case 'darnell' | 'lit-up' | '2hot':
+					curStage = 'phillyStreets';
 				default:
 					curStage = 'stage';
 			}
@@ -834,6 +836,24 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) foregroundSprites.add(new BGSprite('tank4', 1300, 900, 1.5, 1.5, ['fg']));
 				foregroundSprites.add(new BGSprite('tank5', 1620, 700, 1.5, 1.5, ['fg']));
 				if(!ClientPrefs.lowQuality) foregroundSprites.add(new BGSprite('tank3', 1300, 1200, 3.5, 2.5, ['fg']));
+
+			// WHY THE FUCK IS THE STAGES HARDCODED??
+		    case 'phillyStreets':
+				var bg:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
+				bg.setGraphicSize(Std.int(bg.width * 0.5));
+				add(bg);
+
+				/*var phillyWhole:BGSprite = new BGSprite('streetsWhole', -500, 0, 0.9, 0.9);
+				phillyWhole.setGraphicSize(Std.int(stageFront.width * 0.5));
+				phillyWhole.updateHitbox();
+				add(phillyWhole);*/
+
+				// ehhh i dont fucking care
+				if(!ClientPrefs.lowQuality) {
+					var bg:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
+					bg.setGraphicSize(Std.int(bg.width * 0.5));
+				    add(bg);
+				}
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
