@@ -1,16 +1,21 @@
-# Friday Night Funkin' - Star Engine
-Silly engine :D
+<h1 align="center">
+  <br>
+  <a href="https://github.com/SyncGit12/Star-Engine"><img src="/art/iconOG.png" alt="StarEngine" width="150"></a>
+  <br>
+  <b>Star Engine</b>
+  <br>
+</h1>
 
-This is a engine that simplifies the modding on LUA a FUCKING LOT.
+## Introduction
 
-And adds HXS support!!!
+This is the repository for Star Engine, hello.
 
-And gives optimization settings! :D
+**THIS IS IN PROGRESS!!!!**
 
-## TODO:
+# Contributers
 
-- HXS support
-- Simplify the modding
-- Simple as FUCK
-- Runs on Pentium 3 computers
-- New MainMenuState and everything else!!!
+@SyncGit12 
+- The fucking owner
+
+@TheStinkern
+- ???
