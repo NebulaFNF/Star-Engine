@@ -331,6 +331,11 @@ class ChartingState extends MusicBeatState
 			{name: "Charting", label: 'Charting'},
 		];
 
+		/*var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
+		theThingImage.x = 640 + NewX / 2;
+		theThingImage.y = 25;
+		theThingImage.scrollFactor.set();*/
+
 		UI_box = new FlxUITabMenu(null, tabs, true);
 
 		UI_box.resize(300, 400);
@@ -358,11 +363,15 @@ class ChartingState extends MusicBeatState
 		for (i in 0...tipTextArray.length) {
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
-			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.BLACK, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 			//tipText.borderSize = 2;
 			tipText.scrollFactor.set();
+			//add(theThingImage);
 			add(tipText);
 		}
+
+		//var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething', 'charteditor'));
+
 		add(UI_box);
 
 		addSongUI();
