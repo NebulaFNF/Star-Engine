@@ -117,7 +117,7 @@ class Main extends Sprite
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "PsychEngine_" + dateNow + ".txt";
+		path = "./crash/" + "v" + MainMenuState.psychEngineVersion + '_' + dateNow + ".txt";
 
 		for (stackItem in callStack)
 		{
@@ -130,7 +130,23 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> Crash Handler written by: sqirra-rng";
+		errMsg += "\nUncaught Error: 
+		
+		\n \n"
+		
+		+ e.error 
+		
+		+ "\n \n
+		
+		Please report this error to the GitHub page: https://github.com/SyncGit12/Star-Engine/issues> 
+		
+		\n \n
+		
+		Crash Handler written by: sqirra-rng 
+		
+		\n \n
+		
+		Crash happened in v" + MainMenuState.psychEngineVersion;
 
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
