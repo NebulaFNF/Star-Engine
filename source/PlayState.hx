@@ -975,7 +975,7 @@ class PlayState extends MusicBeatState
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
 		
-		devBuildtxt = ' | Dev Build'
+		devBuildtxt = ' | Dev Build';
 
 		watermark = new FlxText(0, healthBarBG.y + 10, 400, songName + ' | Star Engine v' + MainMenuState.psychEngineVersion + devBuildtxt, 32);
 		watermark.setFormat(Paths.font("comic.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
