@@ -1,0 +1,9 @@
+name: Feature Request
+description: 'No, I am not going to add 6K/etc notes to the engine, this will break noteskins.'
+labels: [enhancement]
+body:
+  - type: textarea
+    attributes:
+      label: What feature do you want to get added on the engine?
+    validations:
+      required: true

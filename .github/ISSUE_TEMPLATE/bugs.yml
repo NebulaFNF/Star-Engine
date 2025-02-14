@@ -1,0 +1,74 @@
+name: Bug report
+description: Report bugs with the engine here
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Describe your bug here."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: Measures
+    attributes:
+      label: 'Did you see if the "bug" occurs on the latest commit?'
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
+
+  - type: textarea
+    id: terminal
+    attributes:
+      label: "Command Prompt/Terminal/Crash logs (if existing)"
+      placeholder: "None"
+    validations:
+      required: false
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: "Describe the steps on how to occur this bug/crash."
+    validations:
+      required: false
+
+  - type: dropdown
+    id: modding
+    attributes:
+      label: "Are you modding a build from source or with Lua?"
+      options:
+        - Lua
+        - Source
+    validations:
+      required: true
+
+  - type: dropdown
+    id: btarget
+    attributes:
+      label: "What is your build target?"
+      options:
+        - "Windows"
+        - "Linux"
+        - "Mac"
+    validations:
+      required: true
+
+  - type: input
+    id: buildsummary
+    attributes:
+      label: "Did you edit anything in this build? Explain what you changed if so"
+      placeholder: "Yes, I edited ClientPrefs.hx and tried to add a new setting"
+    validations:
+      required: false
+      
+  - type: dropdown
+    id: duplicatecheck
+    attributes:
+      label: "Did you check for any similar issues to what you're reporting?"
+      options:
+        - "Yes"
+        - "No"
+    validations:
+      required: true
