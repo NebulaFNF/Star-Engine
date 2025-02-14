@@ -14,7 +14,7 @@ This is the repository for Star Engine, hello.
 
 **THIS IS IN PROGRESS!!!!**
 
-# Contributers
+# Contributors
 
 @SyncGit12 
 - The fucking owner
