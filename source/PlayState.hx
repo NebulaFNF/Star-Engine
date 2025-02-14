@@ -978,12 +978,13 @@ class PlayState extends MusicBeatState
 		dadGroup.add(dad);
 		startCharacterLua(dad.curCharacter);
 		
-		devBuildtxt = ' | Dev Build';
+		//devBuildtxt = ' | Dev Build';
 
-		watermark = new FlxText(0, healthBarBG.y + 10, 400, songName + ' | Star Engine v' + MainMenuState.psychEngineVersion + devBuildtxt, 32);
+		// for now ill leave these here
+		/*watermark = new FlxText(0, healthBarBG.y + 10, 400, songName + ' | Star Engine v' + MainMenuState.psychEngineVersion + 32);
 		watermark.setFormat(Paths.font("comic.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermark.scrollFactor.set();
-		watermark.borderSize = 3.5; // dave and bambi?????
+		watermark.borderSize = 3.5; // dave and bambi?????*/
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
