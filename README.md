@@ -21,3 +21,12 @@ This is the repository for Star Engine, hello.
 
 @TheStinkern
 - ???
+
+@JordanSantiagoYT
+- ???
+
+@moxie-coder
+- Programmer
+
+@mcagabe19
+- Ported Star Engine to mobile users, also programmer
