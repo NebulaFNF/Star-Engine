@@ -32,4 +32,4 @@ This is the repository for Star Engine, hello.
 - Ported Star Engine to mobile users, also programmer
 
 @cyklusiguess
-- Lead developer
+- Developer
