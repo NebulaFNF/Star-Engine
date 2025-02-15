@@ -20,7 +20,7 @@ haxelib set discord_rpc 1.0.0
 haxelib set flixel-addons 2.11.0
 haxelib set flixel-demos 2.9.0
 haxelib set flixel-ui 2.4.0
-haxelib set flixel 4.11.0
+haxelib set flixel 5.2.2
 haxelib set flxanimate 3.0.4
 haxelib git hxCodec https://github.com/SyncGit12/hxCodec
 haxelib set openfl 9.3.0
