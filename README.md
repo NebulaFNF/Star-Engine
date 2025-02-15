@@ -23,7 +23,7 @@ This is the repository for Star Engine, hello.
 - ???
 
 @JordanSantiagoYT
-- ???
+- Lead developer of the original repository
 
 @moxie-coder
 - Programmer
