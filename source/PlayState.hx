@@ -519,7 +519,7 @@ class PlayState extends MusicBeatState
 				add(bg);
 
 				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
-				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1)); // i added sex
 				stageFront.updateHitbox();
 				add(stageFront);
 				if(!ClientPrefs.lowQuality) {
