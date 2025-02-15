@@ -17,7 +17,7 @@ This is the repository for Star Engine, hello.
 # Contributors
 
 @SyncGit12 
-- The owner, and also made the logo in Blender
+- Lead developer, designer of logo
 
 @TheStinkern
 - ???
