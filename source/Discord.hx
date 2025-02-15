@@ -42,7 +42,7 @@ class DiscordClient
 	static function onReady()
 	{
 		DiscordRpc.presence({
-			details: "In the Menus",
+			details: "In the menu", // it is not a plural mi brother.
 			state: null,
 			largeImageKey: 'icon',
 			largeImageText: "Star Engine"
