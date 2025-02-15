@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<!-- ^ code above tooken from JS Engine's README file ^ -->
+<!-- ^ code above taken from JS Engine's README file ^ -->
 
 ## Introduction
 
@@ -17,7 +17,7 @@ This is the repository for Star Engine, hello.
 # Contributors
 
 @SyncGit12 
-- The fucking owner, and also made the logo in Blender
+- The owner, and also made the logo in Blender
 
 @TheStinkern
 - ???
@@ -30,3 +30,6 @@ This is the repository for Star Engine, hello.
 
 @mcagabe19
 - Ported Star Engine to mobile users, also programmer
+
+@cyklusiguess
+- ???
