@@ -17,11 +17,11 @@ This engine is currently **a work in progress**, and contributions are welcome.
 
 - **[@SyncGit12](https://github.com/SyncGit12)** – Lead developer, logo designer  
 - **[@TheStinkern](https://github.com/TheStinkern)** – ???  
-- **[@ShadowMario](https://github.com/ShadowMario)** – Lead developer of the original repository  
+- **[@JordanSantiagoYT](https://github.com/JordanSantiagoYT)** – 
 - **[@moxie-coder](https://github.com/moxie-coder)** – Programmer  
 - **[@mcagabe19](https://github.com/mcagabe19)** – Ported Star Engine to mobile, also a programmer  
 - **[@cyklusiguess](https://github.com/cyklusiguess)** – Developer  
 
 ---
 
-This engine is a **fork** of another project. If you have suggestions or improvements, feel free to contribute!
+**Star Engine is an independent project**. If you have suggestions or improvements, feel free to contribute!
