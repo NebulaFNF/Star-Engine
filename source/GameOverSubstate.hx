@@ -78,7 +78,7 @@ class GameOverSubstate extends MusicBeatSubstate
 		camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
 		add(camFollowPos);
 
-		switch(PlayState.SONG.player1)
+		/*switch(PlayState.SONG.player1)
 		{
 			case 'pico-player':
 				super();
@@ -107,7 +107,7 @@ class GameOverSubstate extends MusicBeatSubstate
 				camFollowPos.setPosition(FlxG.camera.scroll.x + (FlxG.camera.width / 2), FlxG.camera.scroll.y + (FlxG.camera.height / 2));
 				add(camFollowPos);
 		}
-	}
+	}*/
 
 	var isFollowingAlready:Bool = false;
 	override function update(elapsed:Float)
