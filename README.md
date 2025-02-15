@@ -16,7 +16,7 @@ This engine is currently **a work in progress**, and contributions are welcome.
 ## Contributors
 
 - **[@SyncGit12](https://github.com/SyncGit12)** – Lead developer, logo designer
-- **[@ShadowMario](https://github.com/ShadowMario)** – Programmer
+- **[@ShadowMario](https://github.com/ShadowMario)** – Lead developer of Psych Engine
 - **[@TheStinkern](https://stinkernn.carrd.co/)** – ???  
 - **[@JordanSantiagoYT](https://github.com/JordanSantiagoYT)** – Programmer
 - **[@moxie-coder](https://github.com/moxie-coder)** – Programmer  
