@@ -24,6 +24,7 @@ import flixel.addons.display.FlxBackdrop;
 import openfl.display.BlendMode;
 import flixel.util.FlxAxes;
 import flixel.addons.display.FlxGridOverlay;
+import flxanimate.FlxAnimate;
 
 using StringTools;
 
@@ -33,6 +34,7 @@ class MainMenuState extends MusicBeatState
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
+	//var freeplayBoyfriend:FlxAnimate = new FlxAnimate(-300, 300, "assets/images/freeplay-boyfriend");
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 	
@@ -79,6 +81,9 @@ class MainMenuState extends MusicBeatState
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("aboutMenu", "preload"));
+		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(0, 0, "assets/images/freeplay-boyfriend");
+		freeplayBoyfriend.antialiasing = true;
+		freeplayBoyfriend.screenCenter();
 		//bg = new FlxSprite(-80).loadGraphic(Paths.image('aboutMenu', 'preload'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
@@ -87,11 +92,13 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.color = 0xFFFF8C19;
 		add(bg);
+		add(freeplayBoyfriend);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
+
 
 		/*var checker:FlxBackdrop;
 		checker = new FlxBackdrop(Paths.image("checker", "preload"));
