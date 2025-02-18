@@ -7,9 +7,11 @@
 					[
 						"Play Animation",
 						"laugh",
-						"Dad"
+						"dad"
 					]
-				]
+				],
+				null,
+				""
 			],
 			[
 				36774.1935483871,
@@ -17,7 +19,7 @@
 					[
 						"Play Animation",
 						"laugh",
-						"Dad"
+						"dad"
 					]
 				]
 			],

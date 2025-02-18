@@ -73,8 +73,8 @@ class CoolUtil
 		File.saveContent(haxe.io.Path.join([exeDir, "yes.bat"]), theBatch);
 	
 		// Execute the batch file
-		new Process(exeDir + "/yes.bat", []);
-			Sys.exit(0);
+		new Process(exeDir + "/yes.bat").stdout.readAll().toString();
+		Sys.exit(0);
 	}
 	
 
