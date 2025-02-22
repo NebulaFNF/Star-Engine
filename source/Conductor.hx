@@ -28,6 +28,7 @@ class Conductor
 	public static var safeZoneOffset:Float = (ClientPrefs.safeFrames / 60) * 1000; // is calculated in create(), is safeFrames in milliseconds
 
 	public static var bpmChangeMap:Array<BPMChangeEvent> = [];
+	public static var timeScale:Float = Conductor.safeZoneOffset / 166;
 
 	public function new()
 	{

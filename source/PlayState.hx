@@ -83,6 +83,7 @@ class PlayState extends MusicBeatState
 	public static var STRUM_X_MIDDLESCROLL = -278;
 
 	public static var ratingStuff:Array<Dynamic> = [
+		['HOW ARE YOU SO BAD???', -0.5],
 		['Fucking dogshit', 0.2], //From 0% to 19%
 		['Terrible', 0.4], //From 20% to 39%
 		['Bad', 0.5], //From 40% to 49%
@@ -146,6 +147,12 @@ class PlayState extends MusicBeatState
 	public static var storyWeek:Int = 0;
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
+
+	public static var useDownscroll:Bool;
+	public static var scrollSpeed:Float;
+	public static var botPlay:Bool;
+	public static var Optimize:Bool;
+	public static var zoom:Float;
 
 	public var spawnTime:Float = 2000;
 
@@ -483,6 +490,9 @@ class PlayState extends MusicBeatState
 				camera_speed: 1
 			};
 		}
+
+		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nFRAMES: ' + ClientPrefs.safeFrames + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
+		+ Conductor.timeScale + '\nBOTPLAY : ' + botPlay);
 
 		defaultCamZoom = stageData.defaultZoom;
 		isPixelStage = stageData.isPixelStage;
