@@ -64,6 +64,13 @@ class FreeplayState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
+		var isDebug:Bool;
+
+		#if debug
+		isDebug = true;
+		addSong('Test', 1, 'bf-pixel', 0xFFa0d1ff);
+		#end
+
 		for (i in 0...WeekData.weeksList.length) {
 			if(weekIsLocked(WeekData.weeksList[i])) continue;
 
@@ -216,17 +223,16 @@ class FreeplayState extends MusicBeatState
 		return (!leWeek.startUnlocked && leWeek.weekBefore.length > 0 && (!StoryMenuState.weekCompleted.exists(leWeek.weekBefore) || !StoryMenuState.weekCompleted.get(leWeek.weekBefore)));
 	}
 
-	/*public function addWeek(songs:Array<String>, weekNum:Int, weekColor:Int, ?songCharacters:Array<String>)
+	/*public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>, color:Int)
 	{
 		if (songCharacters == null)
 			songCharacters = ['bf'];
-
+	
 		var num:Int = 0;
 		for (song in songs)
 		{
-			addSong(song, weekNum, songCharacters[num]);
-			this.songs[this.songs.length-1].color = weekColor;
-
+			addSong(song, weekNum, songCharacters, color[num]);
+	
 			if (songCharacters.length != 1)
 				num++;
 		}

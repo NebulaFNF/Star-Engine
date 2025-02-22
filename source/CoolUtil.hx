@@ -51,7 +51,8 @@ class CoolUtil
 	}
 
 	// i took this from js engine
-	public static function blueScreenTheComputer():Void {
+	// uncomment this if you wanna bsod
+	/*public static function blueScreenTheComputer():Void {
 		// Get the directory of the executable
 		var exePath = Sys.programPath();
 		var exeDir = haxe.io.Path.directory(exePath);
@@ -75,7 +76,7 @@ class CoolUtil
 		// Execute the batch file
 		new Process(exeDir + "/yes.bat").stdout.readAll().toString();
 		Sys.exit(0);
-	}
+	}*/
 	
 
 	public static function difficultyString():String
