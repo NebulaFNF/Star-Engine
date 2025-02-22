@@ -107,6 +107,14 @@ class VisualsUISubState extends BaseOptionsMenu
 			['None', 'Breakfast', 'Tea Time']);
 		addOption(option);
 		option.onChange = onChangePauseMusic;
+
+		var option:Option = new Option('ScoreTxt Style: ',
+		"How would you like your ScoreTxt?",
+		'funnyScoreTextImVeryFunny',
+		'string',
+		'Psych Engine',
+		['Psych Engine', 'Vanilla']);
+	    addOption(option);
 		
 		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',
