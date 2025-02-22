@@ -46,7 +46,7 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat("_sans", 14, color);
+		defaultTextFormat = new TextFormat("Px437 IBM VGA 8x16", 16, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";

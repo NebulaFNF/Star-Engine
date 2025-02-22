@@ -7,6 +7,10 @@ import flixel.FlxState;
 import openfl.Assets;
 import openfl.Lib;
 import openfl.display.FPS;
+
+// credits to hrk ex ex !!!!
+import openfl.display.FPSBg;
+
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
@@ -35,6 +39,7 @@ class Main extends Sprite
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPS;
+	public static var fpsBg:FPSBg;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -85,7 +90,9 @@ class Main extends Sprite
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
+		fpsBg = new FPSBg();
 		fpsVar = new FPS(10, 3, 0xFFFFFF);
+		addChild(fpsBg);
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
