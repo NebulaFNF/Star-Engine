@@ -1199,12 +1199,12 @@ class PlayState extends MusicBeatState
 		        add(scoreTxt);
 			case 'Vanilla':
 				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		        scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		        scoreTxt.scrollFactor.set();
 		        add(scoreTxt);
 			default:
 				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		        scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		        scoreTxt.scrollFactor.set();
 		        add(scoreTxt);
 		}

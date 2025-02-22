@@ -1,8 +1,20 @@
 {
+	"storyName": "Due Debts",
+	"difficulties": "Normal",
+	"hideFreeplay": false,
+	"weekBackground": "phillyStreets",
+	"weekBefore": "week7",
+	"freeplayColor": [
+		146,
+		113,
+		253
+	],
+	"startUnlocked": true,
+	"hideStoryMode": false,
 	"songs": [
 		[
 			"darnell",
-			"dad",
+			"darnell",
 			[
 				146,
 				113,
@@ -11,7 +23,7 @@
 		],
 		[
 			"lit up",
-			"dad",
+			"darnell",
 			[
 				146,
 				113,
@@ -20,7 +32,7 @@
 		],
 		[
 			"2hot",
-			"dad",
+			"darnell",
 			[
 				146,
 				113,
@@ -28,23 +40,11 @@
 			]
 		]
 	],
-	"hiddenUntilUnlocked": false,
-	"hideFreeplay": false,
-	"weekBackground": "phillyStreets",
-	"difficulties": "Normal",
 	"weekCharacters": [
 		"",
 		"",
 		""
 	],
-	"storyName": "Due Debts",
-	"weekName": "Custom Week",
-	"freeplayColor": [
-		146,
-		113,
-		253
-	],
-	"hideStoryMode": false,
-	"weekBefore": "week7",
-	"startUnlocked": true
+	"hiddenUntilUnlocked": false,
+	"weekName": "Custom Week"
 }
