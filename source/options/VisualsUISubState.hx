@@ -47,6 +47,13 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool',
 			false);
 		addOption(option);
+
+		var option:Option = new Option('Hide HUD',
+		'If checked, hides the Botplay watermark.',
+		'botplayWatermark',
+		'bool',
+		false);
+	    addOption(option);
 		
 		var option:Option = new Option('Time Bar:',
 			"What should the Time Bar display?",
