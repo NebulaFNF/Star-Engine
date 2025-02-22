@@ -42,6 +42,7 @@ import lime.utils.Assets;
 import openfl.Lib;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
+import openfl.display.FPS;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
 import editors.ChartingState;
@@ -491,7 +492,7 @@ class PlayState extends MusicBeatState
 			};
 		}
 
-		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nFRAMES: ' + ClientPrefs.safeFrames + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
+		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nFRAMES: trying to figure out this shit so no Client.safeFrames for you :3' + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
 		+ Conductor.timeScale + '\nBOTPLAY : ' + botPlay);
 
 		defaultCamZoom = stageData.defaultZoom;
