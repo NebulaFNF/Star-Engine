@@ -48,8 +48,8 @@ class VisualsUISubState extends BaseOptionsMenu
 			false);
 		addOption(option);
 
-		var option:Option = new Option('Hide HUD',
-		'If checked, hides the Botplay watermark.',
+		var option:Option = new Option('Botplay Watermark',
+		'If unchecked, hides the Botplay watermark.',
 		'botplayWatermark',
 		'bool',
 		false);
