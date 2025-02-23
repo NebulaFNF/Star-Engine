@@ -10,7 +10,7 @@ package options;
 #if desktop
 
 
-import DiscordClient;
+import Discord;
 
 
 #end
