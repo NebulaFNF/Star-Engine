@@ -18,7 +18,6 @@ class Boyfriend extends Character
 
 	override function update(elapsed:Float)
 	{
-		if (ClientPrefs.ffmpegMode) elapsed = 1 / ClientPrefs.targetFPS;
 		if (!debugMode && animation.curAnim != null)
 		{
 			if (animation.curAnim.name.startsWith('sing'))

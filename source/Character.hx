@@ -256,7 +256,6 @@ class Character extends FlxSprite
 
 	override function update(elapsed:Float)
 	{
-		if (ClientPrefs.ffmpegMode) elapsed = 1 / ClientPrefs.targetFPS;
 		if(!debugMode && animation.curAnim != null)
 		{
 			if(heyTimer > 0)
