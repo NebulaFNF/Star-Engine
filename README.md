@@ -22,6 +22,7 @@ This engine is currently **a work in progress**, and contributions are welcome.
 - **[@moxie-coder](https://github.com/moxie-coder)** – Programmer  
 - **[@mcagabe19](https://github.com/mcagabe19)** – Ported Star Engine to mobile, also a programmer  
 - **[@cyklusiguess](https://github.com/cyklusiguess)** – Developer  
+- **[@HRK_EXEX](https://www.youtube.com/@hk.3x3x2nd3)** – Developer, also made the FPS counter, made Rendering mode possible, and optimized the engine
 
 ---
 
