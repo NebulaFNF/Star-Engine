@@ -24,6 +24,35 @@ class ClientPrefs {
 	public static var hideHud:Bool = false;
 	public static var disableGC:Bool = true;
 	public static var workInProgressThingHaha:String = "!";
+
+
+
+
+
+	// Video Renderer
+
+
+	public static var ffmpegMode:Bool = false;
+
+
+	public static var ffmpegInfo:Bool = false;
+
+
+	public static var targetFPS:Float = 60;
+
+
+	public static var unlockFPS:Bool = false;
+
+
+	public static var lossless:Bool = false;
+
+
+	public static var quality:Int = 80;
+
+
+	public static var noCapture:Bool = false;
+
+
 	//public static var oldHealthBar:Bool = true;
 	public static var botplayWatermark:Bool = true;
 	public static var noteOffset:Int = 0;
@@ -109,6 +138,28 @@ class ClientPrefs {
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.framerate = framerate;
+				//RENDERING SETTINGS
+
+
+				FlxG.save.data.ffmpegMode = ffmpegMode;
+
+
+				FlxG.save.data.ffmpegInfo = ffmpegInfo;
+		
+		
+				FlxG.save.data.targetFPS = targetFPS;
+		
+		
+				FlxG.save.data.unlockFPS = unlockFPS;
+		
+		
+				FlxG.save.data.lossless = lossless;
+		
+		
+				FlxG.save.data.quality = quality;
+		
+		
+				FlxG.save.data.noCapture = noCapture;
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
 		FlxG.save.data.camZooms = camZooms;
@@ -135,6 +186,7 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.comboStacking = comboStacking;
+		FlxG.save.data.botplayWatermark = botplayWatermark;
 	
 		FlxG.save.flush();
 
@@ -192,6 +244,74 @@ class ClientPrefs {
 		if(FlxG.save.data.violence != null) {
 			violence = FlxG.save.data.violence;
 		}*/
+
+				//rendering stuff
+
+
+
+				if(FlxG.save.data.ffmpegMode != null) {
+
+
+					ffmpegMode = FlxG.save.data.ffmpegMode;
+		
+		
+				}
+		
+		
+				if(FlxG.save.data.ffmpegInfo != null) {
+		
+		
+					ffmpegInfo = FlxG.save.data.ffmpegInfo;
+		
+		
+				}
+		
+		
+				if(FlxG.save.data.targetFPS != null) {
+		
+		
+					targetFPS = FlxG.save.data.targetFPS;
+		
+		
+				}
+		
+		
+				if(FlxG.save.data.unlockFPS != null) {
+		
+		
+					unlockFPS = FlxG.save.data.unlockFPS;
+		
+		
+				}
+		
+		
+				if(FlxG.save.data.lossless != null) {
+		
+		
+					lossless = FlxG.save.data.lossless;
+		
+		
+				}
+		
+		
+				if(FlxG.save.data.quality != null) {
+		
+		
+					quality = FlxG.save.data.quality;
+		
+		
+				}
+		
+		
+				if(FlxG.save.data.noCapture != null) {
+		
+		
+					noCapture = FlxG.save.data.noCapture;
+		
+		
+				}
+		
+		
 		if(FlxG.save.data.camZooms != null) {
 			camZooms = FlxG.save.data.camZooms;
 		}
