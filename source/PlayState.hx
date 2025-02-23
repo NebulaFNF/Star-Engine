@@ -159,7 +159,6 @@ class PlayState extends MusicBeatState
 
 	public var vocals:FlxSound;
 	public var frameCaptured:Int = 0;
-	public var renderedTxt:FlxText;
 	public var dad:Character = null;
 	public var gf:Character = null;
 	public var boyfriend:Boyfriend = null;
@@ -1275,25 +1274,6 @@ class PlayState extends MusicBeatState
 		if(!ClientPrefs.botplayWatermark) {
 			botplayTxt.visible = false;
 		}
-
-		if(ffmpegMode && !noCapture)
-
-
-			{
-	
-	
-				var filename = CoolUtil.zeroFill(frameCaptured, 7);
-	
-	
-				capture.save(Paths.formatToSongPath(SONG.song) + '\\', filename);
-	
-	
-			}
-	
-	
-			frameCaptured++;
-
-
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -2504,9 +2484,13 @@ class PlayState extends MusicBeatState
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
-		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
-		FlxG.sound.music.pitch = playbackRate;
-		FlxG.sound.music.onComplete = finishSong.bind();
+		if (!ffmpegMode) {
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+			FlxG.sound.music.onComplete = finishSong.bind();
+		} else {
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0, false);
+			vocals.volume = 0;
+		}
 		vocals.play();
 
 		if(startOnTime > 0)
@@ -2913,7 +2897,7 @@ class PlayState extends MusicBeatState
 	{
 		if (paused)
 		{
-			if (FlxG.sound.music != null && !startingSong)
+			if (FlxG.sound.music != null && !startingSong && !ffmpegMode)
 			{
 				resyncVocals();
 			}
@@ -3014,10 +2998,6 @@ class PlayState extends MusicBeatState
 
 	override public function update(elapsed:Float)
 	{
-		/*if (FlxG.keys.justPressed.NINE)
-		{
-			iconP1.swapOldIcon();
-		}*/
 		callOnLuas('onUpdate', [elapsed]);
 
 		switch (curStage)
@@ -3252,8 +3232,6 @@ class PlayState extends MusicBeatState
 				{
 					songTime = (songTime + Conductor.songPosition) / 2;
 					Conductor.lastSongPos = Conductor.songPosition;
-					// Conductor.songPosition += FlxG.elapsed * 1000;
-					// trace('MISSED FRAME');
 				}
 
 				if(updateTime) {
@@ -3270,9 +3248,13 @@ class PlayState extends MusicBeatState
 					if(ClientPrefs.timeBarType != 'Song Name')
 						timeTxt.text = FlxStringUtil.formatTime(secondsTotal, false);
 				}
+				if(ffmpegMode) {
+					if(!endingSong && Conductor.songPosition >= FlxG.sound.music.length - 20) {
+						finishSong();
+						endSong();
+					}
+				}
 			}
-
-			// Conductor.lastSongPos = FlxG.sound.music.time;
 		}
 
 		if (camZooming)
@@ -3469,6 +3451,13 @@ class PlayState extends MusicBeatState
 		setOnLuas('cameraY', camFollowPos.y);
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
+
+		if(ffmpegMode && !noCapture)
+		{
+			var filename = CoolUtil.zeroFill(frameCaptured, 7);
+			capture.save(Paths.formatToSongPath(SONG.song) + '\\', filename);
+		}
+		frameCaptured++;
 	}
 
 	function openPauseMenu()
@@ -4264,7 +4253,7 @@ class PlayState extends MusicBeatState
 		//trace(noteDiff, ' ' + Math.abs(note.strumTime - Conductor.songPosition));
 
 		// boyfriend.playAnim('hey');
-		vocals.volume = 1;
+		if (!ffmpegMode) vocals.volume = 1;
 
 		var placement:String = Std.string(combo);
 
@@ -4781,7 +4770,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (SONG.needsVoices)
-			vocals.volume = 1;
+			if (!ffmpegMode) vocals.volume = 1;
 
 		var time:Float = 0.15;
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
@@ -4892,7 +4881,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 			note.wasGoodHit = true;
-			vocals.volume = 1;
+			if (!ffmpegMode) vocals.volume = 1;
 
 			var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
 			var leData:Int = Math.round(Math.abs(note.noteData));
@@ -5150,10 +5139,16 @@ class PlayState extends MusicBeatState
 	override function stepHit()
 	{
 		super.stepHit();
-		if (Math.abs(FlxG.sound.music.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)
-			|| (SONG.needsVoices && Math.abs(vocals.time - (Conductor.songPosition - Conductor.offset)) > (20 * playbackRate)))
+		if (!ffmpegMode) //much better resync code
 		{
-			resyncVocals();
+			var timeSub:Float = Conductor.songPosition - Conductor.offset;
+			var syncTime:Float = 20 * Math.max(playbackRate, 1);
+			if (Math.abs(FlxG.sound.music.time - timeSub) > syncTime ||
+			(vocals.length > 0 && vocals.time < vocals.length && Math.abs(vocals.time - timeSub) > syncTime) ||
+			(opponentVocals.length > 0 && opponentVocals.time < opponentVocals.length && Math.abs(opponentVocals.time - timeSub) > syncTime))
+			{
+				resyncVocals();
+			}
 		}
 
 		if(curStep == lastStepHit) {
