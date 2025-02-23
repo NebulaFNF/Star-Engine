@@ -12,7 +12,7 @@
 
 **_"YEAHHHH give this repo sum STARS!!1!11!1!1!!1!!11!!1"_**
 
-Welcome to **Star Engine**, a custom game engine currently in development!  
+Welcome to **Star Engine**, a custom Friday Night Funkin' engine currently in development!  
 This project is a **work in progress**, and contributions are highly encouraged.  
 
 If you're interested in helping out, feel free to fork the repository, submit pull requests, or suggest improvements!  
