@@ -443,7 +443,7 @@ class PlayState extends MusicBeatState
 
 		GameOverSubstate.resetVariables();
 
-		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
+		//inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
 

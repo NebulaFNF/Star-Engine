@@ -24,7 +24,7 @@ haxelib set flixel 5.2.2
 haxelib set flxanimate 3.0.4
 haxelib git hxCodec https://github.com/SyncGit12/hxCodec
 haxelib set openfl 9.3.0
-haxelib set lime 8.2.1
+haxelib set lime 8.1.3
 haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp
 haxelib git linc_luajit https://github.com/superpowers04/linc_luajit
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
