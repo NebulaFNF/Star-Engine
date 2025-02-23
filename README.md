@@ -10,6 +10,8 @@
 
 ## Introduction
 
+**_"YEAHHHH give this repo sum STARS!!1!11!1!1!!1!!11!!1"_**
+
 Welcome to **Star Engine**, a custom game engine currently in development!  
 This project is a **work in progress**, and contributions are highly encouraged.  
 
