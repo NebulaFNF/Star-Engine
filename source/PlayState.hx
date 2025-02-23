@@ -442,6 +442,9 @@ class PlayState extends MusicBeatState
 		#end
 
 		GameOverSubstate.resetVariables();
+
+		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
+
 		var songName:String = Paths.formatToSongPath(SONG.song);
 
 		curStage = SONG.stage;
@@ -3970,7 +3973,6 @@ class PlayState extends MusicBeatState
 			});
 		}
 	}
-
 
 	public var transitioning = false;
 	public function endSong():Void
