@@ -5144,8 +5144,7 @@ class PlayState extends MusicBeatState
 			var timeSub:Float = Conductor.songPosition - Conductor.offset;
 			var syncTime:Float = 20 * Math.max(playbackRate, 1);
 			if (Math.abs(FlxG.sound.music.time - timeSub) > syncTime ||
-			(vocals.length > 0 && vocals.time < vocals.length && Math.abs(vocals.time - timeSub) > syncTime) ||
-			(opponentVocals.length > 0 && opponentVocals.time < opponentVocals.length && Math.abs(opponentVocals.time - timeSub) > syncTime))
+			(vocals.length > 0 && vocals.time < vocals.length && Math.abs(vocals.time - timeSub) > syncTime))
 			{
 				resyncVocals();
 			}
