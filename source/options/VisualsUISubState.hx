@@ -63,6 +63,23 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
+		var option:Option = new Option('Show Rendered Notes',
+
+
+		'If checked, the game will show how many notes are currently rendered on screen.',
+
+
+		'showRendered',
+
+
+		'bool',
+
+
+		false);
+
+
+	addOption(option);
+
 		var option:Option = new Option('Flashing Lights',
 			"Uncheck this if you're sensitive to flashing lights!",
 			'flashing',

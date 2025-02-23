@@ -86,6 +86,10 @@ class CreditsState extends MusicBeatState
 			['Stinko', 'stinkern', 'PlaceHolder', 'https://stinkernn.carrd.co', '696969'],
 			
 			[''],
+			['Special Thanks']
+			['HRK. EXEX',			'hrk',				'Created Video Rendering Mode for FNF',								'https://www.youtube.com/@HRK_EXEX/featured',			'01F8FF'],
+
+			[''],
 			
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],

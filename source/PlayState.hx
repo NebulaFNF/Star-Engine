@@ -158,7 +158,8 @@ class PlayState extends MusicBeatState
 	public var spawnTime:Float = 2000;
 
 	public var vocals:FlxSound;
-
+	public var frameCaptured:Int = 0;
+	public var renderedTxt:FlxText;
 	public var dad:Character = null;
 	public var gf:Character = null;
 	public var boyfriend:Boyfriend = null;
@@ -266,6 +267,32 @@ class PlayState extends MusicBeatState
 	var santa:BGSprite;
 	var heyTimer:Float;
 
+	var tempScore:String;
+
+
+
+
+
+	// FFMpeg values :)
+
+
+	var ffmpegMode = ClientPrefs.ffmpegMode;
+
+
+	var ffmpegInfo = ClientPrefs.ffmpegInfo;
+
+
+	var targetFPS = ClientPrefs.targetFPS;
+
+
+	var unlockFPS = ClientPrefs.unlockFPS;
+
+
+	var noCapture = ClientPrefs.noCapture;
+
+
+	static var capture:Screenshot = new Screenshot();
+
 	var bgGirls:BackgroundGirls;
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
@@ -315,6 +342,7 @@ class PlayState extends MusicBeatState
 
 	// Lua shit
 	public static var instance:PlayState;
+
 	public var luaArray:Array<FunkinLua> = [];
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
@@ -338,6 +366,28 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		if (ffmpegMode) {
+
+
+			FlxG.fixedTimestep = true;
+
+
+			FlxG.animationTimeScale = ClientPrefs.framerate / targetFPS;
+
+
+			if(unlockFPS) {
+
+
+				FlxG.updateFramerate = 1000;
+
+
+				FlxG.drawFramerate = 1000;
+
+
+			}
+
+
+		}
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
 
@@ -1128,7 +1178,7 @@ class PlayState extends MusicBeatState
 
 		// startCountdown();
 
-		generateSong(SONG.song);
+		generateSong(SONG.song, startOnTime);
 
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
@@ -1217,6 +1267,11 @@ class PlayState extends MusicBeatState
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
+
+		if (ClientPrefs.showRendered)
+
+
+		renderedTxt.text = 'Rendered Notes: ' + FlxStringUtil.formatMoney(notes.length + sustainNotes.length, false);
 		add(botplayTxt);
 		if(ClientPrefs.downScroll) {
 			botplayTxt.y = timeBarBG.y - 78;
@@ -1224,6 +1279,84 @@ class PlayState extends MusicBeatState
 		if(!ClientPrefs.botplayWatermark) {
 			botplayTxt.visible = false;
 		}
+		if (ClientPrefs.showRendered) {
+			renderedTxt.text = 'Rendered Notes: ' + FlxStringUtil.formatMoney(notes.length + sustainNotes.length, false);
+		    renderedTxt = new FlxText(0, healthBarBG.y - 50, FlxG.width, "", 40);
+		    renderedTxt.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    renderedTxt.scrollFactor.set();
+		    renderedTxt.borderSize = 1.25;
+		    renderedTxt.visible = ClientPrefs.showRendered;
+		}
+
+		if(ffmpegMode && !noCapture)
+
+
+			{
+	
+	
+				var filename = CoolUtil.zeroFill(frameCaptured, 7);
+	
+	
+				capture.save(Paths.formatToSongPath(SONG.song) + '\\', filename);
+	
+	
+			}
+	
+	
+			frameCaptured++;
+	
+	
+	
+	
+	
+			if(botplayTxt != null && botplayTxt.visible) {
+	
+	
+				if (ffmpegInfo)
+	
+	
+					botplayTxt.text = CoolUtil.floatToStringPrecision(haxe.Timer.stamp() - takenTime, 3);
+	
+	
+			}
+	
+	
+			takenTime = haxe.Timer.stamp();
+
+		if (ClientPrefs.downScroll) renderedTxt.y = healthBar.y + 50;
+
+
+		if (ClientPrefs.hudType != 'VS Impostor') renderedTxt.y = healthBar.y + (ClientPrefs.downScroll ? 100 : -100);
+		if(!ffmpegMode){
+
+
+			if(ClientPrefs.noteOffset <= 0 || ignoreNoteOffset) {
+
+
+
+				finishCallback();
+
+
+			} else {
+
+
+				finishTimer = new FlxTimer().start(ClientPrefs.noteOffset / 1000, function(tmr:FlxTimer) {
+
+
+					finishCallback();
+
+
+				});
+
+
+			}
+
+
+		} else finishCallback();
+
+		add(renderedTxt);
+
+
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -2550,6 +2683,13 @@ class PlayState extends MusicBeatState
 				var daNoteData:Int = Std.int(songNotes[1] % 4);
 
 				var gottaHitNote:Bool = section.mustHitSection;
+				var daStrumTime:Float = songNotes[0];
+
+
+				var daNoteData:Int = 0;
+
+
+				if (!randomMode && !flip && !stairs && !waves)
 
 				if (songNotes[1] > 3)
 				{
@@ -4667,6 +4807,8 @@ class PlayState extends MusicBeatState
 			{
 				boyfriend.stunned = false;
 			});*/
+			if (ClientPrefs.showRendered)
+				renderedTxt.text = 'Rendered Notes: ' + FlxStringUtil.formatMoney(notes.length + sustainNotes.length, false);
 
 			if(boyfriend.hasMissAnimations) {
 				boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
@@ -5300,6 +5442,8 @@ class PlayState extends MusicBeatState
 			{
 				// Rating Percent
 				ratingPercent = Math.min(1, Math.max(0, totalNotesHit / totalPlayed));
+
+				
 				//trace((totalNotesHit / totalPlayed) + ', Total: ' + totalPlayed + ', notes hit: ' + totalNotesHit);
 
 				// Rating Name
