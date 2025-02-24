@@ -269,26 +269,12 @@ class PlayState extends MusicBeatState
 	var tempScore:String;
 
 
-
-
-
 	// FFMpeg values :)
-
-
 	var ffmpegMode = ClientPrefs.ffmpegMode;
-
-
 	var ffmpegInfo = ClientPrefs.ffmpegInfo;
-
-
 	var targetFPS = ClientPrefs.targetFPS;
-
-
 	var unlockFPS = ClientPrefs.unlockFPS;
-
-
 	var noCapture = ClientPrefs.noCapture;
-
 
 	static var capture:Screenshot = new Screenshot();
 
@@ -492,9 +478,8 @@ class PlayState extends MusicBeatState
 
 		GameOverSubstate.resetVariables();
 
-		//inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
-
 		var songName:String = Paths.formatToSongPath(SONG.song);
+		//inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 
 		curStage = SONG.stage;
 		//trace('stage is: ' + curStage);
