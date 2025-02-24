@@ -27,7 +27,7 @@ If you're interested in helping out, feel free to fork the repository, submit pu
 - **[@moxie-coder](https://github.com/moxie-coder)** – Programmer  
 - **[@mcagabe19](https://github.com/mcagabe19)** – Mobile Port Developer, Programmer  
 - **[@cyklusiguess](https://github.com/cyklusiguess)** – Developer  
-- **[@HRK_EXEX](https://www.youtube.com/@hk.3x3x2nd3)** – Developer, FPS Counter Creator, Rendering Mode Implementer, Engine Optimizer  
+- **[@HRK_EXEX](https://www.youtube.com/@hk.3x3x2nd3)** – Developer, FPS Counter Creator, Rendering Mode Creator
 
 ### Other Contributors
 - **[@TheStinkern](https://stinkernn.carrd.co/)** – ???  
