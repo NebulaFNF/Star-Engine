@@ -146,6 +146,9 @@ class VisualsUISubState extends BaseOptionsMenu
 		'Psych Engine',
 		['Psych Engine', 'Vanilla']);
 	    addOption(option);
+
+		var option:Option = new Option('Icon Bounce', "What icon bounce would you like?", 'coolIconBounce', 'string', 'Vanilla', ['Vanilla', 'Golden Apple']);
+	    addOption(option);
 		
 		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',

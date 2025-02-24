@@ -24,6 +24,7 @@ class ClientPrefs {
 	public static var hideHud:Bool = false;
 	public static var disableGC:Bool = true;
 	public static var workInProgressThingHaha:String = "!";
+	public static var coolIconBounce:String = "Vanilla";
 
 
 
@@ -224,6 +225,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.lowQuality != null) {
 			lowQuality = FlxG.save.data.lowQuality;
+		}
+		if(FlxG.save.data.botplayWatermark != null) {
+			botplayWatermark = FlxG.save.data.botplayWatermark;
+		}
+		if(FlxG.save.data.coolIconBounce != null) {
+			coolIconBounce = FlxG.save.data.coolIconBounce;
 		}
 		if(FlxG.save.data.shaders != null) {
 			shaders = FlxG.save.data.shaders;
