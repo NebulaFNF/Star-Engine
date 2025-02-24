@@ -53,6 +53,9 @@ class OptimizationSubstate extends BaseOptionsMenu
 			false); //Default value
 		addOption(option);
 
+		var option:Option = new Option('Disable Note Combo Limits', 'It disables the Note Combo limit to prevent crashing.', 'deactivateComboLimit', 'bool', false);
+		addOption(option);
+
 		/*option.minValue = 60;
 		option.maxValue = 240;
 		option.displayFormat = '%v FPS';

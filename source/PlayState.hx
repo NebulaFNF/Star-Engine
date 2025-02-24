@@ -4815,7 +4815,7 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote)
 			{
 				combo += 1;
-				if(combo > 9999) combo = 9999;
+				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999;
 				popUpScore(note);
 			}
 			health += note.hitHealth * healthGain;

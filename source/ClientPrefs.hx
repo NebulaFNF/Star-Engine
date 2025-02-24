@@ -20,6 +20,7 @@ class ClientPrefs {
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
+	public static var deactivateComboLimit:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var disableGC:Bool = true;
@@ -137,6 +138,7 @@ class ClientPrefs {
 		FlxG.save.data.noteSplashes = noteSplashes;
 		FlxG.save.data.lowQuality = lowQuality;
 		FlxG.save.data.shaders = shaders;
+		FlxG.save.data.funnyScoreTextImVeryFunny = funnyScoreTextImVeryFunny;
 		FlxG.save.data.framerate = framerate;
 				//RENDERING SETTINGS
 
@@ -164,6 +166,7 @@ class ClientPrefs {
 		//FlxG.save.data.violence = violence;
 		FlxG.save.data.camZooms = camZooms;
 		FlxG.save.data.noteOffset = noteOffset;
+		FlxG.save.data.deactivateComboLimit = deactivateComboLimit;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.arrowHSV = arrowHSV;
 		FlxG.save.data.ghostTapping = ghostTapping;
@@ -201,11 +204,23 @@ class ClientPrefs {
 		if(FlxG.save.data.downScroll != null) {
 			downScroll = FlxG.save.data.downScroll;
 		}
+		if(FlxG.save.data.downScroll != null) {
+			downScroll = FlxG.save.data.downScroll;
+		}
 		if(FlxG.save.data.middleScroll != null) {
 			middleScroll = FlxG.save.data.middleScroll;
 		}
+		if(FlxG.save.data.botplayWatermark != null) {
+			botplayWatermark = FlxG.save.data.botplayWatermark;
+		}
+		if(FlxG.save.data.funnyScoreTextImVeryFunny != null) {
+			funnyScoreTextImVeryFunny = FlxG.save.data.funnyScoreTextImVeryFunny;
+		}
 		if(FlxG.save.data.opponentStrums != null) {
 			opponentStrums = FlxG.save.data.opponentStrums;
+		}
+		if(FlxG.save.data.deactivateComboLimit != null) {
+			deactivateComboLimit = FlxG.save.data.deactivateComboLimit;
 		}
 		if(FlxG.save.data.showFPS != null) {
 			showFPS = FlxG.save.data.showFPS;
