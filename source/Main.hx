@@ -38,6 +38,7 @@ class Main extends Sprite
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
+	var curVersion:String = ""
 	public static var fpsVar:FPS;
 	public static var fpsBg:FPSBg;
 
@@ -122,11 +123,12 @@ class Main extends Sprite
 		var path:String;
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
-
+		curVersion = "v" + MainMenuState.psychEngineVersion
 		dateNow = dateNow.replace(" ", "_");
 		dateNow = dateNow.replace(":", "'");
 
-		path = "./crash/" + "v" + MainMenuState.psychEngineVersion + '_' + dateNow + ".txt";
+		path = "./crash/" + "v" + curVersion + '_' + dateNow + ".txt";
+		
 
 		for (stackItem in callStack)
 		{
@@ -140,14 +142,13 @@ class Main extends Sprite
 		}
 
 				errMsg += "\nUncaught Error: "
-		
 				+ e.error 
 		
 				+ "Please report this error to the GitHub page: https://github.com/SyncGit12/Star-Engine/issues> 
 		
 				Crash Handler written by: sqirra-rng 
 		
-				Crash happened in Star Engine v" + MainMenuState.psychEngineVersion;
+				Crash happened in Star Engine " + curVersion;
 
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
