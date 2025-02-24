@@ -139,7 +139,15 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/SyncGit12/Star-Engine\n\n> Crash Handler written by: sqirra-rng\n\nCrash happened in v" + MainMenuState.psychEngineVersion;
+				errMsg += "\nUncaught Error: "
+		
+				+ e.error 
+		
+				+ "Please report this error to the GitHub page: https://github.com/SyncGit12/Star-Engine/issues> 
+		
+				Crash Handler written by: sqirra-rng 
+		
+				Crash happened in Star Engine v" + MainMenuState.psychEngineVersion;
 
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
