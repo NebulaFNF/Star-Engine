@@ -347,14 +347,17 @@ class FreeplayState extends MusicBeatState
 				trace('trying to remove: ' + Paths.formatToSongPath(songs[curSelected].songName));
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				if (PlayState.SONG.hasFreeplayInst)
-					inst = new FlxSound().loadEmbedded(Paths.freeplayInst(PlayState.SONG.song));
+					freeplayInst = new FlxSound().loadEmbedded(Paths.freeplayInst(PlayState.SONG.song));
 				else if (PlayState.SONG.needsVoices)
 					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 				else
 					vocals = new FlxSound();
 				
 				FlxG.sound.list.add(vocals);
-				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+				if (PlayState.SONG.hasFreeplayInst)
+					FlxG.sound.playMusic(Paths.freeplayInst(PlayState.SONG.song), 0.7);
+				else
+					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
 				vocals.play();
 				vocals.persist = true;
 				vocals.looped = true;
