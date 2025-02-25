@@ -364,16 +364,22 @@ class ChartingState extends MusicBeatState
 
 		var tipTextArray:Array<String> = text.split('\n');
 		for (i in 0...tipTextArray.length) {
+			/*var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
+			theThingImage.x = UI_box.x;
+            theThingImage.y = UI_box.y;*/
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
+			var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
+		    theThingImage.x = UI_box.x;
+		    theThingImage.y = tipText.y;
+		    theThingImage.scrollFactor.set();
+			//var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
 			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.BLACK, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 			//tipText.borderSize = 2;
 			tipText.scrollFactor.set();
-			//add(theThingImage);
+			add(theThingImage);
 			add(tipText);
 		}
-
-		//var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething', 'charteditor'));
 
 		add(UI_box);
 
