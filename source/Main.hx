@@ -149,14 +149,15 @@ class Main extends Sprite
 			}
 		}
 
-				errMsg += "\nUncaught Error: "
-				+ e.error 
+				"Your game has crashed because of this: " + e.error + "\n"
+				+ errMsg 
+				+ "
+
+Please report this error to the GitHub page: https://github.com/SyncGit12/Star-Engine/issues> 
 		
-				+ "Please report this error to the GitHub page: https://github.com/SyncGit12/Star-Engine/issues> 
+Crash Handler written by: sqirra-rng 
 		
-				Crash Handler written by: sqirra-rng 
-		
-				Crash happened in Star Engine " + curVersion;
+Crash happened in Star Engine " + curVersion;
 
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
