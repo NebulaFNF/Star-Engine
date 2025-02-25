@@ -423,8 +423,10 @@ class ChartingState extends MusicBeatState
 
 		var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
 		check_voices.checked = _song.needsVoices;
+
 		var check_freeplayInst = new FlxUICheckBox(10, 45, null, null, "Has freeplay inst", 100);
 		check_freeplayInst.checked = _song.hasFreeplayInst;
+		
 		// _song.needsVoices = check_voices.checked;
 		check_voices.callback = function()
 		{
@@ -631,6 +633,7 @@ class ChartingState extends MusicBeatState
 		tab_group_song.add(UI_songTitle);
 
 		tab_group_song.add(check_voices);
+		tab_group_song.add(check_freeplayInst);
 		tab_group_song.add(clear_events);
 		tab_group_song.add(clear_notes);
 		tab_group_song.add(saveButton);
