@@ -47,7 +47,7 @@ class OptimizationSubstate extends BaseOptionsMenu
 
 		//I'd suggest using "Low Quality" as an example for making your own option since it is the simplest here
 		var option:Option = new Option('Disable GC', //Name
-			'Disables garbage collecting, which improves performance.\nTurn it off/on if youre experiencing lag.', // I CANT PUT A ' :crying_face:
+			'Disables garbage collecting, which improves performance.\nTurn it off/on if youre experiencing lag.\n(Requires restart!!)', // I CANT PUT A ' :crying_face:
 			'disableGC', //Save data variable name
 			'bool', //Variable type
 			false); //Default value
