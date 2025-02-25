@@ -193,7 +193,7 @@ class FreeplayState extends MusicBeatState
 		textBG.alpha = 0.6;
 		add(textBG);
 
-		#if PRELOAD_ALL
+		/*#if PRELOAD_ALL
 		var leText:String = "SPACE - listen to the Song
 		CTRL - open the Gameplay Changers Menu. 
 		Reset - Reset your Score and Accuracy.";
@@ -207,7 +207,7 @@ class FreeplayState extends MusicBeatState
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
-		super.create();
+		super.create();*/
 	}
 
 	override function closeSubState() {
@@ -243,7 +243,6 @@ class FreeplayState extends MusicBeatState
 
 	var instPlaying:Int = -1;
 	public static var vocals:FlxSound = null;
-	public static var freeplayInst:FlxSound = null;
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
@@ -336,7 +335,7 @@ class FreeplayState extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		else if(space)
+		/*else if(space)
 		{
 			if(instPlaying != curSelected)
 			{
@@ -348,7 +347,7 @@ class FreeplayState extends MusicBeatState
 				trace('trying to remove: ' + Paths.formatToSongPath(songs[curSelected].songName));
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				
-				if (PlayState.SONG.hasFreeplayInst)
+				/*if (PlayState.SONG.hasFreeplayInst)
 					freeplayInst = new FlxSound().loadEmbedded(Paths.freeplayInst(PlayState.SONG.song));
 					vocals = new FlxSound();
 
@@ -372,7 +371,7 @@ class FreeplayState extends MusicBeatState
 				instPlaying = curSelected;
 				#end
 			}
-		}
+		}*/
 
 		else if (accepted)
 		{
@@ -388,7 +387,7 @@ class FreeplayState extends MusicBeatState
 				curDifficulty = 1;
 				trace('Couldnt find file');
 			}*/
-			trace(poop);
+			//trace(poop);
 			trace('CURRENT SONG LOADED : ' + Paths.formatToSongPath(songs[curSelected].songName));
 			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 			PlayState.isStoryMode = false;
@@ -406,8 +405,6 @@ class FreeplayState extends MusicBeatState
 			}
 
 			FlxG.sound.music.volume = 0;
-					
-			destroyFreeplayVocals();
 		}
 		else if(controls.RESET)
 		{
@@ -418,13 +415,13 @@ class FreeplayState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	public static function destroyFreeplayVocals() {
+	/*public static function destroyFreeplayVocals() {
 		if(vocals != null) {
 			vocals.stop();
 			vocals.destroy();
 		}
 		vocals = null;
-	}
+	}*/
 
 	function changeDiff(change:Int = 0)
 	{

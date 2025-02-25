@@ -232,13 +232,6 @@ class Paths
 		return inst;
 	}
 
-	inline static public function freeplayInst(song:String):Any
-		{
-			var songKey:String = '${formatToSongPath(song)}/freeplayInst';
-			var freeplayInst = returnSound('songs', songKey);
-			return freeplayInst;
-		}
-
 	inline static public function image(key:String, ?library:String):FlxGraphic
 	{
 		// streamlined the assets process more

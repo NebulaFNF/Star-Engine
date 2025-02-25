@@ -130,10 +130,6 @@ class MasterEditorMenu extends MusicBeatState
 				case '3D Benchmark'://felt it would be cool maybe
 					MusicBeatState.switchState(new BenchmarkState());
 			}
-			FlxG.sound.music.volume = 0;
-			#if PRELOAD_ALL
-			FreeplayState.destroyFreeplayVocals();
-			#end
 		}
 		
 		var bullShit:Int = 0;

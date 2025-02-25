@@ -217,7 +217,6 @@ class ChartingState extends MusicBeatState
 				events: [],
 				bpm: 150.0,
 				needsVoices: true,
-				hasFreeplayInst: true,
 				arrowSkin: '',
 				splashSkin: 'noteSplashes',//idk it would crash if i didn't
 				player1: 'bf',
@@ -427,7 +426,7 @@ class ChartingState extends MusicBeatState
 		UI_songTitle = new FlxUIInputText(10, 10, 70, _song.song, 8);
 		blockPressWhileTypingOn.push(UI_songTitle);
 
-		var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
+		/*var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
 		check_voices.checked = _song.needsVoices;
 
 		var check_freeplayInst = new FlxUICheckBox(10, 45, null, null, "Has freeplay inst", 100);
@@ -444,7 +443,7 @@ class ChartingState extends MusicBeatState
 			{
 				_song.hasFreeplayInst = check_freeplayInst.checked;
 				//trace('CHECKED!');
-			};
+			};*/
 
 		var saveButton:FlxButton = new FlxButton(110, 8, "Save", function()
 		{
@@ -638,8 +637,8 @@ class ChartingState extends MusicBeatState
 		tab_group_song.name = "Song";
 		tab_group_song.add(UI_songTitle);
 
-		tab_group_song.add(check_voices);
-		tab_group_song.add(check_freeplayInst);
+		//tab_group_song.add(check_voices);
+		//tab_group_song.add(check_freeplayInst);
 		tab_group_song.add(clear_events);
 		tab_group_song.add(clear_notes);
 		tab_group_song.add(saveButton);

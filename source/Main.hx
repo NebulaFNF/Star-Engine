@@ -33,11 +33,7 @@ class Main extends Sprite
 {
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	#if html5
-	var initialState:Class<FlxState> = TitleState; // prevents a crash on startup with html5
-	#else
-	var initialState:Class<FlxState> = StartupState; // default state it starts up in
-	#end
+	var initialState:Class<FlxState> = StartupState; // The FlxState the game starts with.
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
@@ -92,33 +88,29 @@ class Main extends Sprite
 		}
 	
 		ClientPrefs.loadDefaultKeys();
-		#if html5
-			trace('preventing a fail on HTML5 compilation');
-		#else
-			inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
-		#end
+		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
-			fpsBg = new FPSBg();
-			fpsVar = new FPS(10, 3, 0xFFFFFF);
-			addChild(fpsBg);
-			addChild(fpsVar);
-			Lib.current.stage.align = "tl";
-			Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-			if(fpsVar != null) {
-				fpsVar.visible = ClientPrefs.showFPS;
-				fpsBg.visible = ClientPrefs.showFPS;
-			}
+		fpsBg = new FPSBg();
+		fpsVar = new FPS(10, 3, 0xFFFFFF);
+		addChild(fpsBg);
+		addChild(fpsVar);
+		Lib.current.stage.align = "tl";
+		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+		if(fpsVar != null) {
+			fpsVar.visible = ClientPrefs.showFPS;
+			fpsBg.visible = ClientPrefs.showFPS;
+		}
 		#end
 
 		#if html5
-			FlxG.autoPause = false;
-			FlxG.mouse.visible = false;
+		FlxG.autoPause = false;
+		FlxG.mouse.visible = false;
 		#end
 		
 		#if CRASH_HANDLER
-			Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 	}
 
