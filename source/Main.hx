@@ -33,11 +33,9 @@ class Main extends Sprite
 {
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	#if html5
-	var initialState:Class<FlxState> = TitleState; // prevents a crash on startup with html5
-	#else
+	/*#if html5
+	var initialState:Class<FlxState> = TitleState; // prevents a crash on startup with html5*/
 	var initialState:Class<FlxState> = StartupState; // default state it starts up in
-	#end
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
@@ -92,11 +90,9 @@ class Main extends Sprite
 		}
 	
 		ClientPrefs.loadDefaultKeys();
-		#if html5
-			trace('preventing a fail on HTML5 compilation');
-		#else
-			inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
-		#end
+		/*#if html5
+			trace('preventing a fail on HTML5 compilation');*/
+		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
