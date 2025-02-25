@@ -367,9 +367,8 @@ class ChartingState extends MusicBeatState
 			/*var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
 			theThingImage.x = UI_box.x;
             theThingImage.y = UI_box.y;*/
-			var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
-			//var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
+			var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
 		    theThingImage.x = UI_box.x;
 		    theThingImage.y = tipText.y;
 		    theThingImage.scrollFactor.set();
