@@ -423,7 +423,7 @@ class ChartingState extends MusicBeatState
 
 		var check_voices = new FlxUICheckBox(10, 25, null, null, "Has voice track", 100);
 		check_voices.checked = _song.needsVoices;
-		var check_freeplayInst = new FlxUICheckBox(10, 45, null, null, "Has freeplay instrumental", 100);
+		var check_freeplayInst = new FlxUICheckBox(10, 45, null, null, "Has freeplay inst", 100);
 		check_freeplayInst.checked = _song.hasFreeplayInst;
 		// _song.needsVoices = check_voices.checked;
 		check_voices.callback = function()
@@ -432,7 +432,7 @@ class ChartingState extends MusicBeatState
 			//trace('CHECKED!');
 		};
 
-		check_voices.callback = function()
+		check_voices.freeplayInst = function()
 			{
 				_song.hasFreeplayInst = check_freeplayInst.checked;
 				//trace('CHECKED!');

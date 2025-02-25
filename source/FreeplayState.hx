@@ -347,9 +347,12 @@ class FreeplayState extends MusicBeatState
 				var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
 				trace('trying to remove: ' + Paths.formatToSongPath(songs[curSelected].songName));
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
+				
 				if (PlayState.SONG.hasFreeplayInst)
 					freeplayInst = new FlxSound().loadEmbedded(Paths.freeplayInst(PlayState.SONG.song));
-				else if (PlayState.SONG.needsVoices)
+					vocals = new FlxSound();
+
+				if (PlayState.SONG.needsVoices)
 					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 				else
 					vocals = new FlxSound();
@@ -359,12 +362,12 @@ class FreeplayState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.freeplayInst(PlayState.SONG.song), 0.7);
 				else
 					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-				
-				if (PlayState.SONG.needsVoices)
-					vocals.play();
-					vocals.persist = true;
-					vocals.looped = true;
-					vocals.volume = 0.7;	
+
+
+				vocals.play();
+				vocals.persist = true;
+				vocals.looped = true;
+				vocals.volume = 0.7;	
 
 				instPlaying = curSelected;
 				#end
