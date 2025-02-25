@@ -432,7 +432,7 @@ class ChartingState extends MusicBeatState
 			//trace('CHECKED!');
 		};
 
-		check_voices.freeplayInst = function()
+		check_freeplayInst.callback = function()
 			{
 				_song.hasFreeplayInst = check_freeplayInst.checked;
 				//trace('CHECKED!');
