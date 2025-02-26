@@ -92,7 +92,7 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.color = 0xFFFF8C19;
 		add(bg);
-		add(freeplayBoyfriend);
+		//add(freeplayBoyfriend);
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
