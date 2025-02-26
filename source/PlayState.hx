@@ -76,7 +76,6 @@ import sys.io.File;
 import VideoSprite;
 #end
 
-
 using StringTools;
 
 class PlayState extends MusicBeatState
