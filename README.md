@@ -30,7 +30,7 @@ If you're interested in helping out, feel free to fork the repository, submit pu
 - **[@HRK_EXEX](https://www.youtube.com/@hk.3x3x2nd3)** – Developer, FPS Counter Creator, Rendering Mode Creator
 
 ### Other Contributors
-- **[@TheStinkern](https://stinkernn.carrd.co/)** – ???
+- **[@TheStinkern](https://stinkernn.carrd.co/)** – Small coder
 
 _(Let us know if you'd like your contributions specified!)_  
 
