@@ -11,12 +11,76 @@ import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
 import flixel.FlxState;
 
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
+
+#if VIDEOS_ALLOWED
+/*#if (hxCodec >= "3.0.0" || hxCodec == "git")
+import hxcodec.flixel.FlxVideo as MP4Handler;
+#elseif (hxCodec == "2.6.1")
+import hxcodec.VideoHandler as MP4Handler;
+#elseif (hxCodec == "2.6.0")
+import VideoHandler as MP4Handler;
+#else
+import vlc.MP4Handler;
+#end*/
+import VideoSprite;
+#end
+
 class StartupState extends MusicBeatState
 {
 	var logo:FlxSprite;
 	var skipTxt:FlxText;
 
-	var theIntro:Int = FlxG.random.int(0, 0);
+	var theIntro:Int = FlxG.random.int(0, 1);
+
+	private var vidSprite:VideoSprite = null;
+	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
+	{
+		#if VIDEOS_ALLOWED
+		var foundFile:Bool = false;
+		var fileName:String = Paths.video(name);
+
+		#if sys
+		if (FileSystem.exists(fileName))
+		#else
+		if (OpenFlAssets.exists(fileName))
+		#end
+		foundFile = true;
+
+		if (foundFile)
+		{
+			vidSprite = new VideoSprite(fileName, false, canSkip, loop);
+
+			// Finish callback
+			function onVideoEnd()
+			{
+				MusicBeatState.switchState(new TitleState());
+			}
+			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
+			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
+			insert(0, vidSprite);
+
+			if (playOnLoad)
+				vidSprite.videoSprite.play();
+			return vidSprite;
+		}
+		else {
+			FlxG.log.error("Video not found: " + fileName);
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				MusicBeatState.switchState(new TitleState());
+			});
+		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			
+		});
+		#end
+		return null;
+	}
 
 	override public function create():Void
 	{
@@ -48,6 +112,10 @@ class StartupState extends MusicBeatState
 					logo.updateHitbox();
 					logo.screenCenter();
 					FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 0.95, {ease: FlxEase.expoOut, onComplete: _ -> onIntroDone()});
+				case 1:
+					#if VIDEOS_ALLOWED
+					startVideo('startupAltLmao');
+					#end
 			}
 		});
 
@@ -67,6 +135,13 @@ class StartupState extends MusicBeatState
 	{
 		if (FlxG.keys.justPressed.ENTER)
 			MusicBeatState.switchState(new TitleState());
+
+		    /*#if FREEPLAY
+			MusicBeatState.switchState(new FreeplayState());
+			#else
+			MusicBeatState.switchState(new TitleState());
+			#end*/
+
 		super.update(elapsed);
 	}
 }

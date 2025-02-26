@@ -39,6 +39,7 @@ enum abstract Action(String) to String from String
 	var NOTE_RIGHT_R = "note_right-release";
 	var NOTE_DOWN_R = "note_down-release";
 	var ACCEPT = "accept";
+	var ACCEPT_P = "accept-press";
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
@@ -72,6 +73,7 @@ abstract Action(String) to String from String
 	var NOTE_RIGHT_R = "note_right-release";
 	var NOTE_DOWN_R = "note_down-release";
 	var ACCEPT = "accept";
+	var ACCEPT_P = "accept-press";
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
@@ -144,6 +146,7 @@ class Controls extends FlxActionSet
 	var _note_rightR = new FlxActionDigital(Action.NOTE_RIGHT_R);
 	var _note_downR = new FlxActionDigital(Action.NOTE_DOWN_R);
 	var _accept = new FlxActionDigital(Action.ACCEPT);
+	var _acceptP = new FlxActionDigital(Action.ACCEPT_P);
 	var _back = new FlxActionDigital(Action.BACK);
 	var _pause = new FlxActionDigital(Action.PAUSE);
 	var _reset = new FlxActionDigital(Action.RESET);
@@ -282,6 +285,10 @@ class Controls extends FlxActionSet
 	inline function get_ACCEPT()
 		return _accept.check();
 
+	public var ACCEPT_P(get, never):Bool;
+	inline function get_ACCEPT_P()
+		return _acceptP.check();
+
 	public var BACK(get, never):Bool;
 
 	inline function get_BACK()
@@ -296,6 +303,8 @@ class Controls extends FlxActionSet
 
 	inline function get_RESET()
 		return _reset.check();
+
+	public static var instance:Controls;
 
 	#if (haxe >= "4.0.0")
 	public function new(name, scheme = None)
@@ -327,6 +336,7 @@ class Controls extends FlxActionSet
 		add(_note_rightR);
 		add(_note_downR);
 		add(_accept);
+		add(_acceptP);
 		add(_back);
 		add(_pause);
 		add(_reset);
@@ -335,6 +345,8 @@ class Controls extends FlxActionSet
 			byName[action.name] = action;
 
 		setKeyboardScheme(scheme, false);
+
+		instance = this;
 	}
 	#else
 	public function new(name, scheme:KeyboardScheme = null)

@@ -15,6 +15,10 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.display.StageScaleMode;
 
+#if desktop
+import backend.ALSoftConfig; // Just to make sure DCE doesn't remove this, since it's not directly referenced anywhere else.
+#end
+
 //crash handler stuff
 #if CRASH_HANDLER
 import lime.app.Application;
@@ -35,7 +39,7 @@ class Main extends Sprite
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	/*#if html5
 	var initialState:Class<FlxState> = TitleState; // prevents a crash on startup with html5*/
-	var initialState:Class<FlxState> = StartupState; // default state it starts up in
+	var initialState:Class<FlxState> = StartupState/*#if FREEPLAY FreeplayState #else StartupState #end*/; // default state it starts up in
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
