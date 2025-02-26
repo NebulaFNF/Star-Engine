@@ -30,4 +30,5 @@ haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
 haxelib git hxCodec https://github.com/SyncGit12/hxCodec
 haxelib git away3d https://github.com/moxie-coder/away3d
 haxelib install hxcpp-debug-server
+haxelib install hxvlc 1.9.2
 echo Finished!
