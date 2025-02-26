@@ -193,7 +193,7 @@ class FreeplayState extends MusicBeatState
 		textBG.alpha = 0.6;
 		add(textBG);
 
-		#if PRELOAD_ALL
+		/*#if PRELOAD_ALL
 		var leText:String = "SPACE - listen to the Song
 		CTRL - open the Gameplay Changers Menu. 
 		Reset - Reset your Score and Accuracy.";
@@ -207,7 +207,7 @@ class FreeplayState extends MusicBeatState
 		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
 		text.scrollFactor.set();
 		add(text);
-		super.create();
+		super.create();*/
 	}
 
 	override function closeSubState() {
@@ -243,7 +243,6 @@ class FreeplayState extends MusicBeatState
 
 	var instPlaying:Int = -1;
 	public static var vocals:FlxSound = null;
-	public static var freeplayInst:FlxSound = null;
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
@@ -336,7 +335,7 @@ class FreeplayState extends MusicBeatState
 			persistentUpdate = false;
 			openSubState(new GameplayChangersSubstate());
 		}
-		else if(space)
+		/*else if(space)
 		{
 			if(instPlaying != curSelected)
 			{
@@ -349,10 +348,9 @@ class FreeplayState extends MusicBeatState
 				PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 				
 				/*if (PlayState.SONG.hasFreeplayInst)
-					freeplayInst = new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song));
+					freeplayInst = new FlxSound().loadEmbedded(Paths.freeplayInst(PlayState.SONG.song));
 					vocals = new FlxSound();
 
-				// if you're going to only play the instrumental, why the fuck is this needed?!?!?!?
 				if (PlayState.SONG.needsVoices)
 					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 				else
@@ -360,17 +358,20 @@ class FreeplayState extends MusicBeatState
 				
 				FlxG.sound.list.add(vocals);
 				if (PlayState.SONG.hasFreeplayInst)
+					FlxG.sound.playMusic(Paths.freeplayInst(PlayState.SONG.song), 0.7);
+				else
 					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
 
-				/*vocals.play();
+
+				vocals.play();
 				vocals.persist = true;
 				vocals.looped = true;
-				vocals.volume = 0.7;	*/
+				vocals.volume = 0.7;	
 
-				//instPlaying = curSelected;
+				instPlaying = curSelected;
 				#end
 			}
-		}
+		}*/
 
 		else if (accepted)
 		{
@@ -404,8 +405,6 @@ class FreeplayState extends MusicBeatState
 			}
 
 			FlxG.sound.music.volume = 0;
-					
-			destroyFreeplayVocals();
 		}
 		else if(controls.RESET)
 		{
@@ -416,13 +415,13 @@ class FreeplayState extends MusicBeatState
 		super.update(elapsed);
 	}
 
-	public static function destroyFreeplayVocals() {
+	/*public static function destroyFreeplayVocals() {
 		if(vocals != null) {
 			vocals.stop();
 			vocals.destroy();
 		}
 		vocals = null;
-	}
+	}*/
 
 	function changeDiff(change:Int = 0)
 	{
