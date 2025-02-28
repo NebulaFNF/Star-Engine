@@ -15,14 +15,14 @@ class DiscordClient
 	public static var isInitialized:Bool = false;
 	public function new()
 	{
-		trace("Discord Client starting...");
+		trace("RPC starting...");
 		DiscordRpc.start({
 			clientID: "1340383305974939730", // tu mama
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
 		});
-		trace("Discord Client started.");
+		trace("RPC Started.");
 
 		while (true)
 		{
@@ -42,7 +42,7 @@ class DiscordClient
 	static function onReady()
 	{
 		DiscordRpc.presence({
-			details: "In the menu", // it is not a plural mi brother.
+			details: "In the Main Menu", // it is not a plural mi brother.
 			state: null,
 			largeImageKey: 'icon',
 			largeImageText: "Star Engine"
@@ -51,7 +51,7 @@ class DiscordClient
 
 	static function onError(_code:Int, _message:String)
 	{
-		trace('Error! $_code : $_message');
+		trace('Uh oh! $_code : $_message');
 	}
 
 	static function onDisconnected(_code:Int, _message:String)
@@ -65,7 +65,7 @@ class DiscordClient
 		{
 			new DiscordClient();
 		});
-		trace("Discord Client initialized");
+		trace("RPC initialized...");
 		isInitialized = true;
 	}
 
@@ -82,7 +82,7 @@ class DiscordClient
 			details: details,
 			state: state,
 			largeImageKey: 'icon',
-			largeImageText: "Engine Version: " + MainMenuState.psychEngineVersion,
+			largeImageText: "STE V" + MainMenuState.psychEngineVersion,
 			smallImageKey : smallImageKey,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),
