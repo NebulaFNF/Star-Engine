@@ -62,7 +62,7 @@ class MainMenuState extends MusicBeatState
 
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Main Menu", null);
 		#end
 		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
@@ -114,6 +114,7 @@ class MainMenuState extends MusicBeatState
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
+
 		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 
@@ -140,7 +141,6 @@ class MainMenuState extends MusicBeatState
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
-		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
 		
 		// magenta.scrollFactor.set();
@@ -215,6 +215,15 @@ class MainMenuState extends MusicBeatState
 	#end
 
 	var selectedSomethin:Bool = false;
+
+	override function beatHit()
+	{
+		super.beatHit();
+		grid.alpha == 1
+		FlxG.camera.zoom += 0.015;
+		FlxTween.tween(grid, {alpha: 0.65}, Conductor.crochet / 1200, {ease: FlxEase.quadOut});
+		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 1200, {ease: FlxEase.quadOut});
+	}
 
 	override function update(elapsed:Float)
 	{
