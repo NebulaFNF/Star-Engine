@@ -25,6 +25,7 @@ class PauseSubState extends MusicBeatSubstate
 
 	var menuItems:Array<String> = [];
 	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Exit to menu'];
+	var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
@@ -40,8 +41,6 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
-
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
 		FlxTween.tween(grid, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
