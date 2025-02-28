@@ -219,7 +219,7 @@ class MainMenuState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
-		grid.alpha == 1
+		grid.alpha == 1;
 		FlxG.camera.zoom += 0.015;
 		FlxTween.tween(grid, {alpha: 0.65}, Conductor.crochet / 1200, {ease: FlxEase.quadOut});
 		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 1200, {ease: FlxEase.quadOut});
