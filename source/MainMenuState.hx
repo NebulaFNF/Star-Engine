@@ -218,6 +218,7 @@ class MainMenuState extends MusicBeatState
 
 	override function beatHit()
 	{
+		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		super.beatHit();
 		grid.alpha == 1;
 		FlxG.camera.zoom += 0.015;
