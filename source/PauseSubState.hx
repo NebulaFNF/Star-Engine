@@ -1,5 +1,7 @@
 package;
 
+// epic secret!!k;j fsjfsjlksdfkjlsfkls
+
 import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -13,6 +15,7 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxCamera;
+import flixel.addons.display.FlxGridOverlay;
 import flixel.util.FlxStringUtil;
 
 class PauseSubState extends MusicBeatSubstate
@@ -36,6 +39,13 @@ class PauseSubState extends MusicBeatSubstate
 	public function new(x:Float, y:Float)
 	{
 		super();
+		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
+
+		grid.velocity.set(40, 20);
+		grid.alpha = 0;
+		FlxTween.tween(grid, {alpha: 1}, 1.5, {ease: FlxEase.quadOut});
+		add(grid);
+
 		if(CoolUtil.difficulties.length < 2) menuItemsOG.remove('Change Difficulty'); //No need to change difficulty if there is only one!
 
 		if(PlayState.chartingMode)
@@ -301,7 +311,7 @@ class PauseSubState extends MusicBeatSubstate
 	override function destroy()
 	{
 		pauseMusic.destroy();
-
+		grid.destroy;
 		super.destroy();
 	}
 
