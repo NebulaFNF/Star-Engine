@@ -62,7 +62,7 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
-import shaderslmfao.ShaderEffect;
+import shaderslmfao.*;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
