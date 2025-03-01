@@ -24,6 +24,7 @@ class ClientPrefs {
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var disableGC:Bool = true;
+	public static var noteComboBullshit:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
 
 
