@@ -193,6 +193,8 @@ class PlayState extends MusicBeatState
 	public var camZoomingMult:Float = 1;
 	public var camZoomingDecay:Float = 1;
 	private var curSong:String = "";
+	private var displayedHealth:Float;
+	public var maxHealth:Float = 2;
 
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
@@ -1213,7 +1215,7 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-			'health', 0, 2);
+			'displayedHealth', 0, maxHealth);
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
@@ -3210,6 +3212,8 @@ class PlayState extends MusicBeatState
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
 		}
 
+		displayedHealth = ClientPrefs.smoothHealth ? FlxMath.lerp(displayedHealth, health, 0.1 / ((!ffmpegMode ? ClientPrefs.framerate : targetFPS) / 60)) : health;
+
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
 			var ret:Dynamic = callOnLuas('onPause', [], false);
@@ -3242,8 +3246,26 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 
-		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		var percent:Float = 0;
+	    var center:Float = 0;
+		if (ClientPrefs.smoothHealth)
+			{
+				percent = 1 - (ClientPrefs.smoothHPBug ? (displayedHealth / maxHealth) : (FlxMath.bound(displayedHealth, 0, maxHealth) / maxHealth));
+	
+				iconP1.x = 0 + healthBar.x + (healthBar.width * percent) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+				iconP2.x = 0 + healthBar.x + (healthBar.width * percent) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+			}
+			else //mb forgot to include this
+		{
+			center = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01));
+			iconP1.x = center + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+			iconP2.x = center - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		}
+
+		if (!ClientPrefs.smoothHealth) {
+			iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+		    iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		}
 
 		if (health > 2)
 			health = 2;
@@ -3364,7 +3386,7 @@ class PlayState extends MusicBeatState
 				var fakeCrochet:Float = (60 / SONG.bpm) * 1000;
 				notes.forEachAlive(function(daNote:Note)
 				{
-					if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
+					if (!daNote.mustPress && daNote.strumTime <= Conductor.songPosition && !daNote.hitByOpponent && !daNote.ignoreNote)
 					{
 						opponentNoteHit(daNote);
 					}
