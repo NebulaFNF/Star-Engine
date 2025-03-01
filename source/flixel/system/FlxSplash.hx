@@ -293,12 +293,8 @@ class FlxSplash extends FlxState
 		}
 	#end
 
-	/*function onComplete(Tween:FlxTween):Void
+	function onComplete(Tween:FlxTween):Void
 	{
-		#if VIDEOS_ALLOWED
-		FlxG.switchState(Type.createInstance(nextState, []));
-		FlxG.game._gameJustStarted = true;
-		#else
 		FlxG.cameras.bgColor = _cachedBgColor;
 		FlxG.fixedTimestep = _cachedTimestep;
 		FlxG.autoPause = _cachedAutoPause;
@@ -309,6 +305,5 @@ class FlxSplash extends FlxState
 		FlxG.stage.removeChild(_text);
 		FlxG.switchState(Type.createInstance(nextState, []));
 		FlxG.game._gameJustStarted = true;
-		#end
-	}*/
+	}
 }
