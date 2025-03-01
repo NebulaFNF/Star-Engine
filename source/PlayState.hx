@@ -3364,6 +3364,21 @@ class PlayState extends MusicBeatState
 				var fakeCrochet:Float = (60 / SONG.bpm) * 1000;
 				notes.forEachAlive(function(daNote:Note)
 				{
+					if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
+					{
+						opponentNoteHit(daNote);
+					}
+	
+					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
+						if(daNote.isSustainNote) {
+							if(daNote.canBeHit) {
+								goodNoteHit(daNote);
+							}
+						} else if(daNote.strumTime <= Conductor.songPosition || daNote.isSustainNote) {
+							goodNoteHit(daNote);
+						}
+					}
+					
 					var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
 					if(!daNote.mustPress) strumGroup = opponentStrums;
 
@@ -3421,7 +3436,7 @@ class PlayState extends MusicBeatState
 						}
 					}
 
-					if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
+					/*if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
 					{
 						opponentNoteHit(daNote);
 					}
@@ -3434,7 +3449,7 @@ class PlayState extends MusicBeatState
 						} else if(daNote.strumTime <= Conductor.songPosition || daNote.isSustainNote) {
 							goodNoteHit(daNote);
 						}
-					}
+					}*/
 
 					var center:Float = strumY + Note.swagWidth / 2;
 					if(strumGroup.members[daNote.noteData].sustainReduce && daNote.isSustainNote && (daNote.mustPress || !daNote.ignoreNote) &&
