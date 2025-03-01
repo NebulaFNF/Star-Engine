@@ -112,7 +112,21 @@ class FlxSplash extends FlxState
 		#else
 		FlxG.log.warn('Platform not supported!');
 		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			onComplete();
+			#if VIDEOS_ALLOWED
+				FlxG.switchState(Type.createInstance(nextState, []));
+				FlxG.game._gameJustStarted = true;
+				#else
+				FlxG.cameras.bgColor = _cachedBgColor;
+				FlxG.fixedTimestep = _cachedTimestep;
+				FlxG.autoPause = _cachedAutoPause;
+				#if FLX_KEYBOARD
+				FlxG.keys.enabled = true;
+				#end
+				FlxG.stage.removeChild(_sprite);
+				FlxG.stage.removeChild(_text);
+				FlxG.switchState(Type.createInstance(nextState, []));
+				FlxG.game._gameJustStarted = true;
+				#end
 		});
 		#end
 		return null;
