@@ -28,9 +28,7 @@ If you're interested in helping out, feel free to fork the repository, submit pu
 - **[@mcagabe19](https://github.com/mcagabe19)** – Mobile Port Developer, Programmer  
 - **[@cyklusiguess](https://github.com/cyklusiguess)** – Developer  
 - **[@HRK_EXEX](https://www.youtube.com/@hk.3x3x2nd3)** – Developer, FPS Counter Creator, Rendering Mode Creator
-
-### Other Contributors
-- **[@TheStinkern](https://stinkernn.carrd.co/)** – Small coder
+- **[@TheStinkern](https://stinkernn.carrd.co/)** – Small coder, debuger
 
 _(Let us know if you'd like your contributions specified!)_  
 
