@@ -5263,7 +5263,8 @@ class PlayState extends MusicBeatState
 		if (curBeat % 8 == 7
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& combo > 5
-			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection)
+			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
+			&& !chartingMode)
 		{
 			var animShit:ComboCounter = new ComboCounter(-100, 300, combo);
 			animShit.scrollFactor.set(0.6, 0.6);
