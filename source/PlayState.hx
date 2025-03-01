@@ -3509,6 +3509,11 @@ class PlayState extends MusicBeatState
 		setOnLuas('botPlay', cpuControlled);
 		callOnLuas('onUpdatePost', [elapsed]);
 
+		if (shaderUpdates.length > 0)
+			for (i in shaderUpdates) {
+				i(elapsed);
+		}
+
 		if(ffmpegMode && !noCapture)
 		{
 			var filename = CoolUtil.zeroFill(frameCaptured, 7);
