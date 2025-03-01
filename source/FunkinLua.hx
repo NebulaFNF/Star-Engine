@@ -2753,7 +2753,7 @@ class FunkinLua {
 			PlayState.instance.addShaderToCamera(camera, new GlitchEffect(waveSpeed,waveFrq,waveAmp));
 		});
 		Lua_helper.add_callback(lua, "addChromaticAbberationEffect", function(camera:String,waveAmp:Float = 0.1,waveFrq:Float = 0.1,waveSpeed:Float = 0.1) {
-			PlayState.instance.addShaderToCamera(camera, new ChromaticAberrationEffect(chromeOffset));
+			PlayState.instance.addShaderToCamera(camera, new ChromaticAberrationShader(chromeOffset));
 		});
 	    }
 
