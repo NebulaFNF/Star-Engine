@@ -146,6 +146,9 @@ class ClientPrefs {
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.funnyScoreTextImVeryFunny = funnyScoreTextImVeryFunny;
 		FlxG.save.data.framerate = framerate;
+		FlxG.save.data.noHitFuncs = noHitFuncs;
+		FlxG.save.data.noSpawnFunc = noSpawnFunc;
+        FlxG.save.data.iconBounceBS = iconBounceBS;
 				//RENDERING SETTINGS
 
 
@@ -224,6 +227,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.opponentStrums != null) {
 			opponentStrums = FlxG.save.data.opponentStrums;
+		}
+		if(FlxG.save.data.noHitFuncs != null) {
+			noHitFuncs = FlxG.save.data.noHitFuncs;
+		}
+		if(FlxG.save.data.noSpawnFunc != null) {
+			noSpawnFunc = FlxG.save.data.noSpawnFunc;
 		}
 		if(FlxG.save.data.deactivateComboLimit != null) {
 			deactivateComboLimit = FlxG.save.data.deactivateComboLimit;
@@ -375,6 +384,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.badWindow != null) {
 			badWindow = FlxG.save.data.badWindow;
+		}
+		if(FlxG.save.data.iconBounceBS != null) {
+			iconBounceBS = FlxG.save.data.iconBounceBS;
 		}
 		if(FlxG.save.data.safeFrames != null) {
 			safeFrames = FlxG.save.data.safeFrames;
