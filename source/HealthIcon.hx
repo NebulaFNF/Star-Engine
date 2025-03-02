@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.FlxG;
 
 using StringTools;
 
@@ -11,6 +12,9 @@ class HealthIcon extends FlxSprite
 	private var isOldIcon:Bool = false;
 	private var isPlayer:Bool = false;
 	private var char:String = '';
+
+	var initialWidth:Float = 0;
+	var initialHeight:Float = 0;
 
 	public function new(char:String = 'bf', isPlayer:Bool = false)
 	{
@@ -61,9 +65,19 @@ class HealthIcon extends FlxSprite
 
 	override function updateHitbox()
 	{
+		if (ClientPrefs.iconBounceBS != 'Golden Apple' || !Std.isOfType(FlxG.state, PlayState))
+		{
 		super.updateHitbox();
 		offset.x = iconOffsets[0];
 		offset.y = iconOffsets[1];
+		} else {
+			super.updateHitbox();
+			if (initialWidth != (150 * animation.numFrames) || initialHeight != 150) //Fixes weird icon offsets when they're HUMONGUS (sussy)
+			{
+				offset.x = iconOffsets[0];
+				offset.y = iconOffsets[1];
+			}
+		}
 	}
 
 	public function getCharacter():String {

@@ -87,6 +87,14 @@ class VisualsUISubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Icon Bounce :',
+			"What icon bounce type would you like?",
+			'iconBounceBS',
+			'string',
+			'Vanilla',
+			['Vanilla', 'Golden Apple']);
+		addOption(option);
+
 		var option:Option = new Option('Camera Zooms',
 			"If unchecked, the camera won't zoom in on a beat hit.",
 			'camZooms',
