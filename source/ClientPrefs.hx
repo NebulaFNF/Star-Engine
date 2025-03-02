@@ -22,6 +22,8 @@ class ClientPrefs {
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
 	public static var deactivateComboLimit:Bool = true;
+	public static var noHitFuncs:Bool = true;
+	public static var noSpawnFunc:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var disableGC:Bool = true;
