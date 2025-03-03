@@ -3404,7 +3404,7 @@ class PlayState extends MusicBeatState
 						opponentNoteHit(daNote);
 					}
 	
-					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
+					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit && daNote.strumTime <= Conductor.songPosition) {
 						if(daNote.isSustainNote) {
 							if(daNote.canBeHit) {
 								goodNoteHit(daNote);
@@ -4905,7 +4905,9 @@ class PlayState extends MusicBeatState
 	{
 		if (!note.wasGoodHit)
 		{
-			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
+			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss))
+				trace('BOTPLAY missed! Imagine missing a note in botplay!! :' + songMisses);
+				return;
 
 			if (ClientPrefs.hitsoundVolume > 0 && !note.hitsoundDisabled)
 			{
