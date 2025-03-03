@@ -12,6 +12,7 @@ class ClientPrefs {
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = true;
 	public static var funnyScoreTextImVeryFunny:String = 'Vanilla';
+	public static var iconBounceBS:String = 'Vanilla';
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
@@ -21,9 +22,14 @@ class ClientPrefs {
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
 	public static var deactivateComboLimit:Bool = true;
+	public static var noHitFuncs:Bool = true;
+	public static var noSpawnFunc:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
 	public static var disableGC:Bool = true;
+	public static var smoothHealth:Bool = true;
+	public static var smoothHPBug:Bool = true;
+	public static var noteComboBullshit:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
 
 
@@ -140,6 +146,9 @@ class ClientPrefs {
 		FlxG.save.data.shaders = shaders;
 		FlxG.save.data.funnyScoreTextImVeryFunny = funnyScoreTextImVeryFunny;
 		FlxG.save.data.framerate = framerate;
+		FlxG.save.data.noHitFuncs = noHitFuncs;
+		FlxG.save.data.noSpawnFunc = noSpawnFunc;
+        FlxG.save.data.iconBounceBS = iconBounceBS;
 				//RENDERING SETTINGS
 
 
@@ -218,6 +227,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.opponentStrums != null) {
 			opponentStrums = FlxG.save.data.opponentStrums;
+		}
+		if(FlxG.save.data.noHitFuncs != null) {
+			noHitFuncs = FlxG.save.data.noHitFuncs;
+		}
+		if(FlxG.save.data.noSpawnFunc != null) {
+			noSpawnFunc = FlxG.save.data.noSpawnFunc;
 		}
 		if(FlxG.save.data.deactivateComboLimit != null) {
 			deactivateComboLimit = FlxG.save.data.deactivateComboLimit;
@@ -369,6 +384,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.badWindow != null) {
 			badWindow = FlxG.save.data.badWindow;
+		}
+		if(FlxG.save.data.iconBounceBS != null) {
+			iconBounceBS = FlxG.save.data.iconBounceBS;
 		}
 		if(FlxG.save.data.safeFrames != null) {
 			safeFrames = FlxG.save.data.safeFrames;

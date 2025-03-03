@@ -2,14 +2,14 @@ package;
 
 typedef SwagSection =
 {
-	var sectionNotes:Array<Dynamic>;
-	var sectionBeats:Float;
-	var typeOfSection:Int;
-	var mustHitSection:Bool;
-	var gfSection:Bool;
-	var bpm:Float;
-	var changeBPM:Bool;
-	var altAnim:Bool;
+	public var sectionNotes:Array<Dynamic>;
+	public var sectionBeats:Float;
+	public var typeOfSection:Int;
+	public var mustHitSection:Bool;
+	public var gfSection:Bool;
+	public var bpm:Float;
+	public var changeBPM:Bool;
+	public var altAnim:Bool;
 }
 
 class Section

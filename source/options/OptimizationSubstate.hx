@@ -53,6 +53,12 @@ class OptimizationSubstate extends BaseOptionsMenu
 			false); //Default value
 		addOption(option);
 
+		var option:Option = new Option('noHitFuncs', 'I dont know what this does, but i guess enable it.', 'noHitFuncs', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('noSpawnFunc', 'I dont know what this does, but i guess enable it.', 'noSpawnFunc', 'bool', false);
+		addOption(option);
+
 		var option:Option = new Option('Disable Note Combo Limits', 'It disables the Note Combo limit to prevent crashing.', 'deactivateComboLimit', 'bool', false);
 		addOption(option);
 
