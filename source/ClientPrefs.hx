@@ -26,6 +26,7 @@ class ClientPrefs {
 	public static var noSpawnFunc:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
+	public static var noBotLag:Bool = true;
 	public static var disableGC:Bool = true;
 	public static var smoothHealth:Bool = true;
 	public static var smoothHPBug:Bool = true;

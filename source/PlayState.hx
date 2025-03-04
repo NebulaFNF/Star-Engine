@@ -4905,9 +4905,7 @@ class PlayState extends MusicBeatState
 	{
 		if (!note.wasGoodHit)
 		{
-			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss))
-				trace('BOTPLAY missed! Imagine missing a note in botplay!! :' + songMisses);
-				return;
+			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
 
 			if (ClientPrefs.hitsoundVolume > 0 && !note.hitsoundDisabled)
 			{
@@ -4917,7 +4915,7 @@ class PlayState extends MusicBeatState
 			if(note.hitCausesMiss) {
 				noteMiss(note);
 				if(!note.noteSplashDisabled && !note.isSustainNote) {
-					spawnNoteSplashOnNote(note);
+					if(!ClientPrefs.noBotLag) spawnNoteSplashOnNote(note);
 				}
 
 				if(!note.noMissAnimation)
@@ -4944,8 +4942,8 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote)
 			{
 				combo += 1;
-				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999;
-				popUpScore(note);
+				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999; // i don't know how this actually works lmfao
+				if(!ClientPrefs.noBotLag) popUpScore(note);
 			}
 			health += note.hitHealth * healthGain;
 
