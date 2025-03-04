@@ -1,5 +1,3 @@
-<!-- can you not release an update every week?-->
-
 v0.2.0 | the update when shaders are added..et bposrtymo[i
 
 Changes:
