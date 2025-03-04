@@ -20,6 +20,9 @@ If you're interested in helping out, feel free to fork the repository, submit pu
 #### Made With
 <img src="https://img.shields.io/badge/-HAXE-262626.svg?logo=haxe&style=for-the-badge">
 
+#### Moddable With
+<img src="https://img.shields.io/badge/LUA-262626?style=for-the-badge&logo=lua">
+
 ---
 
 ## Contributors
