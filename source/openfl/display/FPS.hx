@@ -5,6 +5,7 @@ import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
 import flixel.math.FlxMath;
+import flixel.util.FlxStringUtil;
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
 import openfl.display._internal.stats.DrawCallContext;
@@ -84,19 +85,16 @@ class FPS extends TextField
 		{
 			text = "FPS: " + currentFPS;
 			var memoryMegas:Float = 0;
-			var memoryGigas:Float = 0;
+			//var memoryGigas:Float = 0;
 			var memoryTeras:Float = 0;
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
-			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
-			if(memoryMegas > 0)
-				text += "\nMemory: " + memoryMegas + " MB";
-			if(memoryMegas > 1024)
-				text += "\nMemory: " + memoryGigas + " GB";
-			if(memoryMegas > 1000000) 
-				text += "\nMemory: " + memoryTeras + " TB";
+			//memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
+			//memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
+
+			// memory detector yayayaya im not using formatBytes
+			text += "\nMemory: " + FlxStringUtil.formatBytes(System.totalMemory);
 			#end
 
 			textColor = 0xFFFFFFFF;
