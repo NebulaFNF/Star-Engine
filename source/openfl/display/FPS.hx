@@ -89,11 +89,14 @@ class FPS extends TextField
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 10000, 1));
-			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 100, 1));
-			text += "\nMemory: " + memoryMegas + " MB";
-			if(memoryMegas > 1024) text += "\nMemory: " + memoryGigas + " GB";
-			if(memoryMegas > 1000000) text += "\nMemory: " + memoryTeras + " TB";
+			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
+			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
+			if(memoryMegas > 0)
+				text += "\nMemory: " + memoryMegas + " MB";
+			if(memoryMegas > 1024)
+				text += "\nMemory: " + memoryGigas + " GB";
+			if(memoryMegas > 1000000) 
+				text += "\nMemory: " + memoryTeras + " TB";
 			#end
 
 			textColor = 0xFFFFFFFF;
