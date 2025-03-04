@@ -6,7 +6,16 @@
   <br>
   <b>Star Engine</b>
   <br>
+<p align="center">
+  <b>Made With</b>
+<p align="center">
+  <img src="https://img.shields.io/badge/-HAXE-262626.svg?logo=haxe&style=for-the-badge">
+<p align="center">
+  <b>Moddable With</b>
+<p align="center">
+  <img src= "https://github.com/user-attachments/assets/39d92d19-5d6b-406f-885b-6467418e4043" width="50">
 </h1>
+
 
 ## Introduction
 
@@ -17,8 +26,6 @@ This project is a **work in progress**, and contributions are highly encouraged.
 
 If you're interested in helping out, feel free to fork the repository, submit pull requests, or suggest improvements!  
 
-#### Made With
-<img src="https://img.shields.io/badge/-HAXE-262626.svg?logo=haxe&style=for-the-badge">
 
 ---
 
