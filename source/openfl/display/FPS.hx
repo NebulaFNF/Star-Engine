@@ -85,13 +85,13 @@ class FPS extends TextField
 		{
 			text = "FPS: " + currentFPS;
 			var memoryMegas:Float = 0;
-			//var memoryGigas:Float = 0;
+			var memoryGigas:Float = 0;
 			var memoryTeras:Float = 0;
 			
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			//memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
-			//memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
+			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
+			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
 
 			// memory detector yayayaya im not using formatBytes
 			text += "\nMemory: " + FlxStringUtil.formatBytes(System.totalMemory);
