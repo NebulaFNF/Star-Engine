@@ -98,13 +98,10 @@ class FPS extends TextField
 			if(memoryMegas > 0)
 				text += "\nMemory: " + memoryMegas + " MB";
 			if(memoryMegas > 1024)
-				text -= "\nMemory: " + memoryMegas + " MB";
 				text += "\nMemory: " + memoryGigas + " GB";
-			if(memoryMegas > 1000000) 
-				text -= "\nMemory: " + memoryGigas + " GB";
+			if(memoryMegas > 1000000)
 				text += "\nMemory: " + memoryTeras + " TB";
 			if(memoryMegas > 10000000)
-				text -= "\nMemory: " + memoryTeras + " TB";
 				text += "\nMemory: " + memoryBytes + " Bytes";
 			#end
 
