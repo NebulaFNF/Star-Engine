@@ -84,17 +84,28 @@ class FPS extends TextField
 		if (currentCount != cacheCount /*&& visible*/)
 		{
 			text = "FPS: " + currentFPS;
+			var memoryBytes:Float = 0;
 			var memoryMegas:Float = 0;
 			var memoryGigas:Float = 0;
 			var memoryTeras:Float = 0;
 			
 			#if openfl
+			memoryBytes = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000, 1));
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
 			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
-
-			// memory detector yayayaya im not using formatBytes
-			text += "\nMemory: " + FlxStringUtil.formatBytes(System.totalMemory);
+			
+			if(memoryMegas > 0)
+				text += "\nMemory: " + memoryMegas + " MB";
+			if(memoryMegas > 1024)
+				text -= "\nMemory: " + memoryMegas + " MB";
+				text += "\nMemory: " + memoryGigas + " GB";
+			if(memoryMegas > 1000000) 
+				text -= "\nMemory: " + memoryGigas + " GB";
+				text += "\nMemory: " + memoryTeras + " TB";
+			if(memoryMegas > 10000000)
+				text -= "\nMemory: " + memoryTeras + " TB";
+				text += "\nMemory: " + memoryBytes + " Bytes";
 			#end
 
 			textColor = 0xFFFFFFFF;
