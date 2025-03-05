@@ -33,6 +33,8 @@ class FPS extends TextField
 	**/
 	public var currentFPS(default, null):Int;
 
+	public var memoryUsage:String = '';
+
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
@@ -95,14 +97,23 @@ class FPS extends TextField
 			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
 			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
 			
-			if(memoryMegas > 0)
+			text += "\nMemory: " + memoryMegas + " MB"; //someday i need to fix this bullshit
+			/*if(memoryMegas > 0)
 				text += "\nMemory: " + memoryMegas + " MB";
 			if(memoryMegas > 1024)
 				text += "\nMemory: " + memoryGigas + " GB";
 			if(memoryMegas > 1000000)
 				text += "\nMemory: " + memoryTeras + " TB";
 			if(memoryMegas > 10000000)
-				text += "\nMemory: " + memoryBytes + " Bytes";
+				text += "\nMemory: " + memoryBytes + " Bytes";-*/
+			/*if (memoryMegas >= 0xFFFFFFFF)
+				memoryUsage += (Math.round(cast(memoryMegas, Float) / 0x400 / 0x400 / 0x400 * 1000) / 1000) + " GB";
+			else if (memoryMegas >= 0x100000)
+				memoryUsage += (Math.round(cast(memoryMegas, Float) / 0x400 / 0x400 * 1000) / 1000) + " MB";
+			else if (memoryMegas >= 0x400)
+				memoryUsage += (Math.round(cast(memoryMegas, Float) / 0x400 * 1000) / 1000) + " KB";
+			else
+				memoryUsage += memoryMegas + " B";*/
 			#end
 
 			textColor = 0xFFFFFFFF;
