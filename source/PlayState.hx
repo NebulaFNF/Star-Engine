@@ -900,20 +900,16 @@ class PlayState extends MusicBeatState
 
 			// WHY THE FUCK IS THE STAGES HARDCODED??
 		    case 'phillyStreets':
-				var bg:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
-				bg.setGraphicSize(Std.int(bg.width * 0.5));
-				add(bg);
+				var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
+				phillyWhole.setGraphicSize(Std.int(bg.width * 0.5));
+				phillyWhole.antialiasing = false;
+				add(phillyWhole);
 
-				/*var phillyWhole:BGSprite = new BGSprite('streetsWhole', -500, 0, 0.9, 0.9);
-				phillyWhole.setGraphicSize(Std.int(stageFront.width * 0.5));
-				phillyWhole.updateHitbox();
-				add(phillyWhole);*/
-
-				// ehhh i dont fucking care
 				if(!ClientPrefs.lowQuality) {
-					var bg:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
-					bg.setGraphicSize(Std.int(bg.width * 0.5));
-				    add(bg);
+					var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
+					phillyWhole.setGraphicSize(Std.int(bg.width * 0.5));
+					phillyWhole.antialiasing = true;
+				    add(phillyWhole);
 				}
 		}
 
