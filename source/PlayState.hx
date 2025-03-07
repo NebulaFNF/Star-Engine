@@ -901,13 +901,13 @@ class PlayState extends MusicBeatState
 			// WHY THE FUCK IS THE STAGES HARDCODED??
 		    case 'phillyStreets':
 				var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
-				phillyWhole.setGraphicSize(Std.int(bg.width * 0.5));
+				phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
 				phillyWhole.antialiasing = false;
 				add(phillyWhole);
 
 				if(!ClientPrefs.lowQuality) {
 					var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
-					phillyWhole.setGraphicSize(Std.int(bg.width * 0.5));
+					phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
 					phillyWhole.antialiasing = true;
 				    add(phillyWhole);
 				}
@@ -1057,7 +1057,7 @@ class PlayState extends MusicBeatState
 		
 		//devBuildtxt = ' | Dev Build';
 
-		// for now ill leave these here
+		//for now ill leave these here
 		/*watermark = new FlxText(0, healthBarBG.y + 10, 400, songName + ' | Star Engine v' + MainMenuState.psychEngineVersion + 32);
 		watermark.setFormat(Paths.font("comic.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		watermark.scrollFactor.set();
@@ -3401,15 +3401,13 @@ class PlayState extends MusicBeatState
 					}
 	
 					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit && daNote.strumTime <= Conductor.songPosition) {
-						if(daNote.isSustainNote) {
-							if(daNote.canBeHit) {
-								goodNoteHit(daNote);
-							}
+						if(daNote.isSustainNote && daNote.canBeHit) {
+							goodNoteHit(daNote);
+						}
 						} else if(daNote.strumTime <= Conductor.songPosition || daNote.isSustainNote) {
 							goodNoteHit(daNote);
 						}
 					}
-					
 					var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
 					if(!daNote.mustPress) strumGroup = opponentStrums;
 
