@@ -6,6 +6,7 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Assets;
 import openfl.Lib;
+import AnsiTrace;
 import openfl.display.FPS;
 
 // credits to hrk ex ex !!!!
@@ -59,6 +60,9 @@ class Main extends Sprite
 	{
 		super();
 
+		haxe.Log.trace = AnsiTrace.trace;
+        AnsiTrace.traceBF();
+
 		if (stage != null)
 		{
 			init();
@@ -81,6 +85,12 @@ class Main extends Sprite
 
 	private function setupGame():Void
 	{
+		#if hxcpp_debug_server
+		trace('hxcpp_debug_server is enabled! You can now connect to the game with a debugger.');
+		#else
+		trace('hxcpp_debug_server is disabled! This build does not support debugging.');
+		#end
+	
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 

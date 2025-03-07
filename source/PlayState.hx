@@ -3400,6 +3400,7 @@ class PlayState extends MusicBeatState
 						opponentNoteHit(daNote);
 					}
 	
+					// i hate this bullshit
 					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit && daNote.strumTime <= Conductor.songPosition) {
 						if(daNote.isSustainNote) {
 							if(daNote.canBeHit) {
@@ -3466,21 +3467,6 @@ class PlayState extends MusicBeatState
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (songSpeed - 1);
 						}
 					}
-
-					/*if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
-					{
-						opponentNoteHit(daNote);
-					}
-
-					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
-						if(daNote.isSustainNote) {
-							if(daNote.canBeHit) {
-								goodNoteHit(daNote);
-							}
-						} else if(daNote.strumTime <= Conductor.songPosition || daNote.isSustainNote) {
-							goodNoteHit(daNote);
-						}
-					}*/
 
 					var center:Float = strumY + Note.swagWidth / 2;
 					if(strumGroup.members[daNote.noteData].sustainReduce && daNote.isSustainNote && (daNote.mustPress || !daNote.ignoreNote) &&
