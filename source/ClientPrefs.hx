@@ -33,35 +33,16 @@ class ClientPrefs {
 	public static var noteComboBullshit:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
 
-
-
-
-
 	// Video Renderer
-
-
 	public static var ffmpegMode:Bool = false;
-
-
 	public static var ffmpegInfo:Bool = false;
-
-
 	public static var targetFPS:Float = 60;
-
-
 	public static var unlockFPS:Bool = false;
-
-
 	public static var lossless:Bool = false;
-
-
 	public static var quality:Int = 80;
-
-
 	public static var noCapture:Bool = false;
 
-
-	//public static var oldHealthBar:Bool = true;
+	public static var healthBarStyle:String = 'Legacy';
 	public static var botplayWatermark:Bool = true;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
