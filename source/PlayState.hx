@@ -64,6 +64,9 @@ import DialogueBoxPsych;
 import Conductor.Rating;
 import shaderslmfao.*;
 
+import crowplexus.iris.Iris;
+import crowplexus.iris.IrisConfig;
+
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
 import openfl.filters.ShaderFilter;
@@ -212,6 +215,8 @@ class PlayState extends MusicBeatState
 	public var goods:Int = 0;
 	public var bads:Int = 0;
 	public var shits:Int = 0;
+
+	//H-Script vars go here
 
 	private var generatedMusic:Bool = false;
 	public var endingSong:Bool = false;
@@ -364,27 +369,14 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		//irisTest.execute();
 		if (ffmpegMode) {
-
-
 			FlxG.fixedTimestep = true;
-
-
 			//FlxG.animationTimeScale = ClientPrefs.framerate / targetFPS;
-
-
 			if(unlockFPS) {
-
-
 				FlxG.updateFramerate = 1000;
-
-
 				FlxG.drawFramerate = 1000;
-
-
 			}
-
-
 		}
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
