@@ -26,6 +26,7 @@ haxelib git hxCodec https://github.com/SyncGit12/hxCodec
 haxelib git openfl https://github.com/SyncGit12/openfl
 haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp
 haxelib git linc_luajit https://github.com/superpowers04/linc_luajit
+haxelib git hscript-iris https://github.com/pisayesiwsi/hscript-iris dev
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
 haxelib git away3d https://github.com/moxie-coder/away3d
 haxelib git hxCodec https://github.com/SyncGit12/hxCodec
