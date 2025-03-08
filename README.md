@@ -19,12 +19,18 @@ This project is a **work in progress**, and contributions are highly encouraged.
 
 If you're interested in helping out, feel free to fork the repository, submit pull requests, or suggest improvements!  
 
+#### Made With
+<img src="https://img.shields.io/badge/-HAXE-262626.svg?logo=haxe&style=for-the-badge">
+
+#### Moddable With
+<img src="https://img.shields.io/badge/LUA-262626?style=for-the-badge&logo=lua"> <img src="https://img.shields.io/badge/-HAXE-262626.svg?logo=haxe&style=for-the-badge">
+
 ---
 
 ## Contributors
 
 ### Core Developers
-- **[@SyncGit12](https://github.com/SyncGit12)** – Lead Developer, Logo Designer  
+- **[@lunaruniv69](https://github.com/SyncGit12)** – Lead Developer, Logo Designer  
 - **[@ShadowMario](https://github.com/ShadowMario)** – Lead Developer of Psych Engine  
 - **[@moxie-coder](https://github.com/moxie-coder)** – Programmer  
 - **[@mcagabe19](https://github.com/mcagabe19)** – Mobile Port Developer, Programmer  

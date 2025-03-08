@@ -900,20 +900,16 @@ class PlayState extends MusicBeatState
 
 			// WHY THE FUCK IS THE STAGES HARDCODED??
 		    case 'phillyStreets':
-				var bg:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
-				bg.setGraphicSize(Std.int(bg.width * 0.5));
-				add(bg);
+				var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
+				phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
+				phillyWhole.antialiasing = false;
+				add(phillyWhole);
 
-				/*var phillyWhole:BGSprite = new BGSprite('streetsWhole', -500, 0, 0.9, 0.9);
-				phillyWhole.setGraphicSize(Std.int(stageFront.width * 0.5));
-				phillyWhole.updateHitbox();
-				add(phillyWhole);*/
-
-				// ehhh i dont fucking care
 				if(!ClientPrefs.lowQuality) {
-					var bg:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
-					bg.setGraphicSize(Std.int(bg.width * 0.5));
-				    add(bg);
+					var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1300, -700, 0.9, 0.9);
+					phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
+					phillyWhole.antialiasing = true;
+				    add(phillyWhole);
 				}
 		}
 
@@ -1215,15 +1211,22 @@ class PlayState extends MusicBeatState
 		healthBarBG.yAdd = -4;
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
-
-		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-			'displayedHealth', 0, maxHealth);
-		healthBar.scrollFactor.set();
-		// healthBar
-		healthBar.visible = !ClientPrefs.hideHud;
-		healthBar.alpha = ClientPrefs.healthBarAlpha;
+	
+		switch(ClientPrefs.healthBarStyle)
+		{
+			case 'Psych':
+				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+				'displayedHealth', 0, maxHealth);
+				healthBar.scrollFactor.set();
+				healthBar.visible = !ClientPrefs.hideHud;
+				healthBar.alpha = ClientPrefs.healthBarAlpha;
+				healthBarBG.sprTracker = healthBar;
+			case 'Legacy':
+				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this, 'displayedHealth', 0, maxHealth);
+		        healthBar.scrollFactor.set();
+		        healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+		}
 		add(healthBar);
-		healthBarBG.sprTracker = healthBar;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
@@ -3404,6 +3407,7 @@ class PlayState extends MusicBeatState
 						opponentNoteHit(daNote);
 					}
 	
+					// i hate this bullshit
 					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit && daNote.strumTime <= Conductor.songPosition) {
 						if(daNote.isSustainNote) {
 							if(daNote.canBeHit) {
@@ -3470,21 +3474,6 @@ class PlayState extends MusicBeatState
 							daNote.y += 27.5 * ((SONG.bpm / 100) - 1) * (songSpeed - 1);
 						}
 					}
-
-					/*if (!daNote.mustPress && daNote.wasGoodHit && !daNote.hitByOpponent && !daNote.ignoreNote)
-					{
-						opponentNoteHit(daNote);
-					}
-
-					if(!daNote.blockHit && daNote.mustPress && cpuControlled && daNote.canBeHit) {
-						if(daNote.isSustainNote) {
-							if(daNote.canBeHit) {
-								goodNoteHit(daNote);
-							}
-						} else if(daNote.strumTime <= Conductor.songPosition || daNote.isSustainNote) {
-							goodNoteHit(daNote);
-						}
-					}*/
 
 					var center:Float = strumY + Note.swagWidth / 2;
 					if(strumGroup.members[daNote.noteData].sustainReduce && daNote.isSustainNote && (daNote.mustPress || !daNote.ignoreNote) &&
@@ -4905,9 +4894,7 @@ class PlayState extends MusicBeatState
 	{
 		if (!note.wasGoodHit)
 		{
-			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss))
-				trace('BOTPLAY missed! Imagine missing a note in botplay!! :' + songMisses);
-				return;
+			if(cpuControlled && (note.ignoreNote || note.hitCausesMiss)) return;
 
 			if (ClientPrefs.hitsoundVolume > 0 && !note.hitsoundDisabled)
 			{
@@ -4917,7 +4904,7 @@ class PlayState extends MusicBeatState
 			if(note.hitCausesMiss) {
 				noteMiss(note);
 				if(!note.noteSplashDisabled && !note.isSustainNote) {
-					spawnNoteSplashOnNote(note);
+					if(!ClientPrefs.noBotLag) spawnNoteSplashOnNote(note);
 				}
 
 				if(!note.noMissAnimation)
@@ -4944,8 +4931,8 @@ class PlayState extends MusicBeatState
 			if (!note.isSustainNote)
 			{
 				combo += 1;
-				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999;
-				popUpScore(note);
+				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999; // i don't know how this actually works lmfao
+				if(!ClientPrefs.noBotLag) popUpScore(note);
 			}
 			health += note.hitHealth * healthGain;
 
