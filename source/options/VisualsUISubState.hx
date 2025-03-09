@@ -120,9 +120,6 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		option.decimals = 1;
 		addOption(option);
-
-		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
-		addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',

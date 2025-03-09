@@ -1204,20 +1204,12 @@ class PlayState extends MusicBeatState
 		add(healthBarBG);
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 	
-		switch(ClientPrefs.healthBarStyle)
-		{
-			case 'Psych':
-				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-				'displayedHealth', 0, maxHealth);
-				healthBar.scrollFactor.set();
-				healthBar.visible = !ClientPrefs.hideHud;
-				healthBar.alpha = ClientPrefs.healthBarAlpha;
-				healthBarBG.sprTracker = healthBar;
-			case 'Legacy':
-				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this, 'displayedHealth', 0, maxHealth);
-		        healthBar.scrollFactor.set();
-		        healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
-		}
+		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
+		'displayedHealth', 0, maxHealth);
+		healthBar.scrollFactor.set();
+		healthBar.visible = !ClientPrefs.hideHud;
+		healthBar.alpha = ClientPrefs.healthBarAlpha;
+		healthBarBG.sprTracker = healthBar;
 		add(healthBar);
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);

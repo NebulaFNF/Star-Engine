@@ -150,7 +150,7 @@ class FunkinLua {
 		set('screenWidth', FlxG.width);
 		set('screenHeight', FlxG.height);
 
-		// PlayState cringe ass nae nae bullcrap
+		// PlayState cringe ass nae nae bullshit
 		set('curBeat', 0);
 		set('curStep', 0);
 		set('curDecBeat', 0);

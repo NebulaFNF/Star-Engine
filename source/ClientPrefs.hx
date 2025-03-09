@@ -42,7 +42,7 @@ class ClientPrefs {
 	public static var quality:Int = 80;
 	public static var noCapture:Bool = false;
 
-	public static var healthBarStyle:String = 'Legacy';
+	//public static var healthBarStyle:String = 'Legacy';
 	public static var botplayWatermark:Bool = true;
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
