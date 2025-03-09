@@ -59,12 +59,6 @@ class AnsiTrace
       Sys.stdout().flush();
   }
 
-  public static function traceGF() {
-    for (line in ansiGF)
-      Sys.stdout().writeString(line + "\n");
-    Sys.stdout().flush();
-  }
-
   public static function ansiWrap(str:Dynamic, ansiCol:String)
   {
     return ansify(ansiCol) + str + ansify(NORMAL);
