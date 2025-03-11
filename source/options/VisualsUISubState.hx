@@ -63,22 +63,8 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
-		var option:Option = new Option('Show Rendered Notes',
-
-
-		'If checked, the game will show how many notes are currently rendered on screen.',
-
-
-		'showRendered',
-
-
-		'bool',
-
-
-		false);
-
-
-	addOption(option);
+		var option:Option = new Option('Show Rendered Notes', 'If checked, the game will show how many notes are currently rendered on screen.', 'showRendered', 'bool', false);
+     	addOption(option);
 
 		var option:Option = new Option('Flashing Lights',
 			"Uncheck this if you're sensitive to flashing lights!",
@@ -119,6 +105,9 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.maxValue = 1;
 		option.changeValue = 0.1;
 		option.decimals = 1;
+		addOption(option);
+
+		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
 		addOption(option);
 		
 		#if !mobile
