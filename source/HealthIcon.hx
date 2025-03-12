@@ -9,6 +9,7 @@ using StringTools;
 class HealthIcon extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
+	//public static var ifIsWinningIcon:Bool = false;
 	private var isOldIcon:Bool = false;
 	private var isPlayer:Bool = false;
 	private var char:String = '';
@@ -62,7 +63,11 @@ class HealthIcon extends FlxSprite
 			}
 			updateHitbox();
 
-			animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			if (width2 == 450) {
+				animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			} else {
+				animation.add(char, [0, 1], 0, false, isPlayer);
+			}
 			animation.play(char);
 			this.char = char;
 

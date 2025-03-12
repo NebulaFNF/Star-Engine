@@ -107,8 +107,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
-		addOption(option);
+		//var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
+		//addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',
@@ -133,8 +133,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		"How would you like your ScoreTxt?",
 		'funnyScoreTextImVeryFunny',
 		'string',
-		'Psych Engine',
-		['Psych Engine', 'Vanilla']);
+		'Vanilla',
+		['Psych Engine', 'Vanilla', 'Kade']);
 	    addOption(option);
 		
 		#if CHECK_FOR_UPDATES

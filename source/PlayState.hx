@@ -310,6 +310,8 @@ class PlayState extends MusicBeatState
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
+	var winning:Bool = false;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -1235,6 +1237,8 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
+		if (ClientPrefs.smoothHealth) healthBar.numDivisions = Std.int(healthBar.width);
+
 		switch (ClientPrefs.funnyScoreTextImVeryFunny)
 		{
 			case 'Psych Engine':
@@ -1248,11 +1252,13 @@ class PlayState extends MusicBeatState
 				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
 		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		        scoreTxt.scrollFactor.set();
+				scoreTxt.visible = !ClientPrefs.hideHud;
 		        add(scoreTxt);
-			default:
-				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Kade':
+				scoreTxt = new FlxText(0, healthBarBG.y + 50, FlxG.width, "", 20);
+		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		        scoreTxt.scrollFactor.set();
+		        scoreTxt.visible = !ClientPrefs.hideHud;
 		        add(scoreTxt);
 		}
 
@@ -2477,6 +2483,8 @@ class PlayState extends MusicBeatState
 				scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 			case 'Vanilla':
 				scoreTxt.text = "Score:" + songScore;
+			case 'Kade':
+				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks: ' + songMisses + ' | Accuracy : ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | ($ratingFC)'; 
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
@@ -3280,17 +3288,35 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
-		else if (healthBar.percent > 80)
-			iconP1.animation.curAnim.curFrame = 2;
-		else
-			iconP1.animation.curAnim.curFrame = 0;
+		// P1
+		if (iconP1.animation.frames == 3) {
+			if (healthBar.percent < 20)
+				iconP1.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent > 80)
+				iconP1.animation.curAnim.curFrame = 2;
+			else
+				iconP1.animation.curAnim.curFrame = 0;	
+		} else {
+			if (healthBar.percent > 20)
+				iconP1.animation.curAnim.curFrame = 1;
+			else
+				iconP1.animation.curAnim.curFrame = 0;
+		}
 
-		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
-		else
-			iconP2.animation.curAnim.curFrame = 0;
+		// P2
+		if (iconP2.animation.frames == 3) {
+			if (healthBar.percent < 20)
+				iconP2.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent > 80)
+				iconP2.animation.curAnim.curFrame = 2;
+			else
+				iconP2.animation.curAnim.curFrame = 0;	
+		} else {
+			if (healthBar.percent > 80)
+				iconP2.animation.curAnim.curFrame = 1;
+			else
+				iconP2.animation.curAnim.curFrame = 0;
+		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
