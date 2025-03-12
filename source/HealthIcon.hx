@@ -65,8 +65,10 @@ class HealthIcon extends FlxSprite
 
 			if (width2 == 450) {
 				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			} else {
+			} else if (width2 == 300) {
 				animation.add(char, [0, 1], 0, false, isPlayer);
+			} else {
+				animation.add(char, [0, 1], 0, false, isPlayer); // this is kinda dumb but ehhh
 			}
 			animation.play(char);
 			this.char = char;

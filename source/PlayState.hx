@@ -51,6 +51,8 @@ import editors.CharacterEditorState;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.keyboard.FlxKey;
 import Note.EventNote;
+import Note.PreloadedChartNote;
+import Note;
 import openfl.events.KeyboardEvent;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
@@ -3297,7 +3299,7 @@ class PlayState extends MusicBeatState
 			else
 				iconP1.animation.curAnim.curFrame = 0;	
 		} else {
-			if (healthBar.percent > 20)
+			if (healthBar.percent < 20)
 				iconP1.animation.curAnim.curFrame = 1;
 			else
 				iconP1.animation.curAnim.curFrame = 0;
@@ -3409,7 +3411,6 @@ class PlayState extends MusicBeatState
 				unspawnNotes.splice(index, 1);
 			}
 		}
-
 		if (generatedMusic && !inCutscene)
 		{
 			if(!cpuControlled) {
@@ -4645,7 +4646,7 @@ class PlayState extends MusicBeatState
 			}
 
 			var spr:StrumNote = playerStrums.members[key];
-			if(strumsBlocked[key] != true && spr != null && spr.animation.curAnim.name != 'confirm')
+			if(strumsBlocked[key] != true && spr != null && !ClientPrefs.noLightStrum && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
 				spr.resetAnim = 0;
@@ -4669,7 +4670,7 @@ class PlayState extends MusicBeatState
 	{
 		var eventKey:FlxKey = event.keyCode;
 		var key:Int = getKeyFromEvent(eventKey);
-		if(!cpuControlled && startedCountdown && !paused && key > -1)
+		if(!cpuControlled && !ClientPrefs.noLightStrum && startedCountdown && !paused && key > -1)
 		{
 			var spr:StrumNote = playerStrums.members[key];
 			if(spr != null)
@@ -5499,7 +5500,7 @@ class PlayState extends MusicBeatState
 			spr = playerStrums.members[id];
 		}
 
-		if(spr != null) {
+		if(spr != null && !ClientPrefs.noLightStrum) {
 			spr.playAnim('confirm', true);
 			spr.resetAnim = time;
 		}
