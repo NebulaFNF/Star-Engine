@@ -2503,7 +2503,7 @@ class PlayState extends MusicBeatState
 			case 'Vanilla':
 				scoreTxt.text = "Score:" + songScore;
 			case 'Kade':
-				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks: ' + songMisses + ' | Accuracy : ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | ($ratingFC)'; 
+				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks: ' + songMisses + ' | Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | ($ratingFC)'; 
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
