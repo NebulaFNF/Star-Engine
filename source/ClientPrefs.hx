@@ -32,6 +32,7 @@ class ClientPrefs {
 	public static var smoothHPBug:Bool = true;
 	public static var noteComboBullshit:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
+	public static var strumsAreFuckingOffset:Bool = false;
 
 	// Video Renderer
 	public static var ffmpegMode:Bool = false;
@@ -42,6 +43,7 @@ class ClientPrefs {
 	public static var quality:Int = 80;
 	public static var noCapture:Bool = false;
 
+	public static var noLightStrum:Bool = false;
 	public static var healthBarStyle:String = 'Legacy';
 	public static var botplayWatermark:Bool = true;
 	public static var noteOffset:Int = 0;
@@ -131,6 +133,8 @@ class ClientPrefs {
 		FlxG.save.data.noHitFuncs = noHitFuncs;
 		FlxG.save.data.noSpawnFunc = noSpawnFunc;
         FlxG.save.data.iconBounceBS = iconBounceBS;
+		FlxG.save.data.noLightStrum = noLightStrum;
+		FlxG.save.data.noBotlag = noBotLag;
 				//RENDERING SETTINGS
 
 
@@ -209,6 +213,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.opponentStrums != null) {
 			opponentStrums = FlxG.save.data.opponentStrums;
+		}
+		if(FlxG.save.data.noLightStrum != null) {
+			noLightStrum = FlxG.save.data.noLightStrum;
+		}
+		if(FlxG.save.data.noBotLag != null) {
+			noBotLag = FlxG.save.data.noBotLag;
 		}
 		if(FlxG.save.data.noHitFuncs != null) {
 			noHitFuncs = FlxG.save.data.noHitFuncs;

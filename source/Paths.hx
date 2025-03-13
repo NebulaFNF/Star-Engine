@@ -239,6 +239,17 @@ class Paths
 		return returnAsset;
 	}
 
+	inline static public function scripts(script:String, ?library:AssetType) {
+		var path = getPath('scripts/$script.hx', library);
+		if(FileSystem.exists(path)) {
+			trace('Script loaded! :' + path);
+			return path;
+		} else {
+			trace('Invalid or missing script :' + path);
+			return path;
+		}
+	}
+
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
 		#if sys
@@ -441,6 +452,7 @@ class Paths
 		return modFolders('achievements/' + key + '.json');
 	}*/
 
+	// is it that fucking simple?!??
 	static public function modFolders(key:String) {
 		if(currentModDirectory != null && currentModDirectory.length > 0) {
 			var fileToCheck:String = mods(currentModDirectory + '/' + key);

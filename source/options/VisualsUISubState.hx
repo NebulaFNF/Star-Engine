@@ -54,6 +54,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		'bool',
 		false);
 	    addOption(option);
+
+		var option:Option = new Option('Strums Offset',
+		'If checked, offsets the strums.',
+		'strumsAreFuckingOffset',
+		'bool',
+		false);
+	    addOption(option);
 		
 		var option:Option = new Option('Time Bar:',
 			"What should the Time Bar display?",
@@ -63,22 +70,8 @@ class VisualsUISubState extends BaseOptionsMenu
 			['Time Left', 'Time Elapsed', 'Song Name', 'Disabled']);
 		addOption(option);
 
-		var option:Option = new Option('Show Rendered Notes',
-
-
-		'If checked, the game will show how many notes are currently rendered on screen.',
-
-
-		'showRendered',
-
-
-		'bool',
-
-
-		false);
-
-
-	addOption(option);
+		var option:Option = new Option('Show Rendered Notes', 'If checked, the game will show how many notes are currently rendered on screen.', 'showRendered', 'bool', false);
+     	addOption(option);
 
 		var option:Option = new Option('Flashing Lights',
 			"Uncheck this if you're sensitive to flashing lights!",
@@ -121,8 +114,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
-		addOption(option);
+		//var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
+		//addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',
@@ -147,9 +140,15 @@ class VisualsUISubState extends BaseOptionsMenu
 		"How would you like your ScoreTxt?",
 		'funnyScoreTextImVeryFunny',
 		'string',
-		'Psych Engine',
-		['Psych Engine', 'Vanilla']);
+		'Vanilla',
+		['Psych Engine', 'Vanilla', 'Kade']);
 	    addOption(option);
+
+		var option:Option = new Option('Smooth Health', 'If checked, enables smooth health.', 'smoothHealth', 'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Health Bar Overlapping', 'If checked, enables health bar overlapping.\n(You need Smooth Health to this to work!!)', 'smoothHPBug', 'bool', true);
+		addOption(option);
 		
 		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',

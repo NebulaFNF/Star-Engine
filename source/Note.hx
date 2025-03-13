@@ -17,6 +17,35 @@ typedef EventNote = {
 	value2:String
 }
 
+typedef PreloadedChartNote = {
+	strumTime:Float,
+	noteData:Int,
+	mustPress:Bool,
+	oppNote:Bool,
+	noteType:String,
+	animSuffix:String,
+	noteskin:String,
+	texture:String,
+	noAnimation:Bool,
+	noMissAnimation:Bool,
+	gfNote:Bool,
+	isSustainNote:Bool,
+	isSustainEnd:Bool,
+	sustainLength:Float,
+	sustainScale:Float,
+	parent:PreloadedChartNote,
+	hitHealth:Float,
+	missHealth:Float,
+	hitCausesMiss:Null<Bool>,
+	wasHit:Bool,
+	multSpeed:Float,
+	noteDensity:Float,
+	wasSpawned:Bool,
+	ignoreNote:Bool,
+	lowPriority:Bool,
+	wasMissed:Bool
+}
+
 class Note extends FlxSprite
 {
 	public var extraData:Map<String,Dynamic> = [];
@@ -111,6 +140,7 @@ class Note extends FlxSprite
 		}
 	}
 
+	var changeSize:Bool = false;
 	private function set_texture(value:String):String {
 		if(texture != value) {
 			reloadNote('', value);
@@ -374,5 +404,72 @@ class Note extends FlxSprite
 			if (alpha > 0.3)
 				alpha = 0.3;
 		}
+	}
+
+	var firstOffX = false;
+	public function setupNoteData(chartNoteData:PreloadedChartNote):Void 
+	{
+		wasGoodHit = hitByOpponent = tooLate = canBeHit = false; // Don't make an update call of this for the note group
+
+		strumTime = chartNoteData.strumTime;
+		if(!inEditor) strumTime += ClientPrefs.noteOffset;
+		noteData = chartNoteData.noteData % 4;
+		noteType = chartNoteData.noteType;
+		animSuffix = chartNoteData.animSuffix;
+		noAnimation = noMissAnimation = chartNoteData.noAnimation;
+		mustPress = chartNoteData.mustPress;
+		gfNote = chartNoteData.gfNote;
+		isSustainNote = chartNoteData.isSustainNote;
+		sustainLength = chartNoteData.sustainLength;
+		lowPriority = chartNoteData.lowPriority;
+		
+		hitHealth = chartNoteData.hitHealth;
+		missHealth = chartNoteData.missHealth;
+		hitCausesMiss = chartNoteData.hitCausesMiss;
+		ignoreNote = chartNoteData.ignoreNote;
+		multSpeed = chartNoteData.multSpeed;
+
+		if (PlayState.isPixelStage)
+		{
+			@:privateAccess reloadNote(texture);
+			if (isSustainNote && !firstOffX) 
+			{
+				firstOffX = true;
+				offsetX += 30;
+			}
+		}
+
+		if (!PlayState.isPixelStage && !changeSize) 
+		{
+			changeSize = true;
+			setGraphicSize(Std.int(width * 0.7));
+			updateHitbox();
+		}
+
+		if (isSustainNote) {
+			offsetX += width / 2;
+			copyAngle = !chartNoteData.isSustainEnd;
+			animation.play(colArray[noteData % 4] + (chartNoteData.isSustainEnd ? 'holdend' : 'hold'));
+			updateHitbox();
+			offsetX -= width / 2;
+		}
+		else {
+			animation.play(colArray[noteData % 4] + 'Scroll');
+			if (!copyAngle) copyAngle = true;
+			offsetX = 0; //Juuuust in case we recycle a sustain note to a regular note
+		}
+		angle = 0;
+
+		clipRect = null;
+		if (!mustPress) 
+		{
+			visible = !ClientPrefs.opponentStrums ? false : true;
+		}
+		else
+		{
+			if (!visible) visible = true;
+			if (alpha != 1) alpha = 1;
+		}
+		if (flipY) flipY = false;
 	}
 }

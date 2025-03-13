@@ -51,6 +51,8 @@ import editors.CharacterEditorState;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.keyboard.FlxKey;
 import Note.EventNote;
+import Note.PreloadedChartNote;
+import Note;
 import openfl.events.KeyboardEvent;
 import flixel.effects.particles.FlxEmitter;
 import flixel.effects.particles.FlxParticle;
@@ -63,6 +65,9 @@ import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
 import shaderslmfao.*;
+
+import crowplexus.iris.Iris;
+import crowplexus.iris.IrisConfig;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -213,6 +218,8 @@ class PlayState extends MusicBeatState
 	public var bads:Int = 0;
 	public var shits:Int = 0;
 
+	//H-Script vars go here
+
 	private var generatedMusic:Bool = false;
 	public var endingSong:Bool = false;
 	public var startingSong:Bool = false;
@@ -305,6 +312,8 @@ class PlayState extends MusicBeatState
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
+	var winning:Bool = false;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -364,27 +373,14 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		//irisTest.execute();
 		if (ffmpegMode) {
-
-
 			FlxG.fixedTimestep = true;
-
-
 			//FlxG.animationTimeScale = ClientPrefs.framerate / targetFPS;
-
-
 			if(unlockFPS) {
-
-
 				FlxG.updateFramerate = 1000;
-
-
 				FlxG.drawFramerate = 1000;
-
-
 			}
-
-
 		}
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
@@ -488,6 +484,9 @@ class PlayState extends MusicBeatState
 		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
 		#end
+
+		//playerStrums.members[i].x -= 55;
+		//opponentStrums.members[i].x -= 55;
 
 		GameOverSubstate.resetVariables();
 
@@ -1220,13 +1219,15 @@ class PlayState extends MusicBeatState
 				healthBar.scrollFactor.set();
 				healthBar.visible = !ClientPrefs.hideHud;
 				healthBar.alpha = ClientPrefs.healthBarAlpha;
+				add(healthBar);
 				healthBarBG.sprTracker = healthBar;
 			case 'Legacy':
 				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this, 'displayedHealth', 0, maxHealth);
 		        healthBar.scrollFactor.set();
-		        healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+				healthBar.visible = !ClientPrefs.hideHud;
+				healthBar.alpha = ClientPrefs.healthBarAlpha;
+				add(healthBar);
 		}
-		add(healthBar);
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
@@ -1241,6 +1242,8 @@ class PlayState extends MusicBeatState
 		add(iconP2);
 		reloadHealthBarColors();
 
+		if (ClientPrefs.smoothHealth) healthBar.numDivisions = Std.int(healthBar.width);
+
 		switch (ClientPrefs.funnyScoreTextImVeryFunny)
 		{
 			case 'Psych Engine':
@@ -1254,11 +1257,13 @@ class PlayState extends MusicBeatState
 				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
 		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		        scoreTxt.scrollFactor.set();
+				scoreTxt.visible = !ClientPrefs.hideHud;
 		        add(scoreTxt);
-			default:
-				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+			case 'Kade':
+				scoreTxt = new FlxText(0, healthBarBG.y + 50, FlxG.width, "", 20);
+		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		        scoreTxt.scrollFactor.set();
+		        scoreTxt.visible = !ClientPrefs.hideHud;
 		        add(scoreTxt);
 		}
 
@@ -1622,8 +1627,15 @@ class PlayState extends MusicBeatState
 	}
 
 	public function reloadHealthBarColors() {
-		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+		if (ClientPrefs.healthBarStyle == 'Psych') {
+			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		} else if (ClientPrefs.healthBarStyle == 'Legacy') {
+			healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+		} else {
+			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		}
 
 		healthBar.updateBar();
 	}
@@ -2284,6 +2296,13 @@ class PlayState extends MusicBeatState
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
 			}
 
+			if (ClientPrefs.strumsAreFuckingOffset) {
+				for (i in 0...opponentStrums.length) {
+					playerStrums.members[i].x -= 55;
+					opponentStrums.members[i].x -= 55;
+				}
+			}
+
 			startedCountdown = true;
 			Conductor.songPosition = -Conductor.crochet * 5;
 			setOnLuas('startedCountdown', true);
@@ -2483,6 +2502,8 @@ class PlayState extends MusicBeatState
 				scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 			case 'Vanilla':
 				scoreTxt.text = "Score:" + songScore;
+			case 'Kade':
+				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks: ' + songMisses + ' | Accuracy : ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | ($ratingFC)'; 
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
@@ -3286,15 +3307,35 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (healthBar.percent < 20)
-			iconP1.animation.curAnim.curFrame = 1;
-		else
-			iconP1.animation.curAnim.curFrame = 0;
+		// P1
+		if (iconP1.animation.frames == 3) {
+			if (healthBar.percent < 20)
+				iconP1.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent > 80)
+				iconP1.animation.curAnim.curFrame = 2;
+			else
+				iconP1.animation.curAnim.curFrame = 0;	
+		} else {
+			if (healthBar.percent < 20)
+				iconP1.animation.curAnim.curFrame = 1;
+			else
+				iconP1.animation.curAnim.curFrame = 0;
+		}
 
-		if (healthBar.percent > 80)
-			iconP2.animation.curAnim.curFrame = 1;
-		else
-			iconP2.animation.curAnim.curFrame = 0;
+		// P2
+		if (iconP2.animation.frames == 3) {
+			if (healthBar.percent < 20)
+				iconP2.animation.curAnim.curFrame = 1;
+			else if (healthBar.percent > 80)
+				iconP2.animation.curAnim.curFrame = 2;
+			else
+				iconP2.animation.curAnim.curFrame = 0;	
+		} else {
+			if (healthBar.percent > 80)
+				iconP2.animation.curAnim.curFrame = 1;
+			else
+				iconP2.animation.curAnim.curFrame = 0;
+		}
 
 		if (FlxG.keys.anyJustPressed(debugKeysCharacter) && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -3387,7 +3428,6 @@ class PlayState extends MusicBeatState
 				unspawnNotes.splice(index, 1);
 			}
 		}
-
 		if (generatedMusic && !inCutscene)
 		{
 			if(!cpuControlled) {
@@ -4623,7 +4663,7 @@ class PlayState extends MusicBeatState
 			}
 
 			var spr:StrumNote = playerStrums.members[key];
-			if(strumsBlocked[key] != true && spr != null && spr.animation.curAnim.name != 'confirm')
+			if(strumsBlocked[key] != true && spr != null && !ClientPrefs.noLightStrum && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
 				spr.resetAnim = 0;
@@ -4647,7 +4687,7 @@ class PlayState extends MusicBeatState
 	{
 		var eventKey:FlxKey = event.keyCode;
 		var key:Int = getKeyFromEvent(eventKey);
-		if(!cpuControlled && startedCountdown && !paused && key > -1)
+		if(!cpuControlled && !ClientPrefs.noLightStrum && startedCountdown && !paused && key > -1)
 		{
 			var spr:StrumNote = playerStrums.members[key];
 			if(spr != null)
@@ -5477,7 +5517,7 @@ class PlayState extends MusicBeatState
 			spr = playerStrums.members[id];
 		}
 
-		if(spr != null) {
+		if(spr != null && !ClientPrefs.noLightStrum) {
 			spr.playAnim('confirm', true);
 			spr.resetAnim = time;
 		}
