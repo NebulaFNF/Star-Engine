@@ -136,6 +136,12 @@ class VisualsUISubState extends BaseOptionsMenu
 		'Vanilla',
 		['Psych Engine', 'Vanilla', 'Kade']);
 	    addOption(option);
+
+		var option:Option = new Option('Smooth Health', 'If checked, enables smooth health.', 'smoothHealth', 'bool', true);
+		addOption(option);
+
+		var option:Option = new Option('Health Bar Overlapping', 'If checked, enables health bar overlapping.\n(You need Smooth Health to this to work!!)', 'smoothHPBug', 'bool', true);
+		addOption(option);
 		
 		#if CHECK_FOR_UPDATES
 		var option:Option = new Option('Check for Updates',
