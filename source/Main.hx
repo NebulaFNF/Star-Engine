@@ -102,8 +102,6 @@ class Main extends Sprite
 		}
 	
 		ClientPrefs.loadDefaultKeys();
-		/*#if html5
-			trace('preventing a fail on HTML5 compilation');*/
 		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
 

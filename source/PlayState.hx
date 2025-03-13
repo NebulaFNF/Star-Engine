@@ -373,6 +373,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 		//irisTest.execute();
 		if (ffmpegMode) {
 			FlxG.fixedTimestep = true;
@@ -5388,7 +5389,7 @@ class PlayState extends MusicBeatState
 				}
 		}
 
-		if (curBeat % 8 == 7
+		/*if (curBeat % 8 == 7
 			&& ClientPrefs.noteComboBullshit
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& combo > 5
@@ -5405,7 +5406,7 @@ class PlayState extends MusicBeatState
 			{
 				animShit.forceFinish();
 			});
-		}
+		}*/
 
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {
