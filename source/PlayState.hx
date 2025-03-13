@@ -4973,7 +4973,7 @@ class PlayState extends MusicBeatState
 			{
 				combo += 1;
 				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999; // i don't know how this actually works lmfao
-				if(!ClientPrefs.noBotLag) popUpScore(note);
+				popUpScore(note);
 			}
 			health += note.hitHealth * healthGain;
 
