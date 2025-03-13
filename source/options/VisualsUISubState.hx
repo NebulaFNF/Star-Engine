@@ -54,6 +54,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		'bool',
 		false);
 	    addOption(option);
+
+		var option:Option = new Option('Strums Offset',
+		'If checked, offsets the strums.',
+		'strumsAreFuckingOffset',
+		'bool',
+		false);
+	    addOption(option);
 		
 		var option:Option = new Option('Time Bar:',
 			"What should the Time Bar display?",

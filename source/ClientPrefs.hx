@@ -32,6 +32,7 @@ class ClientPrefs {
 	public static var smoothHPBug:Bool = true;
 	public static var noteComboBullshit:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
+	public static var strumsAreFuckingOffset:Bool = false;
 
 	// Video Renderer
 	public static var ffmpegMode:Bool = false;

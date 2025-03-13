@@ -485,6 +485,9 @@ class PlayState extends MusicBeatState
 		detailsPausedText = "Paused - " + detailsText;
 		#end
 
+		//playerStrums.members[i].x -= 55;
+		//opponentStrums.members[i].x -= 55;
+
 		GameOverSubstate.resetVariables();
 
 		var songName:String = Paths.formatToSongPath(SONG.song);
@@ -2284,6 +2287,13 @@ class PlayState extends MusicBeatState
 				setOnLuas('defaultOpponentStrumX' + i, opponentStrums.members[i].x);
 				setOnLuas('defaultOpponentStrumY' + i, opponentStrums.members[i].y);
 				//if(ClientPrefs.middleScroll) opponentStrums.members[i].visible = false;
+			}
+
+			if (ClientPrefs.strumsAreFuckingOffset) {
+				for (i in 0...opponentStrums.length) {
+					playerStrums.members[i].x -= 55;
+					opponentStrums.members[i].x -= 55;
+				}
 			}
 
 			startedCountdown = true;
