@@ -1224,9 +1224,9 @@ class PlayState extends MusicBeatState
 			case 'Legacy':
 				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this, 'displayedHealth', 0, maxHealth);
 		        healthBar.scrollFactor.set();
-		        healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+				healthBar.visible = !ClientPrefs.hideHud;
+				healthBar.alpha = ClientPrefs.healthBarAlpha;
 				add(healthBar);
-				healthBarBG.sprTracker = healthBar;
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
@@ -1627,8 +1627,15 @@ class PlayState extends MusicBeatState
 	}
 
 	public function reloadHealthBarColors() {
-		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+		if (ClientPrefs.healthBarStyle == 'Psych') {
+			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
 			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		} else if (ClientPrefs.healthBarStyle == 'Legacy') {
+			healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
+		} else {
+			healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
+			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+		}
 
 		healthBar.updateBar();
 	}
