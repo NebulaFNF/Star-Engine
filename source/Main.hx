@@ -58,8 +58,10 @@ class Main extends Sprite
 	{
 		super();
 
+		#if debug
 		haxe.Log.trace = AnsiTrace.trace;
 		AnsiTrace.traceBF();
+		#end
 	
 		if (stage != null)
 		{
