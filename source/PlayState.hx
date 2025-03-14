@@ -5389,8 +5389,8 @@ class PlayState extends MusicBeatState
 				}
 		}
 
-		/*if (curBeat % 8 == 7
-			&& ClientPrefs.noteComboBullshit
+		if (curBeat % 8 == 7
+			//&& ClientPrefs.noteComboBullshit
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& combo > 5
 			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
@@ -5406,7 +5406,7 @@ class PlayState extends MusicBeatState
 			{
 				animShit.forceFinish();
 			});
-		}*/
+		}
 
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {

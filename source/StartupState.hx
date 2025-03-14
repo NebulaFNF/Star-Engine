@@ -126,12 +126,14 @@ class StartupState extends MusicBeatState
 	{
 		if (FlxG.keys.justPressed.ENTER)
 			MusicBeatState.switchState(new TitleState());
-
 		    /*#if FREEPLAY
-			MusicBeatState.switchState(new FreeplayState());
-			#else
-			MusicBeatState.switchState(new TitleState());
-			#end*/
+		    MusicBeatState.switchState(new FreeplayState());
+		    #elseif CHARTING
+		    MusicBeatState.switchState(new editors.ChartingState());
+		    #else
+		    FlxG.sound.cache(Paths.music('freakyMenu'));
+		    MusicBeatState.switchState(new TitleState());
+		    #end*/
 
 		super.update(elapsed);
 	}
