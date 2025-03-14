@@ -32,7 +32,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.2.0'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.3.0'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 	public var changeX:Bool = true;
 	public var changeY:Bool = true;
