@@ -59,9 +59,7 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 			effectStuff.animation.pause();
 
 		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup)
-		{
 			setupCombo(daCombo);
-		}
 
 		if (effectStuff.animation.curAnim.curFrame == 18)
 		{
@@ -118,7 +116,7 @@ class ComboNumber extends FlxSprite
 	{
 		super(x - 20, y);
 
-		var stringNum:String = Std.string(digit);
+		var stringNum:String = digit + "";
 		frames = Paths.getSparrowAtlas('noteComboNumbers');
 		animation.addByPrefix(stringNum, stringNum, 24, false);
 		animation.play(stringNum);

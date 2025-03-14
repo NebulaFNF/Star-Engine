@@ -287,11 +287,7 @@ class MenuCharacterEditorState extends MusicBeatState
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if(FlxG.keys.justPressed.ESCAPE) {
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
-				if (!TitleState.mustUpdate) {
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				} else {
-					FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-				}
+				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 			}
 
 			var shiftMult:Int = 1;

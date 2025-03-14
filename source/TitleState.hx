@@ -80,7 +80,7 @@ class TitleState extends MusicBeatState
 	var easterEggKeysBuffer:String = '';
 	#end
 
-	var mustUpdate:Bool = false;
+	public static var mustUpdate:Bool = false;
 
 	var titleJSON:TitleData;
 
@@ -262,13 +262,7 @@ class TitleState extends MusicBeatState
 			// FlxG.sound.list.add(music);
 			// music.play();
 
-			if(FlxG.sound.music == null) {
-				if (!TitleState.mustUpdate) {
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				} else {
-					FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-				}
-			}
+			if(FlxG.sound.music == null) FlxG.sound.playMusic(Paths.music(mustUpdate ? 'finalHours' : 'freakyMenu'), 0);
 		}
 
 		Conductor.changeBPM(115);
@@ -645,11 +639,7 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					//FlxG.sound.music.stop();
-					if (!TitleState.mustUpdate) {
-						FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					} else {
-						FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-					}
+					FlxG.sound.playMusic(Paths.music(mustUpdate ? 'finalHours' : 'freakyMenu'), 0);
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
 					#if PSYCH_WATERMARKS
@@ -747,11 +737,7 @@ class TitleState extends MusicBeatState
 						skippedIntro = true;
 						playJingle = false;
 
-						if (!TitleState.mustUpdate) {
-							FlxG.sound.playMusic(Paths.music('freakyMenu'));
-						} else {
-							FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-						}
+						FlxG.sound.playMusic(Paths.music(mustUpdate ? 'finalHours' : 'freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						return;
 				}
@@ -773,11 +759,7 @@ class TitleState extends MusicBeatState
 					remove(credGroup);
 					FlxG.camera.flash(FlxColor.WHITE, 3);
 					sound.onComplete = function() {
-						if (!TitleState.mustUpdate) {
-							FlxG.sound.playMusic(Paths.music('freakyMenu'));
-						} else {
-							FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-						}
+						FlxG.sound.playMusic(Paths.music(mustUpdate ? 'finalHours' : 'freakyMenu'), 0);
 						FlxG.sound.music.fadeIn(4, 0, 0.7);
 						transitioning = false;
 					};

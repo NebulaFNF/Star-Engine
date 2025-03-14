@@ -272,11 +272,7 @@ class PauseSubState extends MusicBeatSubstate
 						MusicBeatState.switchState(new FreeplayState());
 					}
 					PlayState.cancelMusicFadeTween();
-					if (!TitleState.mustUpdate) {
-						FlxG.sound.playMusic(Paths.music('freakyMenu'));
-					} else {
-						FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-					}
+					FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 					PlayState.changedDifficulty = false;
 					PlayState.chartingMode = false;
 			}

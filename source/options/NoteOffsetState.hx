@@ -352,11 +352,7 @@ class NoteOffsetState extends MusicBeatState
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
 			MusicBeatState.switchState(new options.OptionsState());
-			if (!TitleState.mustUpdate) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			} else {
-				FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-			}
+			FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'), 1, true);
 			FlxG.mouse.visible = false;
 		}
 

@@ -69,11 +69,7 @@ class GitarooPause extends MusicBeatState
 				PlayState.deathCounter = 0;
 				PlayState.cpuControlled = false;
 				MusicBeatState.switchState(new MainMenuState());
-				if (!TitleState.mustUpdate) {
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
-				} else {
-					FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-				}
+				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 			}
 		}
 
