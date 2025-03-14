@@ -135,6 +135,7 @@ class ClientPrefs {
         FlxG.save.data.iconBounceBS = iconBounceBS;
 		FlxG.save.data.noLightStrum = noLightStrum;
 		FlxG.save.data.noBotlag = noBotLag;
+		FlxG.save.data.strumsAreFuckingOffset = strumsAreFuckingOffset;
 				//RENDERING SETTINGS
 
 
@@ -213,6 +214,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.opponentStrums != null) {
 			opponentStrums = FlxG.save.data.opponentStrums;
+		}
+		if(FlxG.save.data.strumsAreFuckingOffset != null) {
+			strumsAreFuckingOffset = FlxG.save.data.strumsAreFuckingOffset;
 		}
 		if(FlxG.save.data.noLightStrum != null) {
 			noLightStrum = FlxG.save.data.noLightStrum;

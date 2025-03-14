@@ -373,6 +373,7 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 		//irisTest.execute();
 		if (ffmpegMode) {
 			FlxG.fixedTimestep = true;
@@ -2503,7 +2504,7 @@ class PlayState extends MusicBeatState
 			case 'Vanilla':
 				scoreTxt.text = "Score:" + songScore;
 			case 'Kade':
-				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks: ' + songMisses + ' | Accuracy : ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | ($ratingFC)'; 
+				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks: ' + songMisses + ' | Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | ($ratingFC)'; 
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
@@ -4420,7 +4421,7 @@ class PlayState extends MusicBeatState
 			spawnNoteSplashOnNote(note);
 		}
 
-		if(!practiceMode && !cpuControlled) {
+		if(!practiceMode) {
 			songScore += score;
 			if(!note.ratingDisabled)
 			{
@@ -4972,7 +4973,7 @@ class PlayState extends MusicBeatState
 			{
 				combo += 1;
 				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999; // i don't know how this actually works lmfao
-				if(!ClientPrefs.noBotLag) popUpScore(note);
+				popUpScore(note);
 			}
 			health += note.hitHealth * healthGain;
 
@@ -5008,7 +5009,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if(cpuControlled) {
+			if(cpuControlled && !ClientPrefs.noLightStrum) {
 				var time:Float = 0.15;
 				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 					time += 0.15;
@@ -5388,7 +5389,7 @@ class PlayState extends MusicBeatState
 				}
 		}
 
-		if (curBeat % 8 == 7
+		/*if (curBeat % 8 == 7
 			&& ClientPrefs.noteComboBullshit
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& combo > 5
@@ -5405,7 +5406,7 @@ class PlayState extends MusicBeatState
 			{
 				animShit.forceFinish();
 			});
-		}
+		}*/
 
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {

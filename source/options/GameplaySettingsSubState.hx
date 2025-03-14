@@ -63,12 +63,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		var option:Option = new Option('Note Combo',
+		/*var option:Option = new Option('Note Combo',
 			'If checked, adds the Note Combo feature.',
 			'noteComboBullshit',
 			'bool',
 			true);
-		addOption(option);
+		addOption(option);*/
 
 		var option:Option = new Option('Ghost Tapping',
 			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",

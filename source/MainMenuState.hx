@@ -73,6 +73,7 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		//beatHit();
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
@@ -240,9 +241,8 @@ class MainMenuState extends MusicBeatState
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		super.beatHit();
 		grid.alpha == 1;
-		FlxG.camera.zoom += 0.015;
-		FlxTween.tween(grid, {alpha: 0.65}, Conductor.crochet / 1200, {ease: FlxEase.quadOut});
-		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 1200, {ease: FlxEase.quadOut});
+		FlxG.camera.zoom += 0.2;
+		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 1200, {ease: FlxEase.expoOut});
 	}
 
 	override function update(elapsed:Float)
