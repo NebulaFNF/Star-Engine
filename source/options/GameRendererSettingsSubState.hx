@@ -1,31 +1,9 @@
 package options;
 
-#if desktop
-import Discord;
-#end
-
-import flash.text.TextField;
-import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import lime.utils.Assets;
-import flixel.FlxSubState;
-import flixel.util.FlxSave;
-import haxe.Json;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
-import flixel.input.keyboard.FlxKey;
-import flixel.graphics.FlxGraphic;
-import Controls;
-import openfl.Lib;
-
-using StringTools;
+import flixel.math.FlxMath;
 
 class GameRendererSettingsSubState extends BaseOptionsMenu {
 	var fpsOption:Option;
@@ -70,15 +48,12 @@ class GameRendererSettingsSubState extends BaseOptionsMenu {
 		var option:Option = new Option('No Screenshot', "If checked, Skip taking of screenshot.\nIt's a function for debug.", 'noCapture', 'bool', false);
 		addOption(option);
 
-		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 		super();
 	}
 
-	function onChangeFramerate() {
+	function onChangeFramerate()
 		fpsOption.scrollSpeed = fpsOption.getValue() / 2;
-	}
 
-	function resetTimeScale() {
+	function resetTimeScale()
 		FlxG.timeScale = 1;
-	}
 }
