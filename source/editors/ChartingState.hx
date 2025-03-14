@@ -1893,7 +1893,11 @@ class ChartingState extends MusicBeatState
 			if (FlxG.keys.justPressed.BACKSPACE) {
 				PlayState.chartingMode = false;
 				MusicBeatState.switchState(new editors.MasterEditorMenu());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				if (!TitleState.mustUpdate) {
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				} else {
+					FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
+				}
 				FlxG.mouse.visible = false;
 				return;
 			}

@@ -1577,7 +1577,11 @@ class FunkinLua {
 			else
 				MusicBeatState.switchState(new FreeplayState());
 
-			FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			if (!TitleState.mustUpdate) {
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			} else {
+				FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
+			}
 			PlayState.changedDifficulty = false;
 			PlayState.chartingMode = false;
 			PlayState.instance.transitioning = true;

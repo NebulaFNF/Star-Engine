@@ -4234,7 +4234,11 @@ class PlayState extends MusicBeatState
 				if (storyPlaylist.length <= 0)
 				{
 					WeekData.loadTheFirstEnabledMod();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					if (!TitleState.mustUpdate) {
+						FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					} else {
+						FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
+					}
 
 					cancelMusicFadeTween();
 					if(FlxTransitionableState.skipNextTransIn) {
@@ -4304,7 +4308,11 @@ class PlayState extends MusicBeatState
 					CustomFadeTransition.nextCamera = null;
 				}
 				MusicBeatState.switchState(new FreeplayState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				if (!TitleState.mustUpdate) {
+					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				} else {
+					FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
+				}
 				changedDifficulty = false;
 			}
 			transitioning = true;
@@ -4420,7 +4428,7 @@ class PlayState extends MusicBeatState
 		}
 
 		//Lame NBL
-		if (!cpuControlled) return;
+		if (cpuControlled) return;
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
