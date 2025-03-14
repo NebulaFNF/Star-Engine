@@ -2,16 +2,9 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.text.FlxTypeText;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
-import flixel.input.FlxKeyManager;
-import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import flixel.FlxSubState;
 import haxe.Json;
-import haxe.format.JsonParser;
 import Alphabet;
 #if sys
 import sys.FileSystem;
@@ -93,15 +86,10 @@ class DialogueCharacter extends FlxSprite
 
 		#if MODS_ALLOWED
 		var path:String = Paths.modFolders(characterPath);
-		if (!FileSystem.exists(path)) {
-			path = Paths.getPreloadPath(characterPath);
-		}
+		if (!FileSystem.exists(path)) path = Paths.getPreloadPath(characterPath);
 
-		if(!FileSystem.exists(path)) {
-			path = Paths.getPreloadPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
-		}
+		if(!FileSystem.exists(path)) path = Paths.getPreloadPath('images/dialogue/' + DEFAULT_CHARACTER + '.json');
 		rawJson = File.getContent(path);
-
 		#else
 		var path:String = Paths.getPreloadPath(characterPath);
 		rawJson = Assets.getText(path);
@@ -125,31 +113,20 @@ class DialogueCharacter extends FlxSprite
 		var leAnim:String = animName;
 		if(animName == null || !dialogueAnimations.exists(animName)) { //Anim is null, get a random animation
 			var arrayAnims:Array<String> = [];
-			for (anim in dialogueAnimations) {
-				arrayAnims.push(anim.anim);
-			}
-			if(arrayAnims.length > 0) {
-				leAnim = arrayAnims[FlxG.random.int(0, arrayAnims.length-1)];
-			}
+			for (anim in dialogueAnimations) arrayAnims.push(anim.anim);
+			if(arrayAnims.length > 0) leAnim = arrayAnims[FlxG.random.int(0, arrayAnims.length-1)];
 		}
 
 		if(dialogueAnimations.exists(leAnim) &&
 		(dialogueAnimations.get(leAnim).loop_name == null ||
 		dialogueAnimations.get(leAnim).loop_name.length < 1 ||
-		dialogueAnimations.get(leAnim).loop_name == dialogueAnimations.get(leAnim).idle_name)) {
-			playIdle = true;
-		}
+		dialogueAnimations.get(leAnim).loop_name == dialogueAnimations.get(leAnim).idle_name)) playIdle = true;
 		animation.play(playIdle ? leAnim + IDLE_SUFFIX : leAnim, false);
 
 		if(dialogueAnimations.exists(leAnim)) {
 			var anim:DialogueAnimArray = dialogueAnimations.get(leAnim);
-			if(playIdle) {
-				offset.set(anim.idle_offsets[0], anim.idle_offsets[1]);
-				//trace('Setting idle offsets: ' + anim.idle_offsets);
-			} else {
-				offset.set(anim.loop_offsets[0], anim.loop_offsets[1]);
-				//trace('Setting loop offsets: ' + anim.loop_offsets);
-			}
+			if(playIdle) offset.set(anim.idle_offsets[0], anim.idle_offsets[1]);
+			else offset.set(anim.loop_offsets[0], anim.loop_offsets[1]);
 		} else {
 			offset.set(0, 0);
 			trace('Offsets not found! Dialogue character is badly formatted, anim: ' + leAnim + ', ' + (playIdle ? 'idle anim' : 'loop anim'));
@@ -245,9 +222,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 		for (i in 0...dialogueList.dialogue.length) {
 			if(dialogueList.dialogue[i] != null) {
 				var charToAdd:String = dialogueList.dialogue[i].portrait;
-				if(!charsMap.exists(charToAdd) || !charsMap.get(charToAdd)) {
-					charsMap.set(charToAdd, true);
-				}
+				if(!charsMap.exists(charToAdd) || !charsMap.get(charToAdd)) charsMap.set(charToAdd, true);
 			}
 		}
 
@@ -331,31 +306,22 @@ class DialogueBoxPsych extends FlxSpriteGroup
 					}
 					updateBoxOffsets(box);
 					FlxG.sound.music.fadeOut(1, 0);
-				} else {
-					startNextDialog();
-				}
+				} else startNextDialog();
 				FlxG.sound.play(Paths.sound(closeSound), closeVolume);
 			} else if(daText.finishedText) {
 				var char:DialogueCharacter = arrayCharacters[lastCharacter];
-				if(char != null && char.animation.curAnim != null && char.animationIsLoop() && char.animation.finished) {
-					char.playAnim(char.animation.curAnim.name, true);
-				}
+				if(char != null && char.animation.curAnim != null && char.animationIsLoop() && char.animation.finished) char.playAnim(char.animation.curAnim.name, true);
 			} else {
 				var char:DialogueCharacter = arrayCharacters[lastCharacter];
-				if(char != null && char.animation.curAnim != null && char.animation.finished) {
-					char.animation.curAnim.restart();
-				}
+				if(char != null && char.animation.curAnim != null && char.animation.finished) char.animation.curAnim.restart();
 			}
 
 			if(box.animation.curAnim.finished) {
 				for (i in 0...textBoxTypes.length) {
 					var checkArray:Array<String> = ['', 'center-'];
 					var animName:String = box.animation.curAnim.name;
-					for (j in 0...checkArray.length) {
-						if(animName == checkArray[j] + textBoxTypes[i] || animName == checkArray[j] + textBoxTypes[i] + 'Open') {
-							box.animation.play(checkArray[j] + textBoxTypes[i], true);
-						}
-					}
+					for (j in 0...checkArray.length)
+						if(animName == checkArray[j] + textBoxTypes[i] || animName == checkArray[j] + textBoxTypes[i] + 'Open') box.animation.play(checkArray[j] + textBoxTypes[i], true);
 				}
 				updateBoxOffsets(box);
 			}
@@ -418,12 +384,9 @@ class DialogueBoxPsych extends FlxSpriteGroup
 				var leChar:DialogueCharacter = arrayCharacters[i];
 				if(leChar != null) {
 					switch(arrayCharacters[i].jsonFile.dialogue_pos) {
-						case 'left':
-							leChar.x -= scrollSpeed * elapsed;
-						case 'center':
-							leChar.y += scrollSpeed * elapsed;
-						case 'right':
-							leChar.x += scrollSpeed * elapsed;
+						case 'left':   leChar.x -= scrollSpeed * elapsed;
+						case 'center': leChar.y += scrollSpeed * elapsed;
+						case 'right':  leChar.x += scrollSpeed * elapsed;
 					}
 					leChar.alpha -= elapsed * 10;
 				}
@@ -461,11 +424,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 
 		var animName:String = curDialogue.boxState;
 		var boxType:String = textBoxTypes[0];
-		for (i in 0...textBoxTypes.length) {
-			if(textBoxTypes[i] == animName) {
-				boxType = animName;
-			}
-		}
+		for (i in 0...textBoxTypes.length) if(textBoxTypes[i] == animName) boxType = animName;
 
 		var character:Int = 0;
 		box.visible = true;
@@ -509,17 +468,12 @@ class DialogueBoxPsych extends FlxSpriteGroup
 		}
 		currentText++;
 
-		if(nextDialogueThing != null) {
-			nextDialogueThing();
-		}
+		if(nextDialogueThing != null) nextDialogueThing();
 	}
 
 	public static function parseDialogue(path:String):DialogueFile {
 		#if MODS_ALLOWED
-		if(FileSystem.exists(path))
-		{
-			return cast Json.parse(File.getContent(path));
-		}
+		if(FileSystem.exists(path)) return cast Json.parse(File.getContent(path));
 		#end
 		return cast Json.parse(Assets.getText(path));
 	}
@@ -527,13 +481,9 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	public static function updateBoxOffsets(box:FlxSprite) { //Had to make it static because of the editors
 		box.centerOffsets();
 		box.updateHitbox();
-		if(box.animation.curAnim.name.startsWith('angry')) {
-			box.offset.set(50, 65);
-		} else if(box.animation.curAnim.name.startsWith('center-angry')) {
-			box.offset.set(50, 30);
-		} else {
-			box.offset.set(10, 0);
-		}
+		if(box.animation.curAnim.name.startsWith('angry')) box.offset.set(50, 65);
+		else if(box.animation.curAnim.name.startsWith('center-angry')) box.offset.set(50, 30);
+		else box.offset.set(10, 0);
 		
 		if(!box.flipX) box.offset.y += 10;
 	}

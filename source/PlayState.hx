@@ -46,6 +46,7 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
+import Sys.sleep;
 import shaderslmfao.*;
 
 import crowplexus.iris.Iris;
@@ -185,6 +186,7 @@ class PlayState extends MusicBeatState
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
 	public var combo:Int = 0;
+	var noteCombo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -4234,7 +4236,7 @@ class PlayState extends MusicBeatState
 				if (storyPlaylist.length <= 0)
 				{
 					WeekData.loadTheFirstEnabledMod();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 
 					cancelMusicFadeTween();
 					if(FlxTransitionableState.skipNextTransIn) {
@@ -4304,7 +4306,7 @@ class PlayState extends MusicBeatState
 					CustomFadeTransition.nextCamera = null;
 				}
 				MusicBeatState.switchState(new FreeplayState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 				changedDifficulty = false;
 			}
 			transitioning = true;
@@ -4420,7 +4422,7 @@ class PlayState extends MusicBeatState
 		}
 
 		//Lame NBL
-		if (!cpuControlled) return;
+		if (cpuControlled) return;
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
@@ -4764,10 +4766,7 @@ class PlayState extends MusicBeatState
 	private function parseKeys(?suffix:String = ''):Array<Bool>
 	{
 		var ret:Array<Bool> = [];
-		for (i in 0...controlArray.length)
-		{
-			ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
-		}
+		for (i in 0...controlArray.length) ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
 		return ret;
 	}
 
@@ -4781,6 +4780,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 		combo = 0;
+		noteCombo = 0;
 		health -= daNote.missHealth * healthLoss;
 		
 		if(instakillOnMiss)
@@ -4950,7 +4950,8 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote)
 			{
-				combo += 1;
+				combo++;
+				noteCombo++;
 				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999; // i don't know how this actually works lmfao
 				popUpScore(note);
 			}
@@ -5365,14 +5366,18 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		// Conductor.songPosition > (((240 / Conductor.bpm)*1000)*(curSection+1))-200
+		// leaving this there incase if i find a solution
 		if (curBeat % 8 == 7
 			//&& ClientPrefs.noteComboBullshit
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
-			&& combo > 5
+			&& noteCombo > 5
 			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
 			&& !chartingMode)
 		{
-			var animShit:ComboCounter = new ComboCounter(-100, 300, combo);
+
+			var animShit:ComboCounter = new ComboCounter(-100, 300, noteCombo);
+			noteCombo = 0;
 			animShit.scrollFactor.set(0.6, 0.6);
 			add(animShit);
 

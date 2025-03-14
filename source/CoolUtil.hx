@@ -2,16 +2,10 @@ package;
 
 import flixel.FlxG;
 import openfl.utils.Assets;
-import lime.utils.Assets as LimeAssets;
-import lime.utils.AssetLibrary;
-import lime.utils.AssetManifest;
-import flixel.system.FlxSound;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
-#else
-import openfl.utils.Assets;
 #end
 
 using StringTools;
@@ -39,89 +33,33 @@ class CoolUtil
 		if(num == null) num = PlayState.storyDifficulty;
 
 		var fileSuffix:String = difficulties[num];
-		if(fileSuffix != defaultDifficulty)
-		{
-			fileSuffix = '-' + fileSuffix;
-		}
-		else
-		{
-			fileSuffix = '';
-		}
+		if(fileSuffix != defaultDifficulty) fileSuffix = '-' + fileSuffix;
+		else fileSuffix = '';
 		return Paths.formatToSongPath(fileSuffix);
 	}
 
 	public static function zeroFill(value:Int, digits:Int) {
-
-
 		var length:Int = Std.string(value).length;
-
-
 		var format:String = "";
 
-
 		if(length < digits) {
-
-
-			for (i in 0...(digits - length))
-
-
-				format += "0";
-
-
+			for (i in 0...(digits - length)) format += "0";
 			format += Std.string(value);
-
-
 		} else format = Std.string(value);
-
-
 		return format;
-
-
 	}
 
-
-
-
-
 	public static function floatToStringPrecision(n:Float, prec:Int){
-
-
 		n = Math.round(n * Math.pow(10, prec));
-
-
 		var str = ''+n;
-
-
 		var len = str.length;
-
-
 		if(len <= prec){
-
-
 			while(len < prec){
-
-
 				str = '0'+str;
-
-
 				len++;
-
-
 			}
-
-
 			return '0.'+str;
-
-
-		}else{
-
-
-			return str.substr(0, str.length-prec) + '.'+str.substr(str.length-prec);
-
-
-		}
-
-
+		}else return str.substr(0, str.length-prec) + '.'+str.substr(str.length-prec);
 	}
 	
 	// i took this from js engine
@@ -154,13 +92,10 @@ class CoolUtil
 	
 
 	public static function difficultyString():String
-	{
 		return difficulties[PlayState.storyDifficulty].toUpperCase();
-	}
 
-	inline public static function boundTo(value:Float, min:Float, max:Float):Float {
+	inline public static function boundTo(value:Float, min:Float, max:Float):Float
 		return Math.max(min, Math.min(max, value));
-	}
 
 	public static function coolTextFile(path:String):Array<String>
 	{
@@ -172,9 +107,7 @@ class CoolUtil
 		#end
 
 		for (i in 0...daList.length)
-		{
 			daList[i] = daList[i].trim();
-		}
 
 		return daList;
 	}
@@ -184,9 +117,7 @@ class CoolUtil
 		daList = string.trim().split('\n');
 
 		for (i in 0...daList.length)
-		{
 			daList[i] = daList[i].trim();
-		}
 
 		return daList;
 	}
@@ -194,16 +125,17 @@ class CoolUtil
 		var countByColor:Map<Int, Int> = [];
 		for(col in 0...sprite.frameWidth){
 			for(row in 0...sprite.frameHeight){
-			  var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
-			  if(colorOfThisPixel != 0){
-				  if(countByColor.exists(colorOfThisPixel)){
-				    countByColor[colorOfThisPixel] =  countByColor[colorOfThisPixel] + 1;
-				  }else if(countByColor[colorOfThisPixel] != 13520687 - (2*13520687)){
-					 countByColor[colorOfThisPixel] = 1;
-				  }
-			  }
+			    var colorOfThisPixel:Int = sprite.pixels.getPixel32(col, row);
+
+			    if(colorOfThisPixel != 0){
+			    	if(countByColor.exists(colorOfThisPixel)){
+				    	countByColor[colorOfThisPixel] =  countByColor[colorOfThisPixel] + 1;
+				    } else if(countByColor[colorOfThisPixel] != 13520687 - (2*13520687)){
+					    countByColor[colorOfThisPixel] = 1;
+				    }
+			    }
 			}
-		 }
+		}
 		var maxCount = 0;
 		var maxKey:Int = 0;//after the loop this will store the max color
 		countByColor[flixel.util.FlxColor.BLACK] = 0;
@@ -219,21 +151,16 @@ class CoolUtil
 	public static function numberArray(max:Int, ?min = 0):Array<Int>
 	{
 		var dumbArray:Array<Int> = [];
-		for (i in min...max)
-		{
-			dumbArray.push(i);
-		}
+		for (i in min...max) dumbArray.push(i);
 		return dumbArray;
 	}
 
 	//uhhhh does this even work at all? i'm starting to doubt
-	public static function precacheSound(sound:String, ?library:String = null):Void {
+	public static function precacheSound(sound:String, ?library:String = null):Void
 		Paths.sound(sound, library);
-	}
 
-	public static function precacheMusic(sound:String, ?library:String = null):Void {
+	public static function precacheMusic(sound:String, ?library:String = null):Void
 		Paths.music(sound, library);
-	}
 
 	public static function browserLoad(site:String) {
 		#if linux
