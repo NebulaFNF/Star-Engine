@@ -130,12 +130,12 @@ class MainMenuState extends MusicBeatState
 		add(grid);
 		add(freeplayBoyfriend);
 
-		var freeplayBoyfriendAgain:FlxAnimate = new FlxAnimate(90, 60, "assets/images/freeplay-boyfriend");
-		freeplayBoyfriendAgain.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 90, 60, 24);
-		freeplayBoyfriendAgain.antialiasing = true;
-		freeplayBoyfriendAgain.screenCenter();
-		freeplayBoyfriendAgain.setGraphicSize(Std.int(freeplayBoyfriendAgain.width * 1.5));
-		freeplayBoyfriendAgain.scrollFactor.set(0, 0);
+		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(90, 60, "assets/images/freeplay-boyfriend");
+		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 90, 60, 24);
+		freeplayBoyfriend.antialiasing = true;
+		freeplayBoyfriend.screenCenter();
+		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 1.5));
+		freeplayBoyfriend.scrollFactor.set(0, 0);
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('aboutMenu', 'preload'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
@@ -145,14 +145,13 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
-		freeplayBoyfriendAgain.anim.play("Boyfriend DJ");
-		add(freeplayBoyfriendAgain);
+		freeplayBoyfriend.anim.play("Boyfriend DJ");
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
 		add(grid);
-		add(freeplayBoyfriendAgain);
+		add(freeplayBoyfriend);
 		
 		// magenta.scrollFactor.set();
 
@@ -277,7 +276,8 @@ class MainMenuState extends MusicBeatState
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if(ClientPrefs.flashing)
+						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
