@@ -1,4 +1,4 @@
-# WARNING : THIS IS THE MOBILE BRANCH MADE BY @mcagabe19. AND ALL CREDITS GOES TO HER.
+# WARNING : THIS IS THE MOBILE BRANCH MADE BY [@mcagabe19](https://github.com/mcagabe19). AND ALL CREDITS GOES TO HER.
 
 <h1 align="center">
   <br>
