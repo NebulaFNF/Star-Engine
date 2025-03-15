@@ -30,20 +30,12 @@ class Conductor
 	public static var bpmChangeMap:Array<BPMChangeEvent> = [];
 	public static var timeScale:Float = Conductor.safeZoneOffset / 166;
 
-	public function new()
-	{
-	}
+	public function new() {}
 
 	public static function judgeNote(note:Note, diff:Float=0):Rating // die
 	{
 		var data:Array<Rating> = PlayState.instance.ratingsData; //shortening cuz fuck u
-		for(i in 0...data.length-1) //skips last window (Shit)
-		{
-			if (diff <= data[i].hitWindow)
-			{
-				return data[i];
-			}
-		}
+		for(i in 0...data.length-1) if (diff <= data[i].hitWindow) return data[i];
 		return data[data.length - 1];
 	}
 
@@ -59,11 +51,7 @@ class Conductor
 			bpm: bpm,
 			stepCrochet: stepCrochet
 		}
-		for (i in 0...Conductor.bpmChangeMap.length)
-		{
-			if (time >= Conductor.bpmChangeMap[i].songTime)
-				lastChange = Conductor.bpmChangeMap[i];
-		}
+		for (i in 0...Conductor.bpmChangeMap.length) if (time >= Conductor.bpmChangeMap[i].songTime) lastChange = Conductor.bpmChangeMap[i];
 
 		return lastChange;
 	}
@@ -75,11 +63,7 @@ class Conductor
 			bpm: bpm,
 			stepCrochet: stepCrochet
 		}
-		for (i in 0...Conductor.bpmChangeMap.length)
-		{
-			if (Conductor.bpmChangeMap[i].stepTime<=step)
-				lastChange = Conductor.bpmChangeMap[i];
-		}
+		for (i in 0...Conductor.bpmChangeMap.length) if (Conductor.bpmChangeMap[i].stepTime<=step) lastChange = Conductor.bpmChangeMap[i];
 
 		return lastChange;
 	}
@@ -100,13 +84,11 @@ class Conductor
 		return lastChange.stepTime + Math.floor(time - lastChange.songTime) / lastChange.stepCrochet;
 	}
 
-	public static function getBeat(time:Float){
+	public static function getBeat(time:Float)
 		return getStep(time)/4;
-	}
 
-	public static function getBeatRounded(time:Float):Int{
+	public static function getBeatRounded(time:Float):Int
 		return Math.floor(getStepRounded(time)/4);
-	}
 
 	public static function mapBPMChanges(song:SwagSong)
 	{
@@ -133,7 +115,7 @@ class Conductor
 			totalSteps += deltaSteps;
 			totalPos += ((60 / curBPM) * 1000 / 4) * deltaSteps;
 		}
-		trace("new BPM map BUDDY " + bpmChangeMap);
+		trace('new BPM map BUDDY: $bpmChangeMap');
 	}
 
 	static function getSectionBeats(song:SwagSong, section:Int)
@@ -143,9 +125,8 @@ class Conductor
 		return val != null ? val : 4;
 	}
 
-	inline public static function calculateCrochet(bpm:Float){
+	inline public static function calculateCrochet(bpm:Float)
 		return (60/bpm)*1000;
-	}
 
 	public static function changeBPM(newBpm:Float)
 	{
@@ -172,14 +153,9 @@ class Rating
 		this.image = name;
 		this.counter = name + 's';
 		this.hitWindow = Reflect.field(ClientPrefs, name + 'Window');
-		if(hitWindow == null)
-		{
-			hitWindow = 0;
-		}
+		if(hitWindow == null) hitWindow = 0;
 	}
 
 	public function increase(blah:Int = 1)
-	{
 		Reflect.setField(PlayState.instance, counter, Reflect.field(PlayState.instance, counter) + blah);
-	}
 }

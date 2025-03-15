@@ -3,9 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.text.FlxTypeText;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxSpriteGroup;
-import flixel.input.FlxKeyManager;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
@@ -57,8 +55,7 @@ class DialogueBox extends FlxSpriteGroup
 		new FlxTimer().start(0.83, function(tmr:FlxTimer)
 		{
 			bgFade.alpha += (1 / 5) * 0.7;
-			if (bgFade.alpha > 0.7)
-				bgFade.alpha = 0.7;
+			if (bgFade.alpha > 0.7) bgFade.alpha = 0.7;
 		}, 5);
 
 		box = new FlxSprite(-20, 45);
@@ -71,6 +68,7 @@ class DialogueBox extends FlxSpriteGroup
 				box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-pixel');
 				box.animation.addByPrefix('normalOpen', 'Text Box Appear', 24, false);
 				box.animation.addByIndices('normal', 'Text Box Appear instance 1', [4], "", 24);
+
 			case 'roses':
 				hasDialog = true;
 				FlxG.sound.play(Paths.sound('ANGRY_TEXT_BOX'));
@@ -92,8 +90,7 @@ class DialogueBox extends FlxSpriteGroup
 
 		this.dialogueList = dialogueList;
 		
-		if (!hasDialog)
-			return;
+		if (!hasDialog) return;
 		
 		portraitLeft = new FlxSprite(-20, 40);
 		portraitLeft.frames = Paths.getSparrowAtlas('weeb/senpaiPortrait');
@@ -127,12 +124,6 @@ class DialogueBox extends FlxSpriteGroup
 		handSelect.visible = false;
 		add(handSelect);
 
-
-		if (!talkingRight)
-		{
-			// box.flipX = true;
-		}
-
 		dropText = new FlxText(242, 502, Std.int(FlxG.width * 0.6), "", 32);
 		dropText.font = 'Pixel Arial 11 Bold';
 		dropText.color = 0xFFD89494;
@@ -152,8 +143,7 @@ class DialogueBox extends FlxSpriteGroup
 	override function update(elapsed:Float)
 	{
 		// HARD CODING CUZ IM STUPDI
-		if (PlayState.SONG.song.toLowerCase() == 'roses')
-			portraitLeft.visible = false;
+		if (PlayState.SONG.song.toLowerCase() == 'roses') portraitLeft.visible = false;
 		if (PlayState.SONG.song.toLowerCase() == 'thorns')
 		{
 			portraitLeft.visible = false;
@@ -189,8 +179,7 @@ class DialogueBox extends FlxSpriteGroup
 						isEnding = true;
 						FlxG.sound.play(Paths.sound('clickText'), 0.8);	
 
-						if (PlayState.SONG.song.toLowerCase() == 'senpai' || PlayState.SONG.song.toLowerCase() == 'thorns')
-							FlxG.sound.music.fadeOut(1.5, 0);
+						if (PlayState.SONG.song.toLowerCase() == 'senpai' || PlayState.SONG.song.toLowerCase() == 'thorns') FlxG.sound.music.fadeOut(1.5, 0);
 
 						new FlxTimer().start(0.2, function(tmr:FlxTimer)
 						{
@@ -222,9 +211,7 @@ class DialogueBox extends FlxSpriteGroup
 				FlxG.sound.play(Paths.sound('clickText'), 0.8);
 				swagDialogue.skip();
 				
-				if(skipDialogueThing != null) {
-					skipDialogueThing();
-				}
+				if(skipDialogueThing != null) skipDialogueThing();
 			}
 		}
 		
@@ -267,9 +254,7 @@ class DialogueBox extends FlxSpriteGroup
 					portraitRight.animation.play('enter');
 				}
 		}
-		if(nextDialogueThing != null) {
-			nextDialogueThing();
-		}
+		if(nextDialogueThing != null) nextDialogueThing();
 	}
 
 	function cleanDialog():Void

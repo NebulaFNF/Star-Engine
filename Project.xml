@@ -204,6 +204,9 @@
 	<!--Allow working memory greater than 1 Gig. NOTE: i recommend using Flixel 5.2.2 for this to work!-->
 	<haxedef name="HXCPP_GC_BIG_BLOCKS" if="cpp"/>
 
+	<!-- I hate the warnings bruh -->
+	<haxedef name='no-deprecation-warnings' unless="debug" />
+
 	<!-- _________________________________ Custom _______________________________ -->
 
 	<!--Place custom nodes like icons here (higher priority to override the HaxeFlixel icon)-->

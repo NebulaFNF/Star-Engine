@@ -1,7 +1,6 @@
 package;
 
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 
 class CheckboxThingie extends FlxSprite
 {
@@ -31,9 +30,7 @@ class CheckboxThingie extends FlxSprite
 	override function update(elapsed:Float) {
 		if (sprTracker != null) {
 			setPosition(sprTracker.x - 130 + offsetX, sprTracker.y + 30 + offsetY);
-			if(copyAlpha) {
-				alpha = sprTracker.alpha;
-			}
+			if(copyAlpha) alpha = sprTracker.alpha;
 		}
 		super.update(elapsed);
 	}

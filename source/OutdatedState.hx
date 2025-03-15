@@ -23,17 +23,26 @@ class OutdatedState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
 
+		FlxG.sound.playMusic(Paths.music('lastDay'), 0); //Shoutouts to Koji Kondo!
+
+		if(FlxG.sound.music == null) {
+			FlxG.sound.playMusic(Paths.music('lastDay'), 0); //Shoutouts to Koji Kondo!
+			FlxG.sound.music.fadeIn(4, 0, 0.7);
+		}
+
 		warnText = new FlxText(0, 0, FlxG.width,
-			"You're using an 	\n
+			"You're using an\n
 			outdated version of Star Engine (" + MainMenuState.psychEngineVersion + "),\n
 			please update to " + TitleState.updateVersion + " if you want to!\n
 			Press ESCAPE to proceed anyway.\n
 			\n
 			Thank you for using the Engine!",
 			32);
-		warnText.setFormat("Comic Sans MS Bold", 32, FlxColor.WHITE, CENTER);
+		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
 		add(warnText);
+
+		FlxG.sound.playMusic(Paths.music('finalHours'));
 	}
 
 	override function update(elapsed:Float)

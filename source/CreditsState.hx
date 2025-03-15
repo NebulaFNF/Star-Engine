@@ -3,10 +3,8 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flash.text.TextField;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
@@ -17,7 +15,6 @@ import flixel.tweens.FlxEase;
 import sys.FileSystem;
 import sys.io.File;
 #end
-import lime.utils.Assets;
 
 using StringTools;
 
@@ -74,10 +71,7 @@ class CreditsState extends MusicBeatState
 
 		var arrayOfFolders:Array<String> = Paths.getModDirectories();
 		arrayOfFolders.push('');
-		for (folder in arrayOfFolders)
-		{
-			pushModCreditsToList(folder);
-		}
+		for (folder in arrayOfFolders) pushModCreditsToList(folder);
 		#end
 
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
@@ -122,9 +116,7 @@ class CreditsState extends MusicBeatState
 			['kawaisprite',			'kawaisprite',		"Composer of Friday Night Funkin'",								'https://twitter.com/kawaisprite',		'378FC7']
 		];
 		
-		for(i in pisspoop){
-			creditsStuff.push(i);
-		}
+		for(i in pisspoop) creditsStuff.push(i);
 	
 		for (i in 0...creditsStuff.length)
 		{
@@ -137,10 +129,7 @@ class CreditsState extends MusicBeatState
 			grpOptions.add(optionText);
 
 			if(isSelectable) {
-				if(creditsStuff[i][5] != null)
-				{
-					Paths.currentModDirectory = creditsStuff[i][5];
-				}
+				if(creditsStuff[i][5] != null) Paths.currentModDirectory = creditsStuff[i][5];
 
 				var icon:AttachedSprite = new AttachedSprite('credits/' + creditsStuff[i][1]);
 				icon.xAdd = optionText.width + 10;
@@ -181,10 +170,7 @@ class CreditsState extends MusicBeatState
 	var holdTime:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (FlxG.sound.music.volume < 0.7)
-		{
-			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-		}
+		if (FlxG.sound.music.volume < 0.7) FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 
 		if(!quitting)
 		{
@@ -213,21 +199,14 @@ class CreditsState extends MusicBeatState
 					holdTime += elapsed;
 					var checkNewHold:Int = Math.floor((holdTime - 0.5) * 10);
 
-					if(holdTime > 0.5 && checkNewHold - checkLastHold > 0)
-					{
-						changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
-					}
+					if(holdTime > 0.5 && checkNewHold - checkLastHold > 0) changeSelection((checkNewHold - checkLastHold) * (controls.UI_UP ? -shiftMult : shiftMult));
 				}
 			}
 
-			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) {
-				CoolUtil.browserLoad(creditsStuff[curSelected][3]);
-			}
+			if(controls.ACCEPT && (creditsStuff[curSelected][3] == null || creditsStuff[curSelected][3].length > 4)) CoolUtil.browserLoad(creditsStuff[curSelected][3]);
 			if (controls.BACK)
 			{
-				if(colorTween != null) {
-					colorTween.cancel();
-				}
+				if(colorTween != null) colorTween.cancel();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				MusicBeatState.switchState(new MainMenuState());
 				quitting = true;
@@ -245,10 +224,7 @@ class CreditsState extends MusicBeatState
 					item.screenCenter(X);
 					item.x = FlxMath.lerp(lastX, item.x - 70, lerpVal);
 				}
-				else
-				{
-					item.x = FlxMath.lerp(item.x, 200 + -40 * Math.abs(item.targetY), lerpVal);
-				}
+				else item.x = FlxMath.lerp(item.x, 200 + -40 * Math.abs(item.targetY), lerpVal);
 			}
 		}
 		super.update(elapsed);
@@ -260,17 +236,13 @@ class CreditsState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 		do {
 			curSelected += change;
-			if (curSelected < 0)
-				curSelected = creditsStuff.length - 1;
-			if (curSelected >= creditsStuff.length)
-				curSelected = 0;
+			if (curSelected < 0) curSelected = creditsStuff.length - 1;
+			if (curSelected >= creditsStuff.length) curSelected = 0;
 		} while(unselectableCheck(curSelected));
 
 		var newColor:Int =  getCurrentBGColor();
 		if(newColor != intendedColor) {
-			if(colorTween != null) {
-				colorTween.cancel();
-			}
+			if(colorTween != null) colorTween.cancel();
 			intendedColor = newColor;
 			colorTween = FlxTween.color(bg, 1, bg.color, intendedColor, {
 				onComplete: function(twn:FlxTween) {
@@ -288,9 +260,7 @@ class CreditsState extends MusicBeatState
 
 			if(!unselectableCheck(bullShit-1)) {
 				item.alpha = 0.6;
-				if (item.targetY == 0) {
-					item.alpha = 1;
-				}
+				if (item.targetY == 0) item.alpha = 1;
 			}
 		}
 
@@ -331,13 +301,9 @@ class CreditsState extends MusicBeatState
 
 	function getCurrentBGColor() {
 		var bgColor:String = creditsStuff[curSelected][4];
-		if(!bgColor.startsWith('0x')) {
-			bgColor = '0xFF' + bgColor;
-		}
+		if(!bgColor.startsWith('0x')) bgColor = '0xFF' + bgColor;
 		return Std.parseInt(bgColor);
 	}
 
-	private function unselectableCheck(num:Int):Bool {
-		return creditsStuff[num].length <= 1;
-	}
+	private function unselectableCheck(num:Int):Bool return creditsStuff[num].length <= 1;
 }

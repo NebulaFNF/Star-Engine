@@ -101,8 +101,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		for(i in optionsArray)
 		{
 			var opt:GameplayOption = i;
-			if (opt.name == name)
-				return opt;
+			if (opt.name == name) return opt;
 		}
 		return null;
 	}

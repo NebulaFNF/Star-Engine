@@ -80,7 +80,7 @@ class TitleState extends MusicBeatState
 	var easterEggKeysBuffer:String = '';
 	#end
 
-	var mustUpdate:Bool = false;
+	public static var mustUpdate:Bool = false;
 
 	var titleJSON:TitleData;
 
@@ -262,12 +262,10 @@ class TitleState extends MusicBeatState
 			// FlxG.sound.list.add(music);
 			// music.play();
 
-			if(FlxG.sound.music == null) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-			}
+			if(FlxG.sound.music == null) FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 		}
 
-		Conductor.changeBPM(115);
+		if (!initialized) Conductor.changeBPM(115);
 		persistentUpdate = true;
 
 		var bg:FlxSprite = new FlxSprite();
@@ -506,6 +504,7 @@ class TitleState extends MusicBeatState
 				new FlxTimer().start(1, function(tmr:FlxTimer)
 				{
 					if (mustUpdate) {
+						Conductor.changeBPM(91);
 						MusicBeatState.switchState(new OutdatedState());
 					} else {
 						MusicBeatState.switchState(new MainMenuState());

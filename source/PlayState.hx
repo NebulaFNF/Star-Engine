@@ -1,29 +1,19 @@
 package;
 
-import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
 #end
 import Section.SwagSection;
 import Song.SwagSong;
-import shaderslmfao.WiggleEffect.WiggleEffectType;
 import shaderslmfao.WiggleEffect;
-import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
-import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.FlxSubState;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.effects.FlxTrail;
-import flixel.addons.effects.FlxTrailArea;
-import flixel.addons.effects.chainable.FlxEffectSprite;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.graphics.atlas.FlxAtlas;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
@@ -33,17 +23,12 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
-import flixel.util.FlxCollision;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import haxe.Json;
 import lime.utils.Assets;
-import openfl.Lib;
-import openfl.display.BlendMode;
-import openfl.display.StageQuality;
-import openfl.display.FPS;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
 import editors.ChartingState;
@@ -51,11 +36,8 @@ import editors.CharacterEditorState;
 import flixel.group.FlxSpriteGroup;
 import flixel.input.keyboard.FlxKey;
 import Note.EventNote;
-import Note.PreloadedChartNote;
 import Note;
 import openfl.events.KeyboardEvent;
-import flixel.effects.particles.FlxEmitter;
-import flixel.effects.particles.FlxParticle;
 import flixel.util.FlxSave;
 import flixel.animation.FlxAnimationController;
 import animateatlas.AtlasFrameMaker;
@@ -64,10 +46,14 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
+import Sys.sleep;
 import shaderslmfao.*;
 
+#if openfl
+import openfl.system.System as ShitSystemLmfao;
+#end
+
 import crowplexus.iris.Iris;
-import crowplexus.iris.IrisConfig;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -204,6 +190,7 @@ class PlayState extends MusicBeatState
 	public var gfSpeed:Int = 1;
 	public var health:Float = 1;
 	public var combo:Int = 0;
+	var noteCombo:Int = 0;
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
@@ -542,8 +529,10 @@ class PlayState extends MusicBeatState
 			};
 		}
 
-		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nFRAMES: trying to figure out this shit so no Client.safeFrames for you :3' + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
-		+ Conductor.timeScale + '\nBOTPLAY : ' + botPlay);
+		var memoryUsageLmfao:Float = 0;
+		memoryUsageLmfao = ShitSystemLmfao.totalMemory;
+		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nSAFE FRAMES: ' + ClientPrefs.safeFrames + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
+		+ Conductor.timeScale + '\nBOTPLAY : ' + ClientPrefs.getGameplaySetting('botplay', false) + '\nMEMORY USAGE: ' + FlxStringUtil.formatBytes(memoryUsageLmfao));
 
 		defaultCamZoom = stageData.defaultZoom;
 		isPixelStage = stageData.isPixelStage;
@@ -4253,7 +4242,7 @@ class PlayState extends MusicBeatState
 				if (storyPlaylist.length <= 0)
 				{
 					WeekData.loadTheFirstEnabledMod();
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 
 					cancelMusicFadeTween();
 					if(FlxTransitionableState.skipNextTransIn) {
@@ -4323,7 +4312,7 @@ class PlayState extends MusicBeatState
 					CustomFadeTransition.nextCamera = null;
 				}
 				MusicBeatState.switchState(new FreeplayState());
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 				changedDifficulty = false;
 			}
 			transitioning = true;
@@ -4417,9 +4406,7 @@ class PlayState extends MusicBeatState
 		score = daRating.score;
 
 		if(daRating.noteSplash && !note.noteSplashDisabled)
-		{
 			spawnNoteSplashOnNote(note);
-		}
 
 		if(!practiceMode) {
 			songScore += score;
@@ -4441,7 +4428,7 @@ class PlayState extends MusicBeatState
 		}
 
 		//Lame NBL
-		if (!cpuControlled) {
+		if (cpuControlled) return;
 		rating.loadGraphic(Paths.image(pixelShitPart1 + daRating.image + pixelShitPart2));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
@@ -4587,7 +4574,7 @@ class PlayState extends MusicBeatState
 			startDelay: Conductor.crochet * 0.002 / playbackRate
 		});
 	}
-	}
+
 	public var strumsBlocked:Array<Bool> = [];
 	private function onKeyPress(event:KeyboardEvent):Void
 	{
@@ -4785,10 +4772,7 @@ class PlayState extends MusicBeatState
 	private function parseKeys(?suffix:String = ''):Array<Bool>
 	{
 		var ret:Array<Bool> = [];
-		for (i in 0...controlArray.length)
-		{
-			ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
-		}
+		for (i in 0...controlArray.length) ret[i] = Reflect.getProperty(controls, controlArray[i] + suffix);
 		return ret;
 	}
 
@@ -4802,6 +4786,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 		combo = 0;
+		noteCombo = 0;
 		health -= daNote.missHealth * healthLoss;
 		
 		if(instakillOnMiss)
@@ -4971,7 +4956,8 @@ class PlayState extends MusicBeatState
 
 			if (!note.isSustainNote)
 			{
-				combo += 1;
+				combo++;
+				noteCombo++;
 				if(!ClientPrefs.deactivateComboLimit && combo > 9999) combo = 9999; // i don't know how this actually works lmfao
 				popUpScore(note);
 			}
@@ -5009,19 +4995,18 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if(cpuControlled && !ClientPrefs.noLightStrum) {
-				var time:Float = 0.15;
-				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
-					time += 0.15;
-				}
-				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
-			} else {
-				var spr = playerStrums.members[note.noteData];
-				if(spr != null)
-				{
-					spr.playAnim('confirm', true);
+			// lunar you could do this but i guess i will
+			if (!ClientPrefs.noLightStrum) {
+				if(cpuControlled) {
+					var time:Float = 0.15;
+					if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 0.15;
+					StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
+				} else {
+					var spr = playerStrums.members[note.noteData];
+					if(spr != null) spr.playAnim('confirm', true);
 				}
 			}
+			
 			note.wasGoodHit = true;
 			if (!ffmpegMode) vocals.volume = 1;
 
@@ -5042,9 +5027,7 @@ class PlayState extends MusicBeatState
 	public function spawnNoteSplashOnNote(note:Note) {
 		if(ClientPrefs.noteSplashes && note != null) {
 			var strum:StrumNote = playerStrums.members[note.noteData];
-			if(strum != null) {
-				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
-			}
+			if(strum != null) spawnNoteSplash(strum.x, strum.y, note.noteData, note);
 		}
 	}
 
@@ -5389,14 +5372,18 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		// Conductor.songPosition > (((240 / Conductor.bpm)*1000)*(curSection+1))-200
+		// leaving this there incase if i find a solution
 		/*if (curBeat % 8 == 7
-			&& ClientPrefs.noteComboBullshit
+			//&& ClientPrefs.noteComboBullshit
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
-			&& combo > 5
+			&& noteCombo > 5
 			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
 			&& !chartingMode)
 		{
-			var animShit:ComboCounter = new ComboCounter(-100, 300, combo);
+
+			var animShit:ComboCounter = new ComboCounter(-100, 300, noteCombo);
+			noteCombo = 0;
 			animShit.scrollFactor.set(0.6, 0.6);
 			add(animShit);
 

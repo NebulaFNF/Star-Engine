@@ -74,7 +74,11 @@ class BenchmarkState extends FlxState
 		if(controls.BACK)
 		{
 			FlxG.switchState(new MasterEditorMenu());
-			FlxG.sound.playMusic(Paths.music('freakyMenu-' + ClientPrefs.daMenuMusic));
+			if (!TitleState.mustUpdate) {
+				FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			} else {
+				FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
+			}
 		}
 		super.update(elapsed);
 	}

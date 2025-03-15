@@ -194,9 +194,7 @@ class FreeplayState extends MusicBeatState
 		add(textBG);
 
 		#if PRELOAD_ALL
-		var leText:String = "SPACE - listen to the Song
-		CTRL - open the Gameplay Changers Menu. 
-		Reset - Reset your Score and Accuracy.";
+		var leText:String = "SPACE - listen to the Song / CTRL - open the Gameplay Changers Menu. / RESET - Reset your Score and Accuracy.";
 		var size:Int = 16;
 		#else
 		var leText:String = "Press CTRL to open the Gameplay Changers Menu
@@ -217,9 +215,7 @@ class FreeplayState extends MusicBeatState
 	}
 
 	public function addSong(songName:String, weekNum:Int, songCharacter:String, color:Int)
-	{
 		songs.push(new SongMetadata(songName, weekNum, songCharacter, color));
-	}
 
 	function weekIsLocked(name:String):Bool {
 		var leWeek:WeekData = WeekData.weeksLoaded.get(name);

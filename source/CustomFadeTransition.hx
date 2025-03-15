@@ -1,16 +1,10 @@
 package;
 
-import Conductor.BPMChangeEvent;
 import flixel.FlxG;
-import flixel.addons.ui.FlxUIState;
-import flixel.math.FlxRect;
-import flixel.util.FlxTimer;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxGradient;
-import flixel.FlxSubState;
 import flixel.FlxSprite;
 import flixel.FlxCamera;
 
@@ -67,17 +61,11 @@ class CustomFadeTransition extends MusicBeatSubstate {
 	}
 
 	override function update(elapsed:Float) {
-		if(isTransIn) {
-			transBlack.y = transGradient.y + transGradient.height;
-		} else {
-			transBlack.y = transGradient.y - transBlack.height;
-		}
+		if(isTransIn) transBlack.y = transGradient.y + transGradient.height;
+		else transBlack.y = transGradient.y - transBlack.height;
 		super.update(elapsed);
-		if(isTransIn) {
-			transBlack.y = transGradient.y + transGradient.height;
-		} else {
-			transBlack.y = transGradient.y - transBlack.height;
-		}
+		if(isTransIn) transBlack.y = transGradient.y + transGradient.height;
+		else transBlack.y = transGradient.y - transBlack.height;
 	}
 
 	override function destroy() {
