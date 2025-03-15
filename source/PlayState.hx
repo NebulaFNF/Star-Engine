@@ -49,6 +49,10 @@ import Conductor.Rating;
 import Sys.sleep;
 import shaderslmfao.*;
 
+#if openfl
+import openfl.system.System as ShitSystemLmfao;
+#end
+
 import crowplexus.iris.Iris;
 
 #if !flash 
@@ -525,8 +529,10 @@ class PlayState extends MusicBeatState
 			};
 		}
 
-		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nFRAMES: trying to figure out this shit so no Client.safeFrames for you :3' + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
-		+ Conductor.timeScale + '\nBOTPLAY : ' + botPlay);
+		var memoryUsageLmfao:Float = 0;
+		memoryUsageLmfao = ShitSystemLmfao.totalMemory;
+		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nSAFE FRAMES: ' + ClientPrefs.safeFrames + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
+		+ Conductor.timeScale + '\nBOTPLAY : ' + ClientPrefs.getGameplaySetting('botplay', false) + '\nMEMORY USAGE: ' + FlxStringUtil.formatBytes(memoryUsageLmfao));
 
 		defaultCamZoom = stageData.defaultZoom;
 		isPixelStage = stageData.isPixelStage;
