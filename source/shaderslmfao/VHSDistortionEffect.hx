@@ -11,7 +11,7 @@ import shaderslmfao.WiggleEffect.WiggleShader;
 
 using StringTools;
 
-class VCRDistortionEffect extends Effect
+class VHSDistortionEffect extends Effect
 {
   public var shader:VCRDistortionShader = new VCRDistortionShader();
   public function new(glitchFactor:Float,distortion:Bool=true,perspectiveOn:Bool=true,vignetteMoving:Bool=true){
