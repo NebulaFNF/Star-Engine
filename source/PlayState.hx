@@ -5374,7 +5374,7 @@ class PlayState extends MusicBeatState
 
 		// Conductor.songPosition > (((240 / Conductor.bpm)*1000)*(curSection+1))-200
 		// leaving this there incase if i find a solution
-		if (curBeat % 8 == 7
+		/*if (curBeat % 8 == 7
 			//&& ClientPrefs.noteComboBullshit
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& noteCombo > 5
@@ -5393,7 +5393,7 @@ class PlayState extends MusicBeatState
 			{
 				animShit.forceFinish();
 			});
-		}
+		}*/
 
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {
