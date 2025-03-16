@@ -137,6 +137,7 @@ class ClientPrefs {
 		FlxG.save.data.seWatermarkLmfao = seWatermarkLmfao;
 		FlxG.save.data.noLightStrum = noLightStrum;
 		FlxG.save.data.noBotlag = noBotLag;
+		FlxG.save.data.smoothHealth = smoothHealth;
 		FlxG.save.data.strumsAreFuckingOffset = strumsAreFuckingOffset;
 				//RENDERING SETTINGS
 
@@ -172,6 +173,7 @@ class ClientPrefs {
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
+		FlxG.save.data.smoothHPBug = smoothHPBug;
 		FlxG.save.data.comboOffset = comboOffset;
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
 		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
@@ -222,6 +224,12 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.strumsAreFuckingOffset != null) {
 			strumsAreFuckingOffset = FlxG.save.data.strumsAreFuckingOffset;
+		}
+		if(FlxG.save.data.smoothHealth != null) {
+			smoothHealth = FlxG.save.data.smoothHealth;
+		}
+		if(FlxG.save.data.smoothHPBug != null) {
+			smoothHPBug = FlxG.save.data.smoothHPBug;
 		}
 		if(FlxG.save.data.noLightStrum != null) {
 			noLightStrum = FlxG.save.data.noLightStrum;
