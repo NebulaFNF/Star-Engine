@@ -84,21 +84,13 @@ class NotesSubState extends MusicBeatSubstate
 					resetValue(curSelected, typeSelected);
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 				}
-				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
-					holdTime = 0;
-				} else if(controls.UI_LEFT || controls.UI_RIGHT) {
-					holdTime += elapsed;
-				}
+				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) holdTime = 0;
+				else if(controls.UI_LEFT || controls.UI_RIGHT) holdTime += elapsed;
 			} else {
 				var add:Float = 90;
-				switch(typeSelected) {
-					case 1 | 2: add = 50;
-				}
-				if(controls.UI_LEFT) {
-					updateValue(elapsed * -add);
-				} else if(controls.UI_RIGHT) {
-					updateValue(elapsed * add);
-				}
+				switch(typeSelected) {case 1 | 2: add = 50;}
+				if(controls.UI_LEFT) updateValue(elapsed * -add);
+				else if(controls.UI_RIGHT) updateValue(elapsed * add);
 				if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
 					FlxG.sound.play(Paths.sound('scrollMenu'));
 					holdTime = 0;
@@ -122,9 +114,7 @@ class NotesSubState extends MusicBeatSubstate
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 			if(controls.RESET) {
-				for (i in 0...3) {
-					resetValue(curSelected, i);
-				}
+				for (i in 0...3) resetValue(curSelected, i);
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 			}
 			if (controls.ACCEPT && nextAccept <= 0) {
@@ -134,16 +124,12 @@ class NotesSubState extends MusicBeatSubstate
 				for (i in 0...grpNumbers.length) {
 					var item = grpNumbers.members[i];
 					item.alpha = 0;
-					if ((curSelected * 3) + typeSelected == i) {
-						item.alpha = 1;
-					}
+					if ((curSelected * 3) + typeSelected == i) item.alpha = 1;
 				}
 				for (i in 0...grpNotes.length) {
 					var item = grpNotes.members[i];
 					item.alpha = 0;
-					if (curSelected == i) {
-						item.alpha = 1;
-					}
+					if (curSelected == i) item.alpha = 1;
 				}
 				super.update(elapsed);
 				return;
@@ -151,27 +137,20 @@ class NotesSubState extends MusicBeatSubstate
 		}
 
 		if (controls.BACK || (changingNote && controls.ACCEPT)) {
-			if(!changingNote) {
-				close();
-			} else {
-				changeSelection();
-			}
+			if(!changingNote) close();
+			else changeSelection();
 			changingNote = false;
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 		}
 
-		if(nextAccept > 0) {
-			nextAccept -= 1;
-		}
+		if(nextAccept > 0) nextAccept -= 1;
 		super.update(elapsed);
 	}
 
 	function changeSelection(change:Int = 0) {
 		curSelected += change;
-		if (curSelected < 0)
-			curSelected = ClientPrefs.arrowHSV.length-1;
-		if (curSelected >= ClientPrefs.arrowHSV.length)
-			curSelected = 0;
+		if (curSelected < 0) curSelected = ClientPrefs.arrowHSV.length-1;
+		if (curSelected >= ClientPrefs.arrowHSV.length) curSelected = 0;
 
 		curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
 		updateValue();
@@ -179,9 +158,7 @@ class NotesSubState extends MusicBeatSubstate
 		for (i in 0...grpNumbers.length) {
 			var item = grpNumbers.members[i];
 			item.alpha = 0.6;
-			if ((curSelected * 3) + typeSelected == i) {
-				item.alpha = 1;
-			}
+			if ((curSelected * 3) + typeSelected == i) item.alpha = 1;
 		}
 		for (i in 0...grpNotes.length) {
 			var item = grpNotes.members[i];
@@ -199,10 +176,8 @@ class NotesSubState extends MusicBeatSubstate
 
 	function changeType(change:Int = 0) {
 		typeSelected += change;
-		if (typeSelected < 0)
-			typeSelected = 2;
-		if (typeSelected > 2)
-			typeSelected = 0;
+		if (typeSelected < 0) typeSelected = 2;
+		if (typeSelected > 2) typeSelected = 0;
 
 		curValue = ClientPrefs.arrowHSV[curSelected][typeSelected];
 		updateValue();
@@ -210,9 +185,7 @@ class NotesSubState extends MusicBeatSubstate
 		for (i in 0...grpNumbers.length) {
 			var item = grpNumbers.members[i];
 			item.alpha = 0.6;
-			if ((curSelected * 3) + typeSelected == i) {
-				item.alpha = 1;
-			}
+			if ((curSelected * 3) + typeSelected == i) item.alpha = 1;
 		}
 	}
 
@@ -229,24 +202,16 @@ class NotesSubState extends MusicBeatSubstate
 		item.text = '0';
 
 		var add = (40 * (item.letters.length - 1)) / 2;
-		for (letter in item.letters)
-		{
-			letter.offset.x += add;
-		}
+		for (letter in item.letters) letter.offset.x += add;
 	}
 	function updateValue(change:Float = 0) {
 		curValue += change;
 		var roundedValue:Int = Math.round(curValue);
 		var max:Float = 180;
-		switch(typeSelected) {
-			case 1 | 2: max = 100;
-		}
+		switch(typeSelected) {case 1 | 2: max = 100;}
 
-		if(roundedValue < -max) {
-			curValue = -max;
-		} else if(roundedValue > max) {
-			curValue = max;
-		}
+		if(roundedValue < -max) curValue = -max;
+		else if(roundedValue > max) curValue = max;
 		roundedValue = Math.round(curValue);
 		ClientPrefs.arrowHSV[curSelected][typeSelected] = roundedValue;
 

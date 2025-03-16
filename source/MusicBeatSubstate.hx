@@ -1,17 +1,10 @@
 package;
 
-import Conductor.BPMChangeEvent;
-import flixel.FlxG;
 import flixel.FlxSubState;
-import flixel.FlxBasic;
-import flixel.FlxSprite;
 
 class MusicBeatSubstate extends FlxSubState
 {
-	public function new()
-	{
-		super();
-	}
+	public function new()super();
 
 	private var lastBeat:Float = 0;
 	private var lastStep:Float = 0;
@@ -34,9 +27,7 @@ class MusicBeatSubstate extends FlxSubState
 		updateCurStep();
 		updateBeat();
 
-		if (oldStep != curStep && curStep > 0)
-			stepHit();
-
+		if (oldStep != curStep && curStep > 0) stepHit();
 
 		super.update(elapsed);
 	}
@@ -56,11 +47,7 @@ class MusicBeatSubstate extends FlxSubState
 		curStep = lastChange.stepTime + Math.floor(shit);
 	}
 
-	public function stepHit():Void
-	{
-		if (curStep % 4 == 0)
-			beatHit();
-	}
+	public function stepHit():Void if (curStep % 4 == 0) beatHit();
 
 	public function beatHit():Void
 	{

@@ -104,9 +104,6 @@ class SUtil
 	}
 
 	public static function copyContent(copyPath:String, savePath:String)
-	{
-		if (!FileSystem.exists(savePath))
-			File.saveBytes(savePath, OpenFlAssets.getBytes(copyPath));
-	}
+		if (!FileSystem.exists(savePath)) File.saveBytes(savePath, OpenFlAssets.getBytes(copyPath));
 	#end
 }

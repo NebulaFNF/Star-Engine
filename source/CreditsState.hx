@@ -184,13 +184,10 @@ class CreditsState extends MusicBeatState
 				var upP = controls.UI_UP_P;
 				var downP = controls.UI_DOWN_P;
 
-				if (upP)
-				{
+				if (upP) {
 					changeSelection(-shiftMult);
 					holdTime = 0;
-				}
-				if (downP)
-				{
+				} if (downP) {
 					changeSelection(shiftMult);
 					holdTime = 0;
 				}

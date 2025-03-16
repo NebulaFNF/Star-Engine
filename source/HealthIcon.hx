@@ -30,8 +30,7 @@ class HealthIcon extends FlxSprite
 	{
 		super.update(elapsed);
 
-		if (sprTracker != null)
-			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
+		if (sprTracker != null) setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
 	}
 
 	public function swapOldIcon() {
@@ -63,20 +62,15 @@ class HealthIcon extends FlxSprite
 			}
 			updateHitbox();
 
-			if (width2 == 450) {
-				animation.add(char, [0, 1, 2], 0, false, isPlayer);
-			} else if (width2 == 300) {
-				animation.add(char, [0, 1], 0, false, isPlayer);
-			} else {
-				animation.add(char, [0, 1], 0, false, isPlayer); // this is kinda dumb but ehhh
-			}
+			if (width2 == 450) animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			else if (width2 == 300) animation.add(char, [0, 1], 0, false, isPlayer);
+			else animation.add(char, [0, 1], 0, false, isPlayer); // this is kinda dumb but ehhh
+
 			animation.play(char);
 			this.char = char;
 
 			antialiasing = ClientPrefs.globalAntialiasing;
-			if(char.endsWith('-pixel')) {
-				antialiasing = false;
-			}
+			if(char.endsWith('-pixel')) antialiasing = false;
 		}
 	}
 
@@ -87,7 +81,5 @@ class HealthIcon extends FlxSprite
 		offset.y = iconOffsets[1];
 	}
 
-	public function getCharacter():String {
-		return char;
-	}
+	public function getCharacter():String return char;
 }

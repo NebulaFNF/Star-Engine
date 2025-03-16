@@ -19,18 +19,12 @@ class BGSprite extends FlxSprite
 				}
 			}
 		} else {
-			if(image != null) {
-				loadGraphic(Paths.image(image));
-			}
+			if(image != null) loadGraphic(Paths.image(image));
 			active = false;
 		}
 		scrollFactor.set(scrollX, scrollY);
 		antialiasing = ClientPrefs.globalAntialiasing;
 	}
 
-	public function dance(?forceplay:Bool = false) {
-		if(idleAnim != null) {
-			animation.play(idleAnim, forceplay);
-		}
-	}
+	public function dance(?forceplay:Bool = false) if(idleAnim != null) animation.play(idleAnim, forceplay);
 }

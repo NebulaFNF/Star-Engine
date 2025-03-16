@@ -36,9 +36,7 @@ class BackgroundGirls extends FlxSprite
 	{
 		danceDir = !danceDir;
 
-		if (danceDir)
-			animation.play('danceRight', true);
-		else
-			animation.play('danceLeft', true);
+		if (danceDir) animation.play('danceRight', true);
+		else animation.play('danceLeft', true);
 	}
 }

@@ -46,7 +46,6 @@ import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import Conductor.Rating;
-import Sys.sleep;
 import shaderslmfao.*;
 
 #if openfl
@@ -2435,7 +2434,7 @@ class PlayState extends MusicBeatState
 				});
 				callOnLuas('onCountdownTick', [swagCounter]);
 
-				swagCounter += 1;
+				swagCounter++;
 				// generateSong('fresh');
 			}, 5);
 		}
@@ -2757,7 +2756,7 @@ class PlayState extends MusicBeatState
 					noteTypeMap.set(swagNote.noteType, true);
 				}
 			}
-			daBeats += 1;
+			daBeats++;
 		}
 		for (event in songData.events) //Event Notes
 		{
@@ -2777,7 +2776,7 @@ class PlayState extends MusicBeatState
 		}
 
 		// trace(unspawnNotes.length);
-		// playerCounter += 1;
+		// playerCounter++;
 
 		unspawnNotes.sort(sortByShit);
 		if(eventNotes.length > 1) { //No need to sort if there's a single one or none at all
@@ -2785,7 +2784,7 @@ class PlayState extends MusicBeatState
 		}
 		checkEventNote();
 		generatedMusic = true;
-		sectionsLoaded += 1;
+		sectionsLoaded++;
 		Sys.print('\rSection $sectionsLoaded loaded!');
 	}
 
@@ -5096,8 +5095,7 @@ class PlayState extends MusicBeatState
 	function trainStart():Void
 	{
 		trainMoving = true;
-		if (!trainSound.playing)
-			trainSound.play(true);
+		if (!trainSound.playing) trainSound.play(true);
 	}
 
 	var startedMoving:Bool = false;
@@ -5121,14 +5119,12 @@ class PlayState extends MusicBeatState
 			if (phillyTrain.x < -2000 && !trainFinishing)
 			{
 				phillyTrain.x = -1150;
-				trainCars -= 1;
+				trainCars--;
 
-				if (trainCars <= 0)
-					trainFinishing = true;
+				if (trainCars <= 0) trainFinishing = true;
 			}
 
-			if (phillyTrain.x < -4000 && trainFinishing)
-				trainReset();
+			if (phillyTrain.x < -4000 && trainFinishing) trainReset();
 		}
 	}
 
@@ -5361,7 +5357,7 @@ class PlayState extends MusicBeatState
 					fastCarDrive();
 			case "philly":
 				if (!trainMoving)
-					trainCooldown += 1;
+					trainCooldown++;
 
 				if (curBeat % 4 == 0)
 				{

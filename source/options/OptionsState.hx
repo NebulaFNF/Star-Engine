@@ -19,22 +19,14 @@ class OptionsState extends MusicBeatState
 
 	function openSelectedSubstate(label:String) {
 		switch(label) {
-			case 'Note Colors':
-				openSubState(new options.NotesSubState());
-			case 'Controls':
-				openSubState(new options.ControlsSubState());
-			case 'Optimization':
-				openSubState(new options.OptimizationSubstate());
-			case 'Game Rendering':
-				openSubState(new options.GameRendererSettingsSubState());
-			case 'Graphics':
-				openSubState(new options.GraphicsSettingsSubState());
-			case 'Visuals and UI':
-				openSubState(new options.VisualsUISubState());
-			case 'Gameplay':
-				openSubState(new options.GameplaySettingsSubState());
-			case 'Adjust Delay and Combo':
-				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
+			case 'Note Colors':            openSubState(new options.NotesSubState());
+			case 'Controls':               openSubState(new options.ControlsSubState());
+			case 'Optimization':           openSubState(new options.OptimizationSubstate());
+			case 'Game Rendering':         openSubState(new options.GameRendererSettingsSubState());
+			case 'Graphics':               openSubState(new options.GraphicsSettingsSubState());
+			case 'Visuals and UI':         openSubState(new options.VisualsUISubState());
+			case 'Gameplay':               openSubState(new options.GameplaySettingsSubState());
+			case 'Adjust Delay and Combo': LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
 	}
 
@@ -84,29 +76,21 @@ class OptionsState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P) {
-			changeSelection(-1);
-		}
-		if (controls.UI_DOWN_P) {
-			changeSelection(1);
-		}
+		if (controls.UI_UP_P) changeSelection(-1);
+		if (controls.UI_DOWN_P) changeSelection(1);
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		if (controls.ACCEPT) {
-			openSelectedSubstate(options[curSelected]);
-		}
+		if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
 	}
 	
 	function changeSelection(change:Int = 0) {
 		curSelected += change;
-		if (curSelected < 0)
-			curSelected = options.length - 1;
-		if (curSelected >= options.length)
-			curSelected = 0;
+		if (curSelected < 0) curSelected = options.length - 1;
+		if (curSelected >= options.length) curSelected = 0;
 
 		var bullShit:Int = 0;
 

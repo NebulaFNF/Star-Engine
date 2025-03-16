@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 
 using StringTools;
 
@@ -113,10 +112,7 @@ class StrumNote extends FlxSprite
 		}
 		updateHitbox();
 
-		if(lastAnim != null)
-		{
-			playAnim(lastAnim, true);
-		}
+		if(lastAnim != null) playAnim(lastAnim, true);
 	}
 
 	public function postAddedToGroup() {
@@ -160,9 +156,7 @@ class StrumNote extends FlxSprite
 				colorSwap.brightness = ClientPrefs.arrowHSV[noteData][2] / 100;
 			}
 
-			if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) {
-				centerOrigin();
-			}
+			if(animation.curAnim.name == 'confirm' && !PlayState.isPixelStage) centerOrigin();
 		}
 	}
 }

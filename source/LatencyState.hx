@@ -45,18 +45,13 @@ class LatencyState extends FlxState
 
 		var multiply:Float = 1;
 
-		if (FlxG.keys.pressed.SHIFT)
-			multiply = 10;
-
-		if (FlxG.keys.justPressed.RIGHT)
-			Conductor.offset += 1 * multiply;
-		if (FlxG.keys.justPressed.LEFT)
-			Conductor.offset -= 1 * multiply;
+		if (FlxG.keys.pressed.SHIFT) multiply = 10;
+		if (FlxG.keys.justPressed.RIGHT) Conductor.offset += 1 * multiply;
+		if (FlxG.keys.justPressed.LEFT)  Conductor.offset -= 1 * multiply;
 
 		if (FlxG.keys.justPressed.SPACE)
 		{
 			FlxG.sound.music.stop();
-
 			FlxG.resetState();
 		}
 
@@ -65,8 +60,7 @@ class LatencyState extends FlxState
 			daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * 0.45);
 			daNote.x = strumLine.x + 30;
 
-			if (daNote.y < strumLine.y)
-				daNote.kill();
+			if (daNote.y < strumLine.y) daNote.kill();
 		});
 
 		super.update(elapsed);

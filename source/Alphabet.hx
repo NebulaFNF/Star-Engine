@@ -49,12 +49,9 @@ class Alphabet extends FlxSpriteGroup
 	{
 		switch(align.toLowerCase().trim())
 		{
-			case 'right':
-				alignment = RIGHT;
-			case 'center' | 'centered':
-				alignment = CENTERED;
-			default:
-				alignment = LEFT;
+			case 'right':               alignment = RIGHT;
+			case 'center' | 'centered': alignment = CENTERED;
+			default:                    alignment = LEFT;
 		}
 	}
 
@@ -72,12 +69,9 @@ class Alphabet extends FlxSpriteGroup
 			var newOffset:Float = 0;
 			switch(alignment)
 			{
-				case CENTERED:
-					newOffset = letter.rowWidth / 2;
-				case RIGHT:
-					newOffset = letter.rowWidth;
-				default:
-					newOffset = 0;
+				case CENTERED: newOffset = letter.rowWidth / 2;
+				case RIGHT:    newOffset = letter.rowWidth;
+				default:       newOffset = 0;
 			}
 	
 			letter.offset.x -= letter.alignOffset;
@@ -157,10 +151,8 @@ class Alphabet extends FlxSpriteGroup
 		if (isMenuItem)
 		{
 			var lerpVal:Float = CoolUtil.boundTo(elapsed * 9.6, 0, 1);
-			if(changeX)
-				x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x, lerpVal);
-			if(changeY)
-				y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
+			if(changeX) x = FlxMath.lerp(x, (targetY * distancePerItem.x) + startPosition.x, lerpVal);
+			if(changeY) y = FlxMath.lerp(y, (targetY * 1.3 * distancePerItem.y) + startPosition.y, lerpVal);
 		}
 		super.update(elapsed);
 	}
@@ -169,10 +161,8 @@ class Alphabet extends FlxSpriteGroup
 	{
 		if (isMenuItem)
 		{
-			if(changeX)
-				x = (targetY * distancePerItem.x) + startPosition.x;
-			if(changeY)
-				y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
+			if(changeX) x = (targetY * distancePerItem.x) + startPosition.x;
+			if(changeY) y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
 		}
 	}
 
@@ -220,9 +210,7 @@ class Alphabet extends FlxSpriteGroup
 					add(letter);
 					letters.push(letter);
 				}
-			}
-			else
-			{
+			} else {
 				xPos = 0;
 				rows++;
 			}
@@ -335,13 +323,9 @@ class AlphaCharacter extends FlxSprite
 		{
 			if(isTypeAlphabet(lowercase))
 			{
-				if(lowercase != character)
-					suffix = ' uppercase';
-				else
-					suffix = ' lowercase';
-			}
-			else
-			{
+				if(lowercase != character) suffix = ' uppercase';
+				else suffix = ' lowercase';
+			} else {
 				suffix = ' normal';
 				if(curLetter != null && curLetter.offsets != null)
 				{
@@ -386,10 +370,7 @@ class AlphaCharacter extends FlxSprite
 	private function set_image(name:String)
 	{
 		var lastAnim:String = null;
-		if (animation != null)
-		{
-			lastAnim = animation.name;
-		}
+		if (animation != null) lastAnim = animation.name;
 		image = name;
 		frames = Paths.getSparrowAtlas(name);
 		this.scale.x = parent.scaleX;
@@ -411,9 +392,6 @@ class AlphaCharacter extends FlxSprite
 	{
 		if (animation.curAnim == null) return;
 
-		if(!animation.curAnim.name.endsWith('bold'))
-		{
-			offset.y += -(110 - height);
-		}
+		if(!animation.curAnim.name.endsWith('bold')) offset.y += -(110 - height);
 	}
 }

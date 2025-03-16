@@ -34,10 +34,7 @@ class DiscordClient
 		DiscordRpc.shutdown();
 	}
 	
-	public static function shutdown()
-	{
-		DiscordRpc.shutdown();
-	}
+	public static function shutdown() DiscordRpc.shutdown();
 	
 	static function onReady()
 	{
@@ -49,15 +46,9 @@ class DiscordClient
 		});
 	}
 
-	static function onError(_code:Int, _message:String)
-	{
-		trace('Uh oh! $_code : $_message');
-	}
+	static function onError(_code:Int, _message:String) trace('Uh oh! $_code : $_message');
 
-	static function onDisconnected(_code:Int, _message:String)
-	{
-		trace('Disconnected! $_code : $_message');
-	}
+	static function onDisconnected(_code:Int, _message:String) trace('Disconnected! $_code : $_message');
 
 	public static function initialize()
 	{

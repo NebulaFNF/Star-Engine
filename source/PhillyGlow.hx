@@ -37,10 +37,7 @@ class PhillyGlowParticle extends FlxSprite
 		{
 			lifeTime = 0;
 			alpha -= decay * elapsed;
-			if(alpha > 0)
-			{
-				scale.set(originalScale * alpha, originalScale * alpha);
-			}
+			if(alpha > 0)scale.set(originalScale * alpha, originalScale * alpha);
 		}
 		super.update(elapsed);
 	}

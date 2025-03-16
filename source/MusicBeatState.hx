@@ -1,19 +1,10 @@
 package;
 
-import Conductor.BPMChangeEvent;
 import flixel.FlxG;
 import flixel.addons.ui.FlxUIState;
-import flixel.math.FlxRect;
-import flixel.util.FlxTimer;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.FlxSprite;
-import flixel.util.FlxColor;
-import flixel.util.FlxGradient;
 import flixel.FlxState;
 import flixel.FlxCamera;
-import flixel.FlxBasic;
 
 class MusicBeatState extends FlxUIState
 {
@@ -37,9 +28,7 @@ class MusicBeatState extends FlxUIState
 		var skip:Bool = FlxTransitionableState.skipNextTransOut;
 		super.create();
 
-		if(!skip) {
-			openSubState(new CustomFadeTransition(0.7, true));
-		}
+		if(!skip) openSubState(new CustomFadeTransition(0.7, true));
 		FlxTransitionableState.skipNextTransOut = false;
 	}
 
@@ -53,8 +42,7 @@ class MusicBeatState extends FlxUIState
 
 		if (oldStep != curStep)
 		{
-			if(curStep > 0)
-				stepHit();
+			if(curStep > 0) stepHit();
 
 			if(PlayState.SONG != null)
 			{
@@ -141,9 +129,7 @@ class MusicBeatState extends FlxUIState
 		FlxG.switchState(nextState);
 	}
 
-	public static function resetState() {
-		MusicBeatState.switchState(FlxG.state);
-	}
+	public static function resetState() MusicBeatState.switchState(FlxG.state);
 
 	public static function getState():MusicBeatState {
 		var curState:Dynamic = FlxG.state;
@@ -151,11 +137,7 @@ class MusicBeatState extends FlxUIState
 		return leState;
 	}
 
-	public function stepHit():Void
-	{
-		if (curStep % 4 == 0)
-			beatHit();
-	}
+	public function stepHit():Void if (curStep % 4 == 0) beatHit();
 
 	public function beatHit():Void
 	{

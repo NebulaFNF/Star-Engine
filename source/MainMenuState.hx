@@ -9,7 +9,6 @@ import flixel.FlxSprite;
 import flixel.FlxCamera;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.math.FlxMath;
@@ -22,8 +21,6 @@ import Achievements;
 import editors.MasterEditorMenu;
 import flixel.input.keyboard.FlxKey;
 import flixel.addons.display.FlxBackdrop;
-import openfl.display.BlendMode;
-import flixel.util.FlxAxes;
 import flixel.addons.display.FlxGridOverlay;
 import flxanimate.FlxAnimate;
 import flxanimate.animate.FlxAnim;
@@ -73,10 +70,8 @@ class MainMenuState extends MusicBeatState
 
 	public function snapToPosition()
 	{
-		if(changeX)
-			x = (targetY * distancePerItem.x) + startPosition.x;
-		if(changeY)
-			y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
+		if(changeX) x = (targetY * distancePerItem.x) + startPosition.x;
+		if(changeY) y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
 	}
 
 	override function create()
@@ -248,18 +243,14 @@ class MainMenuState extends MusicBeatState
 	var selectedSomethin:Bool = false;
 
 	//credit to stefan2008 and sb engine for this code
-
-
-
 	function tipTextStartScrolling()
 	{
-			tipText.x = tipTextMargin;
-			tipText.y = -tipText.height;
-			new FlxTimer().start(1.0, function(timer:FlxTimer)
-			{
+		tipText.x = tipTextMargin;
+		tipText.y = -tipText.height;
+		new FlxTimer().start(1.0, function(timer:FlxTimer) {
 			FlxTween.tween(tipText, {y: tipTextMargin}, 0.3);
-			new FlxTimer().start(2.25, function(timer:FlxTimer)
-			{
+			
+			new FlxTimer().start(2.25, function(timer:FlxTimer) {
 				tipTextScrolling = true;
 			});
 		});
@@ -346,17 +337,13 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate')
-				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
-				}
+				if (optionShit[curSelected] == 'donate')CoolUtil.browserLoad('https://github.com/SyncGit12/Star-Engine');
 				else
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if(ClientPrefs.flashing)
-						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -378,20 +365,12 @@ class MainMenuState extends MusicBeatState
 
 								switch (daChoice)
 								{
-									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
-									#if MODS_ALLOWED
-									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
-									#end
-									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
-									case 'options':
-										LoadingState.loadAndSwitchState(new options.OptionsState());
+									case 'story_mode': MusicBeatState.switchState(new StoryMenuState());
+									case 'freeplay':   MusicBeatState.switchState(new FreeplayState());
+									case 'mods':       MusicBeatState.switchState(new ModsMenuState());
+									case 'awards':     MusicBeatState.switchState(new AchievementsMenuState());
+									case 'credits':    MusicBeatState.switchState(new CreditsState());
+									case 'options':    LoadingState.loadAndSwitchState(new options.OptionsState());
 								}
 							});
 						}
@@ -414,10 +393,8 @@ class MainMenuState extends MusicBeatState
 	{
 		curSelected += huh;
 
-		if (curSelected >= menuItems.length)
-			curSelected = 0;
-		if (curSelected < 0)
-			curSelected = menuItems.length - 1;
+		if (curSelected >= menuItems.length) curSelected = 0;
+		if (curSelected < 0) curSelected = menuItems.length - 1;
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
@@ -428,9 +405,7 @@ class MainMenuState extends MusicBeatState
 			{
 				spr.animation.play('selected');
 				var add:Float = 0;
-				if(menuItems.length > 4) {
-					add = menuItems.length * 8;
-				}
+				if(menuItems.length > 4) add = menuItems.length * 8;
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
 				spr.centerOffsets();
 			}

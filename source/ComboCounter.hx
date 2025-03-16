@@ -55,12 +55,8 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 	{
 		onScreenTime += elapsed;
 
-		if (effectStuff.animation.curAnim.curFrame == 17)
-			effectStuff.animation.pause();
-
-		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup)
-			setupCombo(daCombo);
-
+		if (effectStuff.animation.curAnim.curFrame == 17) effectStuff.animation.pause();
+		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup) setupCombo(daCombo);
 		if (effectStuff.animation.curAnim.curFrame == 18)
 		{
 			grpNumbers.forEach(function(spr:ComboNumber)

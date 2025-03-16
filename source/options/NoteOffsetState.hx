@@ -112,10 +112,7 @@ class NoteOffsetState extends MusicBeatState
 		add(comboNums);
 
 		var seperatedScore:Array<Int> = [];
-		for (i in 0...3)
-		{
-			seperatedScore.push(FlxG.random.int(0, 9));
-		}
+		for (i in 0...3) seperatedScore.push(FlxG.random.int(0, 9));
 
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
@@ -231,22 +228,14 @@ class NoteOffsetState extends MusicBeatState
 					{
 						switch(i)
 						{
-							case 0:
-								ClientPrefs.comboOffset[0] -= addNum;
-							case 1:
-								ClientPrefs.comboOffset[0] += addNum;
-							case 2:
-								ClientPrefs.comboOffset[1] += addNum;
-							case 3:
-								ClientPrefs.comboOffset[1] -= addNum;
-							case 4:
-								ClientPrefs.comboOffset[2] -= addNum;
-							case 5:
-								ClientPrefs.comboOffset[2] += addNum;
-							case 6:
-								ClientPrefs.comboOffset[3] += addNum;
-							case 7:
-								ClientPrefs.comboOffset[3] -= addNum;
+							case 0: ClientPrefs.comboOffset[0] -= addNum;
+							case 1: ClientPrefs.comboOffset[0] += addNum;
+							case 2: ClientPrefs.comboOffset[1] += addNum;
+							case 3: ClientPrefs.comboOffset[1] -= addNum;
+							case 4: ClientPrefs.comboOffset[2] -= addNum;
+							case 5: ClientPrefs.comboOffset[2] += addNum;
+							case 6: ClientPrefs.comboOffset[3] += addNum;
+							case 7: ClientPrefs.comboOffset[3] -= addNum;
 						}
 					}
 				}
@@ -275,10 +264,7 @@ class NoteOffsetState extends MusicBeatState
 					//trace('heya');
 				}
 			}
-			if(FlxG.mouse.justReleased) {
-				holdingObjectType = null;
-				//trace('dead');
-			}
+			if(FlxG.mouse.justReleased) holdingObjectType = null;
 
 			if(holdingObjectType != null)
 			{
@@ -294,10 +280,7 @@ class NoteOffsetState extends MusicBeatState
 
 			if(controls.RESET)
 			{
-				for (i in 0...ClientPrefs.comboOffset.length)
-				{
-					ClientPrefs.comboOffset[i] = 0;
-				}
+				for (i in 0...ClientPrefs.comboOffset.length) ClientPrefs.comboOffset[i] = 0;
 				repositionCombo();
 			}
 		}
@@ -366,10 +349,7 @@ class NoteOffsetState extends MusicBeatState
 	{
 		super.beatHit();
 
-		if(lastBeatHit == curBeat)
-		{
-			return;
-		}
+		if(lastBeatHit == curBeat) return;
 
 		if(curBeat % 2 == 0)
 		{
@@ -425,10 +405,7 @@ class NoteOffsetState extends MusicBeatState
 			dumbTexts.add(text);
 			text.cameras = [camHUD];
 
-			if(i > 1)
-			{
-				text.y += 24;
-			}
+			if(i > 1) text.y += 24;
 		}
 	}
 
@@ -463,10 +440,8 @@ class NoteOffsetState extends MusicBeatState
 		timeTxt.visible = !onComboMenu;
 		beatText.visible = !onComboMenu;
 
-		if(onComboMenu)
-			changeModeText.text = '< Combo Offset (Press Accept to Switch) >';
-		else
-			changeModeText.text = '< Note/Beat Delay (Press Accept to Switch) >';
+		if(onComboMenu) changeModeText.text = '< Combo Offset (Press Accept to Switch) >';
+		else changeModeText.text = '< Note/Beat Delay (Press Accept to Switch) >';
 
 		changeModeText.text = changeModeText.text.toUpperCase();
 		FlxG.mouse.visible = onComboMenu;

@@ -167,8 +167,7 @@ Crash Handler written by: sqirra-rng
 		
 Crash happened in Star Engine " + curVersion;
 
-		if (!FileSystem.exists("./crash/"))
-			FileSystem.createDirectory("./crash/");
+		if (!FileSystem.exists("./crash/")) FileSystem.createDirectory("./crash/");
 
 		File.saveContent(path, errMsg + "\n");
 

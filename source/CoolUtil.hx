@@ -106,8 +106,7 @@ class CoolUtil
 		if(Assets.exists(path)) daList = Assets.getText(path).trim().split('\n');
 		#end
 
-		for (i in 0...daList.length)
-			daList[i] = daList[i].trim();
+		for (i in 0...daList.length) daList[i] = daList[i].trim();
 
 		return daList;
 	}

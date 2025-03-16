@@ -12,8 +12,7 @@ class BenchmarkState extends FlxState
 
 	//this is so its actually possible to leave the state
 	private var controls(get, never):Controls;
-	inline function get_controls():Controls
-		return PlayerSettings.player1.controls;
+	inline function get_controls():Controls return PlayerSettings.player1.controls;
 
 	override public function create()
 	{
@@ -74,11 +73,8 @@ class BenchmarkState extends FlxState
 		if(controls.BACK)
 		{
 			FlxG.switchState(new MasterEditorMenu());
-			if (!TitleState.mustUpdate) {
-				FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			} else {
-				FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
-			}
+			if (!TitleState.mustUpdate) FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			else FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
 		}
 		super.update(elapsed);
 	}

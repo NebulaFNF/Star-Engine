@@ -1,6 +1,5 @@
 package;
 
-import flixel.input.keyboard.FlxKey;
 import flixel.FlxSprite;
 import flixel.text.FlxText;
 import flixel.FlxG;
@@ -9,7 +8,6 @@ import flixel.tweens.FlxEase;
 import flixel.util.FlxTimer;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
-import flixel.FlxState;
 
 #if sys
 import sys.FileSystem;
@@ -46,16 +44,12 @@ class StartupState extends MusicBeatState
 			vidSprite = new VideoSprite(fileName, false, canSkip, loop);
 
 			// Finish callback
-			function onVideoEnd()
-			{
-				MusicBeatState.switchState(new TitleState());
-			}
+			function onVideoEnd() MusicBeatState.switchState(new TitleState());
 			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
 			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
 			insert(0, vidSprite);
 
-			if (playOnLoad)
-				vidSprite.videoSprite.play();
+			if (playOnLoad) vidSprite.videoSprite.play();
 			return vidSprite;
 		}
 		else {
@@ -66,9 +60,6 @@ class StartupState extends MusicBeatState
 		}
 		#else
 		FlxG.log.warn('Platform not supported!');
-		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			
-		});
 		#end
 		return null;
 	}
@@ -124,16 +115,7 @@ class StartupState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.keys.justPressed.ENTER)
-			MusicBeatState.switchState(new TitleState());
-		    /*#if FREEPLAY
-		    MusicBeatState.switchState(new FreeplayState());
-		    #elseif CHARTING
-		    MusicBeatState.switchState(new editors.ChartingState());
-		    #else
-		    FlxG.sound.cache(Paths.music('freakyMenu'));
-		    MusicBeatState.switchState(new TitleState());
-		    #end*/
+		if (FlxG.keys.justPressed.ENTER) MusicBeatState.switchState(new TitleState());
 
 		super.update(elapsed);
 	}

@@ -36,8 +36,7 @@ class AnsiTrace
 	public static function formatOutput(v:Dynamic, infos:haxe.PosInfos):String
 	{
 		var str = Std.string(v);
-		if (infos == null)
-			return str;
+		if (infos == null) return str;
 
 		if (colorSupported)
 		{
@@ -59,15 +58,8 @@ class AnsiTrace
 		Sys.stdout().flush();
 	}
 
-	public static function ansiWrap(str:Dynamic, ansiCol:String)
-	{
-		return ansify(ansiCol) + str + ansify(NORMAL);
-	}
-
-	public static function ansify(ansiCol:String)
-	{
-		return (colorSupported ? ansiCol : "");
-	}
+	public static function ansiWrap(str:Dynamic, ansiCol:String) return ansify(ansiCol) + str + ansify(NORMAL);
+	public static function ansify(ansiCol:String) return (colorSupported ? ansiCol : "");
 
 	// generated using https://dom111.github.io/image-to-ansi/
 	public static var ansiBF:Array<String> = [

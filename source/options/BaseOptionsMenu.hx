@@ -9,7 +9,6 @@ import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.FlxSprite;
 import Controls;
 
 using StringTools;
@@ -101,10 +100,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			}
 			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
 
-			if(optionsArray[i].showBoyfriend && boyfriend == null)
-			{
-				reloadBoyfriend();
-			}
+			if(optionsArray[i].showBoyfriend && boyfriend == null) reloadBoyfriend();
 			updateTextFrom(optionsArray[i]);
 		}
 
@@ -122,14 +118,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 	var holdValue:Float = 0;
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_UP_P)
-		{
-			changeSelection(-1);
-		}
-		if (controls.UI_DOWN_P)
-		{
-			changeSelection(1);
-		}
+		if (controls.UI_UP_P) changeSelection(-1);
+		if (controls.UI_DOWN_P) changeSelection(1);
 
 		if (controls.BACK) {
 			close();
@@ -139,10 +129,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		if(nextAccept <= 0)
 		{
 			var usesCheckbox = true;
-			if(curOption.type != 'bool')
-			{
-				usesCheckbox = false;
-			}
+			if(curOption.type != 'bool') usesCheckbox = false;
 
 			if(usesCheckbox)
 			{
@@ -186,11 +173,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 									if(controls.UI_LEFT_P) --num;
 									else num++;
 
-									if(num < 0) {
-										num = curOption.options.length - 1;
-									} else if(num >= curOption.options.length) {
-										num = 0;
-									}
+									if(num < 0) num = curOption.options.length - 1;
+									else if(num >= curOption.options.length) num = 0;
 
 									curOption.curOption = num;
 									curOption.setValue(curOption.options[num]); //lol
@@ -206,23 +190,16 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 							switch(curOption.type)
 							{
-								case 'int':
-									curOption.setValue(Math.round(holdValue));
-								
-								case 'float' | 'percent':
-									curOption.setValue(FlxMath.roundDecimal(holdValue, curOption.decimals));
+								case 'int': curOption.setValue(Math.round(holdValue));
+								case 'float' | 'percent': curOption.setValue(FlxMath.roundDecimal(holdValue, curOption.decimals));
 							}
 							updateTextFrom(curOption);
 							curOption.change();
 						}
 					}
 
-					if(curOption.type != 'string') {
-						holdTime += elapsed;
-					}
-				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) {
-					clearHold();
-				}
+					if(curOption.type != 'string') holdTime += elapsed;
+				} else if(controls.UI_LEFT_R || controls.UI_RIGHT_R) clearHold();
 			}
 
 			if(controls.RESET)
@@ -233,10 +210,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 					leOption.setValue(leOption.defaultValue);
 					if(leOption.type != 'bool')
 					{
-						if(leOption.type == 'string')
-						{
-							leOption.curOption = leOption.options.indexOf(leOption.getValue());
-						}
+						if(leOption.type == 'string') leOption.curOption = leOption.options.indexOf(leOption.getValue());
 						updateTextFrom(leOption);
 					}
 					leOption.change();
@@ -246,13 +220,9 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			}
 		}
 
-		if(boyfriend != null && boyfriend.animation.curAnim.finished) {
-			boyfriend.dance();
-		}
+		if(boyfriend != null && boyfriend.animation.curAnim.finished) boyfriend.dance();
+		if(nextAccept > 0) nextAccept -= 1;
 
-		if(nextAccept > 0) {
-			nextAccept -= 1;
-		}
 		super.update(elapsed);
 	}
 
@@ -266,19 +236,15 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 	function clearHold()
 	{
-		if(holdTime > 0.5) {
-			FlxG.sound.play(Paths.sound('scrollMenu'));
-		}
+		if(holdTime > 0.5) FlxG.sound.play(Paths.sound('scrollMenu'));
 		holdTime = 0;
 	}
 	
 	function changeSelection(change:Int = 0)
 	{
 		curSelected += change;
-		if (curSelected < 0)
-			curSelected = optionsArray.length - 1;
-		if (curSelected >= optionsArray.length)
-			curSelected = 0;
+		if (curSelected < 0) curSelected = optionsArray.length - 1;
+		if (curSelected >= optionsArray.length) curSelected = 0;
 
 		descText.text = optionsArray[curSelected].description;
 		descText.screenCenter(Y);
@@ -291,25 +257,18 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			bullShit++;
 
 			item.alpha = 0.6;
-			if (item.targetY == 0) {
-				item.alpha = 1;
-			}
+			if (item.targetY == 0) item.alpha = 1;
 		}
 		for (text in grpTexts) {
 			text.alpha = 0.6;
-			if(text.ID == curSelected) {
-				text.alpha = 1;
-			}
+			if(text.ID == curSelected) text.alpha = 1;
 		}
 
 		descBox.setPosition(descText.x - 10, descText.y - 10);
 		descBox.setGraphicSize(Std.int(descText.width + 20), Std.int(descText.height + 25));
 		descBox.updateHitbox();
 
-		if(boyfriend != null)
-		{
-			boyfriend.visible = optionsArray[curSelected].showBoyfriend;
-		}
+		if(boyfriend != null) boyfriend.visible = optionsArray[curSelected].showBoyfriend;
 		curOption = optionsArray[curSelected]; //shorter lol
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
@@ -332,9 +291,5 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		boyfriend.visible = wasVisible;
 	}
 
-	function reloadCheckboxes() {
-		for (checkbox in checkboxGroup) {
-			checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
-		}
-	}
+	function reloadCheckboxes() for (checkbox in checkboxGroup) checkbox.daValue = (optionsArray[checkbox.ID].getValue() == true);
 }
