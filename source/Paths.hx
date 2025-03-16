@@ -238,10 +238,10 @@ class Paths
 		var returnAsset:FlxGraphic = returnGraphic(key, library);
 		return returnAsset;
 	}
-
-	inline static public function model(key:String, ?library:String, fileType:String) {
+	
+	/*inline static public function model(key:String, ?library:String, fileType:String) {
 		return getPath('models/$key.json', library);
-	}
+	}*/
 
 	inline static public function scripts(script:String, ?library:AssetType) {
 		var path = getPath('scripts/$script.hx', library);
