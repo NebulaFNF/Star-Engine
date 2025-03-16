@@ -239,6 +239,10 @@ class Paths
 		return returnAsset;
 	}
 
+	inline static public function model(key:String, ?library:String) {
+		return getPath('models/$key.json', library);
+	}
+
 	inline static public function scripts(script:String, ?library:AssetType) {
 		var path = getPath('scripts/$script.hx', library);
 		if(FileSystem.exists(path)) {
