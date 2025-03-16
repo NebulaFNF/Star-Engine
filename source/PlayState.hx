@@ -3,9 +3,19 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Achievements;
+import Conductor.Rating;
+import DialogueBoxPsych;
+import FunkinLua;
+import Note.EventNote;
+import Note;
 import Section.SwagSection;
 import Song.SwagSong;
-import shaderslmfao.WiggleEffect;
+import StageData;
+import animateatlas.AtlasFrameMaker;
+import crowplexus.iris.Iris;
+import editors.CharacterEditorState;
+import editors.ChartingState;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -14,7 +24,10 @@ import flixel.FlxSubState;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.animation.FlxAnimationController;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
@@ -24,35 +37,22 @@ import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
+import flixel.util.FlxSave;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import haxe.Json;
 import lime.utils.Assets;
+import openfl.events.KeyboardEvent;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
-import editors.ChartingState;
-import editors.CharacterEditorState;
-import flixel.group.FlxSpriteGroup;
-import flixel.input.keyboard.FlxKey;
-import Note.EventNote;
-import Note;
-import openfl.events.KeyboardEvent;
-import flixel.util.FlxSave;
-import flixel.animation.FlxAnimationController;
-import animateatlas.AtlasFrameMaker;
-import Achievements;
-import StageData;
-import FunkinLua;
-import DialogueBoxPsych;
-import Conductor.Rating;
 import shaderslmfao.*;
+import shaderslmfao.WiggleEffect;
 
+using StringTools;
 #if openfl
 import openfl.system.System as ShitSystemLmfao;
 #end
-
-import crowplexus.iris.Iris;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -68,7 +68,6 @@ import sys.io.File;
 import VideoSprite;
 #end
 
-using StringTools;
 
 class PlayState extends MusicBeatState
 {
@@ -1718,6 +1717,27 @@ class PlayState extends MusicBeatState
 		char.x += char.positionArray[0];
 		char.y += char.positionArray[1];
 	}
+
+	public function clearShaderFromCamera(cam:String){
+		switch(cam.toLowerCase()) {
+			case 'camhud' | 'hud':
+				camHUDShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				camHUD.filters = newCamEffects;
+			case 'camother' | 'other':
+				camOtherShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				camOther.filters = newCamEffects;
+			case 'camgame' | 'game':
+				camGameShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				camGame.filters = newCamEffects;
+			default:
+				camGameShaders = [];
+				var newCamEffects:Array<BitmapFilter>=[];
+				camGame.filters = newCamEffects;
+		}
+	  }
 
 	public function addShaderToCamera(cam:String,effect:Dynamic){//STOLE FROM ANDROMEDA	// actually i got it from old psych engine
 		switch(cam.toLowerCase()) {
