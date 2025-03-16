@@ -239,7 +239,7 @@ class Paths
 		return returnAsset;
 	}
 
-	inline static public function model(key:String, ?library:String) {
+	inline static public function model(key:String, ?library:String, fileType:String) {
 		return getPath('models/$key.json', library);
 	}
 
