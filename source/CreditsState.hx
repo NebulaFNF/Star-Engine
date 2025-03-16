@@ -8,16 +8,15 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-
-using StringTools;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
 #end
 
+using StringTools;
 
 class CreditsState extends MusicBeatState
 {
@@ -79,7 +78,7 @@ class CreditsState extends MusicBeatState
 			['Star Engine Team'],
 			['SyncGit12', 'star', 'Owner of Star Engine', 'https://github.com/SyncGit12', '696900'],
 			['Stinko', 'stinkern', 'Small debugger, Coder, a pretty dumb one...', 'https://stinkernn.carrd.co', '696969'],
-			['Nael2xd', 'nael', 'Insane Optimizer, Programmer', 'https://www.youtube.com/@Nael2xd', '880000'],
+			['Nael2xd', 'nael', 'Programmer', 'https://www.youtube.com/@Nael2xd', '880000'],
 			
 			[''],
 			['Special Thanks'],

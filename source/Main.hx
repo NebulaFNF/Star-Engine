@@ -1,36 +1,38 @@
 package;
 
-import AnsiTrace;
+import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
-import flixel.graphics.FlxGraphic;
 import openfl.Assets;
 import openfl.Lib;
+import AnsiTrace;
 import openfl.display.FPS;
-import openfl.display.FPSBg;
-import openfl.display.Sprite;
-import openfl.display.StageScaleMode;
-import openfl.events.Event;
 
-using StringTools;
 // credits to hrk ex ex !!!!
+import openfl.display.FPSBg;
+
+import openfl.display.Sprite;
+import openfl.events.Event;
+import openfl.display.StageScaleMode;
+
 #if desktop
 import backend.ALSoftConfig; // Just to make sure DCE doesn't remove this, since it's not directly referenced anywhere else.
 #end
 
 //crash handler stuff
 #if CRASH_HANDLER
-import Discord.DiscordClient;
-import haxe.CallStack;
-import haxe.io.Path;
 import lime.app.Application;
 import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
+import Discord.DiscordClient;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
 
+using StringTools;
 
 class Main extends Sprite
 {
@@ -56,11 +58,9 @@ class Main extends Sprite
 	{
 		super();
 
-		#if hxcpp_debug_server
+		#if debug
 		haxe.Log.trace = AnsiTrace.trace;
 		AnsiTrace.traceBF();
-		#else
-		trace('Could not trace Boyfriend! (hxcpp_debug_server is disabled)');
 		#end
 	
 		if (stage != null)
