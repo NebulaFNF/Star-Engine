@@ -77,11 +77,13 @@ class CreditsState extends MusicBeatState
 		var pisspoop:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
 			['Star Engine Team'],
 			['SyncGit12', 'star', 'Owner of Star Engine', 'https://github.com/SyncGit12', '696900'],
-			['Stinko', 'stinkern', 'PlaceHolder', 'https://stinkernn.carrd.co', '696969'],
+			['Stinko', 'stinkern', 'Small debugger, Coder, a pretty dumb one...', 'https://stinkernn.carrd.co', '696969'],
+			['Nael2xd', 'nael', 'Programmer', 'https://www.youtube.com/@Nael2xd', '880000'],
 			
 			[''],
 			['Special Thanks'],
 			['HRK. EXEX',			'hrk',				'Created Video Rendering Mode for FNF',								'https://www.youtube.com/@HRK_EXEX/featured',			'01F8FF'],
+			['Stefan2008',			'stefan',				'The tips on the main menu!',								'https://www.youtube.com/@stefan2008official',			'8B4513'],
 
 			[''],
 			

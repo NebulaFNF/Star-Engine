@@ -33,6 +33,9 @@ class VisualsUISubState extends BaseOptionsMenu
 		'bool',
 		false);
 	    addOption(option);
+	
+		var option:Option = new Option('Show Watermark', 'If checked, the game will show the Star Engine watermark.', 'seWatermarkLmfao', 'bool', false);
+     	addOption(option);
 
 		var option:Option = new Option('Strums Offset',
 		'If checked, offsets the strums.',

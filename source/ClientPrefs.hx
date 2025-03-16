@@ -19,6 +19,7 @@ class ClientPrefs {
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
 	public static var framerate:Int = 60;
+	public static var seWatermarkLmfao:Bool = true;
 	public static var cursing:Bool = true;
 	public static var violence:Bool = true;
 	public static var deactivateComboLimit:Bool = true;
@@ -133,6 +134,7 @@ class ClientPrefs {
 		FlxG.save.data.noHitFuncs = noHitFuncs;
 		FlxG.save.data.noSpawnFunc = noSpawnFunc;
         FlxG.save.data.iconBounceBS = iconBounceBS;
+		FlxG.save.data.seWatermarkLmfao = seWatermarkLmfao;
 		FlxG.save.data.noLightStrum = noLightStrum;
 		FlxG.save.data.noBotlag = noBotLag;
 		FlxG.save.data.strumsAreFuckingOffset = strumsAreFuckingOffset;
@@ -208,6 +210,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.botplayWatermark != null) {
 			botplayWatermark = FlxG.save.data.botplayWatermark;
+		}
+		if(FlxG.save.data.seWatermarkLmfao != null) {
+			seWatermarkLmfao = FlxG.save.data.seWatermarkLmfao;
 		}
 		if(FlxG.save.data.funnyScoreTextImVeryFunny != null) {
 			funnyScoreTextImVeryFunny = FlxG.save.data.funnyScoreTextImVeryFunny;

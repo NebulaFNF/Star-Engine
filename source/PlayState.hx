@@ -287,6 +287,8 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
+	var EngineWatermark:FlxText;
+
 	var tankWatchtower:BGSprite;
 	var tankGround:BGSprite;
 	var tankmanRun:FlxTypedGroup<TankmenBG>;
@@ -1047,10 +1049,12 @@ class PlayState extends MusicBeatState
 		//devBuildtxt = ' | Dev Build';
 
 		// for now ill leave these here
-		/*watermark = new FlxText(0, healthBarBG.y + 10, 400, songName + ' | Star Engine v' + MainMenuState.psychEngineVersion + 32);
-		watermark.setFormat(Paths.font("comic.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		watermark.scrollFactor.set();
-		watermark.borderSize = 3.5; // dave and bambi?????*/
+		EngineWatermark = new FlxText(4,FlxG.height * 0.9 + 50,0,"", 16);
+		EngineWatermark.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		EngineWatermark.scrollFactor.set();
+		EngineWatermark.text = SONG.song + " " + CoolUtil.difficultyString() + " | SE " + MainMenuState.psychEngineVersion;
+		EngineWatermark.visible = ClientPrefs.seWatermarkLmfao;
+		add(EngineWatermark);
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);
 		startCharacterPos(boyfriend);
@@ -1280,6 +1284,7 @@ class PlayState extends MusicBeatState
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
 		if(ClientPrefs.botplayWatermark) botplayTxt.cameras = [camHUD];
+		if (EngineWatermark != null) EngineWatermark.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
