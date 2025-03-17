@@ -67,7 +67,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'iconBounceBS',
 			'string',
 			'Vanilla',
-			['Vanilla', 'Golden Apple']);
+			['Vanilla', 'Golden Apple', 'Psych']);
 		addOption(option);
 
 		var option:Option = new Option('Camera Zooms',
@@ -96,8 +96,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
-		//var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
-		//addOption(option);
+		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
+		addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',

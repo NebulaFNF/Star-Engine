@@ -160,11 +160,8 @@ class Main extends Sprite
 				"Your game has crashed because of this: " + e.error + "\n"
 				+ errMsg 
 				+ "
-
 Please report this error to the GitHub page: https://github.com/SyncGit12/Star-Engine/issues> 
-		
 Crash Handler written by: sqirra-rng 
-		
 Crash happened in Star Engine " + curVersion;
 
 		if (!FileSystem.exists("./crash/")) FileSystem.createDirectory("./crash/");

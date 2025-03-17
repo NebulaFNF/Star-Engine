@@ -21,7 +21,7 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Gameplay Changers', 'Change Difficulty', 'Exit to menu'];
 	var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
@@ -234,6 +234,10 @@ class PauseSubState extends MusicBeatSubstate
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
+				case "Gameplay Changers":
+					persistentUpdate = false;
+					openSubState(new GameplayChangersSubstate());
+					GameplayChangersSubstate.inThePauseMenu = true;
 				case 'Skip Time':
 					if(curTime < Conductor.songPosition)
 					{

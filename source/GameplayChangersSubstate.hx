@@ -13,6 +13,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 {
 	private var curOption:GameplayOption = null;
 	private var curSelected:Int = 0;
+	public static var inThePauseMenu:Bool = false;
 	private var optionsArray:Array<Dynamic> = [];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -21,6 +22,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 	function getOptions()
 	{
+		var skip:Bool = inThePauseMenu;
 		var goption:GameplayOption = new GameplayOption('Scroll Type', 'scrolltype', 'string', 'multiplicative', ["multiplicative", "constant"]);
 		optionsArray.push(goption);
 
@@ -41,8 +43,8 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 		#if !html5
 		var option:GameplayOption = new GameplayOption('Playback Rate', 'songspeed', 'float', 1);
 		option.scrollSpeed = 1;
-		option.minValue = 0.5;
-		option.maxValue = 3.0;
+		option.minValue = 0.1;
+		option.maxValue = 100.0;
 		option.changeValue = 0.05;
 		option.displayFormat = '%vX';
 		option.decimals = 2;
@@ -138,6 +140,19 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		changeSelection();
 		reloadCheckboxes();
+	}
+
+	override function destroy() {
+		if (inThePauseMenu)
+		{
+			PlayState.instance.healthGain = ClientPrefs.getGameplaySetting('healthgain', 1);
+			PlayState.instance.healthLoss = ClientPrefs.getGameplaySetting('healthloss', 1);
+			PlayState.instance.instakillOnMiss = ClientPrefs.getGameplaySetting('instakill', false);
+			PlayState.instance.practiceMode = ClientPrefs.getGameplaySetting('practice', false);
+			PlayState.instance.cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
+			inThePauseMenu = false;
+		}
+		super.destroy();
 	}
 
 	var nextAccept:Int = 5;
