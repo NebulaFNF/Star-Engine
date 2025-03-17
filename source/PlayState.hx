@@ -886,7 +886,7 @@ class PlayState extends MusicBeatState
 
 			// WHY THE FUCK IS THE STAGES HARDCODED??
 		    case 'phillyStreets':
-				var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -2000, -700, 0.9, 0.9);
+				var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1500, -700, 0.9, 0.9);
 				phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
 				phillyWhole.antialiasing = false;
 				add(phillyWhole);
