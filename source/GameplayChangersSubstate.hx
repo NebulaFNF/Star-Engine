@@ -140,6 +140,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 
 		changeSelection();
 		reloadCheckboxes();
+		cameras = [FlxG.cameras.list[FlxG.cameras.list.length - 1]];
 	}
 
 	override function destroy() {
@@ -151,6 +152,7 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			PlayState.instance.practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 			PlayState.instance.cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 			inThePauseMenu = false;
+			PauseSubState.requireRestart = true;
 		}
 		super.destroy();
 	}

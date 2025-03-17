@@ -32,6 +32,7 @@ class PauseSubState extends MusicBeatSubstate
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
 	//var botplayText:FlxText;
+	public static var requireRestart:Bool = false;
 
 	public static var songName:String = '';
 
@@ -146,6 +147,11 @@ class PauseSubState extends MusicBeatSubstate
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float)
 	{
+		if(requireRestart) {
+			menuItemsOG.remove('Resume'); //technically that's the logical thing to do
+			regenMenu();
+			requireRestart = false;
+		}
 		cantUnpause -= elapsed;
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
