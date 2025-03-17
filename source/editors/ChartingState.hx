@@ -153,6 +153,10 @@ class ChartingState extends MusicBeatState
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
 
+	var lilStage:FlxSprite;
+	var lilBf:FlxSprite;
+	var lilOpp:FlxSprite;
+
 	var value1InputText:FlxUIInputText;
 	var value2InputText:FlxUIInputText;
 	var currentSongName:String;
@@ -243,6 +247,40 @@ class ChartingState extends MusicBeatState
 		bg.scrollFactor.set();
 		bg.color = 0xFF222222;
 		add(bg);
+
+		lilStage = new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilStage"));
+		lilStage.scrollFactor.set();
+		add(lilStage);
+
+		lilBf = new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilBf"), true, 300, 256);
+		lilBf.animation.add("idle", [0, 1], 12, true);
+		lilBf.animation.add("0", [3, 4, 5], 12, false);
+		lilBf.animation.add("1", [6, 7, 8], 12, false);
+		lilBf.animation.add("2", [9, 10, 11], 12, false);
+		lilBf.animation.add("3", [12, 13, 14], 12, false);
+		lilBf.animation.add("yeah", [17, 20, 23], 12, false);
+		lilBf.animation.play("idle");
+		lilBf.animation.finishCallback = function(name:String){
+			lilBf.animation.play(name, true, false, lilBf.animation.getByName(name).numFrames - 2);
+		}
+		lilBf.scrollFactor.set();
+		add(lilBf);
+
+		lilOpp = new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilOpp"), true, 300, 256);
+		lilOpp.animation.add("idle", [0, 1], 12, true);
+		lilOpp.animation.add("0", [3, 4, 5], 12, false);
+		lilOpp.animation.add("1", [6, 7, 8], 12, false);
+		lilOpp.animation.add("2", [9, 10, 11], 12, false);
+		lilOpp.animation.add("3", [12, 13, 14], 12, false);
+		lilOpp.animation.play("idle");
+		lilOpp.animation.finishCallback = function(name:String){
+			lilOpp.animation.play(name, true, false, lilOpp.animation.getByName(name).numFrames - 2);
+		}
+		lilOpp.scrollFactor.set();
+		add(lilOpp);
+		lilBf.visible = true;
+		lilOpp.visible = true;
+		lilStage.visible = true;
 
 		gridLayer = new FlxTypedGroup<FlxSprite>();
 		add(gridLayer);
@@ -1934,6 +1972,8 @@ class ChartingState extends MusicBeatState
 				if (FlxG.sound.music.playing)
 				{
 					FlxG.sound.music.pause();
+					resetBuddies();
+					lilBf.color = lilOpp.color = FlxColor.WHITE;
 					if(vocals != null) vocals.pause();
 				}
 				else
@@ -1959,6 +1999,7 @@ class ChartingState extends MusicBeatState
 			if (FlxG.mouse.wheel != 0)
 			{
 				FlxG.sound.music.pause();
+				lilBf.color = lilOpp.color = FlxColor.WHITE;
 				if (!mouseQuant)
 					FlxG.sound.music.time -= (FlxG.mouse.wheel * Conductor.stepCrochet*0.8);
 				else
@@ -1991,6 +2032,8 @@ class ChartingState extends MusicBeatState
 				FlxG.sound.music.pause();
 
 				var holdingShift:Float = 1;
+				resetBuddies();
+				lilBf.color = lilOpp.color = FlxColor.WHITE;
 				if (FlxG.keys.pressed.CONTROL) holdingShift = 0.25;
 				else if (FlxG.keys.pressed.SHIFT) holdingShift = 4;
 
@@ -2230,6 +2273,10 @@ class ChartingState extends MusicBeatState
 							FlxG.sound.play(Paths.sound(soundToPlay)).pan = note.noteData < 4? -0.3 : 0.3; //would be coolio
 							playedSound[data] = true;
 						}
+						//lilBf.animation.play("" + (data % 4), true);
+						//lilOpp.animation.play("" + (data % 4), true);
+						if (note.mustPress) lilBf.animation.play("" + (data % 4), true);
+						if (!note.mustPress) lilOpp.animation.play("" + (data % 4), true);
 
 						data = note.noteData;
 						if(note.mustPress != _song.notes[curSec].mustHitSection)
@@ -2252,6 +2299,11 @@ class ChartingState extends MusicBeatState
 		}
 		lastConductorPos = Conductor.songPosition;
 		super.update(elapsed);
+	}
+
+	function resetBuddies() {
+		lilBf.animation.play("idle");
+		lilOpp.animation.play("idle");
 	}
 
 	function updateZoom() {
@@ -2634,6 +2686,8 @@ class ChartingState extends MusicBeatState
 	{
 		if (_song.notes[sec] != null)
 		{
+			resetBuddies();
+			lilBf.color = lilOpp.color = FlxColor.WHITE;
 			curSec = sec;
 			if (updateMusic)
 			{
