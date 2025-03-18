@@ -12,6 +12,7 @@ import flixel.addons.transition.TransitionData;
 import haxe.Json;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
+import flixel.util.FlxDirectionFlags;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
@@ -228,6 +229,47 @@ class TitleState extends MusicBeatState
 		#end
 	}
 
+	var cheatArray:Array<Int> = [0x0001, 0x0010, 0x0001, 0x0010, 0x0100, 0x1000, 0x0100, 0x1000];
+	var curCheatPos:Int = 0;
+	var cheatActive:Bool = false;
+  
+	function cheatCodeShit():Void
+	{
+		if (FlxG.keys.justPressed.ANY)
+		{
+			if (controls.NOTE_DOWN_P || controls.UI_DOWN_P) codePress(FlxDirectionFlags.DOWN);
+			if (controls.NOTE_UP_P || controls.UI_UP_P) codePress(FlxDirectionFlags.UP);
+			if (controls.NOTE_LEFT_P || controls.UI_LEFT_P) codePress(FlxDirectionFlags.LEFT);
+			if (controls.NOTE_RIGHT_P || controls.UI_RIGHT_P) codePress(FlxDirectionFlags.RIGHT);
+		}
+	}
+  
+	function codePress(input:Int)
+	{
+		if (input == cheatArray[curCheatPos])
+		{
+			curCheatPos += 1;
+			if (curCheatPos >= cheatArray.length) startCheat();
+		}
+		else curCheatPos = 0;
+		
+		trace(input);
+	}
+  
+	function startCheat():Void
+	{
+		cheatActive = true;
+
+		FlxG.sound.playMusic(Paths.music('tutorialTitle'), 1);
+
+		//var spec:SpectogramSprite = new SpectogramSprite(FlxG.sound.music);
+		//add(spec);
+
+		Conductor.changeBPM(190);
+		FlxG.camera.flash(FlxColor.WHITE, 1);
+		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+	}
+
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
 	var danceLeft:Bool = false;
@@ -238,7 +280,11 @@ class TitleState extends MusicBeatState
 	{
 		if (!initialized) {
 			if(FlxG.sound.music == null) FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
-			Conductor.changeBPM(115);
+
+			if(!cheatActive) 
+				Conductor.changeBPM(115);
+			else
+				Conductor.changeBPM(95);
 		}
 		persistentUpdate = true;
 
@@ -509,11 +555,11 @@ class TitleState extends MusicBeatState
 
 		if (initialized && pressedEnter && !skippedIntro) skipIntro();
 
-		if(swagShader != null)
-		{
-			if(controls.UI_LEFT) swagShader.hue -= elapsed * 0.1;
-			if(controls.UI_RIGHT) swagShader.hue += elapsed * 0.1;
-		}
+		if (controls.UI_LEFT) swagShader.update(-elapsed * 0.1);
+		if (controls.UI_RIGHT) swagShader.update(elapsed * 0.1);
+		if (!cheatActive && skippedIntro) cheatCodeShit();
+
+		if (cheatActive && curBeat % 2 == 0) swagShader.update(0.125);
 
 		super.update(elapsed);
 	}
@@ -563,6 +609,7 @@ class TitleState extends MusicBeatState
 		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 1200, {ease: FlxEase.expoOut});
 
 		if(logoBl != null) logoBl.animation.play('bump', true);
+		if (cheatActive && Conductor.bpm % 2 == 0) swagShader.update(0.125);
 
 		if(gfDance != null) {
 			danceLeft = !danceLeft;

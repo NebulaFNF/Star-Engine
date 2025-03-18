@@ -9,6 +9,8 @@ class ColorSwap {
 	public var saturation(default, set):Float = 0;
 	public var brightness(default, set):Float = 0;
 
+	public var hueShit:Float = 0;
+
 	private function set_hue(value:Float) {
 		hue = value;
 		shader.uTime.value[0] = hue;
@@ -19,6 +21,13 @@ class ColorSwap {
 		saturation = value;
 		shader.uTime.value[1] = saturation;
 		return saturation;
+	}
+
+	public function update(elapsed:Float):Void
+	{
+		shader.uTime.value[0] += elapsed;
+		hueShit += elapsed;
+		//trace(shader.money.value[0]);
 	}
 
 	private function set_brightness(value:Float) {
