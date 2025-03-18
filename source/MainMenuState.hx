@@ -262,6 +262,16 @@ class MainMenuState extends MusicBeatState
 			tipText.alpha = 1;
 			isTweening = true;
 			selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
+			if (tipText.text == "source/MainMenuState.hx:69: Press something cool come on!!!!!1!!!!!!!!11!") trace('Press something cool come on!!!!!1!!!!!!!!11!');
+
+			if (tipText.text == "source/Main.hx:89: hxcpp_debug_server is disabled! You can not connect to the game with a debugger.") {
+				#if hxcpp_debug_server
+				trace('He is lying to you, hxcpp_debug_server is available!');
+				#else
+				trace('hxcpp_debug_server is disabled! You can not connect to the game with a debugger.');
+				#end
+			}
+
 			FlxTween.tween(tipText, {alpha: 0}, 1, {
 				ease: FlxEase.linear,
 				onComplete: function(freak:FlxTween) {
