@@ -342,6 +342,12 @@ class PlayState extends MusicBeatState
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
 
+	var twistShit:Float = 1;
+	var twistAmount:Float = 1;
+	var camTwistIntensity:Float = 0;
+	var camTwistIntensity2:Float = 3;
+	var camTwist:Bool = false;
+
 	// Debug buttons
 	private var debugKeysChart:Array<FlxKey>;
 	private var debugKeysCharacter:Array<FlxKey>;
@@ -3883,6 +3889,24 @@ class PlayState extends MusicBeatState
 
 			case 'Kill Henchmen':
 				killHenchmen();
+			
+			case 'Camera Twist':
+				camTwist = true;
+				var _intensity:Float = Std.parseFloat(value1);
+				if (Math.isNaN(_intensity)) _intensity = 0;
+				var _intensity2:Float = Std.parseFloat(value2);
+				if (Math.isNaN(_intensity2)) _intensity2 = 0;
+				camTwistIntensity = _intensity;
+				camTwistIntensity2 = _intensity2;
+				if (_intensity2 == 0)
+				{
+					camTwist = false;
+					for (i in [camHUD, camGame])
+					{
+							FlxTween.cancelTweensOf(i);
+							FlxTween.tween(i, {angle: 0, x: 0, y: 0}, 1, {ease: FlxEase.sineOut});
+					}
+				}
 
 			case 'Add Camera Zoom':
 				if(ClientPrefs.camZooms && FlxG.camera.zoom < 1.35) {
@@ -5381,6 +5405,22 @@ class PlayState extends MusicBeatState
 					trainCooldown = FlxG.random.int(-4, 0);
 					trainStart();
 				}
+		}
+
+		if (camTwist && curBeat % gfSpeed == 0)
+		{
+			if (curBeat % (gfSpeed * 2) == 0)
+				twistShit = twistAmount * camTwistIntensity;
+
+			if (curBeat % (gfSpeed * 2) == gfSpeed)
+				twistShit = -twistAmount * camTwistIntensity2;
+				
+			for (i in [camHUD, camGame])
+			{
+				FlxTween.cancelTweensOf(i);
+				i.angle = twistShit;
+				FlxTween.tween(i, {angle: 0}, 45 / Conductor.bpm * gfSpeed / playbackRate, {ease: FlxEase.circOut});
+			}
 		}
 
 		// Conductor.songPosition > (((240 / Conductor.bpm)*1000)*(curSection+1))-200
