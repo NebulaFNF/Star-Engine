@@ -12,3 +12,14 @@ tip: don't rage quit
 source/MainMenuState.hx:69: Press something cool come on!!!!!1!!!!!!!!11!
 source/Main.hx:89: hxcpp_debug_server is disabled! You can not connect to the game with a debugger.
 This engine is meant to replace JSE and try to replicate the old style of FNF engines in 2021!
+hi
+NULL Object Reference
+[DATA EXPUNGED]
+[DATA EXPUNGED]
+[DATA EXPUNGED]
+[DATA EXPUNGED]
+press 7 to open the debug menu
+BAL_7.ogg
+BAL_3.ogg
+five big booms
+boom! boom! boom! boom! boom!!!!!!!!!!!
