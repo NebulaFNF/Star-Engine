@@ -15,9 +15,6 @@ This engine is meant to replace JSE and try to replicate the old style of FNF en
 hi
 NULL Object Reference
 [DATA EXPUNGED]
-[DATA EXPUNGED]
-[DATA EXPUNGED]
-[DATA EXPUNGED]
 press 7 to open the debug menu
 BAL_7.ogg
 BAL_3.ogg

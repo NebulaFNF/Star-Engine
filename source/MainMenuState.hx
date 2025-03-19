@@ -26,6 +26,15 @@ import flxanimate.FlxAnimate;
 import flxanimate.animate.FlxAnim;
 import flixel.util.FlxTimer;
 
+#if VIDEOS_ALLOWED
+import VideoSprite;
+#end
+
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
+
 using StringTools;
 
 class MainMenuState extends MusicBeatState
@@ -72,6 +81,45 @@ class MainMenuState extends MusicBeatState
 	{
 		if(changeX) x = (targetY * distancePerItem.x) + startPosition.x;
 		if(changeY) y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
+	}
+
+	private var vidSprite:VideoSprite = null;
+	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
+	{
+		#if VIDEOS_ALLOWED
+		var foundFile:Bool = false;
+		var fileName:String = Paths.video(name);
+
+		#if sys
+		if (FileSystem.exists(fileName))
+		#else
+		if (OpenFlAssets.exists(fileName))
+		#end
+		foundFile = true;
+
+		if (foundFile)
+		{
+			vidSprite = new VideoSprite(fileName, false, canSkip, loop);
+
+			// Finish callback
+			function onVideoEnd() Sys.exit(0);
+			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
+			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
+			insert(0, vidSprite);
+
+			if (playOnLoad) vidSprite.videoSprite.play();
+			return vidSprite;
+		}
+		else {
+			FlxG.log.error("Video not found: " + fileName);
+			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+				Sys.exit(0);
+			});
+		}
+		#else
+		FlxG.log.warn('Platform not supported!');
+		#end
+		return null;
 	}
 
 	override function create()
@@ -271,6 +319,19 @@ class MainMenuState extends MusicBeatState
 				trace('hxcpp_debug_server is disabled! You can not connect to the game with a debugger.');
 				#end
 			}
+
+			#if VIDEOS_ALLOWED
+			if (tipText.text == "BAL_7.ogg") {
+				FlxG.sound.music.stop();
+				startVideo('BALD_Seven');
+			}
+			if (tipText.text == "BAL_3.ogg") {
+				FlxG.sound.music.stop();
+				startVideo('BALD_Three');
+			}
+			#else
+			trace('Cannot play Baldi videos, sad.');
+			#end
 
 			FlxTween.tween(tipText, {alpha: 0}, 1, {
 				ease: FlxEase.linear,
