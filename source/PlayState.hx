@@ -900,7 +900,7 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) {
 					var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1500, -700, 0.9, 0.9);
 					phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
-					phillyWhole.antialiasing = VariableOptions.shitAntialiasing;
+					phillyWhole.antialiasing = true;
 				    add(phillyWhole);
 				}
 		}
