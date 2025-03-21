@@ -5448,10 +5448,8 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		// Conductor.songPosition > (((240 / Conductor.bpm)*1000)*(curSection+1))-200
-		// leaving this there incase if i find a solution
+		// Note Comboes
 		/*if (curBeat % 8 == 7
-			//&& ClientPrefs.noteComboBullshit
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& noteCombo > 5
 			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
@@ -5459,7 +5457,7 @@ class PlayState extends MusicBeatState
 		{
 
 			var animShit:ComboCounter = new ComboCounter(-100, 300, noteCombo);
-			noteCombo = 0;
+			//noteCombo = 0;
 			animShit.scrollFactor.set(0.6, 0.6);
 			add(animShit);
 
