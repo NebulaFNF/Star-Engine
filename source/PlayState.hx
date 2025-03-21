@@ -1230,17 +1230,15 @@ class PlayState extends MusicBeatState
 				healthBar.alpha = ClientPrefs.healthBarAlpha;
 				add(healthBar);
 
-				healthCooler = new FlxSprite(healthBar.x, healthBar.y).loadGraphic(Paths.image('healthBarCooler'));
-				healthCooler.updateHitbox();
+				healthCooler = new FlxSprite(healthBarBG.x + 4, healthBarBG.y + 4).loadGraphic(Paths.image('healthBarCooler'));
+				//healthCooler.updateHitbox();
 				healthCooler.scrollFactor.set();
-				healthCooler.setGraphicSize(Std.int(healthBar.width * 1.3));
+				healthCooler.setGraphicSize(Std.int(healthBarBG.width * 1.2));
 				healthCooler.visible = !ClientPrefs.hideHud;
 				healthCooler.alpha = ClientPrefs.healthBarAlpha;
 				healthCooler.antialiasing = ClientPrefs.globalAntialiasing;
+				healthCooler.screenCenter(X);
 				add(healthCooler);
-
-				// reloadddd
-				reloadHealthCooler();
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
@@ -1255,6 +1253,7 @@ class PlayState extends MusicBeatState
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
 		reloadHealthBarColors();
+		if (ClientPrefs.healthBarStyle == 'Cooler') reloadHealthCooler();
 
 		if (ClientPrefs.smoothHealth) healthBar.numDivisions = Std.int(healthBar.width);
 
@@ -1305,6 +1304,7 @@ class PlayState extends MusicBeatState
 		scoreTxt.cameras = [camHUD];
 		if(ClientPrefs.botplayWatermark) botplayTxt.cameras = [camHUD];
 		if (EngineWatermark != null) EngineWatermark.cameras = [camHUD];
+		if (ClientPrefs.healthBarStyle == 'Cooler') healthCooler.cameras = [camHUD];
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
@@ -1528,8 +1528,8 @@ class PlayState extends MusicBeatState
 
 	public function reloadHealthCooler():Void {
 		if (ClientPrefs.healthBarStyle == 'Cooler') {
-			healthCooler.x -= 55;
-			healthCooler.y -= -24;
+			//healthCooler.x -= 55;
+			healthCooler.y -= 20;
 		} else {
 			trace('\r\nHEALTH BAR: Health bar is not the cool one!');
 		}

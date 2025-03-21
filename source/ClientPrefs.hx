@@ -133,6 +133,7 @@ class ClientPrefs {
 		FlxG.save.data.framerate = framerate;
 		FlxG.save.data.noHitFuncs = noHitFuncs;
 		FlxG.save.data.noSpawnFunc = noSpawnFunc;
+		FlxG.save.data.healthBarStyle = healthBarStyle;
         FlxG.save.data.iconBounceBS = iconBounceBS;
 		FlxG.save.data.seWatermarkLmfao = seWatermarkLmfao;
 		FlxG.save.data.noLightStrum = noLightStrum;
@@ -224,6 +225,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.strumsAreFuckingOffset != null) {
 			strumsAreFuckingOffset = FlxG.save.data.strumsAreFuckingOffset;
+		}
+		if(FlxG.save.data.healthBarStyle != null) {
+			healthBarStyle = FlxG.save.data.healthBarStyle;
 		}
 		if(FlxG.save.data.smoothHealth != null) {
 			smoothHealth = FlxG.save.data.smoothHealth;
