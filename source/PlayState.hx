@@ -193,6 +193,7 @@ class PlayState extends MusicBeatState
 
 	private var healthBarBG:AttachedSprite;
 	public var healthBar:FlxBar;
+	public var healthCooler:FlxSprite;
 	var songPercent:Float = 0;
 
 	private var timeBarBG:AttachedSprite;
@@ -1222,6 +1223,24 @@ class PlayState extends MusicBeatState
 				healthBar.visible = !ClientPrefs.hideHud;
 				healthBar.alpha = ClientPrefs.healthBarAlpha;
 				add(healthBar);
+			case 'Cooler':
+				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this, 'displayedHealth', 0, maxHealth);
+		        healthBar.scrollFactor.set();
+				healthBar.visible = !ClientPrefs.hideHud;
+				healthBar.alpha = ClientPrefs.healthBarAlpha;
+				add(healthBar);
+
+				healthCooler = new FlxSprite(healthBarBG.x + 4, healthBarBG.y + 4).loadGraphic(Paths.image('healthBarCooler'));
+				healthCooler.updateHitbox();
+				healthCooler.scrollFactor.set();
+				healthCooler.setGraphicSize(Std.int(healthBarBG.width * 1.2));
+				healthCooler.visible = !ClientPrefs.hideHud;
+				healthCooler.alpha = ClientPrefs.healthBarAlpha;
+				healthCooler.antialiasing = ClientPrefs.globalAntialiasing;
+				add(healthCooler);
+
+				// reloadddd
+				reloadHealthCooler();
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
@@ -1505,6 +1524,15 @@ class PlayState extends MusicBeatState
 		Paths.clearUnusedMemory();
 		
 		CustomFadeTransition.nextCamera = camOther;
+	}
+
+	public function reloadHealthCooler():Void {
+		if (ClientPrefs.healthBarStyle == 'Cooler') {
+			healthCooler.x -= 55;
+			healthCooler.y -= -24;
+		} else {
+			trace('\r\nHEALTH BAR: Health bar is not the cool one!');
+		}
 	}
 
 	#if (!flash && sys)

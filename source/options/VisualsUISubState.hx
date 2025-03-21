@@ -96,7 +96,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
+		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy', 'Cooler']);
 		addOption(option);
 		
 		#if !mobile
