@@ -1230,10 +1230,10 @@ class PlayState extends MusicBeatState
 				healthBar.alpha = ClientPrefs.healthBarAlpha;
 				add(healthBar);
 
-				healthCooler = new FlxSprite(healthBarBG.x + 4, healthBarBG.y + 4).loadGraphic(Paths.image('healthBarCooler'));
+				healthCooler = new FlxSprite(healthBar.x, healthBar.y).loadGraphic(Paths.image('healthBarCooler'));
 				healthCooler.updateHitbox();
 				healthCooler.scrollFactor.set();
-				healthCooler.setGraphicSize(Std.int(healthBarBG.width * 1.2));
+				healthCooler.setGraphicSize(Std.int(healthBar.width * 1.3));
 				healthCooler.visible = !ClientPrefs.hideHud;
 				healthCooler.alpha = ClientPrefs.healthBarAlpha;
 				healthCooler.antialiasing = ClientPrefs.globalAntialiasing;
