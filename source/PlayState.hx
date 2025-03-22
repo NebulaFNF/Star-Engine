@@ -1166,6 +1166,7 @@ class PlayState extends MusicBeatState
 
 		// startCountdown();
 
+		trace('Loading chart...');
 		generateSong(SONG.song);
 
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
