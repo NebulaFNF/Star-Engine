@@ -4279,7 +4279,7 @@ class PlayState extends MusicBeatState
 
 		var ret:Dynamic = callOnLuas('onEndSong', [], false);
 		if(ret != FunkinLua.Function_Stop && !transitioning) {
-			if (SONG.validScore)
+			if (SONG.validScore && !cpuControlled)
 			{
 				#if !switch
 				var percent:Float = ratingPercent;
