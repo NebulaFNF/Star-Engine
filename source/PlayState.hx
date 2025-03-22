@@ -5649,10 +5649,7 @@ class PlayState extends MusicBeatState
 			// Rating FC
 			ratingFC = "";
 			if (ClientPrefs.funnyScoreTextImVeryFunny == 'Kade') {
-				/*if (sicks = 0 
-					&& goods = 0 
-					&& bads = 0 
-					&& songMisses = 0) ratingFC = "N/A";*/
+				if (sicks <= 0 || goods <= 0 || bads <= 0 || songMisses <= 0) ratingFC = "N/A";
 				if (sicks > 0) ratingFC = "(SFC)";
 				if (goods > 0) ratingFC = "(GFC)";
 				if (bads > 0 || shits > 0) ratingFC = "(FC)";
