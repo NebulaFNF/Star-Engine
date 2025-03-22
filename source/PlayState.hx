@@ -908,13 +908,13 @@ class PlayState extends MusicBeatState
 				}
 			// score bggg lets fucking go
 			case 'streetsScore':
-				var aprilBG:BGSprite = new BGSprite('bgScore', -1000, -700, 0.9, 0.9);
+				var aprilBG:BGSprite = new BGSprite('bgScore', -1000, -700, 1, 1);
 				aprilBG.setGraphicSize(Std.int(aprilBG.width * 1));
 				aprilBG.antialiasing = false;
 				add(aprilBG);
 
 				if(!ClientPrefs.lowQuality) {
-					var aprilBG:BGSprite = new BGSprite('bgScore', -1700, -300, 0.9, 0.9);
+					var aprilBG:BGSprite = new BGSprite('bgScore', -1700, -300, 1, 1);
 					aprilBG.setGraphicSize(Std.int(aprilBG.width * 1));
 					aprilBG.antialiasing = true;
 					add(aprilBG);
@@ -1188,7 +1188,7 @@ class PlayState extends MusicBeatState
 			FreeplayState.scoreSongUnlocked = true;
 			trace('Set scoreSongUnlocked to true!');
 		} else {
-			trace('Could not set scoreSongUnlocked to true!');
+			trace('Could not set scoreSongUnlocked to true!' + '\nSong :' + Paths.formatToSongPath(songs[curSelected].songName));
 		}
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
