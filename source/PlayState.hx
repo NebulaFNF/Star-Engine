@@ -508,6 +508,8 @@ class PlayState extends MusicBeatState
 					curStage = 'tank';
 				case 'darnell' | 'lit-up' | '2hot':
 					curStage = 'phillyStreets';
+				case 'score':
+					curStage = 'streetsScore';
 				default:
 					curStage = 'stage';
 			}
@@ -904,6 +906,19 @@ class PlayState extends MusicBeatState
 					phillyWhole.antialiasing = true;
 				    add(phillyWhole);
 				}
+			// score bggg lets fucking go
+			case 'streetsScore':
+				var aprilBG:BGSprite = new BGSprite('bgScore', -1000, -700, 0.9, 0.9);
+				aprilBG.setGraphicSize(Std.int(aprilBG.width * 1));
+				aprilBG.antialiasing = false;
+				add(aprilBG);
+
+				if(!ClientPrefs.lowQuality) {
+					var aprilBG:BGSprite = new BGSprite('bgScore', -1700, -300, 0.9, 0.9);
+					aprilBG.setGraphicSize(Std.int(aprilBG.width * 1));
+					aprilBG.antialiasing = true;
+					add(aprilBG);
+				}
 		}
 
 		switch(Paths.formatToSongPath(SONG.song))
@@ -1169,6 +1184,12 @@ class PlayState extends MusicBeatState
 		trace('Loading chart...');
 		generateSong(SONG.song);
 
+		if (SONG.song == '2hot' && !FreeplayState.scoreSongUnlocked && !cpuControlled) {
+			FreeplayState.scoreSongUnlocked = true;
+			trace('Set scoreSongUnlocked to true!');
+		} else {
+			trace('Could not set scoreSongUnlocked to true!');
+		}
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
 
@@ -2528,7 +2549,7 @@ class PlayState extends MusicBeatState
 			case 'Vanilla':
 				scoreTxt.text = "Score:" + songScore;
 			case 'Kade':
-				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks:' + songMisses + ' | Accuracy:${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | ($ratingFC)'; 
+				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks:' + songMisses + ' | Accuracy:${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | $ratingFC'; 
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
@@ -3299,10 +3320,10 @@ class PlayState extends MusicBeatState
 
 		if (ClientPrefs.iconBounceBS == 'Vanilla') {
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
-		    iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
-
-		    iconP1.updateHitbox();
-		    iconP2.updateHitbox();
+			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
+	
+			iconP1.updateHitbox();
+			iconP2.updateHitbox();
 		}
 
 		if (ClientPrefs.iconBounceBS == 'Psych') {
@@ -3348,31 +3369,31 @@ class PlayState extends MusicBeatState
 
 		// P1
 		if (iconP1.animation.frames == 3) {
-			if (healthBar.percent < 20)
+			if (healthBar.percent < 20) 
 				iconP1.animation.curAnim.curFrame = 1;
-			else if (healthBar.percent > 80)
+			else if (healthBar.percent > 80) 
 				iconP1.animation.curAnim.curFrame = 2;
-			else
+			else 
 				iconP1.animation.curAnim.curFrame = 0;	
 		} else {
-			if (healthBar.percent < 20)
+			if (healthBar.percent < 20) 
 				iconP1.animation.curAnim.curFrame = 1;
-			else
+			else 
 				iconP1.animation.curAnim.curFrame = 0;
 		}
 
 		// P2
 		if (iconP2.animation.frames == 3) {
-			if (healthBar.percent > 80)
+			if (healthBar.percent > 80) 
 				iconP2.animation.curAnim.curFrame = 1;
-			else if (healthBar.percent < 20)
+			else if (healthBar.percent < 20) 
 				iconP2.animation.curAnim.curFrame = 2;
-			else
+			else 
 				iconP2.animation.curAnim.curFrame = 0;
 		} else {
-			if (healthBar.percent > 80)
+			if (healthBar.percent > 80) 
 				iconP2.animation.curAnim.curFrame = 1;
-			else
+			else 
 				iconP2.animation.curAnim.curFrame = 0;
 		}
 
@@ -5627,11 +5648,23 @@ class PlayState extends MusicBeatState
 
 			// Rating FC
 			ratingFC = "";
-			if (sicks > 0) ratingFC = "SFC";
-			if (goods > 0) ratingFC = "GFC";
-			if (bads > 0 || shits > 0) ratingFC = "FC";
-			if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
-			else if (songMisses >= 10) ratingFC = "Clear";
+			if (ClientPrefs.funnyScoreTextImVeryFunny == 'Kade') {
+				/*if (sicks = 0 
+					&& goods = 0 
+					&& bads = 0 
+					&& songMisses = 0) ratingFC = "N/A";*/
+				if (sicks > 0) ratingFC = "(SFC)";
+				if (goods > 0) ratingFC = "(GFC)";
+				if (bads > 0 || shits > 0) ratingFC = "(FC)";
+				if (songMisses > 0 && songMisses < 10) ratingFC = "(SDCB)";
+				else if (songMisses >= 10) ratingFC = "(Clear)";
+			} else {
+				if (sicks > 0) ratingFC = "SFC";
+				if (goods > 0) ratingFC = "GFC";
+				if (bads > 0 || shits > 0) ratingFC = "FC";
+				if (songMisses > 0 && songMisses < 10) ratingFC = "SDCB";
+				else if (songMisses >= 10) ratingFC = "Clear";
+			}
 		}
 		updateScore(badHit); // score will only update after rating is calculated, if it's a badHit, it shouldn't bounce -Ghost
 		setOnLuas('rating', ratingPercent);

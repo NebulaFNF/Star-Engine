@@ -39,6 +39,11 @@ class FreeplayState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
 
+	public static var freeplayInstance:FreeplayState;
+
+	//EASTER EGG
+	public static var scoreSongUnlocked:Bool = false;
+
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
@@ -99,6 +104,10 @@ class FreeplayState extends MusicBeatState
 
 		grpSongs = new FlxTypedGroup<Alphabet>();
 		add(grpSongs);
+
+		if(scoreSongUnlocked) {
+			addSong('Score', 9, 'darnell', 0xff9271fd);
+		}
 
 		for (i in 0...songs.length)
 		{
