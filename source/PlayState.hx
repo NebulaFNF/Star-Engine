@@ -519,7 +519,7 @@ class PlayState extends MusicBeatState
 		var stageData:StageFile = StageData.getStageFile(curStage);
 		if(stageData == null) { //Stage couldn't be found, create a dummy stage for preventing a crash
 			stageData = {
-				directory: "", // i added sex
+				directory: "",
 				defaultZoom: 0.9,
 				isPixelStage: false,
 
@@ -575,7 +575,7 @@ class PlayState extends MusicBeatState
 				add(bg);
 
 				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
-				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1)); // i added sex
 				stageFront.updateHitbox();
 				add(stageFront);
 				if(!ClientPrefs.lowQuality) {
@@ -5478,8 +5478,7 @@ class PlayState extends MusicBeatState
 			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
 			&& !chartingMode)
 		{
-
-			var animShit:ComboCounter = new ComboCounter(-100, 300, noteCombo);
+			var animShit:ComboCounter = new ComboCounter();
 			//noteCombo = 0;
 			animShit.scrollFactor.set(0.6, 0.6);
 			add(animShit);
