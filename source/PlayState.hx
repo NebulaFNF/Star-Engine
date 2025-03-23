@@ -1185,7 +1185,7 @@ class PlayState extends MusicBeatState
 		generateSong(SONG.song);
 
 		var daSong:String = Paths.formatToSongPath(curSong);
-		if (SONG.song == '2hot' && !FreeplayState.scoreSongUnlocked && !cpuControlled && isStoryMode) {
+		if (SONG.song == '2hot' && !FreeplayState.scoreSongUnlocked && !cpuControlled) {
 			FreeplayState.scoreSongUnlocked = true;
 			trace('Set scoreSongUnlocked to true!');
 		} else {
