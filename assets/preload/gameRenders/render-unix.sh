@@ -1,25 +1,36 @@
 #!/bin/bash
 
-echo "hello there!"
-echo "PS: this will only work if you have ffmpeg installed."
+set -e
 
-echo "Enter the name of the song you'd like to render! (this is the folder that you'll use)"
+echo "This will only work if you have ffmpeg installed."
+
+echo "Enter the name of the song you'd like to render."
 read -r renderFolder
+
+if [[ ! -d "$renderFolder" ]]; then
+    echo "Error: Folder '$renderFolder' not found. Exiting."
+    exit 1
+fi
 
 echo
 
 echo "What would you like to name your rendered video?"
 read -r renderName
 
+if [[ -z "$renderName" ]]; then
+    echo "Error: Render name cannot be empty. Exiting."
+    exit 1
+fi
+
 echo
 
-echo "What is the framerate of your images/video? (defaults to 60)"
+echo "What is the framerate of your images/video? (Default: 60)"
 read -r vidFPS
-vidFPS=${vidFPS:-60}  # Default to 60 if empty
+vidFPS=${vidFPS:-60} 
 
 echo
 
-echo "Lastly, are you rendering your video in a lossless format? (y/n, default n, makes the renderer find pngs instead of jpgs)"
+echo "Lastly, are you rendering your video in a lossless format? (y/N)"
 read -r useLossless
 useLossless=${useLossless:-n}  # Default to 'n' if empty
 
@@ -34,6 +45,12 @@ else
     fExt="jpg"
 fi
 
-ffmpeg -r "$vidFPS" -i "$PWD/$renderFolder/%07d.$fExt" "$renderName.mp4"
+if [[ -z $(ls "$renderFolder"/*.$fExt 2>/dev/null) ]]; then
+    echo "Error: No *.$fExt files found in '$renderFolder'. Exiting."
+    exit 1
+fi
 
+ffmpeg -r "$vidFPS" -i "$renderFolder/%07d.$fExt" "$renderName.mp4"
+
+echo "Rendering complete! Output file: $renderName.mp4"
 exit 0
