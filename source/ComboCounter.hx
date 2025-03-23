@@ -35,7 +35,6 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 		add(effectStuff);
 
 		grpNumbers = new FlxTypedGroup<ComboNumber>();
-		//add(grpNumbers);
 	}
 
 	public function forceFinish():Void
@@ -56,7 +55,9 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 		onScreenTime += elapsed;
 
 		if (effectStuff.animation.curAnim.curFrame == 17) effectStuff.animation.pause();
+
 		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup) setupCombo(daCombo);
+
 		if (effectStuff.animation.curAnim.curFrame == 18)
 		{
 			grpNumbers.forEach(function(spr:ComboNumber)
@@ -93,16 +94,6 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 
 			daCombo = Math.floor(daCombo / 10);
 		}
-
-		var comboNumber:ComboNumber = new ComboNumber(420, 0, 0);
-
-		// add to both, in the group just for ez organize/accessing
-		// grpNumbers.add(comboNumber);
-		// add(comboNumber);
-
-		// var comboNumber2:ComboNumber = new ComboNumber(420 - 134, 44, 0);
-		// grpNumbers.add(comboNumber2);
-		// add(comboNumber2);
 	}
 }
 
@@ -112,7 +103,7 @@ class ComboNumber extends FlxSprite
 	{
 		super(x - 20, y);
 
-		var stringNum:String = digit + "";
+		var stringNum:String = Std.string(digit);
 		frames = Paths.getSparrowAtlas('noteComboNumbers');
 		animation.addByPrefix(stringNum, stringNum, 24, false);
 		animation.play(stringNum);

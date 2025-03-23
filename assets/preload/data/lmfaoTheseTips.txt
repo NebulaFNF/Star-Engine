@@ -17,9 +17,6 @@ NULL Object Reference
 [DATA EXPUNGED]
 press 7 to open the debug menu
 BAL_7.ogg
-BAL_3.ogg
-five big booms
-boom! boom! boom! boom! boom!!!!!!!!!!!
+BAL_3.oggfive big booms, boom! boom! boom! boom! boom!!!!!!!!!!!
 nahiara aguirre es chupapollas
 lmfaoTheseTips.txt: No such file or directory
-Star Engine was proprietary, but we decided to make it open source
