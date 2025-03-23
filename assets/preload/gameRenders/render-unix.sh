@@ -2,6 +2,11 @@
 
 set -e
 
+if ! command -v ffmpeg &> /dev/null; then
+    echo "Error: FFmpeg is not installed. Please install it and try again."
+    exit 1
+fi
+
 echo "This will only work if you have ffmpeg installed."
 
 echo "Enter the name of the song you'd like to render."
@@ -32,7 +37,7 @@ echo
 
 echo "Lastly, are you rendering your video in a lossless format? (y/N)"
 read -r useLossless
-useLossless=${useLossless:-n}  # Default to 'n' if empty
+useLossless=${useLossless:-n}
 
 echo
 
@@ -50,7 +55,17 @@ if [[ -z $(ls "$renderFolder"/*.$fExt 2>/dev/null) ]]; then
     exit 1
 fi
 
-ffmpeg -r "$vidFPS" -i "$renderFolder/%07d.$fExt" "$renderName.mp4"
+# Check if output file already exists
+if [[ -f "$renderName.mp4" ]]; then
+    echo "Warning: '$renderName.mp4' already exists. Overwrite? (y/N)"
+    read -r overwrite
+    if [[ ! "$overwrite" =~ ^[Yy]$ ]]; then
+        echo "Exiting without overwriting."
+        exit 1
+    fi
+fi
+
+ffmpeg -r "$vidFPS" -i "$renderFolder/%d.$fExt" -c:v libx264 -crf 18 -preset slow "$renderName.mp4"
 
 echo "Rendering complete! Output file: $renderName.mp4"
 exit 0
