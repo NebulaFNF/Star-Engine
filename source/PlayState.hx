@@ -1184,11 +1184,12 @@ class PlayState extends MusicBeatState
 		trace('Loading chart...');
 		generateSong(SONG.song);
 
+		var daSong:String = Paths.formatToSongPath(curSong);
 		if (SONG.song == '2hot' && !FreeplayState.scoreSongUnlocked && !cpuControlled) {
 			FreeplayState.scoreSongUnlocked = true;
 			trace('Set scoreSongUnlocked to true!');
 		} else {
-			trace('Could not set scoreSongUnlocked to true!' + '\nSong :' + Paths.formatToSongPath(songs[curSelected].songName));
+			trace('Could not set scoreSongUnlocked to true!' + '\nSong : ' + daSong);
 		}
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
