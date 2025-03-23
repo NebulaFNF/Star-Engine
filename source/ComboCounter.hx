@@ -52,11 +52,18 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 
 	override function update(elapsed:Float)
 	{
-		onScreenTime += elapsed;
+	onScreenTime += elapsed;
 
-		if (effectStuff.animation.curAnim.curFrame == 17) effectStuff.animation.pause();
+	if (effectStuff.animation != null && effectStuff.animation.curAnim != null) 
+	{
+		if (effectStuff.animation.curAnim.curFrame == 17) 
+			effectStuff.animation.pause();
 
-		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup) setupCombo(daCombo);
+		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup) 
+		{
+			setupCombo(daCombo);
+			wasComboSetup = true;
+		}
 
 		if (effectStuff.animation.curAnim.curFrame == 18)
 		{
@@ -68,15 +75,21 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 
 		if (effectStuff.animation.curAnim.curFrame == 20)
 		{
+			var toKill:Array<ComboNumber> = [];
 			grpNumbers.forEach(function(spr:ComboNumber)
 			{
-				spr.kill();
+				toKill.push(spr);
 			});
+			for (spr in toKill)
+			{
+				spr.kill();
+			}
 		}
-
-		super.update(elapsed);
 	}
 
+	super.update(elapsed);
+}
+// es horrible pero bueno
 	function setupCombo(daCombo:Int)
 	{
 		FlxG.sound.play(Paths.sound('comboSound'));
