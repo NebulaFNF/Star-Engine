@@ -49,47 +49,59 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 		else
 			effectStuff.animation.play('funny', true, false, 18);
 	}
+	
+override function update(elapsed:Float)
+{
+    onScreenTime += elapsed;
 
-	override function update(elapsed:Float)
-	{
-	onScreenTime += elapsed;
+    // Ensure effectStuff and its animation exist before accessing them
+    if (effectStuff.animation != null && effectStuff.animation.curAnim != null) 
+    {
+        var curFrame = effectStuff.animation.curAnim.curFrame;
 
-	if (effectStuff.animation != null && effectStuff.animation.curAnim != null) 
-	{
-		if (effectStuff.animation.curAnim.curFrame == 17) 
-			effectStuff.animation.pause();
+        if (curFrame == 17) 
+            effectStuff.animation.pause();
 
-		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup) 
-		{
-			setupCombo(daCombo);
-			wasComboSetup = true;
-		}
+        if (curFrame == 2 && !wasComboSetup) 
+        {
+            setupCombo(daCombo);
+            wasComboSetup = true; // Prevents it from running repeatedly
+        }
 
-		if (effectStuff.animation.curAnim.curFrame == 18)
-		{
-			grpNumbers.forEach(function(spr:ComboNumber)
-			{
-				spr.animation.reset();
-			});
-		}
+        if (curFrame == 18)
+        {
+            // Ensure grpNumbers exists before iterating
+            if (grpNumbers != null) 
+            {
+                grpNumbers.forEach(function(spr:ComboNumber)
+                {
+                    if (spr.animation != null)
+                        spr.animation.reset();
+                });
+            }
+        }
 
-		if (effectStuff.animation.curAnim.curFrame == 20)
-		{
-			var toKill:Array<ComboNumber> = [];
-			grpNumbers.forEach(function(spr:ComboNumber)
-			{
-				toKill.push(spr);
-			});
-			for (spr in toKill)
-			{
-				spr.kill();
-			}
-		}
-	}
+        if (curFrame == 20)
+        {
+            if (grpNumbers != null)
+            {
+                var toKill:Array<ComboNumber> = [];
+                grpNumbers.forEach(function(spr:ComboNumber)
+                {
+                    toKill.push(spr);
+                });
 
-	super.update(elapsed);
+                for (spr in toKill)
+                {
+                    spr.kill();
+                }
+            }
+        }
+    }
+
+    super.update(elapsed);
 }
-// es horrible pero bueno
+
 	function setupCombo(daCombo:Int)
 	{
 		FlxG.sound.play(Paths.sound('comboSound'));
