@@ -49,58 +49,56 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 		else
 			effectStuff.animation.play('funny', true, false, 18);
 	}
+	override function update(elapsed:Float) {
+		onScreenTime += elapsed;
 	
-override function update(elapsed:Float)
-{
-    onScreenTime += elapsed;
-
-    // Ensure effectStuff and its animation exist before accessing them
-    if (effectStuff.animation != null && effectStuff.animation.curAnim != null) 
-    {
-        var curFrame = effectStuff.animation.curAnim.curFrame;
-
-        if (curFrame == 17) 
-            effectStuff.animation.pause();
-
-        if (curFrame == 2 && !wasComboSetup) 
-        {
-            setupCombo(daCombo);
-            wasComboSetup = true; // Prevents it from running repeatedly
-        }
-
-        if (curFrame == 18)
-        {
-            // Ensure grpNumbers exists before iterating
-            if (grpNumbers != null) 
-            {
-                grpNumbers.forEach(function(spr:ComboNumber)
-                {
-                    if (spr.animation != null)
-                        spr.animation.reset();
-                });
-            }
-        }
-
-        if (curFrame == 20)
-        {
-            if (grpNumbers != null)
-            {
-                var toKill:Array<ComboNumber> = [];
-                grpNumbers.forEach(function(spr:ComboNumber)
-                {
-                    toKill.push(spr);
-                });
-
-                for (spr in toKill)
-                {
-                    spr.kill();
-                }
-            }
-        }
-    }
-
-    super.update(elapsed);
-}
+		// Ensure effectStuff and its animation exist before accessing them
+		if (effectStuff.animation != null && effectStuff.animation.curAnim != null) 
+		{
+			var curFrame = effectStuff.animation.curAnim.curFrame;
+	
+			if (curFrame == 17) 
+				effectStuff.animation.pause();
+	
+			if (curFrame == 2 && !wasComboSetup) 
+			{
+				setupCombo(daCombo);
+				wasComboSetup = true; // Prevents it from running repeatedly
+			}
+	
+			if (curFrame == 18)
+			{
+				// Ensure grpNumbers exists before iterating
+				if (grpNumbers != null) 
+				{
+					grpNumbers.forEach(function(spr:ComboNumber)
+					{
+						if (spr.animation != null)
+							spr.animation.reset();
+					});
+				}
+			}
+	
+			if (curFrame == 20)
+			{
+				if (grpNumbers != null)
+				{
+					var toKill:Array<ComboNumber> = [];
+					grpNumbers.forEach(function(spr:ComboNumber)
+					{
+						toKill.push(spr);
+					});
+	
+					for (spr in toKill)
+					{
+						spr.kill();
+					}
+				}
+			}
+		}
+	
+		super.update(elapsed);
+	}
 
 	function setupCombo(daCombo:Int)
 	{
