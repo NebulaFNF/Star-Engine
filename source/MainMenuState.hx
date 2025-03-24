@@ -171,7 +171,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 		
-		// universe engine code stop stealing code
+		// universe engine code stop stealing code no :3
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
