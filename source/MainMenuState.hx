@@ -151,7 +151,7 @@ class MainMenuState extends MusicBeatState
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("aboutMenu", "preload"));
-		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(90, 60, "assets/images/freeplay-boyfriend");
+		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(180, 60, "assets/images/freeplay-boyfriend");
 		var anim:FlxAnim;
 		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 90, 60, 24);
 		freeplayBoyfriend.antialiasing = true;
@@ -172,7 +172,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 		
-		// universe engine code
+		// universe engine code stop stealing code
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
