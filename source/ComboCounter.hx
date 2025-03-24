@@ -97,15 +97,11 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 				if (grpNumbers != null)
 				{
 					var toKill:Array<ComboNumber> = [];
-					grpNumbers.forEach(function(spr:ComboNumber)
-					{
+					grpNumbers.forEach(function(spr:ComboNumber) {
 						toKill.push(spr);
 					});
 	
-					for (spr in toKill)
-					{
-						spr.kill();
-					}
+					for (spr in toKill) spr.kill();
 				}
 			}
 		}

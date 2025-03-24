@@ -271,9 +271,7 @@ class FunkinLua {
 
 			var killMe:Array<String> = obj.split('.');
 			var leObj:FlxSprite = getObjectDirectly(killMe[0]);
-			if(killMe.length > 1) {
-				leObj = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
-			}
+			if(killMe.length > 1) leObj = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
 
 			if(leObj != null) {
 				var arr:Array<String> = PlayState.instance.runtimeShaders.get(shader);
@@ -460,11 +458,7 @@ class FunkinLua {
 
 			// trace('bitmapdatapath: $bitmapdataPath');
 			var value = Paths.image(bitmapdataPath);
-			if(value != null && value.bitmap != null)
-			{
-				// trace('Found bitmapdata. Width: ${value.bitmap.width} Height: ${value.bitmap.height}');
-				shader.setSampler2D(prop, value.bitmap);
-			}
+			if(value != null && value.bitmap != null) shader.setSampler2D(prop, value.bitmap);
 			#else
 			luaTrace("setShaderSampler2D: Platform unsupported for Runtime Shaders!", false, false, FlxColor.RED);
 			#end
@@ -488,19 +482,19 @@ class FunkinLua {
 				#end
 				return;
 			}
-			if(args==null)args = [];
+			if(args==null) args = [];
 
-			if(exclusions==null)exclusions=[];
+			if(exclusions==null) exclusions=[];
 
 			Lua.getglobal(lua, 'scriptName');
 			var daScriptName = Lua.tostring(lua, -1);
 			Lua.pop(lua, 1);
-			if(ignoreSelf && !exclusions.contains(daScriptName))exclusions.push(daScriptName);
+			if(ignoreSelf && !exclusions.contains(daScriptName)) exclusions.push(daScriptName);
 			PlayState.instance.callOnLuas(funcName, args, ignoreStops, exclusions);
 		});
 
 		Lua_helper.add_callback(lua, "callScript", function(?luaFile:String, ?funcName:String, ?args:Array<Dynamic>){
-			if(luaFile==null){
+			if(luaFile == null) {
 				#if (linc_luajit >= "0.0.6")
 				LuaL.error(lua, "bad argument #1 to 'callScript' (string expected, got nil)");
 				#end
@@ -524,21 +518,14 @@ class FunkinLua {
 				cervix = Paths.modFolders(cervix);
 				doPush = true;
 			}
-			else if(FileSystem.exists(cervix))
-			{
-				doPush = true;
-			}
+			else if(FileSystem.exists(cervix)) doPush = true;
 			else {
 				cervix = Paths.getPreloadPath(cervix);
-				if(FileSystem.exists(cervix)) {
-					doPush = true;
-				}
+				if(FileSystem.exists(cervix)) doPush = true;
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(Assets.exists(cervix)) {
-				doPush = true;
-			}
+			if(Assets.exists(cervix)) doPush = true;
 			#end
 			if(doPush)
 			{
@@ -984,8 +971,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "getPropertyFromGroup", function(obj:String, index:Int, variable:Dynamic) {
 			var shitMyPants:Array<String> = obj.split('.');
 			var realObject:Dynamic = Reflect.getProperty(getInstance(), obj);
-			if(shitMyPants.length>1)
-				realObject = getPropertyLoopThingWhatever(shitMyPants, true, false);
+			if(shitMyPants.length > 1) realObject = getPropertyLoopThingWhatever(shitMyPants, true, false);
 
 
 			if(Std.isOfType(realObject, FlxTypedGroup))
