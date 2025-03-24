@@ -42,8 +42,8 @@ import Type.ValueType;
 import DialogueBoxPsych;
 
 #if hscript
-import hscript.Parser;
-import hscript.Interp;
+import crowplexus.hscript.Parser;
+import crowplexus.hscript.Interp;
 #end
 
 #if desktop
