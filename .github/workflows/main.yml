@@ -202,7 +202,7 @@ jobs:
           cd ../..
       - name: Compile
         run: |
-          lime rebuild cpp -64
+          haxelib run lime rebuild cpp -64
           haxelib run lime build linux -D ${{ inputs.buildFlags }}
       - name: Clear Previous Cache
         uses: actions/github-script@main
