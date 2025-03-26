@@ -201,7 +201,9 @@ jobs:
           haxe compile.hxml
           cd ../..
       - name: Compile
-        run: haxelib run lime build mac -D ${{ inputs.buildFlags }}
+        run: |
+          lime rebuild cpp -64
+          haxelib run lime build linux -D ${{ inputs.buildFlags }}
       - name: Clear Previous Cache
         uses: actions/github-script@main
         with:
