@@ -67,13 +67,13 @@ class Project extends HXProject {
 
     /**
     * Path to the Haxe script run before building the game.
-    
-    static final PREBUILD_HX:String = "source/Prebuild.hx";
+    */
+    static final PREBUILD_HX:String = "art/Prebuild.hx";
 
     /**
     * Path to the Haxe script run after building the game.
-    static final POSTBUILD_HX:String = "source/Postbuild.hx";
     */
+    static final POSTBUILD_HX:String = "art/Postbuild.hx";
 
     /**
 	 * Asset path globs to always exclude from asset libraries.
@@ -134,6 +134,10 @@ class Project extends HXProject {
 		// Tell Lime where to look for the game's source code.
 		// If for some reason we have multiple source directories, we can add more entries here.
 		this.sources.push(SOURCE_DIR);
+
+		// Tell Lime to run some prebuild and postbuild scripts.
+        this.preBuildCallbacks.push(buildHaxeCLICommand(PREBUILD_HX));
+        this.postBuildCallbacks.push(buildHaxeCLICommand(POSTBUILD_HX));
 
 		// Configure the window.
 		// Automatically configure FPS.
