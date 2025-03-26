@@ -6,12 +6,9 @@ import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.math.FlxMath;
 import flixel.FlxG;
-#if hxvlc
 import hxvlc.flixel.FlxVideoSprite;
-#end
 
 class VideoSprite extends FlxSpriteGroup {
-	#if VIDEOS_ALLOWED
 	public var finishCallback:Void->Void = null;
 	public var onSkip:Void->Void = null;
 
@@ -25,7 +22,6 @@ class VideoSprite extends FlxSpriteGroup {
 	private var videoName:String;
 
 	public var waiting:Bool = false;
-
 	public function new(videoName:String, isWaiting:Bool, canSkip:Bool = false, shouldLoop:Dynamic = false, autoPause = true) {
 		super();
 
@@ -162,5 +158,4 @@ class VideoSprite extends FlxSpriteGroup {
 	public function play() videoSprite?.play();
 	public function resume() videoSprite?.resume();
 	public function pause() videoSprite?.pause();
-	#end
 }

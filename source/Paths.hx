@@ -407,6 +407,7 @@ class Paths
 	inline static public function mods(key:String = '') {
 		return 'mods/' + key;
 	}
+	
 
 	inline static public function modsFont(key:String) {
 		return modFolders('fonts/' + key);

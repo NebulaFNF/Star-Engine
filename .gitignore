@@ -10,6 +10,7 @@ export/*
 .vscode/*
 *.sfk
 *.code-workspace
+vscode-project.hxml
 # Local history which shouldn't be shared.
 .history
 .ionide
