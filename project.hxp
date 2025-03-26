@@ -109,8 +109,8 @@ class Project extends HXProject {
 		configureApp();
 
 		displayTarget();
-        configureFeatureFlags();
         configureCompileDefines();
+        configureFeatureFlags();
         configureOutputDir();
         configureHaxelibs();
         configureAssets();
@@ -252,7 +252,7 @@ class Project extends HXProject {
 		// Should be true unless explicitly requested.
 		MODS_ALLOWED.apply(this, true);
 		LUA_ALLOWED.apply(this, true);
-		if (isWeb() && isDesktop() && !is32Bit()) VIDEOS_ALLOWED.apply(this, true);
+		VIDEOS_ALLOWED.apply(this, true);
         CRASH_HANDLER.apply(this, true);
         ACHIEVEMENTS_ALLOWED.apply(this, true);
         TITLE_SCREEN_EASTER_EGG.apply(this, true);
@@ -320,7 +320,7 @@ class Project extends HXProject {
         addHaxelib('flixel-ui', '2.4.0'); // UI framework (DEPRECATED but who cares)
         addHaxelib('flixel-text-input'); // Improved text field rendering for HaxeUI
 
-        addHaxelib('flxanimate', '3.0.2'); // Texture atlas rendering
+        addHaxelib('flxanimate'); // Texture atlas rendering
 		addHaxelib('thx.core'); // General utility library, "the lodash of Haxe"
 		addHaxelib('thx.semver'); // Version string handling
         if(isDesktop()) addHaxelib('discord_rpc'); // Discord API
@@ -329,7 +329,7 @@ class Project extends HXProject {
 
 		if (isDebug()) addHaxelib('hxcpp-debug-server'); // VSCode debug support
 
-        if (isDesktop() && !isHashLink() && VIDEOS_ALLOWED.isEnabled(this)) addHaxelib('hxvlc'); // Video playback
+        if (isDesktop() && VIDEOS_ALLOWED.isEnabled(this)) addHaxelib('hxvlc', '1.9.2');
     }
 
     function configureAssets() {
@@ -383,6 +383,8 @@ class Project extends HXProject {
 		var shouldEmbedArt = false;
 		var shouldPreloadArt = false;
 		addAsset("art/readme.txt", "do NOT readme.txt", "art", shouldEmbedArt);
+        addAsset("CHANGELOG.md", "changelog.txt", "/", shouldEmbedArt);
+        //addAsset("example_mods/", "mods/", "/", shouldEmbedArt);
 	}
 
     /**

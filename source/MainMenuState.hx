@@ -152,7 +152,7 @@ class MainMenuState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("aboutMenu", "preload"));
 		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(180, 60, "assets/images/freeplay-boyfriend");
 		var anim:FlxAnim;
-		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 90, 60, 24);
+		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 180, 60, 24);
 		freeplayBoyfriend.antialiasing = true;
 		freeplayBoyfriend.screenCenter();
 		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 1.5));
@@ -180,8 +180,8 @@ class MainMenuState extends MusicBeatState
 		add(grid);
 		add(freeplayBoyfriend);
 
-		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(90, 60, "assets/images/freeplay-boyfriend");
-		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 90, 60, 24);
+		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(180, 60, "assets/images/freeplay-boyfriend");
+		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 180, 60, 24);
 		freeplayBoyfriend.antialiasing = true;
 		freeplayBoyfriend.screenCenter();
 		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 1.5));
