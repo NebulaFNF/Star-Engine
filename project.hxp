@@ -90,17 +90,17 @@ class Project extends HXProject {
 	static final EXCLUDE_ASSETS_NATIVE:Array<String> = ["*.mp3"];
 
     // featuresss yayyy
-    static final FEATURE_officialBuild:FeatureFlag = "FEATURE_officialBuild";
-    static final FEATURE_MODS_ALLOWED:FeatureFlag = "FEATURE_MODS_ALLOWED";
-    static final FEATURE_LUA_ALLOWED:FeatureFlag = "FEATURE_LUA_ALLOWED";
-    static final FEATURE_VIDEOS_ALLOWED:FeatureFlag = "FEATURE_VIDEOS_ALLOWED";
-    static final FEATURE_DEBUG_FUNCTIONS:FeatureFlag = "FEATURE_DEBUG_FUNCTIONS";
+    static final officialBuild:FeatureFlag = "officialBuild";
+    static final MODS_ALLOWED:FeatureFlag = "MODS_ALLOWED";
+    static final LUA_ALLOWED:FeatureFlag = "LUA_ALLOWED";
+    static final VIDEOS_ALLOWED:FeatureFlag = "VIDEOS_ALLOWED";
+    static final DEBUG_FUNCTIONS:FeatureFlag = "DEBUG_FUNCTIONS";
 	static final PRELOAD_ALL:FeatureFlag = "PRELOAD_ALL";
 	static final EMBED_ASSETS:FeatureFlag = "EMBED_ASSETS";
     static final FEATURE_FILE_DROP:FeatureFlag = "FEATURE_FILE_DROP";
-    static final FEATURE_ACHIEVEMENTS_ALLOWED:FeatureFlag = "FEATURE_ACHIEVEMENTS_ALLOWED";
-    static final FEATURE_CRASH_HANDLER:FeatureFlag = "FEATURE_CRASH_HANDLER";
-    static final FEATURE_TITLE_SCREEN_EASTER_EGG:FeatureFlag = "FEATURE_TITLE_SCREEN_EASTER_EGG";
+    static final ACHIEVEMENTS_ALLOWED:FeatureFlag = "ACHIEVEMENTS_ALLOWED";
+    static final CRASH_HANDLER:FeatureFlag = "CRASH_HANDLER";
+    static final TITLE_SCREEN_EASTER_EGG:FeatureFlag = "TITLE_SCREEN_EASTER_EGG";
 
     public function new() {
         super();
@@ -109,8 +109,8 @@ class Project extends HXProject {
 		configureApp();
 
 		displayTarget();
+        configureFeatureFlags();
         configureCompileDefines();
-		configureIncludeMacros();
         configureOutputDir();
         configureHaxelibs();
         configureAssets();
@@ -250,12 +250,12 @@ class Project extends HXProject {
 		// For example, `-DMODS` or `-DVIDEO_PLAYBACK`
 
 		// Should be true unless explicitly requested.
-		FEATURE_MODS_ALLOWED.apply(this, true);
-		FEATURE_LUA_ALLOWED.apply(this, true);
-		FEATURE_VIDEOS_ALLOWED.apply(this, true);
-        FEATURE_CRASH_HANDLER.apply(this, true);
-        FEATURE_ACHIEVEMENTS_ALLOWED.apply(this, true);
-        FEATURE_TITLE_SCREEN_EASTER_EGG.apply(this, true);
+		MODS_ALLOWED.apply(this, true);
+		LUA_ALLOWED.apply(this, true);
+		if (isWeb() && isDesktop() && !is32Bit()) VIDEOS_ALLOWED.apply(this, true);
+        CRASH_HANDLER.apply(this, true);
+        ACHIEVEMENTS_ALLOWED.apply(this, true);
+        TITLE_SCREEN_EASTER_EGG.apply(this, true);
 
 		// Should be true only on web builds.
 		// Enabling embedding and preloading is required to preload assets properly.
@@ -283,7 +283,7 @@ class Project extends HXProject {
 		setHaxedef("safeMode");
 
 		// If we aren't using the Flixel debugger, strip it out.
-		if (FEATURE_DEBUG_FUNCTIONS.isDisabled(this)) setHaxedef("FLX_NO_DEBUG");
+		if (DEBUG_FUNCTIONS.isDisabled(this)) setHaxedef("FLX_NO_DEBUG");
 
 		// Disable the built in pause screen when unfocusing the game.
 		setHaxedef("FLX_NO_FOCUS_LOST_SCREEN");
@@ -299,32 +299,6 @@ class Project extends HXProject {
 		setHaxedef("message.reporting", "pretty");
     }
 
-    /**
-	 * Set compilation flags which manage dead code elimination.
-	 */
-	function configureIncludeMacros() {
-		// Disable dead code elimination.
-		// This prevents functions that are unused by the base game from being unavailable to HScript.
-		addHaxeFlag("-dce no");
-
-		// Forcibly include all Funkin' classes in builds.
-		// This prevents classes that are unused by the base game from being unavailable to HScript.
-		addHaxeMacro("include('funkin')");
-
-		// Ensure all HaxeUI components are available at runtime.
-		addHaxeMacro("include('haxe.ui.backend.flixel.components')");
-		addHaxeMacro("include('haxe.ui.core')");
-		addHaxeMacro("include('haxe.ui.components')");
-		addHaxeMacro("include('haxe.ui.containers')");
-		addHaxeMacro("include('haxe.ui.containers.dialogs')");
-		addHaxeMacro("include('haxe.ui.containers.menus')");
-		addHaxeMacro("include('haxe.ui.containers.properties')");
-
-		// Ensure all Flixel classes are available at runtime.
-		// Explicitly ignore packages which require additional dependencies.
-		addHaxeMacro("include('flixel', true, [ 'flixel.addons.editors.spine.*', 'flixel.addons.nape.*', 'flixel.system.macros.*' ])");
-	}
-
     function configureOutputDir() {
 		// Set the output directory. Depends on the target platform and build type.
 
@@ -336,30 +310,26 @@ class Project extends HXProject {
     }
 
     function configureHaxelibs() {
-        addHaxelib('lime', 'git'); // Game engine backend
-        addHaxelib('openfl', 'git'); // Game engine backend
+        addHaxelib('lime'); // Game engine backend
+        addHaxelib('openfl'); // Game engine backend
 
         addHaxelib('flixel', '5.2.2'); // Game engine
 
         addHaxelib('flixel-addons', '2.11.0'); // Additional utilities for Flixel
-        addHaxelib('hscript-iris', 'git'); // Scripting
-        addHaxelib('flixel-ui', '2.4.0'); // UI framework (DEPRECATED)
-        addHaxelib('haxeui-core', 'git'); // UI framework
-        addHaxelib('haxeui-flixel', 'git'); // Integrate HaxeUI with Flixel
-        addHaxelib('flixel-text-input', 'git'); // Improved text field rendering for HaxeUI
+        addHaxelib('hscript-iris'); // Scripting
+        addHaxelib('flixel-ui', '2.4.0'); // UI framework (DEPRECATED but who cares)
+        addHaxelib('flixel-text-input'); // Improved text field rendering for HaxeUI
 
         addHaxelib('flxanimate', '3.0.2'); // Texture atlas rendering
 		addHaxelib('thx.core'); // General utility library, "the lodash of Haxe"
 		addHaxelib('thx.semver'); // Version string handling
-        addHaxelib('discord_rpc', '1.0.0'); // Discord API
-        addHaxelib('away3d', 'git'); // 3D API
-        addHaxelib('linc_luajit', 'git'); // Lua API
+        if(isDesktop()) addHaxelib('discord_rpc'); // Discord API
+        addHaxelib('away3d'); // 3D API
+        if(isDesktop() && LUA_ALLOWED.isEnabled(this)) addHaxelib('linc_luajit'); // Lua API
 
-		if (isDebug()) {
-			addHaxelib('hxcpp-debug-server'); // VSCode debug support
-		}
+		if (isDebug()) addHaxelib('hxcpp-debug-server'); // VSCode debug support
 
-        addHaxelib('hxvlc'); // Video playback
+        if (isDesktop() && !isHashLink() && VIDEOS_ALLOWED.isEnabled(this)) addHaxelib('hxvlc'); // Video playback
     }
 
     function configureAssets() {
@@ -387,7 +357,7 @@ class Project extends HXProject {
 		addAssetPath("assets/songs", "assets/songs", "songs", ["*"], exclude, shouldEmbed);
 		addAssetLibrary("shared", shouldEmbed, shouldPreload);
 		addAssetPath("assets/shared", "assets/shared", "shared", ["*"], exclude, shouldEmbed);
-		if (FEATURE_VIDEOS_ALLOWED.isEnabled(this)) {
+		if (VIDEOS_ALLOWED.isEnabled(this)) {
 			var shouldEmbedVideos = false;
 			addAssetLibrary("videos", shouldEmbedVideos, shouldPreload);
 			addAssetPath("assets/videos", "assets/videos", "videos", ["*"], exclude, shouldEmbedVideos);

@@ -21,7 +21,7 @@ haxelib set flixel-addons 2.11.0
 haxelib set flixel-demos 2.9.0
 haxelib set flixel-ui 2.4.0
 haxelib set flixel 5.2.2
-haxelib set flxanimate 3.0.4
+haxelib git flxanimate https://github.com/NothinCrew/flxanimate
 haxelib install format 3.5.0
 haxelib git hscript-iris https://github.com/pisayesiwsi/hscript-iris dev
 haxelib git hxCodec https://github.com/SyncGit12/hxCodec
