@@ -106,7 +106,7 @@ class FreeplayState extends MusicBeatState
 		add(grpSongs);
 
 		if(scoreSongUnlocked) {
-			addSong('Score', 9, 'darnell', 0xff9271fd);
+			addSong('Score', 8, 'darnell', 0xff9271fd);
 		}
 
 		for (i in 0...songs.length)
