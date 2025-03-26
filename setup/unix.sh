@@ -5,6 +5,7 @@
 echo Installing dependencies...
 echo This might take a few moments depending on your internet speed.
 sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev
+sudo apt install libvlc-dev libvlccore-dev libvlccore9
 haxelib setup
 haxelib install discord_rpc 1.0.0
 haxelib install flixel-addons 2.11.0
@@ -12,7 +13,6 @@ haxelib install flixel-demos 2.9.0
 haxelib install flixel-ui 2.4.0
 haxelib install flixel 5.2.2
 haxelib install flxanimate 3.0.4
-haxelib install hxCodec 2.5.1
 haxelib install openfl 9.3.0
 haxelib install lime
 haxelib run lime setup flixel
@@ -25,13 +25,11 @@ haxelib set flixel 5.2.2
 haxelib git flxanimate https://github.com/NothinCrew/flxanimate
 haxelib install format 3.5.0
 haxelib git hscript-iris https://github.com/pisayesiwsi/hscript-iris dev
-haxelib git hxCodec https://github.com/SyncGit12/hxCodec
 haxelib git openfl https://github.com/SyncGit12/openfl
 haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp
 haxelib git linc_luajit https://github.com/superpowers04/linc_luajit
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
 haxelib git away3d https://github.com/moxie-coder/away3d
-haxelib git hxCodec https://github.com/SyncGit12/hxCodec
 haxelib git lime https://github.com/FunkinCrew/lime fe3368f611a84a19afc03011353945ae4da8fffd
 haxelib install hxp 1.3.0
 haxelib install hxvlc 1.9.2
