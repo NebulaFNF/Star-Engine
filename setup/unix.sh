@@ -4,7 +4,7 @@
 # https://haxe.org/download
 echo Installing dependencies...
 echo This might take a few moments depending on your internet speed.
-sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev
+sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev sdl2_ttf-debugsource
 sudo apt install libvlc-dev libvlccore-dev libvlccore9
 haxelib setup
 haxelib install discord_rpc 1.0.0
