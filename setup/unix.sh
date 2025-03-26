@@ -4,6 +4,7 @@
 # https://haxe.org/download
 echo Installing dependencies...
 echo This might take a few moments depending on your internet speed.
+sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev
 haxelib setup
 haxelib install discord_rpc 1.0.0
 haxelib install flixel-addons 2.11.0
