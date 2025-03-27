@@ -1189,7 +1189,7 @@ class PlayState extends MusicBeatState
 			FreeplayState.scoreSongUnlocked = true;
 			trace('Set scoreSongUnlocked to true!');
 		} else {
-			trace('Could not set scoreSongUnlocked to true!' + '\nSong : ' + daSong);
+			trace('Could not set scoreSongUnlocked to true!' + '\nSong: ' + daSong);
 		}
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
@@ -3129,9 +3129,23 @@ class PlayState extends MusicBeatState
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
+	var pbRM:Float = 2.0;
 
 	override public function update(elapsed:Float)
 	{
+		#if debug
+		if (FlxG.keys.pressed.SHIFT) {
+			if (pbRM != 4.0) pbRM = 4.0;
+		} else {
+			if (pbRM != 2.0) pbRM = 2.0;
+		}
+
+	   	if (FlxG.keys.justPressed.SLASH)
+			playbackRate /= pbRM;
+		if (FlxG.keys.justPressed.PERIOD)
+		   	playbackRate *= pbRM;
+		#end
+
 		callOnLuas('onUpdate', [elapsed]);
 
 		switch (curStage)

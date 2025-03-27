@@ -1,4 +1,5 @@
 ### FNF-Specific
+.build_time
 # File used for the NG API. Should not be shared with others.
 APIStuff.hx
 art/build_x32-officialrelease.bat
