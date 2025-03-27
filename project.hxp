@@ -284,10 +284,13 @@ class Project extends HXProject {
 		setHaxedef("HXCPP_STACK_TRACE");
 		setHaxedef("hscriptPos");
 
+		// Allow memory to go above 1GB.
+		setHaxedef("HXCPP_GC_BIG_BLOCKS");
+
 		setHaxedef("safeMode");
 
 		// If we aren't using the Flixel debugger, strip it out.
-		if (FEATURE_DEBUG_FUNCTIONS.isDisabled(this)) {
+		if (!isDebug()) {
 			setHaxedef("FLX_NO_DEBUG");
 		}
 
@@ -390,7 +393,7 @@ class Project extends HXProject {
 		var shouldPreloadArt = false;
 		addAsset("art/readme.txt", "do NOT readme.txt", "art", shouldEmbedArt);
         addAsset("CHANGELOG.md", "changelog.txt", "/", shouldEmbedArt);
-        //addAsset("example_mods/", "mods/", "/", shouldEmbedArt);
+		//addAssetPath("mods", null, "default", ["*"], exclude, shouldEmbed);
 	}
 
     /**
