@@ -273,7 +273,6 @@ class PlayState extends MusicBeatState
 
 	var tempScore:String;
 
-
 	// FFMpeg values :)
 	var ffmpegMode = ClientPrefs.ffmpegMode;
 	var ffmpegInfo = ClientPrefs.ffmpegInfo;

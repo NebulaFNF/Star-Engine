@@ -11,6 +11,7 @@ import flixel.system.FlxSound;
 import flixel.addons.display.FlxBackdrop;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
+import options.OptionsState;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.addons.display.FlxGridOverlay;
@@ -21,12 +22,13 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Gameplay Changers', 'Change Difficulty', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Gameplay Changers', 'Change Difficulty', 'Options', 'Exit to menu'];
 	var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
+	public static var inPause:Bool = false;
 	var practiceText:FlxText;
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
@@ -244,6 +246,9 @@ class PauseSubState extends MusicBeatSubstate
 					persistentUpdate = false;
 					openSubState(new GameplayChangersSubstate());
 					GameplayChangersSubstate.inThePauseMenu = true;
+				case "Options":
+					MusicBeatState.switchState(new OptionsState());
+					inPause = true;
 				case 'Skip Time':
 					if(curTime < Conductor.songPosition)
 					{
