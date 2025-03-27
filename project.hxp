@@ -94,7 +94,7 @@ class Project extends HXProject {
     static final MODS_ALLOWED:FeatureFlag = "MODS_ALLOWED";
     static final LUA_ALLOWED:FeatureFlag = "LUA_ALLOWED";
     static final VIDEOS_ALLOWED:FeatureFlag = "VIDEOS_ALLOWED";
-    static final DEBUG_FUNCTIONS:FeatureFlag = "DEBUG_FUNCTIONS";
+    static final FEATURE_DEBUG_FUNCTIONS:FeatureFlag = "FEATURE_DEBUG_FUNCTIONS";
 	static final PRELOAD_ALL:FeatureFlag = "PRELOAD_ALL";
 	static final EMBED_ASSETS:FeatureFlag = "EMBED_ASSETS";
     static final FEATURE_FILE_DROP:FeatureFlag = "FEATURE_FILE_DROP";
