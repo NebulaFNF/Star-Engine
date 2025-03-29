@@ -8,7 +8,6 @@ import flash.events.Event;
 import flixel.graphics.tile.FlxDrawBaseItem;
 import flixel.system.FlxSplash;
 import flixel.util.FlxArrayUtil;
-import funkin.prefs.ClientPrefs;
 import openfl.Assets;
 import openfl.filters.BitmapFilter;
 #if desktop
