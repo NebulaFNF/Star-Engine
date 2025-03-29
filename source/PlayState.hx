@@ -3129,7 +3129,11 @@ class PlayState extends MusicBeatState
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
 	var pbRM:Float = 2.0;
-
+	var iconBopTime:Float;
+	var iconAngleTime:Float;
+	var iconBopMultX:Float;
+	var iconBopMultY:Float;
+	var iconBopAngle:Float;
 	override public function update(elapsed:Float)
 	{
 		#if debug
@@ -3145,7 +3149,13 @@ class PlayState extends MusicBeatState
 		   	playbackRate *= pbRM;
 		#end
 
+		/*if (ClientPrefs.iconBounceBS == 'HRK Engine (H-Slice)') {
+			iconBopTime = Math.exp(-Conductor.bpm / 24 * elapsed);
+			iconAngleTime = Math.exp(-Conductor.bpm / 12 * elapsed);
+		}*/
+
 		callOnLuas('onUpdate', [elapsed]);
+		super.update(elapsed);
 
 		switch (curStage)
 		{
@@ -3318,57 +3328,88 @@ class PlayState extends MusicBeatState
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		//iconP1.scale.set(mult, mult);
-		//iconP1.updateHitbox();
-
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
-		//iconP2.scale.set(mult, mult);
-		//iconP2.updateHitbox();
-
-		/*iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
-		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
-
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();*/
-
 		if (ClientPrefs.iconBounceBS == 'Vanilla') {
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
 			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
+		}
 	
+		if (ClientPrefs.iconBounceBS == 'Strident Crisis') {
+			iconP1.setGraphicSize(Std.int(FlxMath.lerp(iconP1.frameWidth, iconP1.width, 0.50 / playbackRate)),
+			Std.int(FlxMath.lerp(iconP1.frameHeight, iconP1.height, 0.50 / playbackRate)));
+			iconP2.setGraphicSize(Std.int(FlxMath.lerp(iconP2.frameWidth, iconP2.width, 0.50 / playbackRate)),
+			Std.int(FlxMath.lerp(iconP2.frameHeight, iconP1.height, 0.50 / playbackRate)));
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 		}
-
-		if (ClientPrefs.iconBounceBS == 'Psych') {
+	
+		if (ClientPrefs.iconBounceBS == 'Golden Apple') {
+			iconP1.centerOffsets();
+			iconP2.centerOffsets();
+		}
+	
+		/*if (ClientPrefs.iconBounceBS == 'HRK Engine (H-Slice)') {
+			iconBopTime = Math.exp(-Conductor.bpm / 24 * time);
+			iconAngleTime = Math.exp(-Conductor.bpm / 12 * time);
+			iconBopMultX = FlxMath.lerp(1, iconP1.scale.x, iconBopTime);
+			iconBopMultY = FlxMath.lerp(1, iconP1.scale.y, iconBopTime);
+			iconBopAngle = FlxMath.lerp(0, iconP1.angle, iconAngleTime);
+			iconP1.scale.set(iconBopMultX, iconBopMultY);
+			iconP1.angle = iconBopAngle;
+			iconP1.updateHitbox();
+		}*/
+	
+		if (ClientPrefs.iconBounceBS == 'SB Engine') {
+			// hi stefan you're a god gamer
+			if (iconP1.angle >= 0) {
+				if (iconP1.angle != 0) {
+					iconP1.angle -= 1 * playbackRate;
+				}
+			} else {
+				if (iconP1.angle != 0) {
+					iconP1.angle += 1 * playbackRate;
+				}
+			}
+			if (iconP2.angle >= 0) {
+				if (iconP2.angle != 0) {
+					iconP2.angle -= 1 * playbackRate;
+				}
+			} else {
+				if (iconP2.angle != 0) {
+					iconP2.angle += 1 * playbackRate;
+				}
+			}
+		}
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
+	
+		if (ClientPrefs.iconBounceBS == 'Psych' || ClientPrefs.iconBounceBS == 'SB Engine') {
 			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP1.scale.set(mult, mult);
 			iconP1.updateHitbox();
-	
+		
 			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
-	
-			var iconOffset:Int = 26;
-	
-			iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-			iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 		}
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
+	
 
 		var iconOffset:Int = 26;
 
 		var percent:Float = 0;
 	    var center:Float = 0;
+
 		if (ClientPrefs.smoothHealth)
-			{
-				percent = 1 - (ClientPrefs.smoothHPBug ? (displayedHealth / maxHealth) : (FlxMath.bound(displayedHealth, 0, maxHealth) / maxHealth));
-	
-				iconP1.x = 0 + healthBar.x + (healthBar.width * percent) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-				iconP2.x = 0 + healthBar.x + (healthBar.width * percent) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-			}
+		{
+			final percent:Float = 1 - (ClientPrefs.smoothHPBug ? (displayedHealth / maxHealth) : (FlxMath.bound(displayedHealth, 0, maxHealth) / maxHealth));
+		
+			iconP1.x = 0 + healthBar.x + (healthBar.width * percent) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
+			iconP2.x = 0 + healthBar.x + (healthBar.width * percent) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		}
 			else //mb forgot to include this
 		{
-			center = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01));
+			final center:Float = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01));
 			iconP1.x = center + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 			iconP2.x = center - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 		}
@@ -5377,6 +5418,9 @@ class PlayState extends MusicBeatState
 
 	var lightningStrikeBeat:Int = 0;
 	var lightningOffset:Int = 8;
+	var beatRatio:Float = 1;
+	var bopRatio:Float = 1;
+	var hpRatio:Float = 1;
 
 	var lastBeatHit:Int = -1;
 
@@ -5394,11 +5438,15 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
-		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
+		var multX:Float = 0;
+		var multY:Float = 0;
+		var angle:Float = 0;
+		var multPlusX:Float = 0;
+		var multPlusY:Float = 0;
+		var angle:Float = 0;
 
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();
+		beatRatio = curDecBeat % 1;
+		bopRatio = 1 - beatRatio;
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{
@@ -5525,6 +5573,62 @@ class PlayState extends MusicBeatState
 		
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
+		}
+
+		if (ClientPrefs.iconBounceBS == 'Strident Crisis') {
+			final funny:Float = (healthBar.percent * 0.01) + 0.01;
+
+			//health icon bounce but epic
+			iconP1.setGraphicSize(Std.int(iconP1.width + (50 * (2 + funny))),Std.int(iconP2.height - (25 * (2 + funny))));
+			iconP2.setGraphicSize(Std.int(iconP2.width + (50 * (2 - funny))),Std.int(iconP2.height - (25 * (2 - funny))));
+
+			iconP1.scale.set(1.1, 0.8);
+			iconP2.scale.set(1.1, 0.8);
+
+			FlxTween.angle(iconP1, -15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+			FlxTween.angle(iconP2, 15, 0, Conductor.crochet / 1300 * gfSpeed, {ease: FlxEase.quadOut});
+
+			FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed / playbackRate, {ease: FlxEase.quadOut});
+			FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed / playbackRate, {ease: FlxEase.quadOut});
+		}
+
+		// hi HRK you're a god gamer like stefan
+		/*if (ClientPrefs.iconBounceBS == 'HRK Engine (H-Slice)') {
+			if (curBeat % 2 == 1) {
+				multX = 1.2;
+				multY = 1.2;
+				angle = -20;
+			} else {
+				multX = 1.5;
+				multY = 1.2;
+				angle = 30;
+			}
+			iconP1.scale.set(multX, multY);
+			iconP1.angle = -angle;
+			iconP2.scale.set(multX, multY);
+			iconP2.angle = -angle;
+
+			FlxTween.cancelTweensOf(iconP1);
+			FlxTween.tween(iconP1, {x: FlxG.width - 250}, 0.25, {ease: FlxEase.quadInOut});
+		}*/
+
+		if (ClientPrefs.iconBounceBS == 'SB Engine') {
+			// hi stefan you're a god gamer
+			if (curBeat % gfSpeed == 0) {
+				if (curBeat % (gfSpeed * 2) == 0) {
+					iconP1.scale.set(0.8, 0.8);
+					iconP2.scale.set(1.2, 1.3);
+
+					iconP1.angle = -15;
+					iconP2.angle = 15;
+				} else {
+					iconP2.scale.set(0.8, 0.8);
+					iconP1.scale.set(1.2, 1.3);
+
+					iconP2.angle = -15;
+					iconP1.angle = 15;
+				}
+			}
 		}
 
 		if (curStage == 'spooky' && FlxG.random.bool(10) && curBeat > lightningStrikeBeat + lightningOffset)

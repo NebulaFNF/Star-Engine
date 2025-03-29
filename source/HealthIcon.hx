@@ -47,9 +47,8 @@ class HealthIcon extends FlxSprite
 			var file:Dynamic = Paths.image(name);
 
 			loadGraphic(file); //Load stupidly first for getting the file size
-			/*loadGraphic(file, true, Math.floor(width / 2), Math.floor(height)); //Then load it fr
-			iconOffsets[0] = (width - 150) / 2;
-			iconOffsets[1] = (width - 150) / 2;*/
+			initialWidth = width;
+			initialHeight = height;
 			var width2 = width;
 			if (width == 450) {
 				loadGraphic(file, true, Math.floor(width / 3), Math.floor(height)); //Then load it fr // winning icons go br
@@ -80,9 +79,18 @@ class HealthIcon extends FlxSprite
 
 	override function updateHitbox()
 	{
-		super.updateHitbox();
-		offset.x = iconOffsets[0];
-		offset.y = iconOffsets[1];
+		if (ClientPrefs.iconBounceBS == 'Golden Apple' || !Std.isOfType(FlxG.state, PlayState)) {
+			super.updateHitbox();
+		    offset.x = iconOffsets[0];
+		    offset.y = iconOffsets[1];
+		} else {
+			super.updateHitbox();
+			if (initialWidth != (150 * animation.frames) || initialHeight != 150) //Fixes weird icon offsets when they're HUMONGUS (sussy)
+			{
+				offset.x = iconOffsets[0];
+				offset.y = iconOffsets[1];
+			}
+		}
 	}
 
 	public function getCharacter():String return char;

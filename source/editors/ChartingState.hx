@@ -367,15 +367,10 @@ class ChartingState extends MusicBeatState
 			{name: "Song", label: 'Song'},
 			{name: "Section", label: 'Section'},
 			{name: "Note", label: 'Note'},
-			//{name: "Spamming", label: "Spamming"},
+			{name: "Spamming", label: "Spamming"},
 			{name: "Events", label: 'Events'},
 			{name: "Charting", label: 'Charting'}
 		];
-
-		/*var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
-		theThingImage.x = 640 + NewX / 2;
-		theThingImage.y = 25;
-		theThingImage.scrollFactor.set();*/
 
 		UI_box = new FlxUITabMenu(null, tabs, true);
 
@@ -402,20 +397,17 @@ class ChartingState extends MusicBeatState
 
 		var tipTextArray:Array<String> = text.split('\n');
 		for (i in 0...tipTextArray.length) {
-			/*var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
-			theThingImage.x = UI_box.x;
-            theThingImage.y = UI_box.y;*/
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
 		    theThingImage.x = UI_box.x;
 		    theThingImage.y = tipText.y;
 		    theThingImage.scrollFactor.set();
+		    add(theThingImage);
 			//var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
 			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.BLACK, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 			//tipText.borderSize = 2;
 			tipText.scrollFactor.set();
-			add(theThingImage);
 			add(tipText);
 		}
 
@@ -424,7 +416,7 @@ class ChartingState extends MusicBeatState
 		addSongUI();
 		addSectionUI();
 		addNoteUI();
-		//addNoteStackingUI();
+		addNoteStackingUI();
 		addEventsUI();
 		addChartingUI();
 		updateHeads();
@@ -1061,7 +1053,7 @@ class ChartingState extends MusicBeatState
 		UI_box.addGroup(tab_group_note);
 	}
 
-	/*var check_stackActive:FlxUICheckBox;
+	var check_stackActive:FlxUICheckBox;
 	var stepperStackNum:FlxUINumericStepper;
 	var stepperStackOffset:FlxUINumericStepper;
 	var stepperStackSideOffset:FlxUINumericStepper;
@@ -1226,7 +1218,7 @@ class ChartingState extends MusicBeatState
 			tab_group_stacking.add(new FlxText(100, stepperDuplicateAmount.y, 0, "Amount of Duplicates"));
 	
 			UI_box.addGroup(tab_group_stacking);
-	}*/
+	}
 
 	var eventDropDown:FlxUIDropDownMenuCustom;
 	var descText:FlxText;
@@ -1855,6 +1847,13 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.log.add('added note');
 					addNote();
+					var addCount:Float = 0;
+					if (check_stackActive.checked) {
+						addCount = stepperStackNum.value * stepperStackOffset.value - 1;
+					}
+					for(i in 0...Std.int(addCount)) {
+						addNote(curSelectedNote[0] + (15000/Conductor.bpm)/stepperStackOffset.value, curSelectedNote[1] + Math.floor(stepperStackSideOffset.value), currentType);
+					}
 				}
 			}
 		}
