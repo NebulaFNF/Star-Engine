@@ -278,7 +278,7 @@ class Project extends HXProject {
 		// Enable OpenFL's error handler. Required for the crash logger.
         setHaxedef("openfl-enable-handle-error");
 
-		// Enable stack trace tracking. Good for debugging but has a (minor) performance impact.
+		// Enable stack trace tracking. Good for debugging but has a (minor) performance impact. (and also the crash handler)
 		setHaxedef("HXCPP_CHECK_POINTER");
 		setHaxedef("HXCPP_STACK_LINE");
 		setHaxedef("HXCPP_STACK_TRACE");

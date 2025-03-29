@@ -8,7 +8,7 @@ import flixel.FlxG;
 
 class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 {
-	public var effectStuff:FlxSprite;
+	var effectStuff:FlxSprite;
 
 	var wasComboSetup:Bool = false;
 	var daCombo:Int = 0;
@@ -17,33 +17,25 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 
 	var onScreenTime:Float = 0;
 
-	public static var playShit:Bool = false;
-
-	public function new()
+	public function new(x:Float, y:Float, daCombo:Int = 0)
 	{
-		super();
+		super(x, y);
 
-		addComboShit();
-	}
+		this.daCombo = daCombo;
 
-	public function addComboShit() {
-		playShit = true;
-		changeStuff('funny', 'NOTE COMBO animation', 24);
-	}
-
-	public function changeStuff(animName:String, animSparrowName:String, framerate:Int) {
-		effectStuff = new FlxSprite(-100, 300);
+		effectStuff = new FlxSprite(0, 0);
 		effectStuff.frames = Paths.getSparrowAtlas('noteCombo');
-		effectStuff.animation.addByPrefix(animName, animSparrowName, framerate, false);
+		effectStuff.animation.addByPrefix('funny', 'NOTE COMBO animation', 24, false);
+		effectStuff.animation.play('funny');
 		effectStuff.antialiasing = true;
 		effectStuff.animation.finishCallback = function(nameThing)
 		{
 			kill();
 		};
+		add(effectStuff);
 
-		if (playShit) {
-			effectStuff.animation.play(animName, true, false, framerate);
-		}
+		grpNumbers = new FlxTypedGroup<ComboNumber>();
+		// add(grpNumbers);
 	}
 
 	public function forceFinish():Void
@@ -55,57 +47,38 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 				forceFinish();
 			});
 		}
-		else {
-			playShit = true;
-			changeStuff('funny', 'NOTE COMBO animation', 18);
-		}	    
+		else
+			effectStuff.animation.play('funny', true, false, 18);
 	}
 
-	override function update(elapsed:Float) {
+	override function update(elapsed:Float)
+	{
 		onScreenTime += elapsed;
-		var comboFrame = effectStuff.animation.curAnim.curFrame;
-	
-		// Ensure effectStuff and its animation exist before accessing them
-		if (effectStuff.animation != null && effectStuff.animation.curAnim != null) 
+
+		if (effectStuff.animation.curAnim.curFrame == 17)
+			effectStuff.animation.pause();
+
+		if (effectStuff.animation.curAnim.curFrame == 2 && !wasComboSetup)
 		{
-			if (comboFrame == 17 && playShit) {
-				playShit = false;
-				effectStuff.animation.pause();
-			}
-	
-			if (comboFrame == 2 && !wasComboSetup) 
-			{
-				setupCombo(daCombo);
-				wasComboSetup = true; // Prevents it from running repeatedly
-			}
-	
-			if (comboFrame == 18)
-			{
-				// Ensure grpNumbers exists before iterating
-				if (grpNumbers != null) 
-				{
-					grpNumbers.forEach(function(spr:ComboNumber)
-					{
-						if (spr.animation != null)
-							spr.animation.reset();
-					});
-				}
-			}
-	
-			if (comboFrame == 20)
-			{
-				if (grpNumbers != null)
-				{
-					var toKill:Array<ComboNumber> = [];
-					grpNumbers.forEach(function(spr:ComboNumber) {
-						toKill.push(spr);
-					});
-	
-					for (spr in toKill) spr.kill();
-				}
-			}
+			setupCombo(daCombo);
 		}
-	
+
+		if (effectStuff.animation.curAnim.curFrame == 18)
+		{
+			grpNumbers.forEach(function(spr:ComboNumber)
+			{
+				spr.animation.reset();
+			});
+		}
+
+		if (effectStuff.animation.curAnim.curFrame == 20)
+		{
+			grpNumbers.forEach(function(spr:ComboNumber)
+			{
+				spr.kill();
+			});
+		}
+
 		super.update(elapsed);
 	}
 
@@ -126,6 +99,16 @@ class ComboCounter extends FlxTypedSpriteGroup<FlxSprite>
 
 			daCombo = Math.floor(daCombo / 10);
 		}
+
+		// var comboNumber:ComboNumber = new ComboNumber(420, 0, 0);
+
+		// add to both, in the group just for ez organize/accessing
+		// grpNumbers.add(comboNumber);
+		// add(comboNumber);
+
+		// var comboNumber2:ComboNumber = new ComboNumber(420 - 134, 44, 0);
+		// grpNumbers.add(comboNumber2);
+		// add(comboNumber2);
 	}
 }
 

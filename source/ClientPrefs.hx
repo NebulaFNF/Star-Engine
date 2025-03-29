@@ -34,6 +34,7 @@ class ClientPrefs {
 	public static var noteComboBullshit:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
 	public static var strumsAreFuckingOffset:Bool = false;
+	public static var peOGCrash:Bool = false;
 
 	// Video Renderer
 	public static var ffmpegMode:Bool = false;

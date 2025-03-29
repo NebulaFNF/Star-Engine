@@ -3300,7 +3300,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		super.update(elapsed);
+		//super.update(elapsed);
 
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
@@ -3331,6 +3331,9 @@ class PlayState extends MusicBeatState
 		if (ClientPrefs.iconBounceBS == 'Vanilla') {
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
 			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
+
+			iconP1.updateHitbox();
+			iconP2.updateHitbox();
 		}
 	
 		if (ClientPrefs.iconBounceBS == 'Strident Crisis') {
@@ -5528,14 +5531,13 @@ class PlayState extends MusicBeatState
 		}
 
 		// Note Comboes
-		/*if (curBeat % 8 == 7
+		if (curBeat % 8 == 7
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& noteCombo > 5
 			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
 			&& !chartingMode)
 		{
-			var animShit:ComboCounter = new ComboCounter();
-			//noteCombo = 0;
+			var animShit:ComboCounter = new ComboCounter(-100, 300, noteCombo);
 			animShit.scrollFactor.set(0.6, 0.6);
 			add(animShit);
 
@@ -5545,7 +5547,7 @@ class PlayState extends MusicBeatState
 			{
 				animShit.forceFinish();
 			});
-		}*/
+		}
 
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {
