@@ -19,7 +19,7 @@ import sys.io.File;
 #end
 
 #if VIDEOS_ALLOWED
-import VideoSprite;
+import funkin.video.VideoSprite;
 #end
 
 class FlxSplash extends FlxState

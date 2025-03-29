@@ -73,8 +73,7 @@ class Flixel extends FlxView3D
 
 		for (mesh in meshs)
 		{
-			if (mesh != null)
-				mesh.rotationY += 10 * elapsed;
+			if (mesh != null) mesh.rotationY += 10 * elapsed;
 		}
 	}
 

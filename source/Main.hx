@@ -13,8 +13,11 @@ import openfl.display.FPS;
 import openfl.display.FPSBg;
 
 import openfl.display.Sprite;
+import funkin.prefs.ClientPrefs;
 import openfl.events.Event;
+import funkin.ui.MainMenuState;
 import openfl.display.StageScaleMode;
+import funkin.ui.StartupState as StartupStateLmfao;
 
 #if desktop
 import backend.ALSoftConfig; // Just to make sure DCE doesn't remove this, since it's not directly referenced anywhere else.
@@ -38,7 +41,7 @@ class Main extends Sprite
 {
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var initialState:Class<FlxState> = StartupState; // default state it starts up in
+	var initialState:Class<FlxState> = StartupStateLmfao; // default state it starts up in
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.

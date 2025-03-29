@@ -4,6 +4,7 @@ import haxe.Timer;
 import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
+import funkin.prefs.ClientPrefs;
 import flixel.math.FlxMath;
 import flixel.util.FlxStringUtil;
 #if gl_stats
