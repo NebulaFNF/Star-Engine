@@ -5531,7 +5531,7 @@ class PlayState extends MusicBeatState
 		}
 
 		// Note Comboes
-		if (curBeat % 8 == 7
+		/*if (curBeat % 8 == 7
 			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
 			&& noteCombo > 5
 			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
@@ -5547,7 +5547,7 @@ class PlayState extends MusicBeatState
 			{
 				animShit.forceFinish();
 			});
-		}
+		}*/
 
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {
