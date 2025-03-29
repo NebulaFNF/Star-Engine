@@ -135,7 +135,7 @@ class Crash extends FlxState {
 		ohNo3.x = 30;
 		add(ohNo3);
 
-		var ohNo4:FlxText = new FlxText(0, 0, 1280, "If you are reporting this bug, Press [F2] to screenshot that error or\nGo to crash/ folder and copy the contents from the recent file.");
+		var ohNo4:FlxText = new FlxText(0, 0, 1280, "If you are reporting this bug, Go to crash/ folder and copy the contents from the recent file.");
 		ohNo4.setFormat(Paths.font('vcryey.ttf'), 22, FlxColor.WHITE, FlxTextAlign.CENTER);
 		ohNo4.alpha = 0;
 		ohNo4.screenCenter();
