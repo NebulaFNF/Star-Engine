@@ -1,8 +1,7 @@
 {
 	"songs": [
 		["Spookeez", "spooky", [34, 51, 68]],
-		["South", "spooky", [34, 51, 68]],
-		["Monster", "monster", [34, 51, 68]]
+		["South", "spooky", [34, 51, 68]]
 	],
 
 	"weekCharacters": [
@@ -10,6 +9,7 @@
 		"bf",
 		"gf"
 	],
+	"difficulties": "easy, normal, hard, erect",
 	"weekBackground": "halloween",
 
 	"storyName": "Spooky Month",

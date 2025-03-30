@@ -1,0 +1,20 @@
+{
+	"songs": [
+		["Monster", "monster", [34, 51, 68]]
+	],
+
+	"weekCharacters": [
+		"",
+		"bf",
+		""
+	],
+	"weekBackground": "halloween",
+
+	"storyName": "The monster is coming...",
+	"weekBefore": "week2",
+	"weekName": "Monster",
+	"startUnlocked": true,
+
+	"hideStoryMode": true,
+	"hideFreeplay": false
+}

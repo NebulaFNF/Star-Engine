@@ -3145,6 +3145,7 @@ class PlayState extends MusicBeatState
 	var pbRM:Float = 2.0;
 	override public function update(elapsed:Float)
 	{
+		if (ffmpegMode) elapsed = 1 / ClientPrefs.targetFPS;
 		#if debug
 		if (FlxG.keys.pressed.SHIFT) {
 			if (pbRM != 4.0) pbRM = 4.0;
@@ -3304,8 +3305,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		//super.update(elapsed);
-
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
@@ -3329,8 +3328,6 @@ class PlayState extends MusicBeatState
 			openChartEditor();
 		}
 
-		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
-		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
 		if (FlxG.keys.justPressed.NINE) iconP1.swapOldIcon();
 
 		if (ClientPrefs.iconBounceBS == 'Vanilla') {
@@ -4971,7 +4968,7 @@ class PlayState extends MusicBeatState
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
-			// FlxG.log.add('played imss note');
+			FlxG.log.add('played imss note');
 
 			/*boyfriend.stunned = true;
 
