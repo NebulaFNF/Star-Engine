@@ -28,6 +28,7 @@ typedef SwagSong =
 	var arrowSkin:String;
 	var splashSkin:String;
 	var validScore:Bool;
+	var specialAudioName:String;
 }
 
 class Song

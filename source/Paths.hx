@@ -212,18 +212,51 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String):Any
+	static public function voices(song:String, ?difficulty:String = '', ?postfix:String = null):Any
 	{
+		var formattedDifficulty:String = formatToSongPath(difficulty);
+		if (difficulty.contains(' ')) difficulty = formattedDifficulty;
+		#if html5
+		return 'songs:assets/songs/${formatToSongPath(song)}/Voices.$SOUND_EXT';
+		#else
+		if (difficulty != null)
+		{
+			var songKey:String = '${formatToSongPath(song)}/Voices';
+			if(postfix != null) songKey += '-' + postfix;
+			songKey += '-$difficulty';
+			if (FileSystem.exists(Paths.modFolders('songs/' + songKey + '.$SOUND_EXT')) || FileSystem.exists('assets/songs/' + songKey + '.$SOUND_EXT')) 
+			{
+				var voices = returnSound('songs', songKey);
+				return voices;
+			}
+		}
 		var songKey:String = '${formatToSongPath(song)}/Voices';
+		if(postfix != null) songKey += '-' + postfix;
 		var voices = returnSound('songs', songKey);
 		return voices;
+		#end
 	}
 
-	inline static public function inst(song:String):Any
+	static public function inst(song:String, ?difficulty:String = '', ?postfix:String = null):Any
 	{
+		var formattedDifficulty:String = formatToSongPath(difficulty);
+		if (difficulty.contains(' ')) difficulty = formattedDifficulty;
+		#if html5
+		return 'songs:assets/songs/${formatToSongPath(song)}/Inst.$SOUND_EXT';
+		#else
+		if (difficulty != null)
+		{
+			var songKey:String = '${formatToSongPath(song)}/Inst-$difficulty';
+			if (FileSystem.exists(Paths.modFolders('songs/' + songKey + '.$SOUND_EXT')) || FileSystem.exists('assets/songs/' + songKey + '.$SOUND_EXT')) 
+			{
+				var inst = returnSound('songs', songKey);
+				return inst;
+			}
+		}
 		var songKey:String = '${formatToSongPath(song)}/Inst';
 		var inst = returnSound('songs', songKey);
 		return inst;
+		#end
 	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic

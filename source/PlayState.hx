@@ -145,6 +145,9 @@ class PlayState extends MusicBeatState
 	public static var scrollSpeed:Float;
 	public static var botPlay:Bool;
 
+	// hi chat
+	public static var instrumental:FlxSound;
+
 	//SHADER SHI
 	public var shaderUpdates:Array<Float->Void> = [];
 	public var camGameShaders:Array<ShaderEffect> = [];
@@ -2615,11 +2618,13 @@ class PlayState extends MusicBeatState
 		previousFrameTime = FlxG.game.ticks;
 		lastReportedPlayheadPosition = 0;
 
+		var bruh:String = (SONG.specialAudioName.length > 1 ? SONG.specialAudioName : CoolUtil.difficultyString()).toLowerCase();
 		if (!ffmpegMode) {
-			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+			if (bruh != null) FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song, bruh), 1, false);
+			else FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 			FlxG.sound.music.onComplete = finishSong.bind();
 		} else {
-			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0, false);
+			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song, bruh), 0, false);
 			vocals.volume = 0;
 		}
 		vocals.play();
@@ -2680,14 +2685,23 @@ class PlayState extends MusicBeatState
 
 		curSong = songData.song;
 
-		if (SONG.needsVoices)
-			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+		var bruh:String = (SONG.specialAudioName.length > 1 ? SONG.specialAudioName : CoolUtil.difficultyString()).toLowerCase();
+		if (SONG.needsVoices) {
+			// Erect difficulties and other stuff lmfao
+			if (bruh != null) vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song, bruh));
+			else vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+		}
 		else
 			vocals = new FlxSound();
 
 		vocals.pitch = playbackRate;
 		FlxG.sound.list.add(vocals);
-		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
+
+		// Erect difficulties and other stuff lmfao
+		if (bruh != null) 
+			FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song, bruh)));
+		else 
+			FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
 		notes = new FlxTypedGroup<Note>();
 		add(notes);
@@ -3335,7 +3349,7 @@ class PlayState extends MusicBeatState
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 		}
-	
+
 		if (ClientPrefs.iconBounceBS == 'Golden Apple') {
 			iconP1.centerOffsets();
 			iconP2.centerOffsets();
