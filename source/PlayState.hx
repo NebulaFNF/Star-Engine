@@ -4762,7 +4762,7 @@ class PlayState extends MusicBeatState
 			}
 
 			var spr:StrumNote = playerStrums.members[key];
-			if(strumsBlocked[key] != true && spr != null && !ClientPrefs.noLightStrum && spr.animation.curAnim.name != 'confirm')
+			if(strumsBlocked[key] != true && spr != null && ClientPrefs.playerLightStrum && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
 				spr.resetAnim = 0;
@@ -4786,7 +4786,7 @@ class PlayState extends MusicBeatState
 	{
 		var eventKey:FlxKey = event.keyCode;
 		var key:Int = getKeyFromEvent(eventKey);
-		if(!cpuControlled && !ClientPrefs.noLightStrum && startedCountdown && !paused && key > -1)
+		if(!cpuControlled && ClientPrefs.playerLightStrum && startedCountdown && !paused && key > -1)
 		{
 			var spr:StrumNote = playerStrums.members[key];
 			if(spr != null)
@@ -5107,14 +5107,16 @@ class PlayState extends MusicBeatState
 			}
 
 			// lunar you could do this but i guess i will
-			if (!ClientPrefs.noLightStrum) {
-				if(cpuControlled) {
+			if(cpuControlled) {
+				if (ClientPrefs.botLightStrum) {
 					var time:Float = 0.15;
 					if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 0.15;
 					StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
-				} else {
+				}
+			} else {
+				if (ClientPrefs.playerLightStrum) {
 					var spr = playerStrums.members[note.noteData];
-					if(spr != null) spr.playAnim('confirm', true);
+				    if(spr != null) spr.playAnim('confirm', true);
 				}
 			}
 			
@@ -5641,8 +5643,13 @@ class PlayState extends MusicBeatState
 			spr = playerStrums.members[id];
 		}
 
-		if(spr != null && !ClientPrefs.noLightStrum) {
-			spr.playAnim('confirm', true);
+		if(spr != null) {
+			if(isDad && ClientPrefs.oppoLightStrum) {
+				spr.playAnim('confirm', true);
+			} else if (!isDad && ClientPrefs.playerLightStrum) {
+				spr.playAnim('confirm', true);
+			}
+
 			spr.resetAnim = time;
 		}
 	}

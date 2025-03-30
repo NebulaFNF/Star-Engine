@@ -45,7 +45,9 @@ class ClientPrefs {
 	public static var quality:Int = 80;
 	public static var noCapture:Bool = false;
 
-	public static var noLightStrum:Bool = false;
+	public static var botLightStrum:Bool = false;
+	public static var oppoLightStrum:Bool = false;
+	public static var playerLightStrum:Bool = true;
 	public static var healthBarStyle:String = 'Legacy';
 	public static var botplayWatermark:Bool = true;
 	public static var noteOffset:Int = 0;
@@ -137,7 +139,9 @@ class ClientPrefs {
 		FlxG.save.data.healthBarStyle = healthBarStyle;
         FlxG.save.data.iconBounceBS = iconBounceBS;
 		FlxG.save.data.seWatermarkLmfao = seWatermarkLmfao;
-		FlxG.save.data.noLightStrum = noLightStrum;
+		FlxG.save.data.playerLightStrum = playerLightStrum;
+		FlxG.save.data.oppoLightStrum = oppoLightStrum;
+		FlxG.save.data.botLightStrum = botLightStrum;
 		FlxG.save.data.noBotlag = noBotLag;
 		FlxG.save.data.smoothHealth = smoothHealth;
 		FlxG.save.data.strumsAreFuckingOffset = strumsAreFuckingOffset;
@@ -236,8 +240,14 @@ class ClientPrefs {
 		if(FlxG.save.data.smoothHPBug != null) {
 			smoothHPBug = FlxG.save.data.smoothHPBug;
 		}
-		if(FlxG.save.data.noLightStrum != null) {
-			noLightStrum = FlxG.save.data.noLightStrum;
+		if(FlxG.save.data.botLightStrum != null) {
+			botLightStrum = FlxG.save.data.botLightStrum;
+		}
+		if(FlxG.save.data.playerLightStrum != null) {
+			playerLightStrum = FlxG.save.data.playerLightStrum;
+		}
+		if(FlxG.save.data.oppoLightStrum != null) {
+			oppoLightStrum = FlxG.save.data.oppoLightStrum;
 		}
 		if(FlxG.save.data.noBotLag != null) {
 			noBotLag = FlxG.save.data.noBotLag;
