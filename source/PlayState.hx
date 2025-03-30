@@ -5106,7 +5106,7 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			// lunar you could do this but i guess i will
+			// funny
 			if(cpuControlled) {
 				if (ClientPrefs.botLightStrum) {
 					var time:Float = 0.15;
