@@ -79,17 +79,13 @@ class HealthIcon extends FlxSprite
 
 	override function updateHitbox()
 	{
-		if (ClientPrefs.iconBounceBS == 'Golden Apple' || !Std.isOfType(FlxG.state, PlayState)) {
-			super.updateHitbox();
-		    offset.x = iconOffsets[0];
-		    offset.y = iconOffsets[1];
-		} else {
-			super.updateHitbox();
-			if (initialWidth != (150 * animation.frames) || initialHeight != 150) //Fixes weird icon offsets when they're HUMONGUS (sussy)
-			{
-				offset.x = iconOffsets[0];
-				offset.y = iconOffsets[1];
-			}
+		super.updateHitbox();
+		offset.x = iconOffsets[0];
+		offset.y = iconOffsets[1];
+		if (initialWidth != (150 * animation.frames) || initialHeight != 150) //Fixes weird icon offsets when they're HUMONGUS (sussy)
+		{
+			offset.x = iconOffsets[0];
+			offset.y = iconOffsets[1];
 		}
 	}
 

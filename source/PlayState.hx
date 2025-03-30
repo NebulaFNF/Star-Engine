@@ -3129,11 +3129,6 @@ class PlayState extends MusicBeatState
 	var canPause:Bool = true;
 	var limoSpeed:Float = 0;
 	var pbRM:Float = 2.0;
-	var iconBopTime:Float;
-	var iconAngleTime:Float;
-	var iconBopMultX:Float;
-	var iconBopMultY:Float;
-	var iconBopAngle:Float;
 	override public function update(elapsed:Float)
 	{
 		#if debug
@@ -3148,11 +3143,6 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.PERIOD)
 		   	playbackRate *= pbRM;
 		#end
-
-		/*if (ClientPrefs.iconBounceBS == 'HRK Engine (H-Slice)') {
-			iconBopTime = Math.exp(-Conductor.bpm / 24 * elapsed);
-			iconAngleTime = Math.exp(-Conductor.bpm / 12 * elapsed);
-		}*/
 
 		callOnLuas('onUpdate', [elapsed]);
 		super.update(elapsed);
@@ -3351,17 +3341,6 @@ class PlayState extends MusicBeatState
 			iconP2.centerOffsets();
 		}
 	
-		/*if (ClientPrefs.iconBounceBS == 'HRK Engine (H-Slice)') {
-			iconBopTime = Math.exp(-Conductor.bpm / 24 * time);
-			iconAngleTime = Math.exp(-Conductor.bpm / 12 * time);
-			iconBopMultX = FlxMath.lerp(1, iconP1.scale.x, iconBopTime);
-			iconBopMultY = FlxMath.lerp(1, iconP1.scale.y, iconBopTime);
-			iconBopAngle = FlxMath.lerp(0, iconP1.angle, iconAngleTime);
-			iconP1.scale.set(iconBopMultX, iconBopMultY);
-			iconP1.angle = iconBopAngle;
-			iconP1.updateHitbox();
-		}*/
-	
 		if (ClientPrefs.iconBounceBS == 'SB Engine') {
 			// hi stefan you're a god gamer
 			if (iconP1.angle >= 0) {
@@ -3383,8 +3362,6 @@ class PlayState extends MusicBeatState
 				}
 			}
 		}
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();
 	
 		if (ClientPrefs.iconBounceBS == 'Psych' || ClientPrefs.iconBounceBS == 'SB Engine') {
 			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
@@ -3406,21 +3383,16 @@ class PlayState extends MusicBeatState
 
 		if (ClientPrefs.smoothHealth)
 		{
-			final percent:Float = 1 - (ClientPrefs.smoothHPBug ? (displayedHealth / maxHealth) : (FlxMath.bound(displayedHealth, 0, maxHealth) / maxHealth));
-		
+			percent = 1 - (ClientPrefs.smoothHPBug ? (displayedHealth / maxHealth) : (FlxMath.bound(displayedHealth, 0, maxHealth) / maxHealth));
+
 			iconP1.x = 0 + healthBar.x + (healthBar.width * percent) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 			iconP2.x = 0 + healthBar.x + (healthBar.width * percent) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 		}
-			else //mb forgot to include this
+		else //mb forgot to include this
 		{
-			final center:Float = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01));
+			center = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01));
 			iconP1.x = center + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 			iconP2.x = center - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-		}
-
-		if (!ClientPrefs.smoothHealth) {
-			iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		    iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
 		}
 
 		if (health > 2)
@@ -5422,10 +5394,6 @@ class PlayState extends MusicBeatState
 
 	var lightningStrikeBeat:Int = 0;
 	var lightningOffset:Int = 8;
-	var beatRatio:Float = 1;
-	var bopRatio:Float = 1;
-	var hpRatio:Float = 1;
-
 	var lastBeatHit:Int = -1;
 
 	override function beatHit()
@@ -5442,15 +5410,11 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		var multX:Float = 0;
-		var multY:Float = 0;
-		var angle:Float = 0;
-		var multPlusX:Float = 0;
-		var multPlusY:Float = 0;
-		var angle:Float = 0;
+		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
+		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
 
-		beatRatio = curDecBeat % 1;
-		bopRatio = 1 - beatRatio;
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{
@@ -5531,12 +5495,6 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
-		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
-
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();
-
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {
 			curBeat % (gfSpeed * 2) == 0 * playbackRate ? {
@@ -5581,26 +5539,6 @@ class PlayState extends MusicBeatState
 			FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed / playbackRate, {ease: FlxEase.quadOut});
 			FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed / playbackRate, {ease: FlxEase.quadOut});
 		}
-
-		// hi HRK you're a god gamer like stefan
-		/*if (ClientPrefs.iconBounceBS == 'HRK Engine (H-Slice)') {
-			if (curBeat % 2 == 1) {
-				multX = 1.2;
-				multY = 1.2;
-				angle = -20;
-			} else {
-				multX = 1.5;
-				multY = 1.2;
-				angle = 30;
-			}
-			iconP1.scale.set(multX, multY);
-			iconP1.angle = -angle;
-			iconP2.scale.set(multX, multY);
-			iconP2.angle = -angle;
-
-			FlxTween.cancelTweensOf(iconP1);
-			FlxTween.tween(iconP1, {x: FlxG.width - 250}, 0.25, {ease: FlxEase.quadInOut});
-		}*/
 
 		if (ClientPrefs.iconBounceBS == 'SB Engine') {
 			// hi stefan you're a god gamer
