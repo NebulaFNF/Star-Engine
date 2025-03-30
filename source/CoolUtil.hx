@@ -75,6 +75,16 @@ class CoolUtil
 		trace('$title - $message');
 		#end
 	}
+
+	public static function camLerpShit(lerp:Float):Float
+	{
+		return lerp * (FlxG.elapsed / (1 / 60));
+	}
+
+	public static function coolLerp(base:Float, target:Float, ratio:Float):Float
+	{
+		return base + camLerpShit(ratio) * (target - base);
+	}
 	
 	// i took this from js engine
 	// uncomment this if you wanna bsod

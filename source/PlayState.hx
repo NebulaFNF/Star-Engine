@@ -3327,13 +3327,14 @@ class PlayState extends MusicBeatState
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
+		if (FlxG.keys.justPressed.NINE) iconP1.swapOldIcon();
 
 		if (ClientPrefs.iconBounceBS == 'Vanilla') {
-			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
-			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 30), 0, 1))));
-
+			iconP1.setGraphicSize(Std.int(CoolUtil.coolLerp(iconP1.width, 150, 0.15)));
+			iconP2.setGraphicSize(Std.int(CoolUtil.coolLerp(iconP2.width, 150, 0.15)));
+	
 			iconP1.updateHitbox();
-			iconP2.updateHitbox();
+			iconP2.updateHitbox();	
 		}
 	
 		if (ClientPrefs.iconBounceBS == 'Strident Crisis') {
@@ -5530,24 +5531,11 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		// Note Comboes
-		/*if (curBeat % 8 == 7
-			&& SONG.notes[Math.floor(curStep / 16)].mustHitSection
-			&& noteCombo > 5
-			&& !SONG.notes[Math.floor(curStep / 16) + 1].mustHitSection
-			&& !chartingMode)
-		{
-			var animShit:ComboCounter = new ComboCounter(-100, 300, noteCombo);
-			animShit.scrollFactor.set(0.6, 0.6);
-			add(animShit);
+		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
+		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
 
-			var frameShit:Float = (1 / 24) * 2; // equals 2 frames in the animation
-
-			new FlxTimer().start(((Conductor.crochet / 1000) * 1.25) - frameShit, function(tmr)
-			{
-				animShit.forceFinish();
-			});
-		}*/
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
 
 		var iconOffset:Int = 26;
 		if (curBeat % gfSpeed == 0 && ClientPrefs.iconBounceBS == 'Golden Apple') {
