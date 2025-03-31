@@ -807,7 +807,7 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'schoolErect': // Week 6 - Erect Stage
-			GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
+			    GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
 				GameOverSubstate.loopSoundName = 'gameOver-pixel';
 				GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
 				GameOverSubstate.characterName = 'bf-pixel-dead';
@@ -859,6 +859,7 @@ class PlayState extends MusicBeatState
 				bgSky.updateHitbox();
 				bgSchool.updateHitbox();
 				bgStreet.updateHitbox();
+				bgTrees.updateHitbox();
 
 			case 'schoolEvil': //Week 6 - Thorns
 				GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
