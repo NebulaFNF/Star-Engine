@@ -145,9 +145,6 @@ class PlayState extends MusicBeatState
 	public static var scrollSpeed:Float;
 	public static var botPlay:Bool;
 
-	// hi chat
-	public static var instrumental:FlxSound;
-
 	//SHADER SHI
 	public var shaderUpdates:Array<Float->Void> = [];
 	public var camGameShaders:Array<ShaderEffect> = [];
@@ -344,6 +341,9 @@ class PlayState extends MusicBeatState
 	public var luaArray:Array<FunkinLua> = [];
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 	public var introSoundsSuffix:String = '';
+
+	var camBopInterval:Float = 4;
+	var camBopIntensity:Float = 1;
 
 	var twistShit:Float = 1;
 	var twistAmount:Float = 1;
@@ -2770,14 +2770,15 @@ class PlayState extends MusicBeatState
 
 		var daBeats:Int = 0; // Not exactly representative of 'daBeats' lol, just how much it has looped
 
+		var eventsToLoad:String = (SONG.specialEventsName.length > 1 ? SONG.specialEventsName : CoolUtil.difficultyString()).toLowerCase();
 		var songName:String = Paths.formatToSongPath(SONG.song);
-		var file:String = Paths.json(songName + '/events');
+		var file:String = Paths.songEvents(songName, eventsToLoad);
 		#if MODS_ALLOWED
 		if (FileSystem.exists(Paths.modsJson(songName + '/events')) || FileSystem.exists(file)) {
 		#else
 		if (OpenFlAssets.exists(file)) {
 		#end
-			var eventsData:Array<Dynamic> = Song.loadFromJson('events', songName).events;
+			var eventsData:Array<Dynamic> = Song.loadFromJson(Paths.songEvents(songName, eventsToLoad, true), songName).events;
 			for (event in eventsData) //Event Notes
 			{
 				for (i in 0...event[1].length)
@@ -4028,6 +4029,19 @@ class PlayState extends MusicBeatState
 
 			case 'Kill Henchmen':
 				killHenchmen();
+			
+			case 'Camera Bopping':
+				var _interval:Int = Std.parseInt(value1);
+				if (Math.isNaN(_interval))
+					_interval = 4;
+				var _intensity:Float = Std.parseFloat(value2);
+				if (Math.isNaN(_intensity))
+					_intensity = 1;
+	
+				camBopIntensity = _intensity;
+				camBopInterval = _interval;
+				if (_interval != 4) usingBopIntervalEvent = true;
+				else usingBopIntervalEvent = false;
 			
 			case 'Camera Twist':
 				camTwist = true;
@@ -5478,6 +5492,12 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
+		if (camZooming && !endingSong && !startingSong && FlxG.camera.zoom < 1.35 && usingBopIntervalEvent && ClientPrefs.camZooms && (curBeat % camBopInterval == 0))
+		{
+			FlxG.camera.zoom += 0.015 * camBopIntensity;
+			camHUD.zoom += 0.03 * camBopIntensity;
+		} /// WOOO YOU CAN NOW MAKE IT AWESOME
+
 		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
 		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
 
@@ -5637,6 +5657,7 @@ class PlayState extends MusicBeatState
 		callOnLuas('onBeatHit', []);
 	}
 
+	var usingBopIntervalEvent = false;
 	override function sectionHit()
 	{
 		super.sectionHit();
@@ -5664,6 +5685,11 @@ class PlayState extends MusicBeatState
 			setOnLuas('mustHitSection', SONG.notes[curSection].mustHitSection);
 			setOnLuas('altAnim', SONG.notes[curSection].altAnim);
 			setOnLuas('gfSection', SONG.notes[curSection].gfSection);
+			if (camZooming && !endingSong && !startingSong && FlxG.camera.zoom < 1.35 && !usingBopIntervalEvent && ClientPrefs.camZooms)
+			{
+				FlxG.camera.zoom += 0.015 * camBopIntensity;
+				camHUD.zoom += 0.03 * camBopIntensity;
+			}
 		}
 		
 		setOnLuas('curSection', curSection);

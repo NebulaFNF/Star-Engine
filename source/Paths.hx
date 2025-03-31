@@ -259,6 +259,20 @@ class Paths
 		#end
 	}
 
+	//For song events.
+	static public function songEvents(song:String, ?difficulty:String, ?onlyEventsString:Bool = false):String {
+		if (difficulty != null) {
+			var formattedDifficulty:String = formatToSongPath(difficulty);
+			if (difficulty.contains(' ')) difficulty = formattedDifficulty;
+			
+			var eventsKey:String = formatToSongPath(song) + '/events-${difficulty.toLowerCase()}';
+			if (FileSystem.exists(Paths.json(eventsKey)) || FileSystem.exists(Paths.modsJson(eventsKey)))
+				return (!onlyEventsString ? eventsKey : 'events-${difficulty.toLowerCase()}');
+		}
+		var eventsKey:String = formatToSongPath(song) + '/events';
+		return (!onlyEventsString ? eventsKey : 'events');
+	}
+
 	inline static public function image(key:String, ?library:String):FlxGraphic
 	{
 		// streamlined the assets process more
