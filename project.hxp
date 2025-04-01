@@ -283,6 +283,7 @@ class Project extends HXProject {
 		setHaxedef("HXCPP_STACK_LINE");
 		setHaxedef("HXCPP_STACK_TRACE");
 		setHaxedef("hscriptPos");
+		setHaxedef("LINC_LUA_RELATIVE_DYNAMIC_LIB"); // DISABLE THIS IF ISSUES ARE FOUND!
 
 		// Allow memory to go above 1GB.
 		setHaxedef("HXCPP_GC_BIG_BLOCKS");
@@ -394,6 +395,15 @@ class Project extends HXProject {
 		addAsset("art/readme.txt", "do NOT readme.txt", "art", shouldEmbedArt);
         addAsset("CHANGELOG.md", "changelog.txt", "/", shouldEmbedArt);
 		//addAssetPath("mods", null, "default", ["*"], exclude, shouldEmbed);
+
+        // i forgor about this :sob:
+		if (isDesktop()) {
+			if (isWindows()) {
+				addAsset("alsoft.txt", "alsoft.ini", "plugins", shouldEmbedArt);
+			} else {
+				addAsset("alsoft.txt", "alsoft.conf", "plugins", shouldEmbedArt);
+			}
+		}
 	}
 
     /**
