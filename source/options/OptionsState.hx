@@ -90,6 +90,10 @@ class OptionsState extends MusicBeatState
 			} else MusicBeatState.switchState(new MainMenuState());
 		}
 
+		if (controls.RESET) {
+			openSubState(new options.DebugSubState());
+		}
+
 		if (controls.ACCEPT) openSelectedSubstate(options[curSelected]);
 	}
 	
