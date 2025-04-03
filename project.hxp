@@ -1,5 +1,6 @@
 package;
 
+// I don't think we can import FNF classes here.
 import hxp.*;
 import lime.tools.*;
 import sys.FileSystem;

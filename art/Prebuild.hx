@@ -7,19 +7,19 @@ import sys.io.File;
  */
 class Prebuild
 {
-  static inline final BUILD_TIME_FILE:String = '.build_time';
+    static inline final BUILD_TIME_FILE:String = '.build_time';
 
-  static function main():Void
-  {
-    saveBuildTime();
-    trace('Building...');
-  }
+    static function main():Void
+    {
+        saveBuildTime();
+        trace('Building...');
+    }
 
-  static function saveBuildTime():Void
-  {
-    var fo:sys.io.FileOutput = File.write(BUILD_TIME_FILE);
-    var now:Float = Sys.time();
-    fo.writeDouble(now);
-    fo.close();
-  }
+    static function saveBuildTime():Void
+    {
+        var fo:sys.io.FileOutput = File.write(BUILD_TIME_FILE);
+        var now:Float = Sys.time();
+        fo.writeDouble(now);
+        fo.close();
+    }
 }
