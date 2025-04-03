@@ -22,8 +22,11 @@ class GameOverSubstate extends MusicBeatSubstate
 	public static var loopSoundName:String = 'gameOver';
 	public static var endSoundName:String = 'gameOverEnd';
 
-	public static var loopSoundNamePico:String = 'gameOverPico';
-	public static var endSoundNamePico:String = 'gameOverEndPico';
+	public static var loopSoundNamePico:String = 'gameOver-pico';
+	public static var endSoundNamePico:String = 'gameOverEnd-pico';
+	public static var deathSoundNamePico:String = 'fnf_loss_sfx-pico';
+	public static var deathSoundNamePico2:String = 'fnf_loss_sfx-pico-explode';
+	public static var deathSoundNamePico3:String = 'fnf_loss_sfx-pico-gutpunch';
 
 	public static var instance:GameOverSubstate;
 
@@ -33,8 +36,11 @@ class GameOverSubstate extends MusicBeatSubstate
 		loopSoundName = 'gameOver';
 
 		// picoooo
-		loopSoundNamePico = 'gameOverPico';
-		endSoundNamePico = 'gameOverEndPico';
+		deathSoundNamePico = 'fnf_loss_sfx-pico';
+		deathSoundNamePico2 = 'fnf_loss_sfx-pico-explode';
+		deathSoundNamePico3 = 'fnf_loss_sfx-pico-gutpunch';
+		loopSoundNamePico = 'gameOver-pico';
+		endSoundNamePico = 'gameOverEnd-pico';
 
 		endSoundName = 'gameOverEnd';
 	}
@@ -62,7 +68,8 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		camFollow = new FlxPoint(boyfriend.getGraphicMidpoint().x, boyfriend.getGraphicMidpoint().y);
 
-		FlxG.sound.play(Paths.sound(deathSoundName));
+		if (PlayState.SONG.player1 == 'pico-player') FlxG.sound.play(Paths.sound(deathSoundNamePico)); // ill figure out other deaths later :D
+		else FlxG.sound.play(Paths.sound(deathSoundName));
 		Conductor.changeBPM(100);
 		// FlxG.camera.followLerp = 1;
 		// FlxG.camera.focusOn(FlxPoint.get(FlxG.width / 2, FlxG.height / 2));
@@ -102,8 +109,8 @@ class GameOverSubstate extends MusicBeatSubstate
 			else
 				MusicBeatState.switchState(new FreeplayState());
 
-			if (!TitleState.mustUpdate)FlxG.sound.playMusic(Paths.music('freakyMenu'));
-			else FlxG.sound.playMusic(Paths.music('lastDay')); //Shoutouts to Koji Kondo!
+			if (!TitleState.mustUpdate) FlxG.sound.playMusic(Paths.music('freakyMenu'));
+			else FlxG.sound.playMusic(Paths.music('finalHours')); //Shoutouts to Koji Kondo!
 			PlayState.instance.callOnLuas('onGameOverConfirm', [false]);
 		}
 

@@ -1,221 +1,127 @@
 {
 	"animations": [
 		{
-			"offsets": [
-				0,
-				0
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [0, 0],
 			"anim": "idle",
-			"indices": [],
-			"name": "Idle0"
+			"fps": 24,
+			"name": "Idle",
+			"indices": []
 		},
 		{
-			"offsets": [
-				1,
-				0
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [0, 0],
 			"anim": "singLEFT",
-			"indices": [],
-			"name": "Pose Left0"
-		},
-		{
-			"offsets": [
-				1,
-				0
-			],
-			"loop": true,
 			"fps": 24,
-			"anim": "singLEFT-loop",
-			"indices": [],
-			"name": "Left Flame Loop0"
+			"name": "Pose Left",
+			"indices": []
 		},
 		{
-			"offsets": [
-				0,
-				-3
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [0, -10],
 			"anim": "singDOWN",
-			"indices": [],
-			"name": "Pose Down0"
-		},
-		{
-			"offsets": [
-				0,
-				-3
-			],
-			"loop": true,
 			"fps": 24,
-			"anim": "singDOWN-loop",
-			"indices": [],
-			"name": "Down Flame Loop0"
+			"name": "Pose Down",
+			"indices": []
 		},
 		{
-			"offsets": [
-				8,
-				5
-			],
 			"loop": false,
-			"fps": 24,
+			"offsets": [0, 0],
 			"anim": "singUP",
-			"indices": [],
-			"name": "Pose Up0"
+			"fps": 24,
+			"name": "Pose Up",
+			"indices": []
 		},
 		{
-			"offsets": [
-				8,
-				5
-			],
+			"loop": false,
+			"offsets": [0, 2],
+			"anim": "singRIGHT",
+			"fps": 24,
+			"name": "Pose Right",
+			"indices": []
+		},
+		{
+			"offsets": [0, 0],
 			"loop": true,
 			"fps": 24,
-			"anim": "singUP-loop",
+			"anim": "singLEFT-hold",
 			"indices": [],
-			"name": "Up Flame Loop0"
+			"name": "Left Flame Loop"
 		},
 		{
-			"offsets": [
-				4,
-				3
-			],
-			"loop": false,
+			"offsets": [0, -10],
+			"loop": true,
 			"fps": 24,
-			"anim": "singRIGHT",
+			"anim": "singDOWN-hold",
 			"indices": [],
-			"name": "Pose Right0"
+			"name": "Down Flame Loop"
 		},
 		{
-			"offsets": [
-				4,
-				3
-			],
-			"loop": false,
+			"offsets": [0, 0],
+			"loop": true,
 			"fps": 24,
-			"anim": "singRIGHT-loop",
+			"anim": "singUP-hold",
 			"indices": [],
-			"name": "Right Flame Loop0"
+			"name": "Up Flame Loop"
 		},
 		{
-			"offsets": [
-				0,
-				0
-			],
-			"loop": false,
+			"offsets": [0, 2],
+			"loop": true,
 			"fps": 24,
-			"anim": "laugh",
+			"anim": "singRIGHT-hold",
 			"indices": [],
-			"name": "Laugh0"
+			"name": "Right Flame Loop"
 		},
 		{
-			"offsets": [
-				0,
-				0
-			],
+			"offsets": [2, 1],
 			"loop": false,
 			"fps": 24,
 			"anim": "laughCutscene",
-			"indices": [
-				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				0,
-				1,
-				2,
-				3,
-				4,
-				5,
-				0,
-				1,
-				2,
-				3,
-				4,
-				5
-			],
-			"name": "Laugh0"
+			"indices": [0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5],
+			"name": "Laugh"
 		},
 		{
-			"offsets": [
-				8,
-				1
-			],
-			"loop": false,
+			"offsets": [8, 1],
+			"indices": [],
 			"fps": 24,
 			"anim": "lightCan",
-			"indices": [],
+			"loop": false,
 			"name": "Light Can0"
 		},
 		{
-			"offsets": [
-				15,
-				9
-			],
-			"loop": false,
+			"offsets": [15, 9],
+			"indices": [],
 			"fps": 24,
 			"anim": "kickCan",
-			"indices": [],
+			"loop": false,
 			"name": "Kick Up0"
 		},
 		{
-			"offsets": [
-				7,
-				-1
-			],
-			"loop": false,
+			"offsets": [7, -1],
+			"indices": [],
 			"fps": 24,
 			"anim": "kneeCan",
-			"indices": [],
+			"loop": false,
 			"name": "Knee Forward0"
 		},
 		{
-			"offsets": [
-				0,
-				0
-			],
-			"loop": false,
+			"offsets": [0, 0],
+			"indices": [],
 			"fps": 24,
 			"anim": "pissed",
-			"indices": [],
+			"loop": false,
 			"name": "Gets Pissed0"
 		}
 	],
-	"vocals_file": "darnell",
+	"vocals_file": "",
 	"no_antialiasing": false,
 	"image": "characters/darnell",
-	"position": [
-		20,
-		220
-	],
+	"position": [0, 200],
 	"healthicon": "darnell",
 	"flip_x": false,
-	"healthbar_colors": [
-		115,
-		94,
-		176
-	],
-	"camera_position": [
-		0,
-		0
-	],
-	"sing_duration": 8,
+	"healthbar_colors": [115, 94, 176],
+	"camera_position": [-150, 100],
+	"sing_duration": 6.1,
 	"scale": 1,
 	"_editor_isPlayer": false
 }

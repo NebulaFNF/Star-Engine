@@ -783,6 +783,16 @@ class FlxAnimationController implements IFlxDestroyable
 		return AnimName;
 	}
 
+	/**
+	 * Checks if an animation exists by it's name.
+	 * @param name The animation name.
+	 * @since 4.11.0
+	 */
+	public function exists(name:String):Bool
+	{
+		return _animations.exists(name);
+	}
+
 	inline function get_curAnim():FlxAnimation
 	{
 		return _curAnim;

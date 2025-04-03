@@ -17,7 +17,7 @@ The Weekend 1 update!
 ### Fixed
 - 17 quadrillion bugs across hundreds of PRs.
 
-## [0.3.0alpha] - 2021-09-22
+## [Unknown] - 2021-09-22
 ### Added
 - Cool waveform stuff for chart editor
 - Noises in chart editor lol!

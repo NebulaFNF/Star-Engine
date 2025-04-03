@@ -307,7 +307,7 @@ class Project extends HXProject {
 		if (isRelease()) setHaxedef("NAPE_RELEASE_BUILD");
 
 		// Cleaner looking compiler errors.
-		setHaxedef("message.reporting", "pretty");
+		//setHaxedef("message.reporting", "pretty");
     }
 
     function configureOutputDir() {
@@ -330,6 +330,10 @@ class Project extends HXProject {
         addHaxelib('hscript-iris'); // Scripting
         addHaxelib('flixel-ui', '2.4.0'); // UI framework (DEPRECATED but who cares)
         addHaxelib('flixel-text-input'); // Improved text field rendering for HaxeUI
+
+		// Whatever grig.audio and funkVis are used for lmfao
+		addHaxelib('grig.audio');
+		addHaxelib('funkin.vis');
 
         addHaxelib('flxanimate'); // Texture atlas rendering
 		addHaxelib('thx.core'); // General utility library, "the lodash of Haxe"
@@ -387,8 +391,8 @@ class Project extends HXProject {
 		addAssetPath("assets/week6", "assets/week6", "week6", ["*"], exclude, shouldEmbed);
 		addAssetLibrary("week7", shouldEmbed, shouldPreload);
 		addAssetPath("assets/week7", "assets/week7", "week7", ["*"], exclude, shouldEmbed);
-		addAssetLibrary("week8", shouldEmbed, shouldPreload);
-		addAssetPath("assets/week8", "assets/week8", "week8", ["*"], exclude, shouldEmbed);
+		addAssetLibrary("weekend1", shouldEmbed, shouldPreload);
+		addAssetPath("assets/weekend1", "assets/weekend1", "weekend1", ["*"], exclude, shouldEmbed);
 
 		// Art asset library (where README and CHANGELOG pull from)
 		var shouldEmbedArt = false;

@@ -22,7 +22,7 @@ haxelib set flixel-addons 2.11.0
 haxelib set flixel-demos 2.9.0
 haxelib set flixel-ui 2.4.0
 haxelib set flixel 5.2.2
-haxelib git flxanimate https://github.com/NothinCrew/flxanimate
+haxelib git flxanimate https://github.com/Dot-Stuff/flxanimate 768740a56b26aa0c072720e0d1236b94afe68e3e
 haxelib install format 3.5.0
 haxelib git hscript-iris https://github.com/pisayesiwsi/hscript-iris dev
 haxelib git openfl https://github.com/SyncGit12/openfl
@@ -38,4 +38,6 @@ haxelib git haxeui-core https://github.com/haxeui/haxeui-core 51c23588614397089a
 haxelib git flixel-text-input https://github.com/FunkinCrew/flixel-text-input 951a0103a17bfa55eed86703ce50b4fb0d7590bc
 haxelib install thx.core
 haxelib install thx.semver
+haxelib git funkin.vis https://github.com/FunkinCrew/funkVis 22b1ce089dd924f15cdc4632397ef3504d464e90
+haxelib git grig.audio https://gitlab.com/haxe-grig/grig.audio.git cbf91e2180fd2e374924fe74844086aab7891666
 echo Finished!

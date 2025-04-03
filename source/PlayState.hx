@@ -22,6 +22,7 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import stages.*;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
 import flixel.util.FlxSort;
@@ -951,18 +952,7 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) foregroundSprites.add(new BGSprite('tank3', 1300, 1200, 3.5, 2.5, ['fg']));
 
 			// WHY THE FUCK IS THE STAGES HARDCODED??
-		    case 'phillyStreets':
-				var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1500, -700, 0.9, 0.9);
-				phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
-				phillyWhole.antialiasing = false;
-				add(phillyWhole);
-
-				if(!ClientPrefs.lowQuality) {
-					var phillyWhole:BGSprite = new BGSprite('phillyStreets/streetsWhole', -1500, -700, 0.9, 0.9);
-					phillyWhole.setGraphicSize(Std.int(phillyWhole.width * 0.5));
-					phillyWhole.antialiasing = true;
-				    add(phillyWhole);
-				}
+		    case 'phillyStreets': new stages.PhillyStreets(); //Weekend 1 - Darnell, Lit Up, 2Hot
 			// score bggg lets fucking go
 			case 'streetsScore':
 				var aprilBG:BGSprite = new BGSprite('bgScore', -1000, -700, 1, 1);
@@ -4270,7 +4260,7 @@ class PlayState extends MusicBeatState
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
 
-	function moveCameraSection():Void {
+	public function moveCameraSection():Void {
 		if(SONG.notes[curSection] == null) return;
 
 		if (gf != null && SONG.notes[curSection].gfSection)
