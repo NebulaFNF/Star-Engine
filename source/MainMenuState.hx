@@ -25,7 +25,6 @@ import flixel.addons.display.FlxGridOverlay;
 import flxanimate.FlxAnimate;
 import flxanimate.animate.FlxAnim;
 import flixel.util.FlxTimer;
-import backend.HaxeCommit;
 
 #if VIDEOS_ALLOWED
 import VideoSprite;
@@ -40,9 +39,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static final gitCommit:String = HaxeCommit.getGitCommitHash();
-
-	public static var psychEngineVersion:String = '0.3.1' #if commit + ' ($gitCommit)' #end; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.3.1'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 	public var changeX:Bool = true;
 	public var changeY:Bool = true;

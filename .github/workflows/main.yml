@@ -1,8 +1,5 @@
 # This is a basic workflow to help you get started with Actions
-
 name: Build
-
-
 # Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
@@ -10,27 +7,22 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
 # For release builds
   workflow_call:
     inputs:
       buildFlags:
         required: false
         type: string
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   Linux:
     runs-on: ubuntu-latest
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@main
-
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.6
@@ -61,7 +53,7 @@ jobs:
           haxe compile.hxml
           cd ../..
       - name: Compile
-        run: haxelib run lime build linux -D ${{ inputs.buildFlags || 'commit' }}
+        run: haxelib run lime build linux -D ${{ inputs.buildFlags }}
       - name: Clear Previous Cache
         uses: actions/github-script@main
         with:
@@ -87,7 +79,6 @@ jobs:
             } catch (error) {
             	console.log(error.message);
             }
-
       - name: Save Current Cache
         id: cache-build-linux-save
         uses: actions/cache/save@main
@@ -102,14 +93,11 @@ jobs:
         with:
           name: linuxBuild
           path: export/release/linux/bin
-
   Windows:
     runs-on: windows-latest
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@main
-
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: 4.3.6
@@ -138,7 +126,7 @@ jobs:
           haxe compile.hxml
           cd ../..
       - name: Compile
-        run: haxelib run lime build windows -D ${{ inputs.buildFlags || 'commit' }}
+        run: haxelib run lime build windows -D ${{ inputs.buildFlags }}
       - name: Clear Previous Cache
         uses: actions/github-script@main
         with:
@@ -164,7 +152,6 @@ jobs:
             } catch (error) {
             	console.log(error.message);
             }
-
       - name: Save Current Cache
         id: cache-build-windows-save
         uses: actions/cache/save@main
@@ -181,14 +168,12 @@ jobs:
           path: export/release/windows/bin
   macOS:
     runs-on: macos-latest
-
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@main
-
       - uses: krdlab/setup-haxe@master
         with:
-          haxe-version: 4.3.4
+          haxe-version: 4.3.6
       - name: Restore Previous Cache
         id: cache-build-macos-restore
         uses: actions/cache/restore@main
@@ -240,7 +225,6 @@ jobs:
             } catch (error) {
             	console.log(error.message);
             }
-
       - name: Save Current Cache
         id: cache-build-macos-save
         uses: actions/cache/save@main

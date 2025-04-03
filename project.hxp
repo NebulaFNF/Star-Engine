@@ -101,7 +101,6 @@ class Project extends HXProject {
     static final ACHIEVEMENTS_ALLOWED:FeatureFlag = "ACHIEVEMENTS_ALLOWED";
     static final CRASH_HANDLER:FeatureFlag = "CRASH_HANDLER";
     static final TITLE_SCREEN_EASTER_EGG:FeatureFlag = "TITLE_SCREEN_EASTER_EGG";
-	static final commit:FeatureFlag = "commit"; // lmfao
 
     public function new() {
         super();
@@ -315,13 +314,7 @@ class Project extends HXProject {
 
 		var buildDir = 'export/${isDebug() ? 'debug' : 'release'}/';
 
-		#if commit
-		var buildDir = 'export/commit';
-		#else
-		info('Commit build are not enabled!'); //shit english but whatev
-		#end
-
-		info('DEBUG: Output directory: $buildDir');
+		info('Output directory: $buildDir');
 		// setenv('BUILD_DIR', buildDir);
 		app.path = buildDir;
     }
@@ -659,12 +652,14 @@ class Project extends HXProject {
 	 */
 	public function info(message:String):Void {
 		// CURSED: We have to disable info() log calls because of a bug.
-		// Hi EliteMasterEric can you push this info function fix onto the Funkin repo?
 		// https://github.com/haxelime/lime-vscode-extension/issues/88
 
-		if(command != "display") { 
-			Log.info('[INFO] ${message}'); 
-		}
+		// Log.info('[INFO] ${message}');
+
+		// trace(message);
+		// Sys.println(message);
+		// Sys.stdout().writeString(message);
+		// Sys.stderr().writeString(message);
 	}
 }
 
