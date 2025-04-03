@@ -4,8 +4,20 @@ These are the updates of Funkin' that Star Engine recieved.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [0.3.0] - 2024-04-30
+The Weekend 1 update!
+### Added
+- New Story Level: Weekend 1, starring Pico, Darnell, and Nene.
+  - Beat the level in Story Mode to unlock the songs for Freeplay!
+- 12 new Erect remixes, featuring Kawai Sprite, Saruky, Kohta Takahashi, and Saster.
+  - Unlocked instantly in Freeplay
 
-## [UNRELEASED]
+### Changed
+- Reworked note rendering to massively reduce lag on larger charts.
+### Fixed
+- 17 quadrillion bugs across hundreds of PRs.
+
+## [0.3.0alpha] - 2021-09-22
 ### Added
 - Cool waveform stuff for chart editor
 - Noises in chart editor lol!

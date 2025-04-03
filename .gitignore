@@ -1,5 +1,4 @@
 ### FNF-Specific
-.build_time
 # File used for the NG API. Should not be shared with others.
 APIStuff.hx
 art/build_x32-officialrelease.bat
@@ -21,3 +20,7 @@ vscode-project.hxml
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+### Miscellaneous
+# File used to detect how much time your build has taken. Should not be shared with others.
+.build_time
