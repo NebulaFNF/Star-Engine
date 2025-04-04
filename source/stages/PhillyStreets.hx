@@ -1,5 +1,6 @@
 package stages;
 
+import openfl.filters.ShaderFilter;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxBasic;
@@ -22,6 +23,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.group.FlxSpriteGroup;
 import animateatlas.AtlasFrameMaker;
+import BaseStage;
 import stages.objects.ABotSpeaker;
 import flixel.util.FlxSort;
 import flixel.addons.display.FlxPieDial;
@@ -50,6 +52,8 @@ class PhillyStreets extends BaseStage
 	
 	var scrollingSky:FlxTiledSprite;
 	var phillyTraffic:BGSprite;
+
+	public static var theFunnyStageThingie:BaseStage;
 
 	var phillyCars:BGSprite;
 	var phillyCars2:BGSprite;
@@ -165,7 +169,7 @@ class PhillyStreets extends BaseStage
 			switch (songName)
 			{
 				case 'darnell':
-					if(!seenCutscene) setStartCallback(videoCutscene.bind('darnellCutscene'));
+					if(!seenCutscene) theFunnyStageThingie.setStartCallback(videoCutscene.bind('darnellCutscene'));
 				case '2hot':
 					/*setEndCallback(function()
 					{
@@ -533,7 +537,7 @@ class PhillyStreets extends BaseStage
 				rainShaderEndIntensity = 0.4;
 		}
 		rainShader.intensity = rainShaderStartIntensity;
-		FlxG.camera.setFilters([new ShaderFilter(rainShader)]);
+		FlxG.camera.set__filters([new ShaderFilter(rainShader)]);
 	}
 	
 	var currentNeneState:NeneState = STATE_DEFAULT;

@@ -25,6 +25,7 @@ typedef PreloadedChartNote = {
 	noMissAnimation:Bool,
 	gfNote:Bool,
 	isSustainNote:Bool,
+	blockHit:Bool,
 	isSustainEnd:Bool,
 	sustainLength:Float,
 	sustainScale:Float,

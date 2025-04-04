@@ -1,7 +1,6 @@
 @echo off
 title Installing bullshit
 echo This could take a while if your computer or internet is dogshit.
-haxelib setup
 haxelib install discord_rpc 1.0.0
 haxelib install flixel-addons 2.11.0
 haxelib install flixel-demos 2.9.0
@@ -27,7 +26,6 @@ haxelib git linc_luajit https://github.com/superpowers04/linc_luajit
 haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
 haxelib git away3d https://github.com/moxie-coder/away3d
 haxelib git hxCodec https://github.com/SyncGit12/hxCodec
-haxelib git lime https://github.com/FunkinCrew/lime fe3368f611a84a19afc03011353945ae4da8fffd
 haxelib install hxp 1.3.0
 haxelib install hxvlc 1.9.2
 haxelib install thx.core
