@@ -84,22 +84,22 @@ class BaseStage extends FlxBasic
 	public function sectionHit() {}
 
 	// Substate close/open, for pausing Tweens/Timers
-	public function closeSubState() {}
-	public function openSubState(SubState:FlxSubState) {}
+	public function closeSubState() {} // NOTHING!! :pig_head_exploding: :pogchamp:
+	public function openSubState(SubState:FlxSubState) {}// NOTHING!! :pig_head_exploding: :pogchamp:
 
 	// Events
-	public function eventCalled(eventName:String, value1:String, value2:String, flValue1:Null<Float>, flValue2:Null<Float>, strumTime:Float) {}
-	public function eventPushed(event:EventNote) {}
-	public function eventPushedUnique(event:EventNote) {}
+	public function eventCalled(eventName:String, value1:String, value2:String) {}// NOTHING!! :pig_head_exploding: :pogchamp:
+	public function eventPushed(event:EventNote) {}// NOTHING!! :pig_head_exploding: :pogchamp:
+	public function eventPushedUnique(event:EventNote) {}// NOTHING!! :pig_head_exploding: :pogchamp:
 
 	// Note Hit/Miss
-	public function goodNoteHit(note:Note) {}
-	public function opponentNoteHit(note:Note) {}
-	public function noteMiss(note:Note) {}
-	public function noteMissPress(direction:Int) {}
+	public function goodNoteHit(note:Note) {}// NOTHING!! :pig_head_exploding: :pogchamp:
+	public function opponentNoteHit(note:Note) {}// NOTHING!! :pig_head_exploding: :pogchamp:
+	public function noteMiss(note:Note) {}// NOTHING!! :pig_head_exploding: :pogchamp:
+	public function noteMissPress(direction:Int) {}// NOTHING!! :pig_head_exploding: :pogchamp:
 
 	// Game Over
-	public function onGameOver() {}
+	public function onGameOver() {}// NOTHING!! :pig_head_exploding: :pogchamp:
 
 	// Things to replace FlxGroup stuff and inject sprites directly into the state
 	function add(object:FlxBasic) game.add(object);
@@ -117,6 +117,18 @@ class BaseStage extends FlxBasic
 			gfVersion = name;
 			PlayState.SONG.gfVersion = gfVersion;
 		}
+	}
+
+	//start/end callback functions
+	public function setStartCallback(myfn:Void->Void)
+	{
+		if(!onPlayState) return;
+		PlayState.instance.startCallback = myfn;
+	}
+	public function setEndCallback(myfn:Void->Void)
+	{
+		if(!onPlayState) return;
+		PlayState.instance.endCallback = myfn;
 	}
 
 	// overrides

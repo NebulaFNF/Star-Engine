@@ -373,20 +373,7 @@ class FlxGraphic implements IFlxDestroyable
 	 * Internal var holding `FlxImageFrame` for the whole bitmap of this graphic.
 	 * Use public `imageFrame` var to access/generate it.
 	 */
-	@:deprecated("_imageFrame is deprecated, use imageFrame")
-	var _imageFrame(get, set):FlxImageFrame;
-	inline function get__imageFrame() return imageFrame;
-	inline function set__imageFrame(value:FlxImageFrame) return imageFrame = value;
-
-	@:deprecated('_useCount is deprecated, use incrementUseCount and decrementUseCount')
-	var _useCount(get, set):Int;
-	inline function get__useCount() return useCount;
-	inline function set__useCount(value:Int) return useCount = value;
-
-	@:deprecated('_destroyOnNoUse is deprecated, use destroyOnNoUse')
-	var _destroyOnNoUse(get, set):Bool;
-	inline function get__destroyOnNoUse() return destroyOnNoUse;
-	inline function set__destroyOnNoUse(value:Bool) return destroyOnNoUse = value;
+	var _imageFrame:FlxImageFrame;
 
 	#if !FLX_DRAW_QUADS
 	/**
@@ -396,6 +383,9 @@ class FlxGraphic implements IFlxDestroyable
 	var _tilesheet:Tilesheet;
 	#end
 
+	var _useCount:Int = 0;
+
+	var _destroyOnNoUse:Bool = true;
 
 	/**
 	 * `FlxGraphic` constructor
@@ -472,6 +462,24 @@ class FlxGraphic implements IFlxDestroyable
 		undump();
 		if (dumped)
 			dump();
+	}
+
+	public function incrementUseCount()
+	{
+		useCount++;
+	}
+	
+	public function decrementUseCount()
+	{
+		useCount--;
+		
+		checkUseCount();
+	}
+	
+	function checkUseCount()
+	{
+		if (useCount <= 0 && destroyOnNoUse && !persist)
+			FlxG.bitmap.remove(this);
 	}
 
 	/**
@@ -604,33 +612,14 @@ class FlxGraphic implements IFlxDestroyable
 	{
 		return assetsClass != null || assetsKey != null;
 	}
-	
-	public function incrementUseCount()
-	{
-		useCount++;
-	}
-	
-	public function decrementUseCount()
-	{
-		useCount--;
-		
-		checkUseCount();
-	}
-	function checkUseCount()
-	{
-		if (useCount <= 0 && destroyOnNoUse && !persist)
-			FlxG.bitmap.remove(this);
-	}
 
 	function get_useCount():Int
 	{
-		@:deprecated("this is deprecated, use something else that does the same thing")
 		return _useCount;
 	}
 
 	function set_useCount(Value:Int):Int
 	{
-		@:deprecated("this is deprecated, use something else that does the same thing")
 		if (Value <= 0 && _destroyOnNoUse && !persist)
 			FlxG.bitmap.remove(this);
 

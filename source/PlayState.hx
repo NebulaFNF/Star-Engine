@@ -11,6 +11,9 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
+import MusicBeatState;
+import BaseStage.Countdown;
+import BaseStage;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
@@ -71,6 +74,10 @@ import VideoSprite;
 
 using StringTools;
 
+/******         PlayState            ******/
+/* The most essential and important class */
+/**           In the game.               **/
+
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -89,6 +96,21 @@ class PlayState extends MusicBeatState
 		['Big amazing', 1], //From 90% to 99%
 		['Perfect!!11rrthrtehrtyeey', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
+
+	public static var ratingStuffKade:Array<Dynamic> = [
+		['L-.', 0.2], //From 0% to 19%
+		['L.', 0.4], //From 20% to 39%
+		['F-.', 0.5], //From 40% to 49%
+		['F.', 0.6], //From 50% to 59%
+		['E.', 0.69], //From 60% to 68%
+		['C.', 0.7], //69%
+		['B.', 0.8], //From 70% to 79%
+		['A.', 0.9], //From 80% to 89%
+		['S.', 1], //From 90% to 99%
+		['SS.', 1] //The value on this one isn't used actually, since SS is always "1"
+	];
+
+	public var stages:Array<BaseStage> = [];
 
 	//event variables
 	private var isCameraOnForcedPos:Bool = false;
@@ -272,6 +294,8 @@ class PlayState extends MusicBeatState
 	var santa:BGSprite;
 	var heyTimer:Float;
 
+	public var singDurMult:Int = 1;
+
 	var tempScore:String;
 
 	// FFMpeg values :)
@@ -368,6 +392,10 @@ class PlayState extends MusicBeatState
 	public static var lastCombo:FlxSprite;
 	// stores the last combo score objects in an array
 	public static var lastScore:Array<FlxSprite> = [];
+
+	// Callbacks for stages
+	public var startCallback:Void->Void = null;
+	public var endCallback:Void->Void = null; // grr i am secret agian
 
 	override public function create()
 	{
@@ -511,6 +539,8 @@ class PlayState extends MusicBeatState
 					curStage = 'tank';
 				case 'darnell' | 'lit-up' | '2hot':
 					curStage = 'phillyStreets';
+				case 'blazin':
+					curStage = 'phillyBlazin';
 				case 'score':
 					curStage = 'streetsScore';
 				default:
@@ -952,7 +982,8 @@ class PlayState extends MusicBeatState
 				if(!ClientPrefs.lowQuality) foregroundSprites.add(new BGSprite('tank3', 1300, 1200, 3.5, 2.5, ['fg']));
 
 			// WHY THE FUCK IS THE STAGES HARDCODED??
-		    case 'phillyStreets': new stages.PhillyStreets(); //Weekend 1 - Darnell, Lit Up, 2Hot
+		    case 'phillyStreets': //Weekend 1 - Darnell, Lit Up, 2Hot
+				new stages.PhillyStreets();
 			// score bggg lets fucking go
 			case 'streetsScore':
 				var aprilBG:BGSprite = new BGSprite('bgScore', -1000, -700, 1, 1);
@@ -1573,6 +1604,7 @@ class PlayState extends MusicBeatState
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
 		callOnLuas('onCreatePost', []);
+		stagesFunc(function(stage:BaseStage) stage.createPost());
 
 		super.create();
 
@@ -2417,6 +2449,8 @@ class PlayState extends MusicBeatState
 				return;
 			}
 
+			var tick:Countdown = THREE;
+
 			startTimer = new FlxTimer().start(Conductor.crochet / 1000 / playbackRate, function(tmr:FlxTimer)
 			{
 				if (gf != null && tmr.loopsLeft % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
@@ -2532,6 +2566,7 @@ class PlayState extends MusicBeatState
 						}
 					}
 				});
+				stagesFunc(function(stage:BaseStage) stage.countdownTick(tick, swagCounter));
 				callOnLuas('onCountdownTick', [swagCounter]);
 
 				swagCounter++;
@@ -2597,7 +2632,7 @@ class PlayState extends MusicBeatState
 			case 'Vanilla':
 				scoreTxt.text = "Score:" + songScore;
 			case 'Kade':
-				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks:' + songMisses + ' | Accuracy:${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | $ratingFC'; 
+				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks:' + songMisses + ' | Accuracy:${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | $ratingFC ' + ratingName; 
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
@@ -2685,6 +2720,7 @@ class PlayState extends MusicBeatState
 			FlxG.sound.music.pause();
 			vocals.pause();
 		}
+		stagesFunc(function(stage:BaseStage) stage.startSong());
 
 		// Song duration in a float, useful for the time left feature
 		songLength = FlxG.sound.music.length;
@@ -2977,6 +3013,7 @@ class PlayState extends MusicBeatState
 		if(!eventPushedMap.exists(event.event)) {
 			eventPushedMap.set(event.event, true);
 		}
+		stagesFunc(function(stage:BaseStage) stage.eventPushed(event));
 	}
 
 	function eventNoteEarlyTrigger(event:EventNote):Float {
@@ -3051,6 +3088,7 @@ class PlayState extends MusicBeatState
 
 	override function openSubState(SubState:FlxSubState)
 	{
+		stagesFunc(function(stage:BaseStage) stage.openSubState(SubState));
 		if (paused)
 		{
 			if (FlxG.sound.music != null)
@@ -3088,6 +3126,7 @@ class PlayState extends MusicBeatState
 
 	override function closeSubState()
 	{
+		stagesFunc(function(stage:BaseStage) stage.closeSubState());
 		if (paused)
 		{
 			if (FlxG.sound.music != null && !startingSong && !ffmpegMode)
@@ -3164,6 +3203,12 @@ class PlayState extends MusicBeatState
 		#end
 
 		super.onFocusLost();
+	}
+
+	public function stagesFunc(func:BaseStage->Void)
+	{
+		for (stage in stages)
+			if(stage != null && stage.exists && stage.active) func(stage);
 	}
 
 	function resyncVocals():Void
@@ -3788,6 +3833,7 @@ class PlayState extends MusicBeatState
 		if (((skipHealthCheck && instakillOnMiss) || health <= 0) && !practiceMode && !isDead)
 		{
 			var ret:Dynamic = callOnLuas('onGameOver', [], false);
+			stagesFunc(function(stage:BaseStage) stage.onGameOver());
 			if(ret != FunkinLua.Function_Stop) {
 				boyfriend.stunned = true;
 				deathCounter++;
@@ -3802,7 +3848,7 @@ class PlayState extends MusicBeatState
 				for (tween in modchartTweens) tween.active = true;
 				
 				for (timer in modchartTimers) timer.active = true;
-				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x - boyfriend.positionArray[0], boyfriend.getScreenPosition().y - boyfriend.positionArray[1], camFollowPos.x, camFollowPos.y));
+				openSubState(new GameOverSubstate(boyfriend));
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
@@ -4257,6 +4303,7 @@ class PlayState extends MusicBeatState
 					FunkinLua.setVarInArray(this, value1, value2);
 				}
 		}
+		stagesFunc(function(stage:BaseStage) stage.eventCalled(eventName, value1, value2));
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
 
@@ -5748,7 +5795,8 @@ class PlayState extends MusicBeatState
 		if(ret != FunkinLua.Function_Stop)
 		{
 			if(totalPlayed < 1) //Prevent divide by 0
-				ratingName = '?';
+				if (ClientPrefs.funnyScoreTextImVeryFunny == 'Kade') ratingName = '';
+			    else ratingName = '?';
 			else
 			{
 				// Rating Percent
@@ -5760,7 +5808,8 @@ class PlayState extends MusicBeatState
 				// Rating Name
 				if(ratingPercent >= 1)
 				{
-					ratingName = ratingStuff[ratingStuff.length-1][0]; //Uses last string
+					if(ClientPrefs.funnyScoreTextImVeryFunny == 'Kade') ratingName = ratingStuffKade[ratingStuff.length-1][0]; //Uses last string
+					else ratingName = ratingStuff[ratingStuff.length-1][0]; //Uses last string
 				}
 				else
 				{
@@ -5768,7 +5817,8 @@ class PlayState extends MusicBeatState
 					{
 						if(ratingPercent < ratingStuff[i][1])
 						{
-							ratingName = ratingStuff[i][0];
+							if(ClientPrefs.funnyScoreTextImVeryFunny == 'Kade') ratingName = ratingStuffKade[i][0];
+							else ratingName = ratingStuff[i][0];
 							break;
 						}
 					}

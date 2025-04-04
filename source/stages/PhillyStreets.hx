@@ -242,7 +242,7 @@ class PhillyStreets extends BaseStage
 			{
 				videoEnded = true;
 				videoCutscene();
-				FlxG.log.warn('Video ended early! Was the video not found?');
+				FlxG.log.warn('Video ended early! Was the video not found?!?');
 			}
 
 			#else //Make a timer to prevent it from crashing due to sprites not being ready yet.

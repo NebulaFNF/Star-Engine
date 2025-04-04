@@ -82,7 +82,7 @@ class CrashHandler {
 	
 			try {
 				if (!FileSystem.exists("crash/")) FileSystem.createDirectory("crash/");
-				File.saveContent(path, '$errorMessage\n\nCrash Happend on Star Engine v${MainMenuState.psychEngineVersion}!');
+				File.saveContent(path, '$errorMessage\n\nCrash happened on Star Engine v${MainMenuState.psychEngineVersion}!');
 			} catch(e) trace('Couldn\'t save error message. (${e.message})');
 	
 			Sys.println(errorMessage);

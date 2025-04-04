@@ -152,9 +152,9 @@ class MainMenuState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("aboutMenu", "preload"));
 		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(80, 60, "assets/images/menuPico");
 		freeplayBoyfriend.anim.addBySymbol("pico freeplay assets v7", "Pico DJ", 0, 0, 24);
-		freeplayBoyfriend.antialiasing = true;
+		freeplayBoyfriend.antialiasing = ClientPrefs.globalAntialiasing;
 		freeplayBoyfriend.screenCenter();
-		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 1.5));
+		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 2));
 		freeplayBoyfriend.scrollFactor.set(0, 0);
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
@@ -181,9 +181,9 @@ class MainMenuState extends MusicBeatState
 
 		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(180, 60, "assets/images/menuPico");
 		freeplayBoyfriend.anim.addBySymbol("pico freeplay assets v7", "Pico DJ", 0, 0, 24);
-		freeplayBoyfriend.antialiasing = true;
+		freeplayBoyfriend.antialiasing = ClientPrefs.globalAntialiasing;
 		freeplayBoyfriend.screenCenter();
-		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 1.5));
+		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 2));
 		freeplayBoyfriend.scrollFactor.set(0, 0);
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('aboutMenu', 'preload'));
 		magenta.scrollFactor.set(0, yScroll);

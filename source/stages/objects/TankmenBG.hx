@@ -1,6 +1,7 @@
 package stages.objects;
 
 import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.FlxG;
 
 class TankmenBG extends FlxSprite
 {

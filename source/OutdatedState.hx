@@ -25,12 +25,11 @@ class OutdatedState extends MusicBeatState
 		}
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"You're using an\n
-			outdated version of Star Engine (" + MainMenuState.psychEngineVersion + "),\n
-			please update to " + TitleState.updateVersion + " if you want to!\n
+			'Sup bro, looks like you\'re running an outdated version of\nStar Engine (${MainMenuState.psychEngineVersion})\n
+			-----------------------------------------------\n
 			Press ESCAPE to proceed anyway.\n
-			\n
-			Thank you for using the Engine!",
+			-----------------------------------------------\n
+			Thank you for using the Engine!',
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
