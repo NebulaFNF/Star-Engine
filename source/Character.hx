@@ -1,22 +1,16 @@
 package;
 
-import flixel.tweens.FlxEase;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.addons.effects.FlxTrail;
-import flixel.animation.FlxBaseAnimation;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.tweens.FlxTween;
 import flxanimate.PsychFlxAnimate as FlxAnimate;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxSort;
 import flixel.util.FlxDestroyUtil;
-import flixel.math.FlxRect;
 import Section.SwagSection;
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
 #end
-import openfl.utils.AssetType;
 import openfl.utils.Assets;
 import haxe.Json;
 
@@ -71,7 +65,6 @@ class Character extends FlxSprite
 	public var holdTimer:Float = 0;
 	public var heyTimer:Float = 0;
 	var playState:PlayState;
-	public var atlas:FlxAnimate;
 	public var specialAnim:Bool = false;
 	public var animationNotes:Array<Dynamic> = [];
 	public var stunned:Bool = false;
@@ -391,11 +384,7 @@ class Character extends FlxSprite
 
 	public function finishAnimation():Void
 	{
-		if(isAnimationNull()) {
-			trace('Hey, hey hey! Your animation is null!');
-			FlxG.log.warn('Hey, hey hey! Your animation is null!:' + animation.curAnim);
-			return;
-		}
+		if(isAnimationNull()) return;
 
 		if(!isAnimateAtlas) animation.curAnim.finish();
 		else atlas.anim.curFrame = atlas.anim.length - 1;
@@ -538,7 +527,7 @@ class Character extends FlxSprite
 	// special thanks ne_eo for the references, you're the goat!!
 	public var isAnimateAtlas:Bool = false;
 	#if flxanimate
-	//public var atlas:FlxAnimate;
+	public var atlas:FlxAnimate;
 	public override function draw()
 	{
 		if(isAnimateAtlas)

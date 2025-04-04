@@ -3,6 +3,7 @@ package stages.objects;
 import Note;
 import flixel.FlxG;
 import Character;
+import flixel.group.FlxSpriteGroup;
 
 class DarnellBlazinHandler
 {
