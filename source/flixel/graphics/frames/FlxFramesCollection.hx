@@ -186,13 +186,13 @@ class FlxFramesCollection implements IFlxDestroyable
 	 * @param	duration	 The duration of this frame in seconds. If 0, the anim controller will decide the duration.
 	 * @return  Newly created and added frame object.
 	 */
-	public function addAtlasFrame(frame:FlxRect, sourceSize:FlxPoint, offset:FlxPoint, ?name:String, angle:FlxFrameAngle = 0, flipX = false, flipY = false,
-			duration = 0.0):FlxFrame
+	public function addAtlasFrame(frame:FlxRect, sourceSize:FlxPoint, offset:FlxPoint, ?name:String, angle:FlxFrameAngle = 0, flipX = false, flipY = false, duration = 0.0):FlxFrame
 	{
 		if (name != null && exists(name))
 			return getByName(name);
 
-		var texFrame:FlxFrame = new FlxFrame(parent, angle, flipX, flipY, duration);
+		var texFrame:FlxFrame;
+		texFrame = new FlxFrame(parent, angle, flipX, flipY, duration);
 		texFrame.name = name;
 		texFrame.sourceSize.set(sourceSize.x, sourceSize.y);
 		texFrame.offset.set(offset.x, offset.y);

@@ -369,14 +369,6 @@ class FlxGraphic implements IFlxDestroyable
 	 */
 	public var unique:Bool = false;
 
-	#if !FLX_DRAW_QUADS
-	/**
-	 * Internal var holding Tilesheet for bitmap of this graphic.
-	 * It is used only in `FlxG.renderTile` mode
-	 */
-	var _tilesheet:Tilesheet;
-	#end
-
 	/**
 	 * Internal var holding `FlxImageFrame` for the whole bitmap of this graphic.
 	 * Use public `imageFrame` var to access/generate it.
@@ -395,6 +387,16 @@ class FlxGraphic implements IFlxDestroyable
 	var _destroyOnNoUse(get, set):Bool;
 	inline function get__destroyOnNoUse() return destroyOnNoUse;
 	inline function set__destroyOnNoUse(value:Bool) return destroyOnNoUse = value;
+
+	#if !FLX_DRAW_QUADS
+	/**
+	 * Internal var holding Tilesheet for bitmap of this graphic.
+	 * It is used only in `FlxG.renderTile` mode
+	 */
+	var _tilesheet:Tilesheet;
+	#end
+
+
 	/**
 	 * `FlxGraphic` constructor
 	 *
@@ -602,22 +604,7 @@ class FlxGraphic implements IFlxDestroyable
 	{
 		return assetsClass != null || assetsKey != null;
 	}
-
-	function get_useCount():Int
-	{
-		return _useCount;
-	}
-
-	function set_useCount(Value:Int):Int
-	{
-		if (Value <= 0 && _destroyOnNoUse && !persist)
-			FlxG.bitmap.remove(this);
-
-		return _useCount = Value;
-	}
-
-	function checkUseCount() if (useCount <= 0 && destroyOnNoUse && !persist) FlxG.bitmap.remove(this);
-
+	
 	public function incrementUseCount()
 	{
 		useCount++;
@@ -628,6 +615,26 @@ class FlxGraphic implements IFlxDestroyable
 		useCount--;
 		
 		checkUseCount();
+	}
+	function checkUseCount()
+	{
+		if (useCount <= 0 && destroyOnNoUse && !persist)
+			FlxG.bitmap.remove(this);
+	}
+
+	function get_useCount():Int
+	{
+		@:deprecated("this is deprecated, use something else that does the same thing")
+		return _useCount;
+	}
+
+	function set_useCount(Value:Int):Int
+	{
+		@:deprecated("this is deprecated, use something else that does the same thing")
+		if (Value <= 0 && _destroyOnNoUse && !persist)
+			FlxG.bitmap.remove(this);
+
+		return _useCount = Value;
 	}
 
 	function get_destroyOnNoUse():Bool
