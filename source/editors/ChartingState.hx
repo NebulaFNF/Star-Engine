@@ -1005,6 +1005,21 @@ class ChartingState extends MusicBeatState
 			noteTypeIntMap.set(key, noteTypeList[key]);
 			key++;
 		}
+		var notetypeFiles:Array<String> = Paths.mergeAllTextsNamed('data/' + Paths.formatToSongPath(_song.song) + '/notetypes.txt', '', true);
+		if(notetypeFiles.length > 0)
+		{
+			for (ntTyp in notetypeFiles)
+			{
+				var name:String = ntTyp.trim();
+				if(!displayNameList.contains(name))
+				{
+					displayNameList.push(name);
+					noteTypeMap.set(name, key);
+					noteTypeIntMap.set(key, name);
+					key++;
+				}
+			}
+		}
 
 		#if LUA_ALLOWED
 		var directories:Array<String> = [];

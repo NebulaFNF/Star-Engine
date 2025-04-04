@@ -48,6 +48,10 @@ class Paths
 		if (!dumpExclusions.contains(key))
 			dumpExclusions.push(key);
 	}
+	inline public static function getSharedPath(file:String = '')
+	{
+		return 'assets/shared/$file';
+	}
 
 	public static var dumpExclusions:Array<String> =
 	[
@@ -266,6 +270,64 @@ class Paths
 		var voices = returnSound('songs', songKey);
 		return voices;
 		#end
+	}
+	inline public static function mergeAllTextsNamed(path:String, defaultDirectory:String = null, allowDuplicates:Bool = false)
+	{
+		if(defaultDirectory == null) defaultDirectory = Paths.getSharedPath();
+		defaultDirectory = defaultDirectory.trim();
+		if(!defaultDirectory.endsWith('/')) defaultDirectory += '/';
+		if(!defaultDirectory.startsWith('assets/')) defaultDirectory = 'assets/$defaultDirectory';
+
+		var mergedList:Array<String> = [];
+		var paths:Array<String> = directoriesWithFile(defaultDirectory, path);
+
+		var defaultPath:String = defaultDirectory + path;
+		if(paths.contains(defaultPath))
+		{
+			paths.remove(defaultPath);
+			paths.insert(0, defaultPath);
+		}
+
+		for (file in paths)
+		{
+			var list:Array<String> = CoolUtil.coolTextFile(file);
+			for (value in list)
+				if((allowDuplicates || !mergedList.contains(value)) && value.length > 0)
+					mergedList.push(value);
+		}
+		return mergedList;
+	}
+	inline public static function directoriesWithFile(path:String, fileToFind:String, mods:Bool = true)
+	{
+		var foldersToCheck:Array<String> = [];
+		#if sys
+		if(FileSystem.exists(path + fileToFind))
+		#end
+			foldersToCheck.push(path + fileToFind);
+
+		#if MODS_ALLOWED
+		if(mods)
+		{
+			// Global mods first
+			for(mod in getGlobalMods())
+			{
+				var folder:String = Paths.mods(mod + '/' + fileToFind);
+				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+			}
+
+			// Then "StarEngine/mods/" main folder
+			var folder:String = Paths.mods(fileToFind);
+			if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(Paths.mods(fileToFind));
+
+			// And lastly, the loaded mod's folder
+			if(currentModDirectory != null && currentModDirectory.length > 0)
+			{
+				var folder:String = Paths.mods(currentModDirectory + '/' + fileToFind);
+				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+			}
+		}
+		#end
+		return foldersToCheck;
 	}
 
 	static public function inst(song:String, ?difficulty:String = '', ?postfix:String = null):Any

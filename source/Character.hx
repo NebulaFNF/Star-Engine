@@ -322,7 +322,6 @@ class Character extends FlxSprite
 		{
 			specialAnim = false;
 			dance();
-			finishAnimation();
 		}
 		else if (getAnimationName().endsWith('miss') && isAnimationFinished())
 		{
