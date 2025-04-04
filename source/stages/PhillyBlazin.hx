@@ -12,7 +12,7 @@ import Note;
 
 using StringTools;
 
-class PhillyBlazin extends FlxSprite
+class PhillyBlazin extends BaseStage
 {
 	var rainShader:RainShader;
 	var rainTimeScale:Float = 1;

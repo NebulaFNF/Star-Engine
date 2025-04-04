@@ -539,8 +539,8 @@ class PlayState extends MusicBeatState
 					curStage = 'tank';
 				case 'darnell' | 'lit-up' | '2hot':
 					curStage = 'phillyStreets';
-				case 'blazin':
-					curStage = 'phillyBlazin';
+				/*case 'blazin':
+					curStage = 'phillyBlazin';*/
 				case 'score':
 					curStage = 'streetsScore';
 				default:
@@ -981,9 +981,10 @@ class PlayState extends MusicBeatState
 				foregroundSprites.add(new BGSprite('tank5', 1620, 700, 1.5, 1.5, ['fg']));
 				if(!ClientPrefs.lowQuality) foregroundSprites.add(new BGSprite('tank3', 1300, 1200, 3.5, 2.5, ['fg']));
 
-			// WHY THE FUCK IS THE STAGES HARDCODED??
 		    case 'phillyStreets': //Weekend 1 - Darnell, Lit Up, 2Hot
 				new stages.PhillyStreets();
+			/*case 'phillyBlazin': // Weekend 1 - Blazin'
+				new stages.PhillyBlazin();*/
 			// score bggg lets fucking go
 			case 'streetsScore':
 				var aprilBG:BGSprite = new BGSprite('bgScore', -1000, -700, 1, 1);

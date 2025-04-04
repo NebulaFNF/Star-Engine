@@ -2,6 +2,8 @@ package stages.objects;
 
 import Note;
 import Character;
+import flixel.FlxG;
+import flixel.group.FlxSpriteGroup;
 
 // Pico Note functions
 class PicoBlazinHandler

@@ -1,6 +1,7 @@
 package stages.objects;
 
 import Note;
+import flixel.FlxG;
 import Character;
 
 class DarnellBlazinHandler
