@@ -2105,7 +2105,7 @@ class FlxCamera extends FlxBasic
 	{
 		return scroll.x + viewMarginBottom;
 	}
-	inline function set__filters(Value:Array<BitmapFilter>):Array<BitmapFilter>
+	inline public function set__filters(Value:Array<BitmapFilter>):Array<BitmapFilter>
 	{
 		return filters = Value;
 	}

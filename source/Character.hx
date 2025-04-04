@@ -5,6 +5,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxSort;
+import flxanimate.PsychFlxAnimate as FlxAnimate;
 import Section.SwagSection;
 #if MODS_ALLOWED
 import sys.io.File;
@@ -410,8 +411,51 @@ class Character extends FlxSprite
 		animOffsets[name] = [x, y];
 	}
 
+	inline public function isAnimationNull():Bool { return !isAnimateAtlas ? (animation.curAnim == null) : (atlas.anim.curSymbol == null); }
+
 	public function quickAnimAdd(name:String, anim:String)
 	{
 		animation.addByPrefix(name, anim, 24, false);
+	}
+	// Atlas support
+	// special thanks ne_eo for the references, you're the goat!!
+	public var isAnimateAtlas:Bool = false;
+	public var atlas:FlxAnimate;
+	public override function draw()
+	{
+		if(isAnimateAtlas)
+		{
+			copyAtlasValues();
+			atlas.draw();
+			return;
+		}
+		super.draw();
+	}
+	public function copyAtlasValues()
+	{
+		@:privateAccess
+		{
+			atlas.cameras = cameras;
+			atlas.scrollFactor = scrollFactor;
+			atlas.scale = scale;
+			atlas.offset = offset;
+			atlas.origin = origin;
+			atlas.x = x;
+			atlas.y = y;
+			atlas.angle = angle;
+			atlas.alpha = alpha;
+			atlas.visible = visible;
+			atlas.flipX = flipX;
+			atlas.flipY = flipY;
+			atlas.shader = shader;
+			atlas.antialiasing = antialiasing;
+			atlas.colorTransform = colorTransform;
+			atlas.color = color;
+		}
+	}
+	public function isAnimationFinished():Bool
+	{
+		if(isAnimationNull()) return false;
+		return !isAnimateAtlas ? animation.curAnim.finished : atlas.anim.finished;
 	}
 }

@@ -29,7 +29,7 @@ class FlxAtlasFrames extends FlxFramesCollection
     override function destroy()
 	{
 		while (usedGraphics.length > 0)
-			usedGraphics.shift().decrementUseCount();
+			usedGraphics.shift().set__useCount();
 		
 		super.destroy();
 	}

@@ -10,7 +10,7 @@ haxelib install flixel 5.2.2
 haxelib install flxanimate 3.0.4
 haxelib install hxCodec 2.5.1
 haxelib install openfl 9.3.0
-haxelib install lime 8.1.3
+haxelib install lime
 haxelib run lime setup flixel
 haxelib run lime setup
 cls
