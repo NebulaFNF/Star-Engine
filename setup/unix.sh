@@ -14,7 +14,7 @@ haxelib install flixel-ui 2.4.0
 haxelib install flixel 5.2.2
 haxelib install flxanimate 3.0.4
 haxelib install openfl 9.3.0
-haxelib install lime
+haxelib install lime 8.1.3
 haxelib run lime setup flixel
 haxelib run lime setup
 haxelib set discord_rpc 1.0.0
