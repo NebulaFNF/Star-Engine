@@ -466,10 +466,6 @@ class Project extends HXProject {
 		return this.target == Platform.WINDOWS;
 	}
 
-	public function isDisplay():Bool {
-		return this.command == "display";
-    }
-
 	public function isMac():Bool {
 		return this.target == Platform.MAC;
 	}
