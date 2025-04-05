@@ -838,6 +838,13 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'schoolErect': // Week 6 - Erect Stage
+			    /*var rim = new DropShadowShader();
+		        rim.setAdjustColor(-66, -10, 24, -23);
+                rim.color = 0xFF52351d;
+		        rim.antialiasAmt = 0;
+		        rim.attachedSprite = character;
+		        rim.distance = 5;*/
+			
 			    GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
 				GameOverSubstate.loopSoundName = 'gameOver-pixel';
 				GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
