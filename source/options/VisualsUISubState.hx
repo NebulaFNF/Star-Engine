@@ -67,7 +67,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'iconBounceBS',
 			'string',
 			'Vanilla',
-			['Vanilla', 'Golden Apple', 'Psych', 'Strident Crisis', 'SB Engine']);
+			['Vanilla', 'Plank Engine', 'Golden Apple', 'Psych', 'Strident Crisis', 'SB Engine']);
 		addOption(option);
 
 		var option:Option = new Option('Camera Zooms',

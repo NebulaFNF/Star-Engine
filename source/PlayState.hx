@@ -1344,13 +1344,15 @@ class PlayState extends MusicBeatState
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		iconP1.y = healthBar.y - 75;
+		if (ClientPrefs.iconBounceBS == 'Vanilla') iconP1.y = healthBar.y - (iconP1.height / 2);
+		else iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
 
 		iconP2 = new HealthIcon(dad.healthIcon, false);
-		iconP2.y = healthBar.y - 75;
+		if (ClientPrefs.iconBounceBS == 'Vanilla') iconP2.y = healthBar.y - (iconP2.height / 2);
+		else iconP2.y = healthBar.y - 75;
 		iconP2.visible = !ClientPrefs.hideHud;
 		iconP2.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP2);
@@ -3429,6 +3431,13 @@ class PlayState extends MusicBeatState
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();	
 		}
+
+		if (ClientPrefs.iconBounceBS == 'Plank Engine') {
+			final funnyBeat = (Conductor.songPosition / 1000) * (Conductor.bpm / 60);
+
+			iconP1.offset.y = Math.abs(Math.sin(funnyBeat * Math.PI))  * 16 - 4;
+			iconP2.offset.y = Math.abs(Math.sin(funnyBeat * Math.PI))  * 16 - 4;
+		}
 	
 		if (ClientPrefs.iconBounceBS == 'Strident Crisis') {
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(iconP1.frameWidth, iconP1.width, 0.50 / playbackRate)),
@@ -5044,6 +5053,7 @@ class PlayState extends MusicBeatState
 			char.playAnim(animToPlay, true);
 		}
 
+		stagesFunc(function(stage:BaseStage) stage.noteMiss(daNote));
 		callOnLuas('noteMiss', [notes.members.indexOf(daNote), daNote.noteData, daNote.noteType, daNote.isSustainNote]);
 	}
 
@@ -5664,6 +5674,25 @@ class PlayState extends MusicBeatState
 
 			FlxTween.tween(iconP1, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed / playbackRate, {ease: FlxEase.quadOut});
 			FlxTween.tween(iconP2, {'scale.x': 1, 'scale.y': 1}, Conductor.crochet / 1250 * gfSpeed / playbackRate, {ease: FlxEase.quadOut});
+		}
+
+		if (ClientPrefs.iconBounceBS == 'Plank Engine') {
+			iconP1.scale.x = 1.3;
+			iconP1.scale.y = 0.75;
+			iconP2.scale.x = 1.3;
+			iconP2.scale.y = 0.75;
+			FlxTween.cancelTweensOf(iconP1);
+			FlxTween.cancelTweensOf(iconP2);
+			FlxTween.tween(iconP1, {"scale.x": 1, "scale.y": 1}, Conductor.crochet / 1000 / playbackRate, {ease: FlxEase.backOut});
+			FlxTween.tween(iconP2, {"scale.x": 1, "scale.y": 1}, Conductor.crochet / 1000 / playbackRate, {ease: FlxEase.backOut});
+			if (curBeat % 4 == 0) {
+				iconP1.offset.x = 10;
+				iconP2.offset.x = -10;
+				iconP1.angle = -15;
+				iconP2.angle = 15;
+				FlxTween.tween(iconP1, {"offset.x": 0, angle: 0}, Conductor.crochet / 1000 / playbackRate, {ease: FlxEase.expoOut});
+				FlxTween.tween(iconP2, {"offset.x": 0, angle: 0}, Conductor.crochet / 1000 / playbackRate, {ease: FlxEase.expoOut});
+			}
 		}
 
 		if (ClientPrefs.iconBounceBS == 'SB Engine') {

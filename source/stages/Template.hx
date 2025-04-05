@@ -2,7 +2,7 @@ package stages;
 
 import stages.objects.*;
 
-class Template extends BackgroundGirls // i put background girls for no absolute reason whatsoever
+class Template extends BaseStage
 {
 	// If you're moving your stage from PlayState to a stage file,
 	// you might have to rename some variables if they're missing, for example: camZooming -> game.camZooming
@@ -90,34 +90,6 @@ class Template extends BackgroundGirls // i put background girls for no absolute
 				//precacheImage('myImage') //preloads images/myImage.png
 				//precacheSound('mySound') //preloads sounds/mySound.ogg
 				//precacheMusic('myMusic') //preloads music/myMusic.ogg
-		}
-	}
-	override function eventPushedUnique(event:Note.EventNote)
-	{
-		// used for preloading assets used on events where its values affect what assets should be preloaded
-		switch(event.event)
-		{
-			case "My Event":
-				switch(event.value1)
-				{
-					// If value 1 is "blah blah", it will preload these assets:
-					case 'blah blah':
-						//precacheImage('myImageOne') //preloads images/myImageOne.png
-						//precacheSound('mySoundOne') //preloads sounds/mySoundOne.ogg
-						//precacheMusic('myMusicOne') //preloads music/myMusicOne.ogg
-
-					// If value 1 is "coolswag", it will preload these assets:
-					case 'coolswag':
-						//precacheImage('myImageTwo') //preloads images/myImageTwo.png
-						//precacheSound('mySoundTwo') //preloads sounds/mySoundTwo.ogg
-						//precacheMusic('myMusicTwo') //preloads music/myMusicTwo.ogg
-					
-					// If value 1 is not "blah blah" or "coolswag", it will preload these assets:
-					default:
-						//precacheImage('myImageThree') //preloads images/myImageThree.png
-						//precacheSound('mySoundThree') //preloads sounds/mySoundThree.ogg
-						//precacheMusic('myMusicThree') //preloads music/myMusicThree.ogg
-				}
 		}
 	}
 }

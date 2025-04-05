@@ -228,6 +228,7 @@ class PhillyStreets extends BaseStage
 	var videoEnded:Bool = false;
 	function videoCutscene(?videoName:String = null)
 	{
+		trace('VIDEO NAME AND PATH: ' + videoName + '\nPATH TO VIDEO: ' );
 		game.inCutscene = true;
 		if(!videoEnded && videoName != null)
 		{
@@ -537,7 +538,7 @@ class PhillyStreets extends BaseStage
 				rainShaderEndIntensity = 0.4;
 		}
 		rainShader.intensity = rainShaderStartIntensity;
-		FlxG.camera.set__filters([new ShaderFilter(rainShader)]);
+		FlxG.camera.setFilters([new ShaderFilter(rainShader)]);
 	}
 	
 	var currentNeneState:NeneState = STATE_DEFAULT;

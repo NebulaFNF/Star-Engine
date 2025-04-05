@@ -90,7 +90,6 @@ class BaseStage extends FlxBasic
 	// Events
 	public function eventCalled(eventName:String, value1:String, value2:String) {}// NOTHING!! :pig_head_exploding: :pogchamp:
 	public function eventPushed(event:EventNote) {}// NOTHING!! :pig_head_exploding: :pogchamp:
-	public function eventPushedUnique(event:EventNote) {}// NOTHING!! :pig_head_exploding: :pogchamp:
 
 	// Note Hit/Miss
 	public function goodNoteHit(note:Note) {}// NOTHING!! :pig_head_exploding: :pogchamp:

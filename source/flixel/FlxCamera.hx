@@ -2109,6 +2109,15 @@ class FlxCamera extends FlxBasic
 	{
 		return filters = Value;
 	}
+
+	/**
+	 * Sets the filter array to be applied to the camera.
+	 * lmfao
+	 */
+	public function setFilters(filters:Array<BitmapFilter>):Void
+	{
+		_filters = filters;
+	}
 	
 	// deprecated vars
 

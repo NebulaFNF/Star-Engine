@@ -1,5 +1,9 @@
 package stages;
 
+import flixel.tweens.FlxTween;
+import flixel.math.FlxMath;
+import flixel.FlxG;
+import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import shaderslmfao.RainShader;
 
