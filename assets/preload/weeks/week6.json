@@ -5,6 +5,7 @@
 	"weekBackground": "school",
 	"weekBefore": "week5",
 	"startUnlocked": true,
+	"hideStoryMode": false,
 	"weekCharacters": [
 		"senpai",
 		"bf",
@@ -22,7 +23,7 @@
 		],
 		[
 			"Roses",
-			"senpai-pixel",
+			"senpai-angry-pixel",
 			[
 				255,
 				120,
@@ -39,6 +40,5 @@
 			]
 		]
 	],
-	"hideStoryMode": false,
 	"weekName": "Week 6"
 }
