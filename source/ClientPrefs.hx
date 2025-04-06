@@ -11,7 +11,7 @@ class ClientPrefs {
 	public static var middleScroll:Bool = false;
 	public static var opponentStrums:Bool = true;
 	public static var showFPS:Bool = true;
-	public static var funnyScoreTextImVeryFunny:String = 'Vanilla';
+	public static var funnyScoreTextImVeryFunny:String = 'Default';
 	public static var iconBounceBS:String = 'Plank Engine';
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
