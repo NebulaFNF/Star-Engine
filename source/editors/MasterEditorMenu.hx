@@ -27,13 +27,15 @@ class MasterEditorMenu extends MusicBeatState
 		'Dialogue Portrait Editor',
 		'Character Editor',
 		'Chart Editor',
-		'3D Benchmark'
+		'3D Benchmark',
+		'Sticker SubState Test'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 	private var directories:Array<String> = [null];
 
 	private var curSelected = 0;
 	private var curDirectory = 0;
+
 	private var directoryTxt:FlxText;
 
 	override function create()
@@ -129,6 +131,9 @@ class MasterEditorMenu extends MusicBeatState
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
 				case '3D Benchmark'://felt it would be cool maybe
 					MusicBeatState.switchState(new BenchmarkState());
+				case 'Sticker SubState Test':
+					openSubState(new StickerSubState());
+					trace('opened stickers');
 			}
 		}
 		

@@ -37,6 +37,28 @@ class ClientPrefs {
 	public static var strumsAreFuckingOffset:Bool = false;
 	public static var peOGCrash:Bool = false;
 
+	// V-Slice compatitbility
+    public static var FLASHBANG(get,never):Bool;    
+    public static function get_FLASHBANG():Bool {
+        return flashing;
+    }
+    public static var ANTIALIASING(get,never):Bool;    
+    public static function get_ANTIALIASING():Bool {
+        return globalAntialiasing;
+    }
+    public static var LOW_QUALITY(get,never):Bool;    
+    public static function get_LOW_QUALITY():Bool {
+        return lowQuality;
+    }
+    public static var CAM_ZOOMING(get,never):Bool;    
+    public static function get_CAM_ZOOMING():Bool {
+        return camZooms;
+    }
+    public static var SHADERS(get,never):Bool;    
+    public static function get_SHADERS():Bool {
+        return shaders;
+	}
+
 	// Video Renderer
 	public static var ffmpegMode:Bool = false;
 	public static var ffmpegInfo:Bool = false;

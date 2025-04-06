@@ -123,7 +123,7 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
-		//beatHit();
+		beatHit();
 		#if MODS_ALLOWED
 		Paths.pushGlobalMods();
 		#end
@@ -318,7 +318,7 @@ class MainMenuState extends MusicBeatState
 				#end
 			}
 
-			#if VIDEOS_ALLOWED
+			/*#if VIDEOS_ALLOWED
 			if (tipText.text == "BAL_7.ogg") {
 				FlxG.sound.music.stop();
 				startVideo('BALD_Seven');
@@ -329,7 +329,7 @@ class MainMenuState extends MusicBeatState
 			}
 			#else
 			trace('Cannot play Baldi videos, sad.');
-			#end
+			#end*/
 
 			FlxTween.tween(tipText, {alpha: 0}, 1, {
 				ease: FlxEase.linear,
@@ -354,9 +354,7 @@ class MainMenuState extends MusicBeatState
 
 	override function beatHit()
 	{
-		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		super.beatHit();
-		grid.alpha == 1;
 		FlxG.camera.zoom += 0.2;
 		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 1200, {ease: FlxEase.expoOut});
 	}
