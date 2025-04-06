@@ -31,6 +31,7 @@ haxelib install hxp 1.3.0
 haxelib install hxvlc 1.9.2
 haxelib install thx.core
 haxelib install thx.semver
+haxelib set flixel 5.2.2
 haxelib git haxeui-flixel https://github.com/haxeui/haxeui-flixel da27e833947f32ef007ed11f523aa5524f5a5d54
 haxelib git haxeui-core https://github.com/haxeui/haxeui-core 51c23588614397089a5ce182cddea729f0be6fa0
 haxelib git flixel-text-input https://github.com/FunkinCrew/flixel-text-input 951a0103a17bfa55eed86703ce50b4fb0d7590bc

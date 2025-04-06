@@ -1,6 +1,6 @@
 package flixel.graphics;
 
-import flash.display.BitmapData;
+import openfl.display.BitmapData;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
@@ -12,7 +12,7 @@ import flixel.system.FlxAssets;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 #if !FLX_DRAW_QUADS
-import openfl.display.Tilesheet;
+import flash.display.Tilesheet;
 #end
 
 /**

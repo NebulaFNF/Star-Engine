@@ -15,7 +15,7 @@ import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import haxe.Json;
 import flxanimate.PsychFlxAnimate as FlxAnimate;
-import flash.media.Sound;
+import openfl.media.Sound;
 
 using StringTools;
 

@@ -1152,11 +1152,24 @@ class PlayState extends MusicBeatState
 		//devBuildtxt = ' | Dev Build';
 
 		// for now ill leave these here
+		#if debug
+		EngineWatermark = new FlxText(0, FlxG.height - 18, FlxG.width, '', 16);
+		#else
 		EngineWatermark = new FlxText(4,FlxG.height * 0.9 + 50,0,"", 16);
+		#end
 		EngineWatermark.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		EngineWatermark.scrollFactor.set();
+		#if debug
+		EngineWatermark.text = SONG.song + " " + CoolUtil.difficultyString() + " | SE " + MainMenuState.psychEngineVersion + ' |' + Constants.VERSION_SUFFIX; // Funny thingie
+		#else
 		EngineWatermark.text = SONG.song + " " + CoolUtil.difficultyString() + " | SE " + MainMenuState.psychEngineVersion;
+		#end
+
+		#if debug
+		EngineWatermark.visible = true;
+		#else
 		EngineWatermark.visible = ClientPrefs.seWatermarkLmfao;
+		#end
 		add(EngineWatermark);
 
 		boyfriend = new Boyfriend(0, 0, SONG.player1);

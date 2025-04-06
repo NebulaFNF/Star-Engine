@@ -336,7 +336,7 @@ class Project extends HXProject {
         addHaxelib('lime'); // Game engine backend
         addHaxelib('openfl'); // Game engine backend
 
-        addHaxelib('flixel', '5.2.2'); // Game engine
+        addHaxelib('flixel'); // Game engine
 
         addHaxelib('flixel-addons', '2.11.0'); // Additional utilities for Flixel
         addHaxelib('hscript-iris'); // Scripting
