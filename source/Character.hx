@@ -7,6 +7,7 @@ import flixel.addons.effects.FlxTrail;
 import flixel.animation.FlxBaseAnimation;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.tweens.FlxTween;
+import flxanimate.PsychFlxAnimate as FlxAnimate;
 import flixel.util.FlxSort;
 import flixel.util.FlxDestroyUtil;
 import flixel.math.FlxRect;
