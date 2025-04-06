@@ -1383,13 +1383,6 @@ class PlayState extends MusicBeatState
 
 		switch (ClientPrefs.funnyScoreTextImVeryFunny)
 		{
-			case 'Default':
-				scoreTxt.y = healthBarBG.y + 48;
-				scoreTxt.setFormat(Paths.font("Aller_rg.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-				scoreTxt.borderSize = 1.25;
-				scoreTxt.scrollFactor.set();
-		        scoreTxt.visible = !ClientPrefs.hideHud;
-				add(scoreTxt);
 			case 'Psych Engine':
 				scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		        scoreTxt.setFormat(Paths.font("comic.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -2657,8 +2650,6 @@ class PlayState extends MusicBeatState
 	{
 		switch (ClientPrefs.funnyScoreTextImVeryFunny)
 		{
-			case 'Default':
-				scoreTxt.text = 'Score: ' + songScore + '| Combo: ' + noteCombo + ' | Misses: ' + songMisses + ' | Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | $ratingFC'; 
 			case 'Psych Engine':
 				scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 			case 'Vanilla':

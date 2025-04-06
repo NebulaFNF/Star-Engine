@@ -123,7 +123,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'funnyScoreTextImVeryFunny',
 			'string',
 			'Vanilla',
-			['Default', 'Psych Engine', 'Vanilla', 'Kade']);
+			['Psych Engine', 'Vanilla', 'Kade']);
 	    addOption(option);
 
 		var option:Option = new Option('Smooth Health', 'If checked, enables smooth health.', 'smoothHealth', 'bool', true);
