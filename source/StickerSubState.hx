@@ -35,6 +35,11 @@ class StickerSubState extends MusicBeatSubstate
   public var dipshit:Sprite;
 
   /**
+   * So StickerSubState can be accesed on lua i think.
+   */
+  public static var stickerShitLmfao:StickerSubState;
+  
+  /**
    * The state to switch to after the stickers are done.
    * This is a FUNCTION so we can pass it directly to `FlxG.switchState()`,
    * and we can add constructor parameters in the caller.
@@ -222,33 +227,6 @@ class StickerSubState extends MusicBeatSubstate
 
     FlxG.random.shuffle(grpStickers.members);
 
-    // var stickerCount:Int = 0;
-
-    // for (w in 0...6)
-    // {
-    //   var xPos:Float = FlxG.width * (w / 6);
-    //   for (h in 0...6)
-    //   {
-    //     var yPos:Float = FlxG.height * (h / 6);
-    //     var sticker = grpStickers.members[stickerCount];
-    //     xPos -= sticker.width / 2;
-    //     yPos -= sticker.height * 0.9;
-    //     sticker.x = xPos;
-    //     sticker.y = yPos;
-
-    //     stickerCount++;
-    //   }
-    // }
-
-    // for (ind => sticker in grpStickers.members)
-    // {
-    //   sticker.x = (ind % 8) * sticker.width;
-    //   var yShit:Int = Math.floor(ind / 8);
-    //   sticker.y += yShit * sticker.height;
-    //   // scales it juuuust a smidge
-    //   sticker.y += 20 * yShit;
-    // }
-
     // another damn for loop... apologies!!!
     for (ind => sticker in grpStickers.members)
     {
@@ -278,19 +256,6 @@ class StickerSubState extends MusicBeatSubstate
             FlxTransitionableState.skipNextTransIn = true;
             FlxTransitionableState.skipNextTransOut = true;
 
-            // I think this grabs the screen and puts it under the stickers?
-            // Leaving this commented out rather than stripping it out because it's cool...
-            /*
-              dipshit = new Sprite();
-              var scrn:BitmapData = new BitmapData(FlxG.width, FlxG.height, true, 0x00000000);
-              var mat:Matrix = new Matrix();
-              scrn.draw(grpStickers.cameras[0].canvas, mat);
-
-              var bitmap:Bitmap = new Bitmap(scrn);
-
-              dipshit.addChild(bitmap);
-              // FlxG.addChildBelowMouse(dipshit);
-             */
              if(subState != null){
               subStateClosed.addOnce(s -> {
                 FlxG.switchState(targetState(this));

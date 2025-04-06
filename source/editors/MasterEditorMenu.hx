@@ -34,9 +34,11 @@ class MasterEditorMenu extends MusicBeatState
 	private var directories:Array<String> = [null];
 
 	private var curSelected = 0;
+	private var picoStickers:Bool = false;
 	private var curDirectory = 0;
 
 	private var directoryTxt:FlxText;
+	var stickerSubState:Null<StickerSubState> = null;
 
 	override function create()
 	{
@@ -90,6 +92,7 @@ class MasterEditorMenu extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
+		var targetStateTest:flixel.FlxState = new MainMenuState();
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
@@ -133,6 +136,8 @@ class MasterEditorMenu extends MusicBeatState
 					MusicBeatState.switchState(new BenchmarkState());
 				case 'Sticker SubState Test':
 					openSubState(new StickerSubState());
+					MainMenuState.gotAnyStickers = true;
+					
 					trace('opened stickers');
 			}
 		}

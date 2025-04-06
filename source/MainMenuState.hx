@@ -53,6 +53,11 @@ class MainMenuState extends MusicBeatState
 	var tipBackground:FlxSprite;
 	var tipText:FlxText;
 	var isTweening:Bool = false;
+	public static var gotAnyStickers:Bool = false;
+   /**
+   * So StickerSubState can be accesed on lua i think.
+   */
+   public static var stickerShitLmfaoAgain:StickerSubState;
 	var lastString:String = '';
 
 	public var distancePerItem:FlxPoint = new FlxPoint(20, 120);
@@ -195,6 +200,10 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 		freeplayBoyfriend.anim.play("Pico DJ");
+
+		if (gotAnyStickers && stickerShitLmfaoAgain != null) {
+			StickerSubState.stickerShitLmfao.degenStickers();
+		}
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
