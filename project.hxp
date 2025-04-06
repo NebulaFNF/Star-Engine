@@ -28,6 +28,13 @@ class Project extends HXProject {
 	static final VERSION:String = "0.3.2";
 
 	/**
+	 * The engine's version number, as a Semantic Versioning string with no prefix.
+	 * Change this when a version is in development or release. (on function Flair)
+	 * This is just used for the function of FLAIR and is not used anywhere else.
+	 */
+	public static var ENGINE_VERSION:String = '';
+
+	/**
 	 * The game's name. Used as the default window title.
 	 */
 	static final TITLE:String = "Friday Night Funkin': Star Engine";
@@ -120,10 +127,12 @@ class Project extends HXProject {
 
 	function flair() {
 		// TODO: Implement this.
+		if (isDebug()) ENGINE_VERSION = '0.4.0 | PROTOTYPE';
+		else ENGINE_VERSION = '0.4.0';
 		info("Friday Night Funkin'");
 		info("Initializing build...");
 
-		info("Target Version: " + VERSION);
+		info("Target Version: " + ENGINE_VERSION);
 		info("Git Branch:     " + getGitBranch());
 		info("Git Commit:     " + getGitCommit());
 		info("Git Modified?   " + getGitModified());
@@ -229,24 +238,15 @@ class Project extends HXProject {
         for (arch in this.architectures) {
 			// Display the list of target architectures.
 			switch (arch) {
-				case Architecture.X86:
-					info('Architecture: x86');
-				case Architecture.X64:
-					info('Architecture: x64');
-				case Architecture.ARMV5:
-					info('Architecture: ARMv5');
-				case Architecture.ARMV6:
-					info('Architecture: ARMv6');
-				case Architecture.ARMV7:
-					info('Architecture: ARMv7');
-				case Architecture.ARMV7S:
-					info('Architecture: ARMv7S');
-				case Architecture.ARM64:
-					info('Architecture: ARMx64');
-				case Architecture.MIPS:
-					info('Architecture: MIPS');
-				case Architecture.MIPSEL:
-					info('Architecture: MIPSEL');
+				case Architecture.X86: info('Architecture: x86');
+				case Architecture.X64: info('Architecture: x64');
+				case Architecture.ARMV5: info('Architecture: ARMv5');
+				case Architecture.ARMV6: info('Architecture: ARMv6');
+				case Architecture.ARMV7: info('Architecture: ARMv7');
+				case Architecture.ARMV7S: info('Architecture: ARMv7S');
+				case Architecture.ARM64: info('Architecture: ARMx64');
+				case Architecture.MIPS: info('Architecture: MIPS');
+				case Architecture.MIPSEL: info('Architecture: MIPSEL');
 				case null:
 					if (!isWeb()) {
 						error('Unsupported architecture (got null on non-web platform)');
@@ -296,12 +296,13 @@ class Project extends HXProject {
 		setHaxedef("HXCPP_STACK_LINE");
 		setHaxedef("HXCPP_STACK_TRACE");
 		setHaxedef("hscriptPos");
+		if(!isDebug()) setHaxedef("no-deprecation-warnings"); // for nael grr
 		setHaxedef("LINC_LUA_RELATIVE_DYNAMIC_LIB"); // DISABLE THIS IF ISSUES ARE FOUND!
 
 		// Allow memory to go above 1GB.
 		setHaxedef("HXCPP_GC_BIG_BLOCKS");
 
-		setHaxedef("safeMode");
+		setHaxedef("safeMode"); // what is this
 
 		// If we aren't using the Flixel debugger, strip it out.
 		if (!isDebug()) {
@@ -311,10 +312,11 @@ class Project extends HXProject {
 		// Disable the built in pause screen when unfocusing the game.
 		setHaxedef("FLX_NO_FOCUS_LOST_SCREEN");
 
-		// HaxeUI configuration.
-		setHaxedef("haxeui_no_mouse_reset");
+		// HaxeUI configuration. I hate HaxeUI.
+		/*setHaxedef("haxeui_no_mouse_reset");
 		setHaxedef("haxeui_focus_out_on_click"); // Unfocus a dialog when clicking out of it
 		setHaxedef("haxeui_dont_impose_base_class"); // Suppress a macro error
+		*/
 
 		if (isRelease()) setHaxedef("NAPE_RELEASE_BUILD");
 
