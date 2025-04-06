@@ -1,7 +1,6 @@
 package;
 
 // I don't think we can import FNF classes here.
-import source.MainMenuState; // Yeah, i know...
 import hxp.*;
 import lime.tools.*;
 import sys.FileSystem;
@@ -33,7 +32,7 @@ class Project extends HXProject {
 	 * Change this when a version is in development or release. (on function Flair)
 	 * This is just used for the function of FLAIR and is not used anywhere else.
 	 */
-	public static var ENGINE_VERSION:String = MainMenuState.psychEngineVersion;
+	public static var ENGINE_VERSION:String = '';
 
 	/**
 	 * The game's name. Used as the default window title.

@@ -339,7 +339,7 @@ class Character extends FlxSprite
 
 		if (!isPlayer)
 		{
-			if (!PlayState.opponentChart || curCharacter.startsWith('gf')) {
+			if (curCharacter.startsWith('gf')) {
 				if (getAnimationName().startsWith('sing')) holdTimer += elapsed;
 
 				if (holdTimer >= Conductor.stepCrochet * (0.0011 / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1)) * singDuration * (PlayState.instance != null ? PlayState.instance.singDurMult : 1))

@@ -61,7 +61,6 @@ class ClientPrefs {
 
 	// Video Renderer
 	public static var ffmpegMode:Bool = false;
-	
 	public static var ffmpegInfo:Bool = false;
 	public static var targetFPS:Float = 60;
 	public static var unlockFPS:Bool = false;
@@ -98,17 +97,13 @@ class ClientPrefs {
 		// oh yeah and you'd have to actually convert the difference to seconds which I already do, because this is based on beats and stuff. but it should work
 		// just fine. but I wont implement it because I don't know how you handle sustains and other stuff like that.
 		// oh yeah when you calculate the bps divide it by the songSpeed or rate because it wont scroll correctly when speeds exist.
-
-		// bro can you shut the fuck up
-		'opponentplay' => false,
-		'opponentdrain' => false,
-		'drainlevel' => 1,
 		'songspeed' => 1.0,
 		'healthgain' => 1.0,
 		'healthloss' => 1.0,
 		'instakill' => false,
 		'practice' => false,
-		'botplay' => false
+		'botplay' => false,
+		'opponentplay' => false
 	];
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
@@ -173,14 +168,28 @@ class ClientPrefs {
 		FlxG.save.data.noBotlag = noBotLag;
 		FlxG.save.data.smoothHealth = smoothHealth;
 		FlxG.save.data.strumsAreFuckingOffset = strumsAreFuckingOffset;
-		//RENDERING SETTINGS
-		FlxG.save.data.ffmpegMode = ffmpegMode;
-		FlxG.save.data.ffmpegInfo = ffmpegInfo;
-		FlxG.save.data.targetFPS = targetFPS;
-		FlxG.save.data.unlockFPS = unlockFPS;
-		FlxG.save.data.lossless = lossless;
-		FlxG.save.data.quality = quality;
-		FlxG.save.data.noCapture = noCapture;
+				//RENDERING SETTINGS
+
+
+				FlxG.save.data.ffmpegMode = ffmpegMode;
+
+
+				FlxG.save.data.ffmpegInfo = ffmpegInfo;
+		
+		
+				FlxG.save.data.targetFPS = targetFPS;
+		
+		
+				FlxG.save.data.unlockFPS = unlockFPS;
+		
+		
+				FlxG.save.data.lossless = lossless;
+		
+		
+				FlxG.save.data.quality = quality;
+		
+		
+				FlxG.save.data.noCapture = noCapture;
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
 		FlxG.save.data.camZooms = camZooms;
