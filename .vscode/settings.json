@@ -1,0 +1,10 @@
+{
+  // Fix file associations for HScript.
+  "files.associations": {
+    "*.hxp": "haxe",
+    "*.hscript": "haxe",
+    "*.haxe": "haxe",
+    "*.hxs": "haxe",
+    "*.hxc": "haxe"
+  }
+}
