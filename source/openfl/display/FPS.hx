@@ -87,8 +87,9 @@ class FPS extends TextField
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
+			memoryShit = System.totalMemory;
 			if (!ClientPrefs.fpsCounterThingie) text = "FPS: " + currentFPS;
-			else text = "" + currentFPS;
+			else text = "" + currentFPS + ' | ' + FlxStringUtil.formatBytes(memoryShit);
 			var memoryBytes:Float = 0;
 			var memoryMegas:Float = 0;
 			var memoryGigas:Float = 0;
@@ -99,10 +100,8 @@ class FPS extends TextField
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
 			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
-			
-			memoryShit = System.totalMemory;
-			if (!ClientPrefs.fpsCounterThingie) text += "\nMemory: " + FlxStringUtil.formatBytes(memoryShit);
-			else text += "\n" + FlxStringUtil.formatBytes(memoryShit);
+			if (!ClientPrefs.fpsCounterThingie) text += "\nMEM: " + FlxStringUtil.formatBytes(memoryShit);
+			else text += "";
 			#end
 
 			textColor = 0xFFFFFFFF;

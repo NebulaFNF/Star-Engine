@@ -450,7 +450,7 @@ class PhillyStreets extends BaseStage
 	function precache()
 	{
 		var didCreateCan = false;
-		function createCan()
+	    function createCan()
 		{
 			if(didCreateCan) return;
 			spraycan = new SpraycanAtlasSprite(spraycanPile.x + 530, spraycanPile.y - 240);
