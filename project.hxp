@@ -764,20 +764,20 @@ abstract FeatureFlag(String) {
 
 		if (isEnabled(project)) {
 			// If this flag was already enabled, disable the inverse.
-			project.info('Enabling feature flag ${this}');
+			//project.info('Enabling feature flag ${this}');
 			getInverse().disable(project, false);
 		} else if (getInverse().isEnabled(project)) {
 			// If the inverse flag was already enabled, disable this flag.
-			project.info('Disabling feature flag ${this}');
+			//project.info('Disabling feature flag ${this}');
 			disable(project, false);
 		} else {
 			if (enableByDefault) {
 				// Enable this flag if it was unset, and disable the inverse.
-				project.info('Enabling feature flag ${this}');
+				//project.info('Enabling feature flag ${this}');
 				enable(project, true);
 			} else {
 				// Disable this flag if it was unset, and enable the inverse.
-				project.info('Disabling feature flag ${this}');
+				//project.info('Disabling feature flag ${this}');
 				disable(project, true);
 			}
 		}
