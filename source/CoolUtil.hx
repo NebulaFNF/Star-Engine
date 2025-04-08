@@ -1,6 +1,9 @@
 package;
 
 import flixel.FlxG;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.tweens.FlxTween;
 import openfl.utils.Assets;
 #if sys
 import sys.FileSystem;
