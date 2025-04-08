@@ -159,7 +159,7 @@ class MainMenuState extends MusicBeatState
 		freeplayBoyfriend.anim.addBySymbol("pico freeplay assets v7", "Pico DJ", 0, 0, 24);
 		freeplayBoyfriend.antialiasing = ClientPrefs.globalAntialiasing;
 		freeplayBoyfriend.screenCenter();
-		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 2));
+		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 2.5));
 		freeplayBoyfriend.scrollFactor.set(0, 0);
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
@@ -188,7 +188,7 @@ class MainMenuState extends MusicBeatState
 		freeplayBoyfriend.anim.addBySymbol("pico freeplay assets v7", "Pico DJ", 0, 0, 24);
 		freeplayBoyfriend.antialiasing = ClientPrefs.globalAntialiasing;
 		freeplayBoyfriend.screenCenter();
-		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 2));
+		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 2.5));
 		freeplayBoyfriend.scrollFactor.set(0, 0);
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('aboutMenu', 'preload'));
 		magenta.scrollFactor.set(0, yScroll);
@@ -200,10 +200,6 @@ class MainMenuState extends MusicBeatState
 		magenta.color = 0xFFfd719b;
 		add(magenta);
 		freeplayBoyfriend.anim.play("Pico DJ");
-
-		if (gotAnyStickers && stickerShitLmfaoAgain != null) {
-			StickerSubState.stickerShitLmfao.degenStickers();
-		}
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
@@ -413,7 +409,7 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate')CoolUtil.browserLoad('https://github.com/SyncGit12/Star-Engine');
+				if (optionShit[curSelected] == 'donate') CoolUtil.browserLoad('https://github.com/SyncGit12/Star-Engine');
 				else
 				{
 					selectedSomethin = true;

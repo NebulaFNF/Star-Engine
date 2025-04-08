@@ -108,70 +108,29 @@ class CrashHandler {
 class Crash extends FlxState {
 	override public function create() {
 		if (FlxG.sound.music != null) FlxG.sound.music.stop();
-
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('aboutMenu'));
-		bg.color = 0xFFA81A1A;
-		add(bg);
-
-		var ohNo:FlxText = new FlxText(0, 0, 1280, 'Star Engine v${MainMenuState.psychEngineVersion} has crashed!');
-		ohNo.setFormat(Paths.font('vcryey.ttf'), 48, FlxColor.WHITE, FlxTextAlign.CENTER);
-		ohNo.alpha = 0;
-		ohNo.screenCenter();
-		ohNo.y = 14;
-		add(ohNo);
-
-		var ohNo2:FlxText = new FlxText(0, 0, 1280, Main.__superCoolErrorMessagesArray[FlxG.random.int(0, Main.__superCoolErrorMessagesArray.length)]);
-		ohNo2.setFormat(Paths.font('vcryey.ttf'), 18, FlxColor.WHITE, FlxTextAlign.CENTER);
-		ohNo2.alpha = 0;
-		ohNo2.screenCenter();
-		ohNo2.y = 64;
-		add(ohNo2);
-
-		var ohNo3:FlxText = new FlxText(0, 0, 1280, "Crash Handler by YoshiCrafter29, Ne_Eo. MAJigsaw77 and mcagabe19\nCrash UI State by Nael2xd");
-		ohNo3.setFormat(Paths.font('vcryey.ttf'), 18, FlxColor.WHITE);
-		ohNo3.alpha = 0;
-		ohNo3.screenCenter();
-		ohNo3.y = 580;
-		ohNo3.x = 30;
-		add(ohNo3);
-
-		var ohNo4:FlxText = new FlxText(0, 0, 1280, "If you are reporting this bug, Go to crash/ folder and copy the contents from the recent file.");
-		ohNo4.setFormat(Paths.font('vcryey.ttf'), 22, FlxColor.WHITE, FlxTextAlign.CENTER);
-		ohNo4.alpha = 0;
-		ohNo4.screenCenter();
-		ohNo4.y = 620;
-		add(ohNo4);
-
 		var stripClub:Array<String> = CrashHandler.errorMessage.split("\n");
 		var i:Int = -1;
+		var ohNo:FlxText = new FlxText(0, 0, 1280,
+		'Star Engine v${MainMenuState.psychEngineVersion} has crashed!\n\n'
+		+ Main.__superCoolErrorMessagesArray[FlxG.random.int(0, Main.__superCoolErrorMessagesArray.length)] 
+		+ '\n\n' + stripClub
+		+ '\n\nCrash Handler by YoshiCrafter29, Ne_Eo. MAJigsaw77 and mcagabe19
+		Crash UI State by Nael2xd and lunaruniv
+		If you are reporting this bug, Go to crash/ folder and copy the contents from the recent file.
+		Press any key to continue (Press ENTER to report this bug)');
+
+		ohNo.setFormat(Paths.font('debug.ttf'), 20, FlxColor.WHITE, FlxTextAlign.LEFT);
+		ohNo.antialiasing = false;
+		ohNo.alpha = 1;
+		ohNo.screenCenter();
+		ohNo.y = 0;
+		ohNo.x = 0;
+		add(ohNo);
+
 		var crash:Array<FlxText> = [];
-
-		for (line in stripClub) {
-			i++;
-			crash.push(new FlxText(180, 0, 1280, line));
-			crash[i].setFormat(Paths.font('vcryey.ttf'), 20, FlxColor.WHITE, FlxTextAlign.LEFT);
-			crash[i].alpha = 0;
-			crash[i].screenCenter();
-			crash[i].x = 70;
-			crash[i].y = 110 + (20 * i);
-			add(crash[i]);
-		}
-		
-		var tip:FlxText = new FlxText(180, 0, 1280, "Press any key to restart. (Press ENTER to Report This Bug)");
-		tip.setFormat(Paths.font('vcryey.ttf'), 36, FlxColor.WHITE, FlxTextAlign.CENTER);
-		tip.alpha = 0;
-		tip.screenCenter();
-		tip.y = 670;
-		add(tip);
-
-		FlxTween.tween(ohNo, {alpha: 1}, 0.5);
-		FlxTween.tween(ohNo2, {alpha: 1}, 0.5);
-		FlxTween.tween(ohNo3, {alpha: 0.25}, 0.5);
-		FlxTween.tween(ohNo4, {alpha: 1}, 0.5);
-		FlxTween.tween(tip, {alpha: 1}, 0.5);
 		for (spr in crash) FlxTween.tween(spr, {alpha: 1}, 0.5);
 
-		var error:FlxSound = FlxG.sound.load(Paths.sound('invalidJSON'));
+		var error:FlxSound = FlxG.sound.load(Paths.sound('chord'));
 		error.play();
 
 		super.create();

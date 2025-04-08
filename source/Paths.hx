@@ -373,6 +373,12 @@ class Paths
 		return returnAsset;
 	}
 	
+	/**
+	 * Gets the atlas.
+	 * @param key : Handles the name of the atlas. And maybe returns it to String.
+	 * @param parentFolder : The parent folder.
+	 * @return FlxAtlasFrames : Returns FlxAtlasFrames when possible.
+	 */
 	static public function getAtlas(key:String, ?parentFolder:String = null):FlxAtlasFrames
 	{
 		var useMod = false;
@@ -401,6 +407,11 @@ class Paths
 		return getPackerAtlas(key, parentFolder);
 	}
 
+	/**
+	 * I don't know what this does. But i think it returns scripts and shit?
+	 * @param script : A string that handles the name of a script.
+	 * @param library : What library of scripts you are on.
+	 */
 	inline static public function scripts(script:String, ?library:AssetType) {
 		var path = getPath('scripts/$script.hx', library);
 		if(FileSystem.exists(path)) {
@@ -412,6 +423,12 @@ class Paths
 		}
 	}
 
+	/**
+	 * Gets the text from a file and returns it to a String.
+	 * @param key : Most important variable that handles the loading.
+	 * @param ignoreMods : It ignores mods, duh.
+	 * @return String : Returns string when possible.
+	 */
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
 		#if sys
@@ -440,6 +457,10 @@ class Paths
 		return Assets.getText(getPath(key, TEXT));
 	}
 
+	/**
+	 * Gets the font that you're loading.
+	 * @param key : Parameter to load the font i suppose.
+	 */
 	inline static public function font(key:String)
 	{
 		#if MODS_ALLOWED

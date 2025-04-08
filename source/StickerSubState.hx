@@ -1,12 +1,12 @@
 package;
 
-import CrashHandler;
-import ClientPrefs;
+import CrashHandler as UserErrorSubstate;
+import sys.FileSystem;
+import flixel.system.FlxSound;
 import MainMenuState;
 import flixel.FlxSprite;
 import haxe.Json;
 import lime.utils.Assets;
-import flixel.sound.FlxSound;
 // import flxtyped group
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxTimer;
@@ -34,11 +34,6 @@ class StickerSubState extends MusicBeatSubstate
   // yes... a damn OpenFL sprite!!!
   public var dipshit:Sprite;
 
-  /**
-   * So StickerSubState can be accesed on lua i think.
-   */
-  public static var stickerShitLmfao:StickerSubState;
-  
   /**
    * The state to switch to after the stickers are done.
    * This is a FUNCTION so we can pass it directly to `FlxG.switchState()`,
@@ -145,7 +140,7 @@ class StickerSubState extends MusicBeatSubstate
       new FlxTimer().start(sticker.timing, _ -> {
         sticker.visible = false;
         var daSound:String = FlxG.random.getObject(sounds);
-        new FlxSound().loadEmbedded(Paths.sound(daSound)).play();
+        new FlxSound().loadEmbedded(Paths.sound(daSound,"shared")).play();
 
         if (grpStickers == null || ind == grpStickers.members.length - 1)
         {
@@ -165,18 +160,14 @@ class StickerSubState extends MusicBeatSubstate
     }
 
     trace("Collecting stickers...");
+    trace("Current mod: "+Paths.currentModDirectory);
     var stickers:StickerInfo = null;
 
     // var globalMods = Mods.getGlobalMods().map(s -> "mods/"+s);
     // globalMods.pushUnique("mods/"+Mods.currentModDirectory);
     // globalMods.push("assets/shared"); // base stickers
 
-      #if sys
-      var modStickerDir = Paths.getPath('images/transitionSwag/$STICKER_SET',TEXT,null,true);
-      #else
-      var infoObj = new StickerInfo(STICKER_SET);
-          stickers = infoObj;
-      #end
+    var modStickerDir = Paths.getPath('images/transitionSwag/$STICKER_SET',TEXT,null);
     // sticker group -> array of sticker names
 
     var xPos:Float = -100;
@@ -237,7 +228,7 @@ class StickerSubState extends MusicBeatSubstate
 
         sticker.visible = true;
         var daSound:String = FlxG.random.getObject(sounds);
-        new FlxSound().loadEmbedded(Paths.sound(daSound)).play();
+        new FlxSound().loadEmbedded(Paths.sound(daSound,"shared")).play();
 
         var frameTimer:Int = FlxG.random.int(0, 2);
 
@@ -255,13 +246,8 @@ class StickerSubState extends MusicBeatSubstate
 
             FlxTransitionableState.skipNextTransIn = true;
             FlxTransitionableState.skipNextTransOut = true;
-
-             if(subState != null){
-              subStateClosed.addOnce(s -> {
-                FlxG.switchState(targetState(this));
-              });
-             }
-             else FlxG.switchState(targetState(this));
+            FlxG.switchState(targetState(this)
+            );
           }
         });
       });
@@ -279,6 +265,7 @@ class StickerSubState extends MusicBeatSubstate
 
     STICKER_SET = "stickers-set-1";
     STICKER_PACK = "all";
+    WeekData.loadTheFirstEnabledMod(); // We won't be messing with mods from here on
   }
 
   override public function update(elapsed:Float):Void
@@ -310,20 +297,14 @@ class StickerSubState extends MusicBeatSubstate
 class StickerSprite extends FlxSprite
 {
   public var timing:Float = 0;
-  var stickerPath:String;
-  public function loadSticker() {
-    loadGraphic(Paths.image(stickerPath));
-    updateHitbox();
-    scrollFactor.set();
-  }
 
   public function new(x:Float, y:Float, stickerSet:String, stickerName:String):Void
   {
     super(x, y);
-    stickerPath = stickerSet == null ? stickerName : 'transitionSwag/$stickerSet/$stickerName';
-    antialiasing = ClientPrefs.ANTIALIASING;
-    loadSticker();
-    
+    var path = stickerSet == null ? stickerName : 'transitionSwag/$stickerSet/$stickerName';
+    loadGraphic(Paths.image(path));
+    updateHitbox();
+    scrollFactor.set();
   }
 }
 

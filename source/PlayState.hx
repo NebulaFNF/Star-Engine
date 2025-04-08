@@ -1428,11 +1428,20 @@ class PlayState extends MusicBeatState
 
 		switch (ClientPrefs.funnyScoreTextImVeryFunny)
 		{
+			case 'Default':
+				scoreTxt = new FlxText(0, healthBarBG.y + 50, FlxG.width, "", 20);
+				scoreTxt.setFormat(Paths.font("calibri.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+				scoreTxt.borderSize = 1.25;
+				scoreTxt.scrollFactor.set();
+				scoreTxt.antialiasing = ClientPrefs.globalAntialiasing;
+		        scoreTxt.visible = !ClientPrefs.hideHud;
+				add(scoreTxt);
 			case 'Psych Engine':
 				scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
 		        scoreTxt.setFormat(Paths.font("comic.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		        scoreTxt.scrollFactor.set();
 		        scoreTxt.borderSize = 1.25;
+				scoreTxt.antialiasing = ClientPrefs.globalAntialiasing;
 		        scoreTxt.visible = !ClientPrefs.hideHud;
 		        add(scoreTxt);
 			case 'Vanilla':
@@ -2695,6 +2704,8 @@ class PlayState extends MusicBeatState
 	{
 		switch (ClientPrefs.funnyScoreTextImVeryFunny)
 		{
+			case 'Default':
+				scoreTxt.text = 'Score: ' + songScore + ' | Combo: ' + noteCombo + ' | Misses: ' + songMisses + ' | Accuracy: ${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | $ratingFC';
 			case 'Psych Engine':
 				scoreTxt.text = 'Score: ' + songScore + ' | Misses: ' + songMisses + ' | Rating: ' + ratingName + (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 			case 'Vanilla':
@@ -5903,7 +5914,7 @@ class PlayState extends MusicBeatState
 				// Rating Name
 				if(ratingPercent >= 1)
 				{
-					if(ClientPrefs.funnyScoreTextImVeryFunny == 'Kade') ratingName = ratingStuffKade[ratingStuff.length-1][0]; //Uses last string
+					if(ClientPrefs.funnyScoreTextImVeryFunny == 'Kade') ratingName = ratingStuffKade[ratingStuffKade.length-1][0]; //Uses last string
 					else ratingName = ratingStuff[ratingStuff.length-1][0]; //Uses last string
 				}
 				else
@@ -5930,6 +5941,7 @@ class PlayState extends MusicBeatState
 				if (songMisses > 0 && songMisses < 10) ratingFC = "(SDCB)";
 				else if (songMisses >= 10) ratingFC = "(Clear)";
 			} else {
+				if (sicks <= 0 || goods <= 0 || bads <= 0 || songMisses <= 0) ratingFC = "N/A";
 				if (sicks > 0) ratingFC = "SFC";
 				if (goods > 0) ratingFC = "GFC";
 				if (bads > 0 || shits > 0) ratingFC = "FC";

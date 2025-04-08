@@ -136,9 +136,6 @@ class MasterEditorMenu extends MusicBeatState
 					MusicBeatState.switchState(new BenchmarkState());
 				case 'Sticker SubState Test':
 					openSubState(new StickerSubState());
-					MainMenuState.gotAnyStickers = true;
-					
-					trace('opened stickers');
 			}
 		}
 		
