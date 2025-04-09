@@ -1202,7 +1202,12 @@ class PlayState extends MusicBeatState
 		#else
 		EngineWatermark = new FlxText(4,FlxG.height * 0.9 + 50,0,"", 16);
 		#end
+
+		#if debug
+		EngineWatermark.setFormat(Paths.font("debug.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		#else
 		EngineWatermark.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		#end
 		EngineWatermark.scrollFactor.set();
 		#if debug
 		EngineWatermark.text = SONG.song + " " + CoolUtil.difficultyString() + " | SE " + MainMenuState.psychEngineVersion + ' |' + Constants.VERSION_SUFFIX; // Funny thingie
