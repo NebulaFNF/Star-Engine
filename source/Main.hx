@@ -1,38 +1,36 @@
 package;
 
-import flixel.graphics.FlxGraphic;
+import AnsiTrace;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
+import flixel.graphics.FlxGraphic;
 import openfl.Assets;
 import openfl.Lib;
-import AnsiTrace;
 import openfl.display.FPS;
-
-// credits to hrk ex ex !!!!
 import openfl.display.FPSBg;
-
 import openfl.display.Sprite;
-import openfl.events.Event;
 import openfl.display.StageScaleMode;
+import openfl.events.Event;
 
+using StringTools;
+// credits to hrk ex ex !!!!
 #if desktop
 import backend.ALSoftConfig; // Just to make sure DCE doesn't remove this, since it's not directly referenced anywhere else.
 #end
 
 //crash handler stuff
 #if CRASH_HANDLER
-import lime.app.Application;
-import openfl.events.UncaughtErrorEvent;
+import Discord.DiscordClient;
 import haxe.CallStack;
 import haxe.io.Path;
-import Discord.DiscordClient;
+import lime.app.Application;
+import openfl.events.UncaughtErrorEvent;
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
 
-using StringTools;
 
 class Main extends Sprite
 {
@@ -46,6 +44,8 @@ class Main extends Sprite
 	var curVersion:String = "";
 	public static var fpsVar:FPS;
 	public static var fpsBg:FPSBg;
+
+	public static var luversion:String = '0.0.1';
 
 	public static final __superCoolErrorMessagesArray:Array<String> = [
         "A fatal error has occ- wait what?",
@@ -136,6 +136,10 @@ class Main extends Sprite
 		{
 			addEventListener(Event.ADDED_TO_STAGE, init);
 		}
+	}
+
+	public static function changeWindowName(name:String = "") {
+		Application.current.window.title = 'Star Engine - LuApps v$luversion ${name != "" ? '- $name' : ''}';
 	}
 
 	private function init(?E:Event):Void

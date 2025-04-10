@@ -1,18 +1,16 @@
 package stages;
 
-import flixel.tweens.FlxTween;
-import flixel.math.FlxMath;
+import GameOverSubstate;
+import Note;
 import flixel.FlxG;
+import flixel.addons.display.FlxTiledSprite;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.math.FlxMath;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import openfl.filters.ShaderFilter;
 import shaderslmfao.RainShader;
-
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.display.FlxTiledSprite;
-
-import GameOverSubstate;
 import stages.objects.*;
-import Note;
 
 using StringTools;
 
@@ -102,7 +100,7 @@ class PhillyBlazin extends BaseStage
 			switch (songName)
 			{
 				case 'blazin':
-					/*setEndCallback(function()
+					setEndCallback(function()
 					{
 						game.endingSong = true;
 						game.inCutscene = true;
@@ -111,7 +109,7 @@ class PhillyBlazin extends BaseStage
 						FlxG.camera.visible = false;
 						game.camHUD.visible = false;
 						game.startVideo('blazinCutscene');
-					});*/
+					});
 			}
 		}
 	}

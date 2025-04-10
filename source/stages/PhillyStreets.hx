@@ -1,32 +1,32 @@
 package stages;
 
-import openfl.filters.ShaderFilter;
+import BaseStage;
+import Note.PreloadedChartNote;
+import animateatlas.AtlasFrameMaker;
+import flixel.FlxBasic;
 import flixel.FlxCamera;
 import flixel.FlxG;
-import flixel.FlxBasic;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxPieDial;
+import flixel.addons.display.FlxTiledSprite;
 import flixel.graphics.atlas.FlxAtlas;
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.util.FlxDestroyUtil;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.system.FlxSound;
-import flixel.util.FlxColor;
-import flixel.math.FlxPoint;
-import Note.PreloadedChartNote;
-import flixel.tweens.FlxEase;
-import flixel.addons.display.FlxTiledSprite;
-import stages.objects.SpraycanAtlasSprite;
-import flixel.math.FlxMath;
-import shaderslmfao.RainShader;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
 import flixel.group.FlxSpriteGroup;
-import animateatlas.AtlasFrameMaker;
-import BaseStage;
-import stages.objects.ABotSpeaker;
+import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
+import flixel.system.FlxSound;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSort;
-import flixel.addons.display.FlxPieDial;
+import flixel.util.FlxTimer;
+import openfl.filters.ShaderFilter;
+import shaderslmfao.RainShader;
+import stages.objects.ABotSpeaker;
+import stages.objects.SpraycanAtlasSprite;
 
 using StringTools;
 
@@ -228,7 +228,7 @@ class PhillyStreets extends BaseStage
 	var videoEnded:Bool = false;
 	function videoCutscene(?videoName:String = null)
 	{
-		trace('VIDEO NAME AND PATH: ' + videoName + '\nPATH TO VIDEO: ' );
+		trace('VIDEO NAME AND PATH: ' + videoName);
 		game.inCutscene = true;
 		if(!videoEnded && videoName != null)
 		{

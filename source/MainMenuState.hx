@@ -3,29 +3,30 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Achievements;
+import editors.MasterEditorMenu;
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxCamera;
+import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.effects.FlxFlicker;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.math.FlxPoint;
-import lime.app.Application;
-import Achievements;
-import editors.MasterEditorMenu;
-import flixel.input.keyboard.FlxKey;
-import flixel.addons.display.FlxBackdrop;
-import flixel.addons.display.FlxGridOverlay;
+import flixel.util.FlxTimer;
 import flxanimate.FlxAnimate;
 import flxanimate.animate.FlxAnim;
-import flixel.util.FlxTimer;
+import lime.app.Application;
 
+using StringTools;
 #if VIDEOS_ALLOWED
 import VideoSprite;
 #end
@@ -35,7 +36,6 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
@@ -179,6 +179,21 @@ class MainMenuState extends MusicBeatState
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
+
+		new FlxTimer().start(ClientPrefs.lowQuality ? 0.4 : 0.05, function(e) {
+			var sprite:FlxSprite = new FlxSprite(FlxG.random.float(-16, 1296), 720);
+			sprite.makeGraphic(16, 16, 0xFFFFC400);
+			sprite.alpha = Math.abs(-0.6 + (luapps.state.LuAppsState.sleepy.alpha / 1.9));
+			FlxTween.tween(sprite, {
+				x: sprite.x + FlxG.random.float(-50, 50),
+				y: sprite.y - FlxG.random.float(200, 250),
+				alpha: 0,
+				angle: FlxG.random.float(-90, 90)
+			}, FlxG.random.float(1, 5), {onComplete: function(e) {
+				sprite.destroy();
+			}});
+			add(sprite);
+		}, 0);
 
 		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
