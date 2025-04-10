@@ -1,9 +1,7 @@
 package;
 
-#if desktop
-import Discord.DiscordClient;
-#end
 import Achievements;
+import away3d.animators.nodes.ParticleNodeBase;
 import editors.MasterEditorMenu;
 import flixel.FlxCamera;
 import flixel.FlxG;
@@ -27,6 +25,9 @@ import flxanimate.animate.FlxAnim;
 import lime.app.Application;
 
 using StringTools;
+#if desktop
+import Discord.DiscordClient;
+#end
 #if VIDEOS_ALLOWED
 import VideoSprite;
 #end
@@ -396,6 +397,11 @@ class MainMenuState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
+		}
+
+		if (controls.RESET) {
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+			MusicBeatState.switchState(new luapps.state.LuAppsState());
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
