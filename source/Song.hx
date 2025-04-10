@@ -13,6 +13,9 @@ using StringTools;
 
 typedef SwagSong =
 {
+	/**
+	 * Critical variables.
+	 */
 	var song:String;
 	var notes:Array<SwagSection>;
 	var events:Array<Dynamic>;
@@ -38,6 +41,9 @@ typedef SwagSong =
 
 class Song
 {
+	/**
+	 * Critical variables.
+	 */
 	public var song:String;
 	public var notes:Array<SwagSection>;
 	public var events:Array<Dynamic>;
@@ -51,6 +57,10 @@ class Song
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';
 
+	/**
+	 * Converts old charts to the newest format.
+	 * @param songJson : Detects the Song JSON.
+	 */
 	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format
 	{
 		if(songJson.gfVersion == null)

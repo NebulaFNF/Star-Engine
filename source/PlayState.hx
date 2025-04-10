@@ -1715,7 +1715,7 @@ class PlayState extends MusicBeatState
 			//healthCooler.x -= 55;
 			healthCooler.y -= 20;
 		} else {
-			trace('\r\nHEALTH BAR: Health bar is not the cool one!');
+			trace('\nHEALTH BAR: Health bar is not the cool one!');
 		}
 	}
 
