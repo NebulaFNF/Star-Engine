@@ -5,10 +5,10 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
@@ -45,7 +45,7 @@ class LuAppsState extends FlxState {
 	var mouseDistance:FlxSprite = new FlxSprite();
 	public static var sleepy:FlxSprite = new FlxSprite();
 	var noApps:FlxText = new FlxText(0, 0, 1280, "There is no applications installed! Press R to refresh the list.", 32);
-	var background:FlxBackdrop = new FlxBackdrop();
+	var background:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 	var GMB:GlowingMarblingBlack = new GlowingMarblingBlack();
 	var camNotifs:FlxCamera = new FlxCamera(); // i'm so pissed
 	var curNotifSpr:Array<Array<FlxSprite>> = [];
@@ -94,7 +94,6 @@ class LuAppsState extends FlxState {
 
 		// From JS Engine.
 		if (Prefs.allowParticles) {
-			background = new FlxBackdrop("assets/images/checker.png", FlxAxes.XY);
 			background.color = 0xff467172;
 			background.blend = BlendMode.LAYER;
 			background.scrollFactor.set(0, 0.07);
