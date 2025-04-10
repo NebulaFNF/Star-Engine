@@ -1,19 +1,17 @@
 package;
 
-import flixel.FlxSprite;
-import flixel.text.FlxText;
 import flixel.FlxG;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.util.FlxTimer;
+import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-
+import flixel.util.FlxTimer;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
-
 #if VIDEOS_ALLOWED
 import VideoSprite;
 #end
@@ -26,7 +24,9 @@ class StartupState extends MusicBeatState
 	var theIntro:Int = FlxG.random.int(0, 1);
 
 	private var vidSprite:VideoSprite = null;
-	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
+
+	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false,
+			playOnLoad:Bool = true)
 	{
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
@@ -44,17 +44,21 @@ class StartupState extends MusicBeatState
 			vidSprite = new VideoSprite(fileName, false, canSkip, loop);
 
 			// Finish callback
-			function onVideoEnd() MusicBeatState.switchState(new TitleState());
+			function onVideoEnd()
+				MusicBeatState.switchState(new TitleState());
 			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
 			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
 			insert(0, vidSprite);
 
-			if (playOnLoad) vidSprite.videoSprite.play();
+			if (playOnLoad)
+				vidSprite.videoSprite.play();
 			return vidSprite;
 		}
-		else {
+		else
+		{
 			FlxG.log.error("Video not found: " + fileName);
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			new FlxTimer().start(0.1, function(tmr:FlxTimer)
+			{
 				MusicBeatState.switchState(new TitleState());
 			});
 		}
@@ -86,11 +90,13 @@ class StartupState extends MusicBeatState
 
 		FlxTween.tween(skipTxt, {alpha: 1}, 1);
 
-		new FlxTimer().start(0.1, function(tmr:FlxTimer) {
-			switch (theIntro) {
+		new FlxTimer().start(0.1, function(tmr:FlxTimer)
+		{
+			switch (theIntro)
+			{
 				case 0:
 					FlxG.sound.play(Paths.sound('confirmMenuOld'));
-					logo.scale.set(0.1,0.1);
+					logo.scale.set(0.1, 0.1);
 					logo.updateHitbox();
 					logo.screenCenter();
 					FlxTween.tween(logo, {alpha: 1, "scale.x": 1, "scale.y": 1}, 0.95, {ease: FlxEase.expoOut, onComplete: _ -> onIntroDone()});
@@ -104,10 +110,12 @@ class StartupState extends MusicBeatState
 		super.create();
 	}
 
-	function onIntroDone() {
+	function onIntroDone()
+	{
 		FlxTween.tween(logo, {alpha: 0}, 1, {
 			ease: FlxEase.linear,
-			onComplete: function(_) {
+			onComplete: function(_)
+			{
 				MusicBeatState.switchState(new TitleState());
 			}
 		});
@@ -115,7 +123,8 @@ class StartupState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (FlxG.keys.justPressed.ENTER) MusicBeatState.switchState(new TitleState());
+		if (FlxG.keys.justPressed.ENTER)
+			MusicBeatState.switchState(new TitleState());
 
 		super.update(elapsed);
 	}

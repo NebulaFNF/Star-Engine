@@ -3,21 +3,34 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Achievements;
+import BaseStage.Countdown;
+import BaseStage;
+import Conductor.Rating;
+import DialogueBoxPsych;
+import FunkinLua;
+import MusicBeatState;
+import Note.EventNote;
+import Note;
 import Section.SwagSection;
 import Song.SwagSong;
-import shaderslmfao.WiggleEffect;
+import StageData;
+import animateatlas.AtlasFrameMaker;
+import crowplexus.iris.Iris;
+import editors.CharacterEditorState;
+import editors.ChartingState;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
-import MusicBeatState;
-import BaseStage.Countdown;
-import BaseStage;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.chainable.FlxWaveEffect;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.animation.FlxAnimationController;
 import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
@@ -25,38 +38,25 @@ import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import stages.*;
 import flixel.ui.FlxBar;
 import flixel.util.FlxColor;
+import flixel.util.FlxSave;
 import flixel.util.FlxSort;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
 import haxe.Json;
 import lime.utils.Assets;
+import openfl.events.KeyboardEvent;
 import openfl.filters.BitmapFilter;
 import openfl.utils.Assets as OpenFlAssets;
-import editors.ChartingState;
-import editors.CharacterEditorState;
-import flixel.group.FlxSpriteGroup;
-import flixel.input.keyboard.FlxKey;
-import Note.EventNote;
-import Note;
-import openfl.events.KeyboardEvent;
-import flixel.util.FlxSave;
-import flixel.animation.FlxAnimationController;
-import animateatlas.AtlasFrameMaker;
-import Achievements;
-import StageData;
-import FunkinLua;
-import DialogueBoxPsych;
-import Conductor.Rating;
 import shaderslmfao.*;
+import shaderslmfao.WiggleEffect;
+import stages.*;
 
+using StringTools;
 #if openfl
 import openfl.system.System as ShitSystemLmfao;
 #end
-
-import crowplexus.iris.Iris;
 
 #if !flash 
 import flixel.addons.display.FlxRuntimeShader;
@@ -72,7 +72,6 @@ import sys.io.File;
 import VideoSprite;
 #end
 
-using StringTools;
 
 /******         PlayState            ******/
 /* The most essential and important class */
@@ -1337,9 +1336,7 @@ class PlayState extends MusicBeatState
 		if (SONG.song == '2hot' && !FreeplayState.scoreSongUnlocked && !cpuControlled) {
 			FreeplayState.scoreSongUnlocked = true;
 			trace('Set scoreSongUnlocked to true!');
-		} else {
-			trace('Could not set scoreSongUnlocked to true!' + '\nSong: ' + daSong);
-		}
+		} else trace('Could not set scoreSongUnlocked to true!' + '\nSong: ' + daSong);
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
 
