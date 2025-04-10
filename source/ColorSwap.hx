@@ -4,19 +4,33 @@ import flixel.FlxG;
 import flixel.system.FlxAssets.FlxShader;
 
 class ColorSwap {
+	/**
+	 * Saturation, brightness, hue and the shader.
+	 */
 	public var shader(default, null):ColorSwapShader = new ColorSwapShader();
 	public var hue(default, set):Float = 0;
 	public var saturation(default, set):Float = 0;
 	public var brightness(default, set):Float = 0;
 
+	/**
+	 * Hue stuff.
+	 */
 	public var hueShit:Float = 0;
 
+	/**
+	 * Sets the hue.
+	 * @param value : The value.
+	 */
 	private function set_hue(value:Float) {
 		hue = value;
 		shader.uTime.value[0] = hue;
 		return hue;
 	}
 
+	/**
+	 * Sets the saturation.
+	 * @param value : The value.
+	 */
 	private function set_saturation(value:Float) {
 		saturation = value;
 		shader.uTime.value[1] = saturation;
@@ -30,6 +44,10 @@ class ColorSwap {
 		//trace(shader.money.value[0]);
 	}
 
+	/**
+	 * Sets the brightness.
+	 * @param value : The value.
+	 */
 	private function set_brightness(value:Float) {
 		brightness = value;
 		shader.uTime.value[2] = brightness;
@@ -219,6 +237,7 @@ class ColorSwapShader extends FlxShader {
 			}
 		}')
 
+	
 	public function new()
 	{
 		super();
