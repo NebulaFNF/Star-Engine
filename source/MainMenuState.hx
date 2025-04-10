@@ -1,7 +1,6 @@
 package;
 
 import Achievements;
-import away3d.animators.nodes.ParticleNodeBase;
 import editors.MasterEditorMenu;
 import flixel.FlxCamera;
 import flixel.FlxG;
