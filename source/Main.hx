@@ -159,6 +159,12 @@ class Main extends Sprite
 		#else
 		trace('hxcpp_debug_server is disabled! This build does not support debugging.');
 		#end
+		
+		#if windows
+		WindowColorMode.setDarkMode();
+		if (CoolUtil.hasVersion("Windows 10"))
+			WindowColorMode.redrawWindowHeader();
+		#end
 	
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;

@@ -2,16 +2,17 @@ package;
 
 import flixel.FlxG;
 import flixel.text.FlxText;
-import flixel.util.FlxColor;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import openfl.utils.Assets;
+
+using StringTools;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
 
-using StringTools;
 
 class CoolUtil
 {
@@ -83,6 +84,11 @@ class CoolUtil
 	{
 		return lerp * (FlxG.elapsed / (1 / 60));
 	}
+
+	/**
+	 * Can be used to check if your using a specific version of an OS (or if your using a certain OS).
+	 */
+	 public static function hasVersion(vers:String) return lime.system.System.platformLabel.toLowerCase().indexOf(vers.toLowerCase()) != -1;
 
 	public static function coolLerp(base:Float, target:Float, ratio:Float):Float
 	{
