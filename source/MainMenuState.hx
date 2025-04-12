@@ -49,6 +49,7 @@ class MainMenuState extends MusicBeatState
 	public var y:Float;
 
 	var tipTextMargin:Float = 10;
+	public static var sleepier:FlxSprite = new FlxSprite();
 	var tipTextScrolling:Bool = false;
 	var tipBackground:FlxSprite;
 	var tipText:FlxText;
@@ -151,6 +152,26 @@ class MainMenuState extends MusicBeatState
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
 
+		sleepier.makeGraphic(1920, 1080, FlxColor.BLACK);
+		sleepier.alpha = 0;
+		add(sleepier);
+
+		new FlxTimer().start(ClientPrefs.lowQuality ? 0.4 : 0.05, function(e) {
+			var sprite:FlxSprite = new FlxSprite(FlxG.random.float(-16, 1296), 720);
+			sprite.makeGraphic(16, 16, 0xFFFFC400);
+			sprite.alpha = Math.abs(-0.6 + (sleepier.alpha / 1.9));
+			FlxTween.tween(sprite, {
+				x: sprite.x + FlxG.random.float(-50, 50),
+				y: sprite.y - FlxG.random.float(200, 250),
+				alpha: 0,
+				angle: FlxG.random.float(-90, 90)
+			}, FlxG.random.float(1, 5), {onComplete: function(e) {
+				sprite.destroy();
+			}});
+			sprite.scrollFactor.set();
+			add(sprite);
+		}, 0);
+
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
@@ -179,21 +200,6 @@ class MainMenuState extends MusicBeatState
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
 		grid.alpha = 0;
-
-		new FlxTimer().start(ClientPrefs.lowQuality ? 0.4 : 0.05, function(e) {
-			var sprite:FlxSprite = new FlxSprite(FlxG.random.float(-16, 1296), 720);
-			sprite.makeGraphic(16, 16, 0xFFFFC400);
-			sprite.alpha = Math.abs(-0.6 + (luapps.state.LuAppsState.sleepy.alpha / 1.9));
-			FlxTween.tween(sprite, {
-				x: sprite.x + FlxG.random.float(-50, 50),
-				y: sprite.y - FlxG.random.float(200, 250),
-				alpha: 0,
-				angle: FlxG.random.float(-90, 90)
-			}, FlxG.random.float(1, 5), {onComplete: function(e) {
-				sprite.destroy();
-			}});
-			add(sprite);
-		}, 0);
 
 		FlxTween.tween(grid, {alpha: 1}, 0.5, {ease: FlxEase.quadOut});
 		add(grid);
