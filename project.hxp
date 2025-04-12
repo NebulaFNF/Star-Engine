@@ -168,6 +168,10 @@ class Project extends HXProject {
 		this.window.width = 1280;
 		this.window.height = 720;
 
+		// Sets the window background.
+		// Probably fixes white borders.
+		this.window.background = 0x000000;
+
 		this.window.hardware = true;
 		this.window.vsync = false;
 
