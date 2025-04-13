@@ -4,13 +4,9 @@ package options;
 import Discord.DiscordClient;
 #end
 import Controls;
-import backend.PsychCamera;
-import flixel.FlxCamera;
 import flixel.FlxG;
-import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
 
 using StringTools;
 
@@ -29,11 +25,6 @@ class OptionsState extends MusicBeatState
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 
 	private static var curSelected:Int = 0;
-
-	private var mainCamera:FlxCamera;
-	private var subCamera:FlxCamera;
-	private var otherCamera:FlxCamera;
-
 	public static var menuBG:FlxSprite;
 
 	function openSelectedSubstate(label:String)
@@ -61,34 +52,13 @@ class OptionsState extends MusicBeatState
 
 	var selectorLeft:Alphabet;
 	var selectorRight:Alphabet;
-	var camFollow:FlxObject;
-	var camFollowPos:FlxObject;
 
 	override function create()
 	{
-		trace('I created myself! - Create function');
-		mainCamera = initPsychCamera();
-		subCamera = new FlxCamera();
-		otherCamera = new FlxCamera();
-		subCamera.bgColor.alpha = 0;
-		otherCamera.bgColor.alpha = 0;
-
-		camFollow = new FlxObject(0, 0, 1, 1);
-		camFollowPos = new FlxObject(0, 0, 1, 1);
-		add(camFollow);
-		add(camFollowPos);
-		trace(camFollowPos + ' - it is a camera!');
-		trace(camFollow + ' - it is a camera!');
-		trace(mainCamera + ' - it is a camera!');
-		trace(subCamera + ' - it is a camera!');
-		trace(subCamera + ' - it is a camera!');
-		//FlxG.cameras.list[FlxG.cameras.list.indexOf(subCamera)].follow(camFollowPos);
-
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
 
-		var yScroll:Float = Math.max(0.25 - (0.05 * (options.length - options.length)), 0.1);
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
 		bg.color = 0xFFea71fd;
 		bg.updateHitbox();
@@ -104,18 +74,13 @@ class OptionsState extends MusicBeatState
 		{
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true);
 			optionText.screenCenter();
-			optionText.scrollFactor.set(0, yScroll * 1.5);
 			optionText.y += (100 * (i - (options.length / 2))) + 50;
 			grpOptions.add(optionText);
 		}
 
 		selectorLeft = new Alphabet(0, 0, '>', true);
-		selectorLeft.scrollFactor.set(0, yScroll * 1.5);
-		selectorLeft.cameras = [subCamera];
 		add(selectorLeft);
 		selectorRight = new Alphabet(0, 0, '<', true);
-		selectorRight.scrollFactor.set(0, yScroll * 1.5);
-		selectorRight.cameras = [subCamera];
 		add(selectorRight);
 
 		changeSelection();
@@ -132,16 +97,12 @@ class OptionsState extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		//trace('I created myself! - Update function');
 		super.update(elapsed);
 
 		if (controls.UI_UP_P)
 			changeSelection(-1);
 		if (controls.UI_DOWN_P)
 			changeSelection(1);
-
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
-		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (controls.BACK)
 		{
@@ -191,8 +152,6 @@ class OptionsState extends MusicBeatState
 				selectorRight.y = item.y;
 			}
 		}
-		camFollow.setPosition(FlxG.width / 2, (curSelected * (grpOptions.members.length * 10)));
-
 		FlxG.sound.play(Paths.sound('scrollMenu'));
 	}
 }
