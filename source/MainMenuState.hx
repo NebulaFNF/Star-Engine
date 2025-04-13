@@ -22,25 +22,27 @@ import flixel.util.FlxTimer;
 import flxanimate.FlxAnimate;
 import flxanimate.animate.FlxAnim;
 import lime.app.Application;
+import openfl.Lib;
 
 using StringTools;
+
+// BACKEND SHIT
 #if desktop
 import Discord.DiscordClient;
 #end
 #if VIDEOS_ALLOWED
 import VideoSprite;
 #end
-
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
 
-
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.3.1'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.3.1'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
+
 	public var changeX:Bool = true;
 	public var changeY:Bool = true;
 
@@ -49,25 +51,30 @@ class MainMenuState extends MusicBeatState
 	public var y:Float;
 
 	var tipTextMargin:Float = 10;
+
 	public static var sleepier:FlxSprite = new FlxSprite();
+
 	var tipTextScrolling:Bool = false;
 	var tipBackground:FlxSprite;
 	var tipText:FlxText;
 	var isTweening:Bool = false;
+
 	public static var gotAnyStickers:Bool = false;
-   /**
-   * So StickerSubState can be accesed on lua i think.
-   */
-   public static var stickerShitLmfaoAgain:StickerSubState;
+
+	/**
+	 * So StickerSubState can be accesed on lua i think.
+	 */
+	public static var stickerShitLmfaoAgain:StickerSubState;
+
 	var lastString:String = '';
 
 	public var distancePerItem:FlxPoint = new FlxPoint(20, 120);
-	public var startPosition:FlxPoint = new FlxPoint(0, 0); //for the calculations
+	public var startPosition:FlxPoint = new FlxPoint(0, 0); // for the calculations
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	
+
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
@@ -84,12 +91,16 @@ class MainMenuState extends MusicBeatState
 
 	public function snapToPosition()
 	{
-		if(changeX) x = (targetY * distancePerItem.x) + startPosition.x;
-		if(changeY) y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
+		if (changeX)
+			x = (targetY * distancePerItem.x) + startPosition.x;
+		if (changeY)
+			y = (targetY * 1.3 * distancePerItem.y) + startPosition.y;
 	}
 
 	private var vidSprite:VideoSprite = null;
-	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false, playOnLoad:Bool = true)
+
+	private function startVideo(name:String, ?library:String = null, ?callback:Void->Void = null, canSkip:Bool = true, loop:Bool = false,
+			playOnLoad:Bool = true)
 	{
 		#if VIDEOS_ALLOWED
 		var foundFile:Bool = false;
@@ -107,17 +118,21 @@ class MainMenuState extends MusicBeatState
 			vidSprite = new VideoSprite(fileName, false, canSkip, loop);
 
 			// Finish callback
-			function onVideoEnd() Sys.exit(0);
+			function onVideoEnd()
+				Sys.exit(0);
 			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
 			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
 			insert(0, vidSprite);
 
-			if (playOnLoad) vidSprite.videoSprite.play();
+			if (playOnLoad)
+				vidSprite.videoSprite.play();
 			return vidSprite;
 		}
-		else {
+		else
+		{
 			FlxG.log.error("Video not found: " + fileName);
-			new FlxTimer().start(0.1, function(tmr:FlxTimer) {
+			new FlxTimer().start(0.1, function(tmr:FlxTimer)
+			{
 				Sys.exit(0);
 			});
 		}
@@ -156,7 +171,8 @@ class MainMenuState extends MusicBeatState
 		sleepier.alpha = 0;
 		add(sleepier);
 
-		new FlxTimer().start(ClientPrefs.lowQuality ? 0.4 : 0.05, function(e) {
+		new FlxTimer().start(ClientPrefs.lowQuality ? 0.4 : 0.05, function(e)
+		{
 			var sprite:FlxSprite = new FlxSprite(FlxG.random.float(-16, 1296), 720);
 			sprite.makeGraphic(16, 16, 0xFFFFC400);
 			sprite.alpha = Math.abs(-0.6 + (sleepier.alpha / 1.9));
@@ -165,9 +181,12 @@ class MainMenuState extends MusicBeatState
 				y: sprite.y - FlxG.random.float(200, 250),
 				alpha: 0,
 				angle: FlxG.random.float(-90, 90)
-			}, FlxG.random.float(1, 5), {onComplete: function(e) {
-				sprite.destroy();
-			}});
+			}, FlxG.random.float(1, 5), {
+				onComplete: function(e)
+				{
+					sprite.destroy();
+				}
+			});
 			sprite.scrollFactor.set();
 			add(sprite);
 		}, 0);
@@ -195,7 +214,7 @@ class MainMenuState extends MusicBeatState
 		camFollowPos = new FlxObject(0, 0, 1, 1);
 		add(camFollow);
 		add(camFollowPos);
-		
+
 		// universe engine code stop stealing code no :3
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
@@ -227,19 +246,19 @@ class MainMenuState extends MusicBeatState
 		grid.alpha = 0;
 		add(grid);
 		add(freeplayBoyfriend);
-		
+
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
 		add(menuItems);
 
 		var scale:Float = 1;
-	
+
 		for (i in 0...optionShit.length)
 		{
 			var maxWidth = 980;
 			var offset:Float = 108 - (Math.max(optionShit.length, 4) - 4) * 80;
-			var menuItem:FlxSprite = new FlxSprite(0, (i * 140)  + offset);
+			var menuItem:FlxSprite = new FlxSprite(0, (i * 140) + offset);
 			menuItem.scale.x = scale;
 			menuItem.scale.y = scale;
 			menuItem.frames = Paths.getSparrowAtlas('mainmenu/menu_' + optionShit[i]);
@@ -250,10 +269,11 @@ class MainMenuState extends MusicBeatState
 			menuItem.x = 100;
 			menuItems.add(menuItem);
 			var scr:Float = (optionShit.length - 4) * 0.135;
-			if(optionShit.length < 6) scr = 0;
+			if (optionShit.length < 6)
+				scr = 0;
 			menuItem.scrollFactor.set(0, scr);
 			menuItem.antialiasing = ClientPrefs.globalAntialiasing;
-			//menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
+			// menuItem.setGraphicSize(Std.int(menuItem.width * 0.58));
 			menuItem.updateHitbox();
 		}
 
@@ -290,9 +310,11 @@ class MainMenuState extends MusicBeatState
 		#if ACHIEVEMENTS_ALLOWED
 		Achievements.loadAchievements();
 		var leDate = Date.now();
-		if (leDate.getDay() == 5 && leDate.getHours() >= 18) {
+		if (leDate.getDay() == 5 && leDate.getHours() >= 18)
+		{
 			var achieveID:Int = Achievements.getAchievementIndex('friday_night_play');
-			if(!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2])) { //It's a friday night. WEEEEEEEEEEEEEEEEEE
+			if (!Achievements.isAchievementUnlocked(Achievements.achievementsStuff[achieveID][2]))
+			{ // It's a friday night. WEEEEEEEEEEEEEEEEEE
 				Achievements.achievementsMap.set(Achievements.achievementsStuff[achieveID][2], true);
 				giveAchievement();
 				ClientPrefs.saveSettings();
@@ -305,7 +327,8 @@ class MainMenuState extends MusicBeatState
 
 	#if ACHIEVEMENTS_ALLOWED
 	// Unlocks "Freaky on a Friday Night" achievement
-	function giveAchievement() {
+	function giveAchievement()
+	{
 		add(new AchievementObject('friday_night_play', camAchievement));
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 		trace('Giving achievement "friday_night_play"');
@@ -314,37 +337,42 @@ class MainMenuState extends MusicBeatState
 
 	var selectedSomethin:Bool = false;
 
-	//credit to stefan2008 and sb engine for this code
+	// credit to stefan2008 and sb engine for this code
 	function tipTextStartScrolling()
 	{
 		tipText.x = tipTextMargin;
 		tipText.y = -tipText.height;
-		new FlxTimer().start(1.0, function(timer:FlxTimer) {
+		new FlxTimer().start(1.0, function(timer:FlxTimer)
+		{
 			FlxTween.tween(tipText, {y: tipTextMargin}, 0.3);
-			
-			new FlxTimer().start(2.25, function(timer:FlxTimer) {
+
+			new FlxTimer().start(2.25, function(timer:FlxTimer)
+			{
 				tipTextScrolling = true;
 			});
 		});
 	}
-	
-	function changeTipText() {
-			var selectedText:String = '';
-			var textArray:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('lmfaoTheseTips'));
-			tipText.alpha = 1;
-			isTweening = true;
-			selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
-			if (tipText.text == "source/MainMenuState.hx:69: Press something cool come on!!!!!1!!!!!!!!11!") trace('Press something cool come on!!!!!1!!!!!!!!11!');
 
-			if (tipText.text == "source/Main.hx:89: hxcpp_debug_server is disabled! You can not connect to the game with a debugger.") {
-				#if hxcpp_debug_server
-				trace('He is lying to you, hxcpp_debug_server is available!');
-				#else
-				trace('hxcpp_debug_server is disabled! You can not connect to the game with a debugger.');
-				#end
-			}
+	function changeTipText()
+	{
+		var selectedText:String = '';
+		var textArray:Array<String> = CoolUtil.coolTextFile(SUtil.getPath() + Paths.txt('lmfaoTheseTips'));
+		tipText.alpha = 1;
+		isTweening = true;
+		selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
+		if (tipText.text == "source/MainMenuState.hx:69: Press something cool come on!!!!!1!!!!!!!!11!")
+			trace('Press something cool come on!!!!!1!!!!!!!!11!');
 
-			/*#if VIDEOS_ALLOWED
+		if (tipText.text == "source/Main.hx:89: hxcpp_debug_server is disabled! You can not connect to the game with a debugger.")
+		{
+			#if hxcpp_debug_server
+			trace('He is lying to you, hxcpp_debug_server is available!');
+			#else
+			trace('hxcpp_debug_server is disabled! You can not connect to the game with a debugger.');
+			#end
+		}
+
+		/*#if VIDEOS_ALLOWED
 			if (tipText.text == "BAL_7.ogg") {
 				FlxG.sound.music.stop();
 				startVideo('BALD_Seven');
@@ -355,22 +383,27 @@ class MainMenuState extends MusicBeatState
 			}
 			#else
 			trace('Cannot play Baldi videos, sad.');
-			#end*/
+			#end */
 
-			FlxTween.tween(tipText, {alpha: 0}, 1, {
-				ease: FlxEase.linear,
-				onComplete: function(freak:FlxTween) {
-					if (selectedText != lastString) {
-						tipText.text = selectedText;
-						lastString = selectedText;
-					} else {
-						selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
-						tipText.text = selectedText;
-					}
-					tipText.alpha = 0;
-					FlxTween.tween(tipText, {alpha: 1}, 1, {
-						ease: FlxEase.linear,
-						onComplete: function(freak:FlxTween) {
+		FlxTween.tween(tipText, {alpha: 0}, 1, {
+			ease: FlxEase.linear,
+			onComplete: function(freak:FlxTween)
+			{
+				if (selectedText != lastString)
+				{
+					tipText.text = selectedText;
+					lastString = selectedText;
+				}
+				else
+				{
+					selectedText = textArray[FlxG.random.int(0, (textArray.length - 1))].replace('--', '\n');
+					tipText.text = selectedText;
+				}
+				tipText.alpha = 0;
+				FlxTween.tween(tipText, {alpha: 1}, 1, {
+					ease: FlxEase.linear,
+					onComplete: function(freak:FlxTween)
+					{
 						isTweening = false;
 					}
 				});
@@ -398,13 +431,23 @@ class MainMenuState extends MusicBeatState
 			}
 		}
 
+		// THIS IS JUST FOR TESTIN SHIT!!!
+		if (FlxG.keys.justPressed.Y)
+		{
+			FlxTween.cancelTweensOf(FlxG.stage.window, ['x', 'y']);
+			FlxTween.tween(FlxG.stage.window, {x: FlxG.stage.window.x + 300}, 1.4, {ease: FlxEase.quadInOut, type: PINGPONG, startDelay: 0.35});
+			FlxTween.tween(FlxG.stage.window, {y: FlxG.stage.window.y + 100}, 0.7, {ease: FlxEase.quadInOut, type: PINGPONG});
+		}
+
 		if (FlxG.sound.music.volume < 0.8)
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
-			if(FreeplayState.vocals != null) FreeplayState.vocals.volume += 0.5 * elapsed;
+			if (FreeplayState.vocals != null)
+				FreeplayState.vocals.volume += 0.5 * elapsed;
 		}
 
-		if (controls.RESET) {
+		if (controls.RESET)
+		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			MusicBeatState.switchState(new luapps.state.LuAppsState());
 		}
@@ -435,13 +478,15 @@ class MainMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
-				if (optionShit[curSelected] == 'donate') CoolUtil.browserLoad('https://github.com/SyncGit12/Star-Engine');
+				if (optionShit[curSelected] == 'donate')
+					CoolUtil.browserLoad('https://github.com/SyncGit12/Star-Engine');
 				else
 				{
 					selectedSomethin = true;
 					FlxG.sound.play(Paths.sound('confirmMenu'));
 
-					if(ClientPrefs.flashing) FlxFlicker.flicker(magenta, 1.1, 0.15, false);
+					if (ClientPrefs.flashing)
+						FlxFlicker.flicker(magenta, 1.1, 0.15, false);
 
 					menuItems.forEach(function(spr:FlxSprite)
 					{
@@ -463,12 +508,18 @@ class MainMenuState extends MusicBeatState
 
 								switch (daChoice)
 								{
-									case 'story_mode': MusicBeatState.switchState(new StoryMenuState());
-									case 'freeplay':   MusicBeatState.switchState(new FreeplayState());
-									case 'mods':       MusicBeatState.switchState(new ModsMenuState());
-									case 'awards':     MusicBeatState.switchState(new AchievementsMenuState());
-									case 'credits':    MusicBeatState.switchState(new CreditsState());
-									case 'options':    LoadingState.loadAndSwitchState(new options.OptionsState());
+									case 'story_mode':
+										MusicBeatState.switchState(new StoryMenuState());
+									case 'freeplay':
+										MusicBeatState.switchState(new FreeplayState());
+									case 'mods':
+										MusicBeatState.switchState(new ModsMenuState());
+									case 'awards':
+										MusicBeatState.switchState(new AchievementsMenuState());
+									case 'credits':
+										MusicBeatState.switchState(new CreditsState());
+									case 'options':
+										LoadingState.loadAndSwitchState(new options.OptionsState());
 								}
 							});
 						}
@@ -491,8 +542,10 @@ class MainMenuState extends MusicBeatState
 	{
 		curSelected += huh;
 
-		if (curSelected >= menuItems.length) curSelected = 0;
-		if (curSelected < 0) curSelected = menuItems.length - 1;
+		if (curSelected >= menuItems.length)
+			curSelected = 0;
+		if (curSelected < 0)
+			curSelected = menuItems.length - 1;
 
 		menuItems.forEach(function(spr:FlxSprite)
 		{
@@ -503,7 +556,8 @@ class MainMenuState extends MusicBeatState
 			{
 				spr.animation.play('selected');
 				var add:Float = 0;
-				if(menuItems.length > 4) add = menuItems.length * 8;
+				if (menuItems.length > 4)
+					add = menuItems.length * 8;
 				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
 				spr.centerOffsets();
 			}

@@ -91,6 +91,7 @@ class ClientPrefs
 	public static var noteOffset:Int = 0;
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var ghostTapping:Bool = true;
+	public static var shakingScreen:Bool = true;
 	public static var timeBarType:String = 'Time Left';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
@@ -201,6 +202,7 @@ class ClientPrefs
 		FlxG.save.data.scoreZoom = scoreZoom;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
+		FlxG.save.data.shakingScreen = shakingScreen;
 		FlxG.save.data.smoothHPBug = smoothHPBug;
 		FlxG.save.data.comboOffset = comboOffset;
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
@@ -249,6 +251,9 @@ class ClientPrefs
 		if (FlxG.save.data.seWatermarkLmfao != null)
 		{
 			seWatermarkLmfao = FlxG.save.data.seWatermarkLmfao;
+		}
+		if (FlxG.save.data.shakingScreen != null) {
+			shakingScreen = FlxG.save.data.shakingScreen;
 		}
 		if (FlxG.save.data.funnyScoreTextImVeryFunny != null)
 		{

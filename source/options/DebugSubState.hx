@@ -2,8 +2,8 @@ package options;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.text.FlxText;
 import flixel.math.FlxMath;
+import flixel.text.FlxText;
 
 class DebugSubState extends BaseOptionsMenu {
 	public function new() {
@@ -14,6 +14,9 @@ class DebugSubState extends BaseOptionsMenu {
 		addOption(option);
 
 		var option:Option = new Option('Cooler FPS Counter', 'If checked, the FPS counter will be MUCH cooler!', 'fpsCounterThingie', 'bool', false);
+     	addOption(option);
+		
+		var option:Option = new Option('Shaking Window', 'If checked, is allowed to move the window', 'shakingScreen', 'bool', false);
      	addOption(option);
 
 		super();

@@ -3503,8 +3503,8 @@ class PlayState extends MusicBeatState
 		if (FlxG.keys.justPressed.NINE) iconP1.swapOldIcon();
 
 		if (ClientPrefs.iconBounceBS == 'Vanilla') {
-			iconP1.setGraphicSize(Std.int(CoolUtil.coolLerp(iconP1.width, 150, 0.15)));
-			iconP2.setGraphicSize(Std.int(CoolUtil.coolLerp(iconP2.width, 150, 0.15)));
+			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
+			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
 	
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();	

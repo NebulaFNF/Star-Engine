@@ -1,13 +1,5 @@
 package flixel;
 
-import openfl.display.Bitmap;
-import openfl.display.BitmapData;
-import openfl.display.DisplayObject;
-import openfl.display.Graphics;
-import openfl.display.Sprite;
-import openfl.geom.ColorTransform;
-import openfl.geom.Point;
-import openfl.geom.Rectangle;
 import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.tile.FlxDrawBaseItem;
@@ -21,9 +13,17 @@ import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
 import flixel.util.FlxSpriteUtil;
-import openfl.display.BlendMode;
-import openfl.filters.BitmapFilter;
 import openfl.Vector;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import openfl.display.BlendMode;
+import openfl.display.DisplayObject;
+import openfl.display.Graphics;
+import openfl.display.Sprite;
+import openfl.filters.BitmapFilter;
+import openfl.geom.ColorTransform;
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
 
 using flixel.util.FlxColorTransformUtil;
 
@@ -1159,16 +1159,30 @@ class FlxCamera extends FlxBasic
 	 */
 	public function updateScroll():Void
 	{
+		// Make sure we didn't go outside the camera's bounds
+		bindScrollPos(scroll);
+	}
+	
+	/**
+	 * Takes the desired scroll position and restricts it to the camera's min/max scroll properties.
+	 * This modifies the given point.
+	 * 
+	 * @param   scrollPos  The scroll position
+	 * @return  The same point passed in, moved within the scroll bounds
+	 * @since 5.4.0
+	 */
+	public function bindScrollPos(scrollPos:FlxPoint)
+	{
 		var minX:Null<Float> = minScrollX == null ? null : minScrollX - (zoom - 1) * width / (2 * zoom);
 		var maxX:Null<Float> = maxScrollX == null ? null : maxScrollX + (zoom - 1) * width / (2 * zoom);
 		var minY:Null<Float> = minScrollY == null ? null : minScrollY - (zoom - 1) * height / (2 * zoom);
 		var maxY:Null<Float> = maxScrollY == null ? null : maxScrollY + (zoom - 1) * height / (2 * zoom);
 
-		// Make sure we didn't go outside the camera's bounds
-		scroll.x = FlxMath.bound(scroll.x, minX, (maxX != null) ? maxX - width : null);
-		scroll.y = FlxMath.bound(scroll.y, minY, (maxY != null) ? maxY - height : null);
+		// keep point with bounds
+		scrollPos.x = FlxMath.bound(scrollPos.x, minX, (maxX != null) ? maxX - width : null);
+		scrollPos.y = FlxMath.bound(scrollPos.y, minY, (maxY != null) ? maxY - height : null);
+		return scrollPos;
 	}
-
 	/**
 	 * Updates camera's scroll.
 	 * Called every frame by camera's `update()` method (if camera's `target` isn't `null`).

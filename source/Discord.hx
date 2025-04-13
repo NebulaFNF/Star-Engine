@@ -3,12 +3,12 @@ package;
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
 
+using StringTools;
 #if LUA_ALLOWED
 import llua.Lua;
 import llua.State;
 #end
 
-using StringTools;
 
 class DiscordClient
 {
@@ -70,7 +70,7 @@ class DiscordClient
 			details: details,
 			state: state,
 			largeImageKey: 'icon',
-			largeImageText: "STE V" + MainMenuState.psychEngineVersion,
+			largeImageText: "SE v" + MainMenuState.psychEngineVersion,
 			smallImageKey : smallImageKey,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),
