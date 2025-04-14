@@ -4,7 +4,6 @@ import flixel.FlxSubState;
 
 class MusicBeatSubstate extends FlxSubState
 {
-	public static var skibidi:MusicBeatState; // so haxe does not shit itself // haxe shit itself
 	public function new() super();
 
 	private var lastBeat:Float = 0;

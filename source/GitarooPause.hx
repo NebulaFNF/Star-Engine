@@ -3,7 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class GitarooPause extends MusicBeatState
+class GitarooPause extends FlxState
 {
 	var replayButton:FlxSprite;
 	var cancelButton:FlxSprite;
@@ -51,7 +51,7 @@ class GitarooPause extends MusicBeatState
 
 		if (controls.ACCEPT)
 		{
-			if (replaySelect) MusicBeatState.switchState(new PlayState());
+			if (replaySelect) FlxG.switchState(PlayState.new);
 			else
 			{
 				//PlayState.instance.usedPractice = false;
@@ -59,7 +59,7 @@ class GitarooPause extends MusicBeatState
 				PlayState.seenCutscene = false;
 				PlayState.deathCounter = 0;
 				PlayState.instance.cpuControlled = false;
-				MusicBeatState.switchState(new MainMenuState());
+				FlxG.switchState(MainMenuState.new);
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 			}
 		}

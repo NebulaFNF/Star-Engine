@@ -3,15 +3,13 @@ package editors;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Alphabet;
+import DialogueBoxPsych;
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.system.FlxSound;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
@@ -19,24 +17,27 @@ import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxMath;
+import flixel.system.FlxSound;
+import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import openfl.net.FileReference;
+import flixel.util.FlxColor;
+import haxe.Json;
+import lime.system.Clipboard;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileFilter;
-import haxe.Json;
-import DialogueBoxPsych;
-import flixel.FlxCamera;
-import flixel.group.FlxSpriteGroup;
-import lime.system.Clipboard;
-import Alphabet;
+import openfl.net.FileReference;
+
+using StringTools;
 #if sys
 import sys.io.File;
 #end
 
-using StringTools;
 
-class DialogueCharacterEditorState extends MusicBeatState
+class DialogueCharacterEditorState extends FlxState
 {
 	var box:FlxSprite;
 	var daText:TypedAlphabet = null;
@@ -496,7 +497,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 	var lastTab:String = 'Character';
 	var transitioning:Bool = false;
 	override function update(elapsed:Float) {
-		MusicBeatState.camBeat = FlxG.camera;
+		FlxG.camBeat = FlxG.camera;
 		if(transitioning) {
 			super.update(elapsed);
 			return;
@@ -673,7 +674,7 @@ class DialogueCharacterEditorState extends MusicBeatState
 			}
 
 			if(FlxG.keys.justPressed.ESCAPE) {
-				MusicBeatState.switchState(new editors.MasterEditorMenu());
+				FlxG.switchState(editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'), 1);
 				transitioning = true;
 			}

@@ -23,6 +23,7 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.addons.effects.FlxTrail;
 import flixel.addons.effects.chainable.FlxWaveEffect;
@@ -77,7 +78,7 @@ import VideoSprite;
 /* The most essential and important class */
 /**           In the game.               **/
 
-class PlayState extends MusicBeatState
+class PlayState extends FlxState
 {
 	public static var STRUM_X = 42;
 	public static var STRUM_X_MIDDLESCROLL = -278;
@@ -3622,7 +3623,7 @@ class PlayState extends MusicBeatState
 			persistentUpdate = false;
 			paused = true;
 			cancelMusicFadeTween();
-			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+			FlxG.switchState(CharacterEditorState(SONG.player2));
 		}
 		
 		if (startedCountdown)
@@ -3888,7 +3889,7 @@ class PlayState extends MusicBeatState
 		{
 			// gitaroo man easter egg
 			cancelMusicFadeTween();
-			MusicBeatState.switchState(new GitarooPause());
+			FlxG.switchState(GitarooPause());
 		}
 		else {
 			if(FlxG.sound.music != null) {
@@ -3908,7 +3909,7 @@ class PlayState extends MusicBeatState
 		persistentUpdate = false;
 		paused = true;
 		cancelMusicFadeTween();
-		MusicBeatState.switchState(new ChartingState());
+		FlxG.switchState(ChartingState());
 		chartingMode = true;
 
 		#if desktop
@@ -3938,7 +3939,7 @@ class PlayState extends MusicBeatState
 				for (timer in modchartTimers) timer.active = true;
 				openSubState(new GameOverSubstate(boyfriend));
 
-				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+				// FlxG.switchState(GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
@@ -4564,7 +4565,7 @@ class PlayState extends MusicBeatState
 					if(FlxTransitionableState.skipNextTransIn) {
 						CustomFadeTransition.nextCamera = null;
 					}
-					MusicBeatState.switchState(new StoryMenuState());
+					FlxG.switchState(StoryMenuState());
 
 					// if ()
 					if(!ClientPrefs.getGameplaySetting('practice', false) && !ClientPrefs.getGameplaySetting('botplay', false)) {
@@ -4627,7 +4628,7 @@ class PlayState extends MusicBeatState
 				if(FlxTransitionableState.skipNextTransIn) {
 					CustomFadeTransition.nextCamera = null;
 				}
-				MusicBeatState.switchState(new FreeplayState());
+				FlxG.switchState(FreeplayState.new);
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 				changedDifficulty = false;
 			}

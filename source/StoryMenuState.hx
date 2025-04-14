@@ -3,8 +3,11 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import WeekData;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.graphics.FlxGraphic;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
@@ -12,12 +15,10 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import flixel.graphics.FlxGraphic;
-import WeekData;
 
 using StringTools;
 
-class StoryMenuState extends MusicBeatState
+class StoryMenuState extends FlxState
 {
 	public static var weekCompleted:Map<String, Bool> = new Map<String, Bool>();
 
@@ -261,7 +262,7 @@ class StoryMenuState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			movedBack = true;
-			MusicBeatState.switchState(new MainMenuState());
+			FlxG.switchState(MainMenuState());
 		}
 
 		super.update(elapsed);

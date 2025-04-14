@@ -1,11 +1,11 @@
 package editors;
 
 import flixel.FlxG;
-import flixel.util.FlxColor;
 import flixel.FlxState;
-import model.objects.flixel.Flixel;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
+import model.objects.flixel.Flixel;
 
 class BenchmarkState extends FlxState
 {
@@ -73,7 +73,7 @@ class BenchmarkState extends FlxState
 	{
 		if(controls.BACK)
 		{
-			FlxG.switchState(new MasterEditorMenu());
+			FlxG.switchState(MasterEditorMenu.new);
 			FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 		}
 		super.update(elapsed);

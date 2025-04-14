@@ -8,17 +8,18 @@ import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.util.FlxColor;
-import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+
+using StringTools;
 #if MODS_ALLOWED
 import sys.FileSystem;
 import sys.io.File;
 #end
 
-using StringTools;
 
-class CreditsState extends MusicBeatState
+class CreditsState extends FlxState
 {
 	var curSelected:Int = -1;
 
@@ -208,7 +209,7 @@ class CreditsState extends MusicBeatState
 			{
 				if(colorTween != null) colorTween.cancel();
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new MainMenuState());
+				FlxG.switchState(MainMenuState.new);
 				quitting = true;
 			}
 		}

@@ -1,28 +1,29 @@
 package editors;
 
+import FunkinLua;
 import Section.SwagSection;
 import Song.SwagSong;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.util.FlxColor;
-import flixel.FlxSprite;
 import flixel.FlxG;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
+import flixel.FlxSprite;
+import flixel.FlxState;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxSound;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
-import flixel.input.keyboard.FlxKey;
 import openfl.events.KeyboardEvent;
-import FunkinLua;
 
 using StringTools;
 
-class EditorPlayState extends MusicBeatState
+class EditorPlayState extends FlxState
 {
 	// Yes, this is mostly a copy of PlayState, it's kinda dumb to make a direct copy of it but... ehhh
 	private var strumLine:FlxSprite;
@@ -318,7 +319,7 @@ class EditorPlayState extends MusicBeatState
 	}
 
 	private function endSong() {
-		LoadingState.loadAndSwitchState(new editors.ChartingState());
+		LoadingState.loadAndSwitchState(editors.ChartingState.new);
 	}
 
 	public var noteKillOffset:Float = 350;
@@ -328,7 +329,7 @@ class EditorPlayState extends MusicBeatState
 		{
 			FlxG.sound.music.pause();
 			vocals.pause();
-			LoadingState.loadAndSwitchState(new editors.ChartingState());
+			LoadingState.loadAndSwitchState(editors.ChartingState.new);
 		}
 
 		if (startingSong) {

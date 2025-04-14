@@ -201,20 +201,13 @@ class Project extends HXProject {
 	function displayTarget() {
 		// Display the target operating system.
 		switch (this.target) {
-			case Platform.WINDOWS:
-				info('Target Platform: Windows');
-			case Platform.MAC:
-				info('Target Platform: MacOS');
-			case Platform.LINUX:
-				info('Target Platform: Linux');
-			case Platform.ANDROID:
-				info('Target Platform: Android');
-			case Platform.IOS:
-				info('Target Platform: IOS');
-			case Platform.HTML5:
-				info('Target Platform: HTML5');
-			default:
-				error('Unsupported platform! (got ${target})');
+			case Platform.WINDOWS: info('Target Platform: Windows');
+			case Platform.MAC: info('Target Platform: MacOS');
+			case Platform.LINUX: info('Target Platform: Linux');
+			case Platform.ANDROID: info('Target Platform: Android');
+			case Platform.IOS: info('Target Platform: IOS');
+			case Platform.HTML5: info('Target Platform: HTML5');
+			default: error('Unsupported platform! (got ${target})');
         }
 
         switch (this.platformType) {
@@ -338,9 +331,9 @@ class Project extends HXProject {
 
         addHaxelib('flixel'); // Game engine
 
-        addHaxelib('flixel-addons', '2.11.0'); // Additional utilities for Flixel
+        addHaxelib('flixel-addons'); // Additional utilities for Flixel
         addHaxelib('hscript-iris'); // Scripting
-        addHaxelib('flixel-ui', '2.4.0'); // UI framework (DEPRECATED but who cares)
+        addHaxelib('flixel-ui'); // UI framework (DEPRECATED but who cares)
         addHaxelib('flixel-text-input'); // Improved text field rendering for HaxeUI
 
 		// Whatever grig.audio and funkVis are used for lmfao
@@ -350,6 +343,7 @@ class Project extends HXProject {
         addHaxelib('flxanimate'); // Texture atlas rendering
 		addHaxelib('thx.core'); // General utility library, "the lodash of Haxe"
 		addHaxelib('thx.semver'); // Version string handling
+		addHaxelib('hscript-iris'); // Haxe scripts API
 
 		/*if (isDebug()) {
 			addHaxelib('crashdumper'); // A crash dumper, duh. (Made by Lars Doucet)

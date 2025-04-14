@@ -1,15 +1,15 @@
 package;
 
+import Boyfriend;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import Boyfriend;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 using StringTools;
 
@@ -170,9 +170,9 @@ class GameOverSubstate extends MusicBeatSubstate
 	
 				WeekData.loadTheFirstEnabledMod();
 				if (PlayState.isStoryMode)
-					FlxG.switchState(new StoryMenuState());
+					FlxG.switchState(StoryMenuState());
 				else
-					FlxG.switchState(new FreeplayState());
+					FlxG.switchState(FreeplayState());
 	
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 				PlayState.instance.callOnLuas('onGameOverConfirm', [false]);

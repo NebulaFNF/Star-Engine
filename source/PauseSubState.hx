@@ -5,17 +5,17 @@ package;
 import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.addons.display.FlxBackdrop;
+import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.system.FlxSound;
-import flixel.addons.display.FlxBackdrop;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
-import options.OptionsState;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.addons.display.FlxGridOverlay;
 import flixel.util.FlxStringUtil;
+import options.OptionsState;
 
 class PauseSubState extends MusicBeatSubstate
 {
@@ -214,7 +214,7 @@ class PauseSubState extends MusicBeatSubstate
 					var poop = Highscore.formatSong(name, curSelected);
 					PlayState.SONG = Song.loadFromJson(poop, name);
 					PlayState.storyDifficulty = curSelected;
-					MusicBeatState.resetState();
+					FlxG.resetState();
 					FlxG.sound.music.volume = 0;
 					PlayState.changedDifficulty = true;
 					PlayState.chartingMode = false;
@@ -247,7 +247,7 @@ class PauseSubState extends MusicBeatSubstate
 					openSubState(new GameplayChangersSubstate());
 					GameplayChangersSubstate.inThePauseMenu = true;
 				case "Options":
-					MusicBeatState.switchState(new OptionsState());
+					FlxG.switchState(OptionsState.new);
 					inPause = true;
 				case 'Skip Time':
 					if(curTime < Conductor.songPosition)
@@ -279,9 +279,9 @@ class PauseSubState extends MusicBeatSubstate
 
 					WeekData.loadTheFirstEnabledMod();
 					if(PlayState.isStoryMode) {
-						MusicBeatState.switchState(new StoryMenuState());
+						FlxG.switchState(StoryMenuState());
 					} else {
-						MusicBeatState.switchState(new FreeplayState());
+						FlxG.switchState(FreeplayState());
 					}
 					PlayState.cancelMusicFadeTween();
 					FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
@@ -316,7 +316,7 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		else
 		{
-			MusicBeatState.resetState();
+			FlxG.resetState();
 		}
 	}
 

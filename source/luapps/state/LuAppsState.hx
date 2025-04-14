@@ -373,7 +373,7 @@ class LuAppsState extends FlxState {
 					Dummy.luaArray.push(new LuaEngine(luaLists[choice][1]));
 					Main.changeWindowName('$modName - $author');
 					FlxG.sound.destroy(true);
-					FlxG.switchState(new Dummy());
+					FlxG.switchState(Dummy.new);
 				}});
 				add(sprite);
 
@@ -395,7 +395,7 @@ class LuAppsState extends FlxState {
 				movement.alpha = 0;
 				FlxG.sound.music.fadeOut(0.5, 0);
 				FlxTween.tween(movement, {alpha: 1}, 0.5, {onComplete: function(e) {
-					FlxG.switchState(new LuaOptionsState());
+					FlxG.switchState(LuaOptionsState.new);
 				}});
 				add(movement);
 

@@ -3,20 +3,20 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
+import Achievements;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
-import flixel.FlxSubState;
-import Achievements;
 
 using StringTools;
 
-class AchievementsMenuState extends MusicBeatState
+class AchievementsMenuState extends FlxState
 {
 	#if ACHIEVEMENTS_ALLOWED
 	var options:Array<String> = [];
@@ -85,7 +85,7 @@ class AchievementsMenuState extends MusicBeatState
 
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new MainMenuState());
+			FlxG.switchState(MainMenuState.new);
 		}
 	}
 

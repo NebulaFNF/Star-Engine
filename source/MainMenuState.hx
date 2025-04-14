@@ -6,6 +6,7 @@ import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
@@ -38,7 +39,7 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
-class MainMenuState extends MusicBeatState
+class MainMenuState extends FlxState
 {
 	public static var psychEngineVersion:String = '0.3.1'; // This is also used for Discord RPC
 	public static var curSelected:Int = 0;
@@ -449,7 +450,7 @@ class MainMenuState extends MusicBeatState
 		if (controls.RESET)
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
-			MusicBeatState.switchState(new luapps.state.LuAppsState());
+			FlxG.switchState(luapps.state.LuAppsState.new);
 		}
 
 		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
@@ -473,7 +474,7 @@ class MainMenuState extends MusicBeatState
 			{
 				selectedSomethin = true;
 				FlxG.sound.play(Paths.sound('cancelMenu'));
-				MusicBeatState.switchState(new TitleState());
+				FlxG.switchState(TitleState.new);
 			}
 
 			if (controls.ACCEPT)
@@ -509,17 +510,17 @@ class MainMenuState extends MusicBeatState
 								switch (daChoice)
 								{
 									case 'story_mode':
-										MusicBeatState.switchState(new StoryMenuState());
+										FlxG.switchState(StoryMenuState.new);
 									case 'freeplay':
-										MusicBeatState.switchState(new FreeplayState());
+										FlxG.switchState(FreeplayState.new);
 									case 'mods':
-										MusicBeatState.switchState(new ModsMenuState());
+										FlxG.switchState(ModsMenuState.new);
 									case 'awards':
-										MusicBeatState.switchState(new AchievementsMenuState());
+										FlxG.switchState(AchievementsMenuState.new);
 									case 'credits':
-										MusicBeatState.switchState(new CreditsState());
+										FlxG.switchState(CreditsState.new);
 									case 'options':
-										LoadingState.loadAndSwitchState(new options.OptionsState());
+										LoadingState.loadAndSwitchState(options.OptionsState.new);
 								}
 							});
 						}
@@ -530,7 +531,7 @@ class MainMenuState extends MusicBeatState
 			else if (FlxG.keys.anyJustPressed(debugKeys))
 			{
 				selectedSomethin = true;
-				MusicBeatState.switchState(new MasterEditorMenu());
+				FlxG.switchState(MasterEditorMenu.new);
 			}
 			#end
 		}

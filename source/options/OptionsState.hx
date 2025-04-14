@@ -6,11 +6,12 @@ import Discord.DiscordClient;
 import Controls;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
 using StringTools;
 
-class OptionsState extends MusicBeatState
+class OptionsState extends FlxState
 {
 	var options:Array<String> = [
 		'Note Colors',
@@ -111,11 +112,11 @@ class OptionsState extends MusicBeatState
 			{
 				PauseSubState.inPause = false;
 				StageData.loadDirectory(PlayState.SONG);
-				LoadingState.loadAndSwitchState(new PlayState());
+				LoadingState.loadAndSwitchState(PlayState.new);
 				FlxG.sound.music.volume = 0;
 			}
 			else
-				MusicBeatState.switchState(new MainMenuState());
+				FlxG.switchState(MainMenuState.new);
 		}
 
 		if (controls.RESET)

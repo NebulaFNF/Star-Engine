@@ -66,7 +66,7 @@ class Dummy extends FlxState {
 			Pause.killSounds();
 
 			luaArray.push(new LuaEngine(LuAppsState.modRaw + "source/main.lua"));
-			FlxG.switchState(new Dummy());
+			FlxG.switchState(Dummy.new);
 		}
 
 		for (channel in channels) {

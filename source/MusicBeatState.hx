@@ -7,7 +7,7 @@ import flixel.FlxState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.ui.FlxUIState;
 
-class MusicBeatState extends FlxUIState
+class FlxG extends FlxUIState
 {
 	private var curSection:Int = 0;
 	private var stepsToDo:Int = 0;
@@ -119,7 +119,7 @@ class MusicBeatState extends FlxUIState
 	{
 		// Custom made Trans in
 		var curState:Dynamic = FlxG.state;
-		var leState:MusicBeatState = curState;
+		var leState:FlxG = curState;
 		if (!FlxTransitionableState.skipNextTransIn)
 		{
 			leState.openSubState(new CustomFadeTransition(0.6, false));
@@ -146,12 +146,12 @@ class MusicBeatState extends FlxUIState
 	}
 
 	public static function resetState()
-		MusicBeatState.switchState(FlxG.state);
+		FlxG.switchState(FlxG.state);
 
-	public static function getState():MusicBeatState
+	public static function getState():FlxG
 	{
 		var curState:Dynamic = FlxG.state;
-		var leState:MusicBeatState = curState;
+		var leState:FlxG = curState;
 		return leState;
 	}
 

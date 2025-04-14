@@ -1,16 +1,15 @@
 package;
 
+import Character;
+import MusicBeatState;
+import Note.EventNote;
 import flixel.FlxBasic;
+import flixel.FlxCamera;
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
-import MusicBeatState;
 import flixel.group.FlxSpriteGroup;
-import flixel.FlxG;
-import flixel.FlxCamera;
 import flixel.math.FlxPoint;
-
-import Note.EventNote;
-import Character;
 
 enum Countdown
 {
@@ -52,7 +51,7 @@ class BaseStage extends FlxBasic
 
 	public function new()
 	{
-		this.game = MusicBeatState.getState();
+		this.game = FlxG.getState();
 		if(this.game == null)
 		{
 			FlxG.log.warn('Invalid state for the stage added!');
@@ -168,7 +167,7 @@ class BaseStage extends FlxBasic
 		return value;
 	}
 	inline private function get_members() return game.members;
-	inline private function set_game(value:MusicBeatState)
+	inline private function set_game(value:FlxG)
 	{
 		onPlayState = (Std.isOfType(value, PlayState));
 		game = value;
