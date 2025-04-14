@@ -3,34 +3,34 @@ package editors;
 #if desktop
 import Discord.DiscordClient;
 #end
-import WeekData;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import openfl.utils.Assets;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
-import haxe.Json;
-import lime.system.Clipboard;
+import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileFilter;
-import openfl.net.FileReference;
-import openfl.utils.Assets;
+import lime.system.Clipboard;
+import haxe.Json;
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
+import WeekData;
 
 using StringTools;
-#if sys
-import sys.FileSystem;
-import sys.io.File;
-#end
 
-class WeekEditorState extends FlxState
+class WeekEditorState extends MusicBeatState
 {
 	var txtWeekTitle:FlxText;
 	var bgSprite:FlxSprite;
@@ -139,7 +139,7 @@ class WeekEditorState extends FlxState
 		add(loadWeekButton);
 		
 		var freeplayButton:FlxButton = new FlxButton(0, 650, "Freeplay", function() {
-			FlxG.switchState(WeekEditorFreeplayState(weekFile));
+			MusicBeatState.switchState(new WeekEditorFreeplayState(weekFile));
 			
 		});
 		freeplayButton.screenCenter(X);
@@ -441,7 +441,7 @@ class WeekEditorState extends FlxState
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if(FlxG.keys.justPressed.ESCAPE) {
-				FlxG.switchState(editors.MasterEditorMenu.new);
+				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 			}
 		}
@@ -573,7 +573,7 @@ class WeekEditorState extends FlxState
 	}
 }
 
-class WeekEditorFreeplayState extends FlxState
+class WeekEditorFreeplayState extends MusicBeatState
 {
 	var weekFile:WeekFile = null;
 	public function new(weekFile:WeekFile = null)
@@ -652,7 +652,7 @@ class WeekEditorFreeplayState extends FlxState
 		add(loadWeekButton);
 		
 		var storyModeButton:FlxButton = new FlxButton(0, 685, "Story Mode", function() {
-			FlxG.switchState(WeekEditorState(weekFile));
+			MusicBeatState.switchState(new WeekEditorState(weekFile));
 			
 		});
 		storyModeButton.screenCenter(X);
@@ -787,7 +787,7 @@ class WeekEditorFreeplayState extends FlxState
 			super.update(elapsed);
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			FlxG.switchState(WeekEditorFreeplayState(WeekEditorState.loadedWeek));
+			MusicBeatState.switchState(new WeekEditorFreeplayState(WeekEditorState.loadedWeek));
 			WeekEditorState.loadedWeek = null;
 			return;
 		}
@@ -804,7 +804,7 @@ class WeekEditorFreeplayState extends FlxState
 			FlxG.sound.volumeDownKeys = TitleState.volumeDownKeys;
 			FlxG.sound.volumeUpKeys = TitleState.volumeUpKeys;
 			if(FlxG.keys.justPressed.ESCAPE) {
-				FlxG.switchState(editors.MasterEditorMenu.new);
+				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 			}
 

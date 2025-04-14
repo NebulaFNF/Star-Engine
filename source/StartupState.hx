@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -17,7 +16,7 @@ import sys.io.File;
 import VideoSprite;
 #end
 
-class StartupState extends FlxState
+class StartupState extends MusicBeatState
 {
 	var logo:FlxSprite;
 	var skipTxt:FlxText;
@@ -46,7 +45,7 @@ class StartupState extends FlxState
 
 			// Finish callback
 			function onVideoEnd()
-				FlxG.switchState(TitleState.new);
+				MusicBeatState.switchState(new TitleState());
 			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
 			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
 			insert(0, vidSprite);
@@ -60,7 +59,7 @@ class StartupState extends FlxState
 			FlxG.log.error("Video not found: " + fileName);
 			new FlxTimer().start(0.1, function(tmr:FlxTimer)
 			{
-				FlxG.switchState(TitleState.new);
+				MusicBeatState.switchState(new TitleState());
 			});
 		}
 		#else
@@ -117,7 +116,7 @@ class StartupState extends FlxState
 			ease: FlxEase.linear,
 			onComplete: function(_)
 			{
-				FlxG.switchState(TitleState.new);
+				MusicBeatState.switchState(new TitleState());
 			}
 		});
 	}
@@ -125,7 +124,7 @@ class StartupState extends FlxState
 	override function update(elapsed:Float)
 	{
 		if (FlxG.keys.justPressed.ENTER)
-			FlxG.switchState(TitleState.new);
+			MusicBeatState.switchState(new TitleState());
 
 		super.update(elapsed);
 	}

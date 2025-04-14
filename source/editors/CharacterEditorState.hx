@@ -3,41 +3,40 @@ package editors;
 #if desktop
 import Discord.DiscordClient;
 #end
-import Character;
 import animateatlas.AtlasFrameMaker;
-import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
-import flixel.FlxState;
+import flixel.FlxCamera;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.graphics.FlxGraphic;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.animation.FlxAnimation;
-import flixel.graphics.FlxGraphic;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
-import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
-import haxe.Json;
-import lime.system.Clipboard;
+import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
-import openfl.net.FileReference;
+import haxe.Json;
+import Character;
+import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
+import lime.system.Clipboard;
+import flixel.animation.FlxAnimation;
 
-using StringTools;
 #if MODS_ALLOWED
 import sys.FileSystem;
 #end
 
+using StringTools;
 
 /**
 	*DEBUG MODE
  */
-class CharacterEditorState extends FlxState
+class CharacterEditorState extends MusicBeatState
 {
 	var char:Character;
 	var ghostChar:Character;
@@ -1081,7 +1080,7 @@ class CharacterEditorState extends FlxState
 
 	override function update(elapsed:Float)
 	{
-		FlxG.camBeat = FlxG.camera;
+		MusicBeatState.camBeat = FlxG.camera;
 		if(char.animationsArray[curAnim] != null) {
 			textAnim.text = char.animationsArray[curAnim].anim;
 
@@ -1110,9 +1109,9 @@ class CharacterEditorState extends FlxState
 		if(!charDropDown.dropPanel.visible) {
 			if (FlxG.keys.justPressed.ESCAPE) {
 				if(goToPlayState) {
-					FlxG.switchState(PlayState.new);
+					MusicBeatState.switchState(new PlayState());
 				} else {
-					FlxG.switchState(editors.MasterEditorMenu());
+					MusicBeatState.switchState(new editors.MasterEditorMenu());
 					FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 				}
 				FlxG.mouse.visible = false;

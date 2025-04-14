@@ -3,12 +3,15 @@ package editors;
 #if desktop
 import Discord.DiscordClient;
 #end
-import Alphabet;
-import DialogueBoxPsych;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxMath;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.system.FlxSound;
 import flixel.addons.ui.FlxInputText;
 import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
@@ -16,26 +19,22 @@ import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.system.FlxSound;
-import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.util.FlxColor;
-import haxe.Json;
-import lime.system.Clipboard;
+import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import openfl.net.FileFilter;
-import openfl.net.FileReference;
-
-using StringTools;
+import haxe.Json;
+import DialogueBoxPsych;
+import lime.system.Clipboard;
+import Alphabet;
 #if sys
 import sys.io.File;
 #end
 
+using StringTools;
 
-class DialogueEditorState extends FlxState
+class DialogueEditorState extends MusicBeatState
 {
 	var character:DialogueCharacter;
 	var box:FlxSprite;
@@ -357,7 +356,7 @@ class DialogueEditorState extends FlxState
 				reloadText(false);
 			}
 			if(FlxG.keys.justPressed.ESCAPE) {
-				FlxG.switchState(editors.MasterEditorMenu());
+				MusicBeatState.switchState(new editors.MasterEditorMenu());
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'), 1);
 				transitioning = true;
 			}

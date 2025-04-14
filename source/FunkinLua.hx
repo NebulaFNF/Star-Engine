@@ -1,37 +1,33 @@
 package;
 
-import DialogueBoxPsych;
-import Type.ValueType;
-import animateatlas.AtlasFrameMaker;
-import flixel.FlxBasic;
-import flixel.FlxCamera;
-import flixel.FlxG;
-import flixel.FlxObject;
-import flixel.FlxSprite;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxMath;
-import flixel.system.FlxSound;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxColor;
-import flixel.util.FlxSave;
-import flixel.util.FlxTimer;
-import openfl.Lib;
 import openfl.display.BitmapData;
-import openfl.display.BlendMode;
-import openfl.utils.Assets;
-import shaderslmfao.*;
-import shaderslmfao.*;
-
-using StringTools;
 #if LUA_ALLOWED
-import llua.Convert;
 import llua.Lua;
 import llua.LuaL;
 import llua.State;
+import llua.Convert;
 #end
+
+import animateatlas.AtlasFrameMaker;
+import flixel.FlxG;
+import flixel.tweens.FlxTween;
+import flixel.tweens.FlxEase;
+import flixel.text.FlxText;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.system.FlxSound;
+import flixel.util.FlxTimer;
+import flixel.FlxSprite;
+import flixel.FlxCamera;
+import flixel.util.FlxColor;
+import flixel.FlxBasic;
+import flixel.FlxObject;
+import openfl.Lib;
+import openfl.display.BlendMode;
+import openfl.utils.Assets;
+import flixel.math.FlxMath;
+import flixel.util.FlxSave;
+import flixel.addons.transition.FlxTransitionableState;
+import shaderslmfao.*;
 
 #if (!flash && sys)
 import flixel.addons.display.FlxRuntimeShader;
@@ -42,15 +38,21 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+import Type.ValueType;
+import DialogueBoxPsych;
+
 #if hscript
-import crowplexus.hscript.Interp;
 import crowplexus.hscript.Parser;
+import crowplexus.hscript.Interp;
 #end
 
 #if desktop
 import Discord;
 #end
 
+import shaderslmfao.*;
+
+using StringTools;
 
 class FunkinLua {
 	public static var Function_Stop:Dynamic = 1;
@@ -1549,9 +1551,9 @@ class FunkinLua {
 				CustomFadeTransition.nextCamera = null;
 
 			if(PlayState.isStoryMode)
-				FlxG.switchState(StoryMenuState());
+				MusicBeatState.switchState(new StoryMenuState());
 			else
-				FlxG.switchState(FreeplayState());
+				MusicBeatState.switchState(new FreeplayState());
 
 			FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 			PlayState.changedDifficulty = false;

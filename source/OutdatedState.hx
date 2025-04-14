@@ -2,12 +2,11 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
+import flixel.tweens.FlxTween;
 
-class OutdatedState extends FlxState
+class OutdatedState extends MusicBeatState
 {
 	public static var leftState:Bool = false;
 
@@ -53,7 +52,7 @@ class OutdatedState extends FlxState
 				FlxG.sound.play(Paths.sound('cancelMenu'));
 				FlxTween.tween(warnText, {alpha: 0}, 1, {
 					onComplete: function (twn:FlxTween) {
-						FlxG.switchState(MainMenuState.new);
+						MusicBeatState.switchState(new MainMenuState());
 					}
 				});
 			}

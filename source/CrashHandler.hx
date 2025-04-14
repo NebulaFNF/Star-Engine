@@ -125,7 +125,7 @@ class CrashHandler
 			lime.system.System.exit(1);
 		}
 		else
-			FlxG.switchState(Crash.new);
+			FlxG.switchState(new Crash());
 	}
 
 	private static function onError(message:Dynamic):Void
@@ -209,11 +209,11 @@ class Crash extends FlxState
 					if (countDown == 0)
 					{
 						CoolUtil.browserLoad("https://github.com/NebulaFNF/Star-Engine/issues/new?template=bugs.yml");
-						FlxG.switchState(MainMenuState.new);
+						FlxG.switchState(new MainMenuState());
 					}
 				}, 10);
 			}
 			else if (!FlxG.keys.justPressed.F2)
-				FlxG.switchState(MainMenuState.new);
+				FlxG.switchState(new MainMenuState());
 		}
 }

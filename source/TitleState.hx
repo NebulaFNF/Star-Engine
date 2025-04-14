@@ -5,16 +5,24 @@ import Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
+import flixel.input.keyboard.FlxKey;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
-// import flixel.graphics.FlxGraphic;
+import haxe.Json;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import flixel.util.FlxDirectionFlags;
+#if MODS_ALLOWED
+import sys.FileSystem;
+import sys.io.File;
+#end
+import options.GraphicsSettingsSubState;
+//import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
-import flixel.input.keyboard.FlxKey;
 import flixel.math.FlxMath;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
@@ -24,20 +32,11 @@ import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.util.FlxDirectionFlags;
 import flixel.util.FlxTimer;
-import haxe.Json;
 import lime.app.Application;
 import openfl.Assets;
-import openfl.display.Bitmap;
-import openfl.display.BitmapData;
-import options.GraphicsSettingsSubState;
 
 using StringTools;
-#if MODS_ALLOWED
-import sys.FileSystem;
-import sys.io.File;
-#end
 typedef TitleData =
 {
 
@@ -50,7 +49,7 @@ typedef TitleData =
 	backgroundSprite:String,
 	bpm:Int
 }
-class TitleState extends FlxState
+class TitleState extends MusicBeatState
 {
 	public static var muteKeys:Array<FlxKey> = [FlxKey.ZERO];
 	public static var volumeDownKeys:Array<FlxKey> = [FlxKey.NUMPADMINUS, FlxKey.MINUS];
@@ -198,14 +197,14 @@ class TitleState extends FlxState
 
 		FlxG.mouse.visible = false;
 		#if FREEPLAY
-		FlxG.switchState(FreeplayState.new);
+		MusicBeatState.switchState(new FreeplayState());
 		#elseif CHARTING
-		FlxG.switchState(ChartingState.new);
+		MusicBeatState.switchState(new ChartingState());
 		#else
 		if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
 			FlxTransitionableState.skipNextTransIn = true;
 			FlxTransitionableState.skipNextTransOut = true;
-			FlxG.switchState(FlashingState.new);
+			MusicBeatState.switchState(new FlashingState());
 		} else {
 			#if desktop
 			if (!DiscordClient.isInitialized)
@@ -499,8 +498,8 @@ class TitleState extends FlxState
 				{
 					if (mustUpdate) {
 						Conductor.changeBPM(91);
-						FlxG.switchState(OutdatedState.new);
-					} else FlxG.switchState(MainMenuState.new);
+						MusicBeatState.switchState(new OutdatedState());
+					} else MusicBeatState.switchState(new MainMenuState());
 					closedState = true;
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
@@ -537,7 +536,7 @@ class TitleState extends FlxState
 								function(twn:FlxTween) {
 									FlxTransitionableState.skipNextTransIn = true;
 									FlxTransitionableState.skipNextTransOut = true;
-									FlxG.switchState(TitleState.new);
+									MusicBeatState.switchState(new TitleState());
 								}
 							});
 							FlxG.sound.music.fadeOut();

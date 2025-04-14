@@ -3,25 +3,25 @@ package;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
-import flixel.tweens.FlxTween;
-import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-import haxe.Json;
+import flixel.tweens.FlxTween;
 import lime.utils.Assets;
+import sys.io.File;
+import sys.FileSystem;
+import haxe.Json;
 import openfl.display.BitmapData;
 import openfl.geom.Rectangle;
-import sys.FileSystem;
-import sys.io.File;
+import flixel.ui.FlxButton;
+import flixel.FlxBasic;
 import sys.io.File;
 
 using StringTools;
 
-class ModsMenuState extends FlxState
+class ModsMenuState extends MusicBeatState
 {
 	var mods:Array<ModMetadata> = [];
 	static var changedAThing = false;
@@ -470,7 +470,7 @@ class ModsMenuState extends FlxState
 			saveTxt();
 			if(needaReset)
 			{
-				//FlxG.switchState(TitleState.new);
+				//MusicBeatState.switchState(new TitleState());
 				TitleState.initialized = false;
 				TitleState.closedState = false;
 				FlxG.sound.music.fadeOut(0.3);
@@ -483,7 +483,7 @@ class ModsMenuState extends FlxState
 			}
 			else
 			{
-				FlxG.switchState(MainMenuState.new);
+				MusicBeatState.switchState(new MainMenuState());
 			}
 		}
 
@@ -660,7 +660,7 @@ class ModsMenuState extends FlxState
 			var rawZip:String = File.getContent(fullPath);
 			if(rawZip != null)
 			{
-				FlxG.resetState();
+				MusicBeatState.resetState();
 				var uncompressingFile:Bytes = new Uncompress().run(File.getBytes(rawZip));
 				if (uncompressingFile.done)
 				{

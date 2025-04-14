@@ -1,18 +1,18 @@
 package options;
 
-import flixel.FlxCamera;
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxSpriteGroup;
-import flixel.math.FlxPoint;
-import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import flixel.ui.FlxBar;
+import flixel.text.FlxText;
+import flixel.group.FlxSpriteGroup;
+import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.util.FlxColor;
+import flixel.FlxSprite;
+import flixel.FlxCamera;
+import flixel.FlxG;
+import flixel.ui.FlxBar;
+import flixel.math.FlxPoint;
 
-class NoteOffsetState extends FlxState
+class NoteOffsetState extends MusicBeatState
 {
 	var boyfriend:Character;
 	var gf:Character;
@@ -334,7 +334,7 @@ class NoteOffsetState extends FlxState
 
 			persistentUpdate = false;
 			CustomFadeTransition.nextCamera = camOther;
-			FlxG.switchState(options.OptionsState());
+			MusicBeatState.switchState(new options.OptionsState());
 			FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'), 1, true);
 			FlxG.mouse.visible = false;
 		}

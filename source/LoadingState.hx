@@ -1,19 +1,21 @@
 package;
 
-import flixel.FlxG;
-import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.math.FlxMath;
-import flixel.util.FlxTimer;
-import haxe.io.Path;
-import lime.app.Future;
 import lime.app.Promise;
+import lime.app.Future;
+import flixel.FlxG;
+import flixel.FlxState;
+import flixel.FlxSprite;
+import flixel.util.FlxTimer;
+import flixel.math.FlxMath;
+
+import openfl.utils.Assets;
+import lime.utils.Assets as LimeAssets;
 import lime.utils.AssetLibrary;
 import lime.utils.AssetManifest;
-import lime.utils.Assets as LimeAssets;
-import openfl.utils.Assets;
 
-class LoadingState extends FlxState
+import haxe.io.Path;
+
+class LoadingState extends MusicBeatState
 {
 	inline static var MIN_TIME = 1.0;
 
@@ -129,7 +131,7 @@ class LoadingState extends FlxState
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 		
-		FlxG.switchState(target);
+		MusicBeatState.switchState(target);
 	}
 	
 	static function getSongPath()
@@ -161,7 +163,7 @@ class LoadingState extends FlxState
 		loadBar.antialiasing = ClientPrefs.globalAntialiasing;
 		add(loadBar);*/
 
-		FlxG.switchState(getNextState(target, stopMusic));
+		MusicBeatState.switchState(getNextState(target, stopMusic));
 	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState

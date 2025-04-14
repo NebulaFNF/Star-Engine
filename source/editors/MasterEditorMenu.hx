@@ -5,7 +5,6 @@ import Discord.DiscordClient;
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -15,7 +14,7 @@ import flixel.util.FlxTimer;
 
 using StringTools;
 
-class MasterEditorMenu extends FlxState
+class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
 		'Week Editor',
@@ -112,7 +111,7 @@ class MasterEditorMenu extends FlxState
 
 		if (controls.BACK)
 		{
-			FlxG.switchState(MainMenuState.new);
+			MusicBeatState.switchState(new MainMenuState());
 		}
 
 		if (controls.ACCEPT)
@@ -122,9 +121,9 @@ class MasterEditorMenu extends FlxState
 				case 'Character Editor':
 					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
 				case 'Week Editor':
-					FlxG.switchState(WeekEditorState.new);
+					MusicBeatState.switchState(new WeekEditorState());
 				case 'Menu Character Editor':
-					FlxG.switchState(MenuCharacterEditorState.new);
+					MusicBeatState.switchState(new MenuCharacterEditorState());
 				case 'Dialogue Portrait Editor':
 					LoadingState.loadAndSwitchState(new DialogueCharacterEditorState(), false);
 				case 'Dialogue Editor':
@@ -132,7 +131,7 @@ class MasterEditorMenu extends FlxState
 				case 'Chart Editor': // felt it would be cool maybe
 					LoadingState.loadAndSwitchState(new ChartingState(), false);
 				case '3D Benchmark': // felt it would be cool maybe
-					FlxG.switchState(BenchmarkState.new);
+					MusicBeatState.switchState(new BenchmarkState());
 				case 'Sticker SubState Test':
 					openSubState(new StickerSubState());
 			}
