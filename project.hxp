@@ -313,7 +313,7 @@ class Project extends HXProject {
 		if (isRelease()) setHaxedef("NAPE_RELEASE_BUILD");
 
 		// Cleaner looking compiler errors.
-		//setHaxedef("message.reporting", "pretty");
+		setHaxedef("message.reporting", "pretty");
     }
 
     function configureOutputDir() {
