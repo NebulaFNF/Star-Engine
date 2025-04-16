@@ -103,7 +103,7 @@ class Dummy extends FlxState {
 			debugger = [];
 		} catch(e:Dynamic) {} // Failed to do those, prevent a crash.
 
-		if (!restartOnly) FlxG.resetGame();
+		if (!restartOnly) MusicBeatState.switchState(new MainMenuState()); // Reset game fucks up the thingie so instead switching to MainMenuState
 	}
 
 	public static function debugPrint(text:String, warn:Bool = false) {
