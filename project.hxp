@@ -54,7 +54,7 @@ class Project extends HXProject {
 	 * The fully qualified class path for the game's preloader.
 	 * Particularly important on HTML5 but we use it on all platforms.
 	 */
-	static final PRELOADER:String = "flixel.system.FlxPreloader";
+	static final PRELOADER:String = "preloader.FunkinPreloader";
 
 	/**
 	 * A package name used for identifying the app on various app stores.
@@ -201,18 +201,12 @@ class Project extends HXProject {
 	function displayTarget() {
 		// Display the target operating system.
 		switch (this.target) {
-			case Platform.WINDOWS:
-				info('Target Platform: Windows');
-			case Platform.MAC:
-				info('Target Platform: MacOS');
-			case Platform.LINUX:
-				info('Target Platform: Linux');
-			case Platform.ANDROID:
-				info('Target Platform: Android');
-			case Platform.IOS:
-				info('Target Platform: IOS');
-			case Platform.HTML5:
-				info('Target Platform: HTML5');
+			case Platform.WINDOWS: info('Target Platform: Windows');
+			case Platform.MAC: info('Target Platform: MacOS');
+			case Platform.LINUX: info('Target Platform: Linux');
+			case Platform.ANDROID: info('Target Platform: Android');
+			case Platform.IOS: info('Target Platform: IOS');
+			case Platform.HTML5: info('Target Platform: HTML5');
 			default:
 				error('Unsupported platform! (got ${target})');
         }
@@ -300,7 +294,7 @@ class Project extends HXProject {
 		// Allow memory to go above 1GB.
 		setHaxedef("HXCPP_GC_BIG_BLOCKS");
 
-		setHaxedef("safeMode"); // what is this
+		//setHaxedef("safeMode"); // what is this
 
 		// If we aren't using the Flixel debugger, strip it out.
 		if (!isDebug()) {
@@ -338,9 +332,9 @@ class Project extends HXProject {
 
         addHaxelib('flixel'); // Game engine
 
-        addHaxelib('flixel-addons', '2.11.0'); // Additional utilities for Flixel
+        addHaxelib('flixel-addons'); // Additional utilities for Flixel
         addHaxelib('hscript-iris'); // Scripting
-        addHaxelib('flixel-ui', '2.4.0'); // UI framework (DEPRECATED but who cares)
+        addHaxelib('flixel-ui'); // UI framework (DEPRECATED but who cares)
         addHaxelib('flixel-text-input'); // Improved text field rendering for HaxeUI
 
 		// Whatever grig.audio and funkVis are used for lmfao
