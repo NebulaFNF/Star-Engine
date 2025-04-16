@@ -135,7 +135,7 @@ class Main extends Sprite
 
 	public static function changeWindowName(name:String = "")
 	{
-		Application.current.window.title = "Friday Night Funkin'" + ":" + "Star Engine - LuApps v" + luversion + '${name != "" ? '- $name' : ''}';
+		Application.current.window.title = "Friday Night Funkin'" + ": " + "Star Engine - LuApps v" + luversion + '${name != "" ? '- $name' : ''}';
 	}
 
 	private function init(?E:Event):Void

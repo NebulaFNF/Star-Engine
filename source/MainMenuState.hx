@@ -52,8 +52,6 @@ class MainMenuState extends MusicBeatState
 
 	var tipTextMargin:Float = 10;
 
-	public static var sleepier:FlxSprite = new FlxSprite();
-
 	var tipTextScrolling:Bool = false;
 	var tipBackground:FlxSprite;
 	var tipText:FlxText;
@@ -166,30 +164,6 @@ class MainMenuState extends MusicBeatState
 
 		transIn = FlxTransitionableState.defaultTransIn;
 		transOut = FlxTransitionableState.defaultTransOut;
-
-		sleepier.makeGraphic(1920, 1080, FlxColor.BLACK);
-		sleepier.alpha = 0;
-		add(sleepier);
-
-		new FlxTimer().start(ClientPrefs.lowQuality ? 0.4 : 0.05, function(e)
-		{
-			var sprite:FlxSprite = new FlxSprite(FlxG.random.float(-16, 1296), 720);
-			sprite.makeGraphic(16, 16, 0xFFFFC400);
-			sprite.alpha = Math.abs(-0.6 + (sleepier.alpha / 1.9));
-			FlxTween.tween(sprite, {
-				x: sprite.x + FlxG.random.float(-50, 50),
-				y: sprite.y - FlxG.random.float(200, 250),
-				alpha: 0,
-				angle: FlxG.random.float(-90, 90)
-			}, FlxG.random.float(1, 5), {
-				onComplete: function(e)
-				{
-					sprite.destroy();
-				}
-			});
-			sprite.scrollFactor.set();
-			add(sprite);
-		}, 0);
 
 		persistentUpdate = persistentDraw = true;
 

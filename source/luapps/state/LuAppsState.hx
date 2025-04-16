@@ -43,7 +43,6 @@ class LuAppsState extends FlxState {
 	var optionsText:FlxText = new FlxText(1095, 642, 1920, "Options", 16);
 	var options:FlxSprite = new FlxSprite();
 	var mouseDistance:FlxSprite = new FlxSprite();
-	public static var sleepy:FlxSprite = new FlxSprite();
 	var noApps:FlxText = new FlxText(0, 0, 1280, "There is no applications installed! Press R to refresh the list.", 32);
 	var background:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 	var GMB:GlowingMarblingBlack = new GlowingMarblingBlack();
@@ -143,23 +142,6 @@ class LuAppsState extends FlxState {
 			}});
 		});
 		add(version);
-
-		if (Prefs.allowParticles) {
-			new FlxTimer().start(Prefs.lowDetail ? 0.4 : 0.05, function(e) {
-				var sprite:FlxSprite = new FlxSprite(FlxG.random.float(-16, 1296), 720);
-				sprite.makeGraphic(16, 16, FlxColor.WHITE);
-				sprite.alpha = Math.abs(-0.6 + (sleepy.alpha / 1.9));
-				FlxTween.tween(sprite, {
-					x: sprite.x + FlxG.random.float(-50, 50),
-					y: sprite.y - FlxG.random.float(200, 250),
-					alpha: 0,
-					angle: FlxG.random.float(-90, 90)
-				}, FlxG.random.float(1, 5), {onComplete: function(e) {
-					sprite.destroy();
-				}});
-				add(sprite);
-			}, 0);
-		}
 
 		sendNotification("This is a alpha state, changes won't be this but something else.");
 		
@@ -276,10 +258,6 @@ class LuAppsState extends FlxState {
 			}});
 		});
 		add(text);*/
-
-		sleepy.makeGraphic(1920, 1080, FlxColor.BLACK);
-		sleepy.alpha = 0;
-		add(sleepy);
 
 		choice = 0;
 	}
@@ -410,9 +388,6 @@ class LuAppsState extends FlxState {
 		}
 
 		if (FlxG.mouse.justMoved) oldTime = Timer.stamp();
-
-		FlxTween.globalManager.cancelTweensOf(sleepy);
-		if (Timer.stamp() > oldTime + 30) FlxTween.tween(sleepy, {alpha: 0.66}, 2); else FlxTween.tween(sleepy, {alpha: 0}, 0.25);
 
 		if (FlxG.keys.justPressed.R) generate();
 
