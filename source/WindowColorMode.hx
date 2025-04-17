@@ -27,7 +27,7 @@ class WindowColorMode
 	/**
 	 * Shortcut to both `setLightMode` and `setDarkMode`.
 	 *
-	 * @param   isDark    Do you want to set the window to dark mode?
+	 * @param isDark : Do you want to set the window to dark mode?
 	 */
 	public static function setWindowColorMode(isDark:Bool = true)
 	{
@@ -88,7 +88,7 @@ class WindowColorMode
 	/**
 	 * Sets the window title text to a color of your choosing. (Only Windows 11 supports this).
 	 *
-	 * @param   color        The color of the window border/header. organized as [R (0 to 255), G (0 to 255), B (0 to 255)].
+	 * @param color : The color of the window border/header. organized as [R (0 to 255), G (0 to 255), B (0 to 255)].
 	 */
 	public static function setWindowTitleColor(color:Array<Int>)
 	{
