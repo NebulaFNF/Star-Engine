@@ -264,7 +264,7 @@ class Project extends HXProject {
 		VIDEOS_ALLOWED.apply(this, true);
         CRASH_HANDLER.apply(this, true);
         ACHIEVEMENTS_ALLOWED.apply(this, true);
-        TITLE_SCREEN_EASTER_EGG.apply(this, true);
+        //TITLE_SCREEN_EASTER_EGG.apply(this, true);
 
 		// Should be true only on web builds.
 		// Enabling embedding and preloading is required to preload assets properly.
