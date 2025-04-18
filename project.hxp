@@ -130,7 +130,7 @@ class Project extends HXProject {
 		// TODO: Implement this.
 		if (isDebug()) ENGINE_VERSION = '0.4.0 | PROTOTYPE';
 		else ENGINE_VERSION = '0.4.0';
-		info("Friday Night Funkin'");
+		info("Friday Night Funkin': Star Engine");
 		info("Initializing build...");
 
 		info("Target Version: " + ENGINE_VERSION);

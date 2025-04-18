@@ -36,7 +36,7 @@ class SUtil
 			return aDir;
 		else
 			return aDir = Tools.getExternalStorageDirectory() +
-				'/.PsychEngine/'; // i wanna do this to have the ability to use same mods from other ports without making storage full
+				'/.StarEngine/'; // i wanna do this to have the ability to use same mods from other ports without making storage full
 		#else
 		return '';
 		#end

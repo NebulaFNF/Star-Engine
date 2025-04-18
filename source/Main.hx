@@ -13,9 +13,6 @@ import openfl.events.Event;
 
 using StringTools;
 
-/*#if debug
-	import crashdumper.*;
-	#end */
 // credits to hrk ex ex !!!!
 #if desktop
 import backend.ALSoftConfig; // Just to make sure DCE doesn't remove this, since it's not directly referenced anywhere else.

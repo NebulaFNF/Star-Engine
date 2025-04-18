@@ -3502,22 +3502,25 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.NINE) iconP1.swapOldIcon();
 
-		if (ClientPrefs.iconBounceBS == 'Vanilla') {
+		if (ClientPrefs.iconBounceBS == 'Vanilla')
+		{
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
 			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
 	
 			iconP1.updateHitbox();
-			iconP2.updateHitbox();	
+			iconP2.updateHitbox();
 		}
 
-		if (ClientPrefs.iconBounceBS == 'Plank Engine') {
+		if (ClientPrefs.iconBounceBS == 'Plank Engine')
+		{
 			final funnyBeat = (Conductor.songPosition / 1000) * (Conductor.bpm / 60);
 
 			iconP1.offset.y = Math.abs(Math.sin(funnyBeat * Math.PI))  * 16 - 4;
 			iconP2.offset.y = Math.abs(Math.sin(funnyBeat * Math.PI))  * 16 - 4;
 		}
 	
-		if (ClientPrefs.iconBounceBS == 'Strident Crisis') {
+		if (ClientPrefs.iconBounceBS == 'Strident Crisis')
+		{
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(iconP1.frameWidth, iconP1.width, 0.50 / playbackRate)),
 			Std.int(FlxMath.lerp(iconP1.frameHeight, iconP1.height, 0.50 / playbackRate)));
 			iconP2.setGraphicSize(Std.int(FlxMath.lerp(iconP2.frameWidth, iconP2.width, 0.50 / playbackRate)),

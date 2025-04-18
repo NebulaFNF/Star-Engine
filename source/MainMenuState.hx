@@ -116,14 +116,12 @@ class MainMenuState extends MusicBeatState
 			vidSprite = new VideoSprite(fileName, false, canSkip, loop);
 
 			// Finish callback
-			function onVideoEnd()
-				Sys.exit(0);
+			function onVideoEnd() Sys.exit(0);
 			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
 			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
 			insert(0, vidSprite);
 
-			if (playOnLoad)
-				vidSprite.videoSprite.play();
+			if (playOnLoad) vidSprite.videoSprite.play();
 			return vidSprite;
 		}
 		else
@@ -169,11 +167,11 @@ class MainMenuState extends MusicBeatState
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
 		var bg:FlxSprite = new FlxSprite(0, 0).loadGraphic(Paths.image("aboutMenu", "preload"));
-		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(90, 60, "assets/images/menuBF");
-		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 90, 60, 24);
-		freeplayBoyfriend.antialiasing = true;
+		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(80, 60, "assets/images/menuPico");
+		freeplayBoyfriend.anim.addBySymbol("pico freeplay assets v7", "Pico DJ", 0, 0, 24);
+		freeplayBoyfriend.antialiasing = ClientPrefs.globalAntialiasing;
 		freeplayBoyfriend.screenCenter();
-		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 1.5));
+		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 7.5));
 		freeplayBoyfriend.scrollFactor.set(0, 0);
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
@@ -182,7 +180,7 @@ class MainMenuState extends MusicBeatState
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bg.color = 0xFFFF8C19;
 		add(bg);
-		freeplayBoyfriend.anim.play("Boyfriend DJ");
+		freeplayBoyfriend.anim.play("Pico DJ");
 
 		camFollow = new FlxObject(0, 0, 1, 1);
 		camFollowPos = new FlxObject(0, 0, 1, 1);
@@ -198,11 +196,13 @@ class MainMenuState extends MusicBeatState
 		add(grid);
 		add(freeplayBoyfriend);
 
-		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(90, 60, "assets/images/menuBF");
-		freeplayBoyfriend.anim.addBySymbol("boyfriend freeplay animations v5", "Boyfriend DJ", 24, 60, 60);
-		freeplayBoyfriend.antialiasing = true;
+		// TODO: Fix Pico size.
+		// Hi chat i'm trying to fix something here
+		var freeplayBoyfriend:FlxAnimate = new FlxAnimate(80, 60, "assets/images/menuPico");
+		freeplayBoyfriend.anim.addBySymbol("pico freeplay assets v7", "Pico DJ", 0, 0, 24);
+		freeplayBoyfriend.antialiasing = ClientPrefs.globalAntialiasing;
 		freeplayBoyfriend.screenCenter();
-		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 1.5));
+		freeplayBoyfriend.setGraphicSize(Std.int(freeplayBoyfriend.width * 7.5));
 		freeplayBoyfriend.scrollFactor.set(0, 0);
 		magenta = new FlxSprite(-80).loadGraphic(Paths.image('aboutMenu', 'preload'));
 		magenta.scrollFactor.set(0, yScroll);
@@ -213,7 +213,7 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
-		freeplayBoyfriend.anim.play("Boyfriend DJ");
+		freeplayBoyfriend.anim.play("Pico DJ");
 
 		var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 		grid.velocity.set(40, 20);
