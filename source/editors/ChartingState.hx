@@ -3,7 +3,7 @@ package editors;
 #if desktop
 import Discord.DiscordClient;
 #end
-import flash.geom.Rectangle;
+import openfl.geom.Rectangle;
 import haxe.Json;
 import haxe.format.JsonParser;
 import haxe.io.Bytes;
@@ -49,7 +49,7 @@ import openfl.utils.ByteArray;
 
 using StringTools;
 #if sys
-import flash.media.Sound;
+import openfl.media.Sound;
 import sys.FileSystem;
 import sys.io.File;
 #end
@@ -90,9 +90,11 @@ class ChartingState extends MusicBeatState
 		['Alt Idle Animation', "Sets a specified suffix after the idle animation name.\nYou can use this to trigger 'idle-alt' if you set\nValue 2 to -alt\n\nValue 1: Character to set (Dad, BF or GF)\nValue 2: New suffix (Leave it blank to disable)"],
 		['Screen Shake', "Value 1: Camera shake\nValue 2: HUD shake\n\nEvery value works as the following example: \"1, 0.05\".\nThe first number (1) is the duration.\nThe second number (0.05) is the intensity."],
 		['Change Character', "Value 1: Character to change (Dad, BF, GF)\nValue 2: New character's name"],
+		['Camera Twist', "Makes the camera spin! or twist i guess\nValue 1: Twist intensity\nValue 2: Twist intensity 2"],
+		['Camera Bopping', "Makes the camera do funny bopping\n\nValue 1: Bopping Speed (how many beats you want before it bops)\nValue 2: Bopping Intensity (how hard you want it to bop, default is 1)\n\nTo reset camera bopping, place a new event and put both values as '4' and '1' respectively."],
 		['Change Scroll Speed', "Value 1: Scroll Speed Multiplier (1 is default)\nValue 2: Time it takes to change fully in seconds."],
-		['Set Property', "Value 1: Variable name\nValue 2: New value"],
-		['Crash the Computer', "put the event in a certain place and boom"]
+		['Set Property', "Value 1: Variable name\nValue 2: New value"]
+		//['Crash the Computer', "put the event in a certain place and boom"]
 	];
 
 	var _file:FileReference;
@@ -152,6 +154,10 @@ class ChartingState extends MusicBeatState
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
+
+	var lilStage:FlxSprite;
+	var lilBf:FlxSprite;
+	var lilOpp:FlxSprite;
 
 	var value1InputText:FlxUIInputText;
 	var value2InputText:FlxUIInputText;
@@ -221,6 +227,12 @@ class ChartingState extends MusicBeatState
 				splashSkin: 'noteSplashes',//idk it would crash if i didn't
 				player1: 'bf',
 				player2: 'dad',
+				specialAudioName: null,
+				specialEventsName: null,
+				gameOverChar: null,
+				gameOverEnd: null,
+				gameOverSound: null,
+				gameOverLoop: null,
 				gfVersion: 'gf',
 				speed: 1,
 				stage: 'stage',
@@ -243,6 +255,40 @@ class ChartingState extends MusicBeatState
 		bg.scrollFactor.set();
 		bg.color = 0xFF222222;
 		add(bg);
+
+		lilStage = new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilStage"));
+		lilStage.scrollFactor.set();
+		add(lilStage);
+
+		lilBf = new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilBf"), true, 300, 256);
+		lilBf.animation.add("idle", [0, 1], 12, true);
+		lilBf.animation.add("0", [3, 4, 5], 12, false);
+		lilBf.animation.add("1", [6, 7, 8], 12, false);
+		lilBf.animation.add("2", [9, 10, 11], 12, false);
+		lilBf.animation.add("3", [12, 13, 14], 12, false);
+		lilBf.animation.add("yeah", [17, 20, 23], 12, false);
+		lilBf.animation.play("idle");
+		lilBf.animation.finishCallback = function(name:String){
+			lilBf.animation.play(name, true, false, lilBf.animation.getByName(name).numFrames - 2);
+		}
+		lilBf.scrollFactor.set();
+		add(lilBf);
+
+		lilOpp = new FlxSprite(32, 432).loadGraphic(Paths.image("chartEditor/lilOpp"), true, 300, 256);
+		lilOpp.animation.add("idle", [0, 1], 12, true);
+		lilOpp.animation.add("0", [3, 4, 5], 12, false);
+		lilOpp.animation.add("1", [6, 7, 8], 12, false);
+		lilOpp.animation.add("2", [9, 10, 11], 12, false);
+		lilOpp.animation.add("3", [12, 13, 14], 12, false);
+		lilOpp.animation.play("idle");
+		lilOpp.animation.finishCallback = function(name:String){
+			lilOpp.animation.play(name, true, false, lilOpp.animation.getByName(name).numFrames - 2);
+		}
+		lilOpp.scrollFactor.set();
+		add(lilOpp);
+		lilBf.visible = true;
+		lilOpp.visible = true;
+		lilStage.visible = true;
 
 		gridLayer = new FlxTypedGroup<FlxSprite>();
 		add(gridLayer);
@@ -328,15 +374,10 @@ class ChartingState extends MusicBeatState
 			{name: "Song", label: 'Song'},
 			{name: "Section", label: 'Section'},
 			{name: "Note", label: 'Note'},
-			//{name: "Spamming", label: "Spamming"},
+			{name: "Spamming", label: "Spamming"},
 			{name: "Events", label: 'Events'},
 			{name: "Charting", label: 'Charting'}
 		];
-
-		/*var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
-		theThingImage.x = 640 + NewX / 2;
-		theThingImage.y = 25;
-		theThingImage.scrollFactor.set();*/
 
 		UI_box = new FlxUITabMenu(null, tabs, true);
 
@@ -363,20 +404,16 @@ class ChartingState extends MusicBeatState
 
 		var tipTextArray:Array<String> = text.split('\n');
 		for (i in 0...tipTextArray.length) {
-			/*var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
-			theThingImage.x = UI_box.x;
-            theThingImage.y = UI_box.y;*/
-			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			var theThingImage:FlxSprite = new FlxSprite().loadGraphic(Paths.image('thething'));
-		    theThingImage.x = UI_box.x;
-		    theThingImage.y = tipText.y;
+		    theThingImage.x = (UI_box.x + 22);
 		    theThingImage.scrollFactor.set();
-			//var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
+			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
-			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.BLACK, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
-			//tipText.borderSize = 2;
+			theThingImage.y = tipText.y;
+			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.BLACK, LEFT);
 			tipText.scrollFactor.set();
 			add(theThingImage);
+			theThingImage.scrollFactor.set();
 			add(tipText);
 		}
 
@@ -385,7 +422,7 @@ class ChartingState extends MusicBeatState
 		addSongUI();
 		addSectionUI();
 		addNoteUI();
-		//addNoteStackingUI();
+		addNoteStackingUI();
 		addEventsUI();
 		addChartingUI();
 		updateHeads();
@@ -968,6 +1005,21 @@ class ChartingState extends MusicBeatState
 			noteTypeIntMap.set(key, noteTypeList[key]);
 			key++;
 		}
+		var notetypeFiles:Array<String> = Paths.mergeAllTextsNamed('data/' + Paths.formatToSongPath(_song.song) + '/notetypes.txt', '', true);
+		if(notetypeFiles.length > 0)
+		{
+			for (ntTyp in notetypeFiles)
+			{
+				var name:String = ntTyp.trim();
+				if(!displayNameList.contains(name))
+				{
+					displayNameList.push(name);
+					noteTypeMap.set(name, key);
+					noteTypeIntMap.set(key, name);
+					key++;
+				}
+			}
+		}
 
 		#if LUA_ALLOWED
 		var directories:Array<String> = [];
@@ -1022,7 +1074,7 @@ class ChartingState extends MusicBeatState
 		UI_box.addGroup(tab_group_note);
 	}
 
-	/*var check_stackActive:FlxUICheckBox;
+	var check_stackActive:FlxUICheckBox;
 	var stepperStackNum:FlxUINumericStepper;
 	var stepperStackOffset:FlxUINumericStepper;
 	var stepperStackSideOffset:FlxUINumericStepper;
@@ -1187,7 +1239,7 @@ class ChartingState extends MusicBeatState
 			tab_group_stacking.add(new FlxText(100, stepperDuplicateAmount.y, 0, "Amount of Duplicates"));
 	
 			UI_box.addGroup(tab_group_stacking);
-	}*/
+	}
 
 	var eventDropDown:FlxUIDropDownMenuCustom;
 	var descText:FlxText;
@@ -1548,7 +1600,8 @@ class ChartingState extends MusicBeatState
 			// vocals.stop();
 		}
 
-		var file:Dynamic = Paths.voices(currentSongName);
+		var bruh:String = (PlayState.SONG.specialAudioName.length > 1 ? PlayState.SONG.specialAudioName : CoolUtil.difficultyString()).toLowerCase();
+		var file:Dynamic = Paths.voices(currentSongName, bruh);
 		vocals = new FlxSound();
 		if (Std.isOfType(file, Sound) || OpenFlAssets.exists(file)) {
 			vocals.loadEmbedded(file);
@@ -1561,7 +1614,8 @@ class ChartingState extends MusicBeatState
 	}
 
 	function generateSong() {
-		FlxG.sound.playMusic(Paths.inst(currentSongName), 0.6/*, false*/);
+		var bruh:String = (PlayState.SONG.specialAudioName.length > 1 ? PlayState.SONG.specialAudioName : CoolUtil.difficultyString()).toLowerCase();
+		FlxG.sound.playMusic(Paths.inst(currentSongName, bruh), 0.6/*, false*/);
 		if (instVolume != null) FlxG.sound.music.volume = instVolume.value;
 		if (check_mute_inst != null && check_mute_inst.checked) FlxG.sound.music.volume = 0;
 
@@ -1816,6 +1870,13 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.log.add('added note');
 					addNote();
+					var addCount:Float = 0;
+					if (check_stackActive.checked) {
+						addCount = stepperStackNum.value * stepperStackOffset.value - 1;
+					}
+					for(i in 0...Std.int(addCount)) {
+						addNote(curSelectedNote[0] + (15000/Conductor.bpm)/stepperStackOffset.value, curSelectedNote[1] + Math.floor(stepperStackSideOffset.value), currentType);
+					}
 				}
 			}
 		}
@@ -1934,6 +1995,8 @@ class ChartingState extends MusicBeatState
 				if (FlxG.sound.music.playing)
 				{
 					FlxG.sound.music.pause();
+					resetBuddies();
+					lilBf.color = lilOpp.color = FlxColor.WHITE;
 					if(vocals != null) vocals.pause();
 				}
 				else
@@ -1959,6 +2022,8 @@ class ChartingState extends MusicBeatState
 			if (FlxG.mouse.wheel != 0)
 			{
 				FlxG.sound.music.pause();
+				resetBuddies();
+				lilBf.color = lilOpp.color = FlxColor.WHITE;
 				if (!mouseQuant)
 					FlxG.sound.music.time -= (FlxG.mouse.wheel * Conductor.stepCrochet*0.8);
 				else
@@ -1991,6 +2056,8 @@ class ChartingState extends MusicBeatState
 				FlxG.sound.music.pause();
 
 				var holdingShift:Float = 1;
+				resetBuddies();
+				lilBf.color = lilOpp.color = FlxColor.WHITE;
 				if (FlxG.keys.pressed.CONTROL) holdingShift = 0.25;
 				else if (FlxG.keys.pressed.SHIFT) holdingShift = 4;
 
@@ -2230,6 +2297,10 @@ class ChartingState extends MusicBeatState
 							FlxG.sound.play(Paths.sound(soundToPlay)).pan = note.noteData < 4? -0.3 : 0.3; //would be coolio
 							playedSound[data] = true;
 						}
+						//lilBf.animation.play("" + (data % 4), true);
+						//lilOpp.animation.play("" + (data % 4), true);
+						if (note.mustPress) lilBf.animation.play("" + (data % 4), true);
+						if (!note.mustPress) lilOpp.animation.play("" + (data % 4), true);
 
 						data = note.noteData;
 						if(note.mustPress != _song.notes[curSec].mustHitSection)
@@ -2252,6 +2323,11 @@ class ChartingState extends MusicBeatState
 		}
 		lastConductorPos = Conductor.songPosition;
 		super.update(elapsed);
+	}
+
+	function resetBuddies() {
+		lilBf.animation.play("idle");
+		lilOpp.animation.play("idle");
 	}
 
 	function updateZoom() {
@@ -2634,6 +2710,8 @@ class ChartingState extends MusicBeatState
 	{
 		if (_song.notes[sec] != null)
 		{
+			resetBuddies();
+			lilBf.color = lilOpp.color = FlxColor.WHITE;
 			curSec = sec;
 			if (updateMusic)
 			{

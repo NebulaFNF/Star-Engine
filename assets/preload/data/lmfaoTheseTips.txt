@@ -1,0 +1,24 @@
+The code for this was made by Stefan2008!
+Fun fact: This engine was named "Nothin' Engine" before it's change to "Star Engine"!
+press the notes
+keep your health above 0.
+Uh oh! Your tryin to kiss your hot girlfriend, but her MEAN and EVIL dad is trying to KILL you!, He's an ex-rockstar, the only way to get to his heart? The power of music...
+There was silly BF and Pico overlapping until 0.3.1
+peak
+psych engine 3d edition
+star > jse > psych > kade
+boom boom chk chk boom
+tip: don't rage quit
+source/MainMenuState.hx:69: Press something cool come on!!!!!1!!!!!!!!11!
+nael2xd says if you go to main menu and press 7 2 times in the span of 2 seconds, something cool happens
+source/Main.hx:89: hxcpp_debug_server is disabled! You can not connect to the game with a debugger.
+This engine is meant to replace JSE and try to replicate the old style of FNF engines in 2021!
+hi
+NULL Object Reference
+[DATA EXPUNGED]
+press 7 to open the debug menu
+BAL_7.ogg
+BAL_3.ogg
+five big booms, boom! boom! boom! boom! boom!!!!!!!!!!!
+nahiara aguirre es chupapollas
+lmfaoTheseTips.txt: No such file or directory

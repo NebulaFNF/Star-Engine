@@ -2,14 +2,9 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
-import flixel.effects.FlxFlicker;
-import lime.app.Application;
-import flixel.addons.transition.FlxTransitionableState;
 import flixel.tweens.FlxTween;
-import flixel.util.FlxTimer;
 
 class OutdatedState extends MusicBeatState
 {
@@ -25,18 +20,16 @@ class OutdatedState extends MusicBeatState
 
 		FlxG.sound.playMusic(Paths.music('lastDay'), 0); //Shoutouts to Koji Kondo!
 
-		if(FlxG.sound.music == null) {
-			FlxG.sound.playMusic(Paths.music('lastDay'), 0); //Shoutouts to Koji Kondo!
+		if(FlxG.sound.music == null) { //Shoutouts to Koji Kondo!
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}
 
 		warnText = new FlxText(0, 0, FlxG.width,
-			"You're using an\n
-			outdated version of Star Engine (" + MainMenuState.psychEngineVersion + "),\n
-			please update to " + TitleState.updateVersion + " if you want to!\n
+			'Sup bro, looks like you\'re running an outdated version of\nStar Engine (${MainMenuState.psychEngineVersion})\n
+			-----------------------------------------------\n
 			Press ESCAPE to proceed anyway.\n
-			\n
-			Thank you for using the Engine!",
+			-----------------------------------------------\n
+			Thank you for using the Engine!',
 			32);
 		warnText.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		warnText.screenCenter(Y);
@@ -52,9 +45,7 @@ class OutdatedState extends MusicBeatState
 				leftState = true;
 				CoolUtil.browserLoad("https://github.com/SyncGit12/Star-Engine/releases");
 			}
-			else if(controls.BACK) {
-				leftState = true;
-			}
+			else if(controls.BACK) leftState = true;
 
 			if(leftState)
 			{

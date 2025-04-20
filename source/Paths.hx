@@ -1,10 +1,5 @@
 package;
 
-import animateatlas.AtlasFrameMaker;
-import flixel.math.FlxPoint;
-import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
-import openfl.geom.Rectangle;
-import flixel.math.FlxRect;
 import haxe.xml.Access;
 import openfl.system.System;
 import flixel.FlxG;
@@ -12,7 +7,6 @@ import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import lime.utils.Assets;
-import flixel.FlxSprite;
 #if sys
 import sys.io.File;
 import sys.FileSystem;
@@ -20,8 +14,8 @@ import sys.FileSystem;
 import flixel.graphics.FlxGraphic;
 import openfl.display.BitmapData;
 import haxe.Json;
-
-import flash.media.Sound;
+import flxanimate.PsychFlxAnimate as FlxAnimate;
+import openfl.media.Sound;
 
 using StringTools;
 
@@ -53,6 +47,10 @@ class Paths
 	public static function excludeAsset(key:String) {
 		if (!dumpExclusions.contains(key))
 			dumpExclusions.push(key);
+	}
+	inline public static function getSharedPath(file:String = '')
+	{
+		return 'assets/shared/$file';
 	}
 
 	public static var dumpExclusions:Array<String> =
@@ -119,8 +117,39 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
-	public static function getPath(file:String, type:AssetType, ?library:Null<String> = null)
+	static public function getMultiAtlas(keys:Array<String>, ?parentFolder:String = null):FlxAtlasFrames
 	{
+		
+		var parentFrames:FlxAtlasFrames = Paths.getAtlas(keys[0].trim());
+		if(keys.length > 1)
+		{
+			var original:FlxAtlasFrames = parentFrames;
+			parentFrames = new FlxAtlasFrames(parentFrames.parent);
+			parentFrames.addAtlasEx(original, true);
+			for (i in 1...keys.length)
+			{
+				var extraFrames:FlxAtlasFrames = Paths.getAtlas(keys[i].trim(), parentFolder);
+				if(extraFrames != null)
+					parentFrames.addAtlasEx(extraFrames, true);
+			}
+		}
+		return parentFrames;
+	}
+
+	public static function getPath(file:String, ?type:AssetType = TEXT, ?library:Null<String> = null, ?modsAllowed:Bool = false):String
+	{
+		#if MODS_ALLOWED
+		if(modsAllowed)
+		{
+			var customFile:String = file;
+			if (library != null)
+				customFile = '$library/$file';
+
+			var modded:String = modFolders(customFile);
+			if(FileSystem.exists(modded)) return modded;
+		}
+		#end
+
 		if (library != null)
 			return getLibraryPath(file, library);
 
@@ -218,18 +247,123 @@ class Paths
 		return file;
 	}
 
-	inline static public function voices(song:String):Any
+	static public function voices(song:String, ?difficulty:String = '', ?postfix:String = null):Any
 	{
+		var formattedDifficulty:String = formatToSongPath(difficulty);
+		if (difficulty.contains(' ')) difficulty = formattedDifficulty;
+		#if html5
+		return 'songs:assets/songs/${formatToSongPath(song)}/Voices.$SOUND_EXT';
+		#else
+		if (difficulty != null)
+		{
+			var songKey:String = '${formatToSongPath(song)}/Voices';
+			if(postfix != null) songKey += '-' + postfix;
+			songKey += '-$difficulty';
+			if (FileSystem.exists(Paths.modFolders('songs/' + songKey + '.$SOUND_EXT')) || FileSystem.exists('assets/songs/' + songKey + '.$SOUND_EXT')) 
+			{
+				var voices = returnSound('songs', songKey);
+				return voices;
+			}
+		}
 		var songKey:String = '${formatToSongPath(song)}/Voices';
+		if(postfix != null) songKey += '-' + postfix;
 		var voices = returnSound('songs', songKey);
 		return voices;
+		#end
+	}
+	inline public static function mergeAllTextsNamed(path:String, defaultDirectory:String = null, allowDuplicates:Bool = false)
+	{
+		if(defaultDirectory == null) defaultDirectory = Paths.getSharedPath();
+		defaultDirectory = defaultDirectory.trim();
+		if(!defaultDirectory.endsWith('/')) defaultDirectory += '/';
+		if(!defaultDirectory.startsWith('assets/')) defaultDirectory = 'assets/$defaultDirectory';
+
+		var mergedList:Array<String> = [];
+		var paths:Array<String> = directoriesWithFile(defaultDirectory, path);
+
+		var defaultPath:String = defaultDirectory + path;
+		if(paths.contains(defaultPath))
+		{
+			paths.remove(defaultPath);
+			paths.insert(0, defaultPath);
+		}
+
+		for (file in paths)
+		{
+			var list:Array<String> = CoolUtil.coolTextFile(file);
+			for (value in list)
+				if((allowDuplicates || !mergedList.contains(value)) && value.length > 0)
+					mergedList.push(value);
+		}
+		return mergedList;
+	}
+	inline public static function directoriesWithFile(path:String, fileToFind:String, mods:Bool = true)
+	{
+		var foldersToCheck:Array<String> = [];
+		#if sys
+		if(FileSystem.exists(path + fileToFind))
+		#end
+			foldersToCheck.push(path + fileToFind);
+
+		#if MODS_ALLOWED
+		if(mods)
+		{
+			// Global mods first
+			for(mod in getGlobalMods())
+			{
+				var folder:String = Paths.mods(mod + '/' + fileToFind);
+				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+			}
+
+			// Then "StarEngine/mods/" main folder
+			var folder:String = Paths.mods(fileToFind);
+			if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(Paths.mods(fileToFind));
+
+			// And lastly, the loaded mod's folder
+			if(currentModDirectory != null && currentModDirectory.length > 0)
+			{
+				var folder:String = Paths.mods(currentModDirectory + '/' + fileToFind);
+				if(FileSystem.exists(folder) && !foldersToCheck.contains(folder)) foldersToCheck.push(folder);
+			}
+		}
+		#end
+		return foldersToCheck;
 	}
 
-	inline static public function inst(song:String):Any
+	static public function inst(song:String, ?difficulty:String = '', ?postfix:String = null):Any
 	{
+		var formattedDifficulty:String = formatToSongPath(difficulty);
+		if (difficulty.contains(' ')) difficulty = formattedDifficulty;
+		#if html5
+		return 'songs:assets/songs/${formatToSongPath(song)}/Inst.$SOUND_EXT';
+		#else
+		if (difficulty != null)
+		{
+			var songKey:String = '${formatToSongPath(song)}/Inst-$difficulty';
+			if (FileSystem.exists(Paths.modFolders('songs/' + songKey + '.$SOUND_EXT')) || FileSystem.exists('assets/songs/' + songKey + '.$SOUND_EXT')) 
+			{
+				var inst = returnSound('songs', songKey);
+				return inst;
+			}
+		}
 		var songKey:String = '${formatToSongPath(song)}/Inst';
 		var inst = returnSound('songs', songKey);
 		return inst;
+		#end
+	}
+
+	//For song events.
+	static public function songEvents(song:String, ?difficulty:String, ?onlyEventsString:Bool = false):String {
+		if (difficulty != null) {
+			var formattedDifficulty:String = formatToSongPath(difficulty);
+			if (difficulty.contains(' ')) difficulty = formattedDifficulty;
+			
+			var eventsKey:String = formatToSongPath(song) + '/events-${difficulty.toLowerCase()}';
+			if (FileSystem.exists(Paths.json(eventsKey)) || FileSystem.exists(Paths.modsJson(eventsKey)))
+				return (!onlyEventsString ? eventsKey : 'events-${difficulty.toLowerCase()}');
+		}
+		var eventsKey:String = formatToSongPath(song) + '/events';
+		return (!onlyEventsString ? eventsKey : 'events');
 	}
 
 	inline static public function image(key:String, ?library:String):FlxGraphic
@@ -238,7 +372,46 @@ class Paths
 		var returnAsset:FlxGraphic = returnGraphic(key, library);
 		return returnAsset;
 	}
+	
+	/**
+	 * Gets the atlas.
+	 * @param key : Handles the name of the atlas. And maybe returns it to String.
+	 * @param parentFolder : The parent folder.
+	 * @return FlxAtlasFrames : Returns FlxAtlasFrames when possible.
+	 */
+	static public function getAtlas(key:String, ?parentFolder:String = null):FlxAtlasFrames
+	{
+		var useMod = false;
+		var imageLoaded:FlxGraphic = image(key, parentFolder);
+		var myXml:Dynamic = getPath('images/$key.xml', TEXT, parentFolder, true);
+		if(OpenFlAssets.exists(myXml) #if MODS_ALLOWED || (FileSystem.exists(myXml) && (useMod = true)) #end )
+		{
+			#if MODS_ALLOWED
+			return FlxAtlasFrames.fromSparrow(imageLoaded, (useMod ? File.getContent(myXml) : myXml));
+			#else
+				return FlxAtlasFrames.fromSparrow(imageLoaded, myXml);
+			#end
+		}
+		else
+		{
+			var myJson:Dynamic = getPath('images/$key.json', TEXT, parentFolder, true);
+			if(OpenFlAssets.exists(myJson) #if MODS_ALLOWED || (FileSystem.exists(myJson) && (useMod = true)) #end )
+			{
+				#if MODS_ALLOWED
+				return FlxAtlasFrames.fromTexturePackerJson(imageLoaded, (useMod ? File.getContent(myJson) : myJson));
+				#else
+				return FlxAtlasFrames.fromTexturePackerJson(imageLoaded, myJson);
+				#end
+			}
+		}
+		return getPackerAtlas(key, parentFolder);
+	}
 
+	/**
+	 * I don't know what this does. But i think it returns scripts and shit?
+	 * @param script : A string that handles the name of a script.
+	 * @param library : What library of scripts you are on.
+	 */
 	inline static public function scripts(script:String, ?library:AssetType) {
 		var path = getPath('scripts/$script.hx', library);
 		if(FileSystem.exists(path)) {
@@ -250,6 +423,12 @@ class Paths
 		}
 	}
 
+	/**
+	 * Gets the text from a file and returns it to a String.
+	 * @param key : Most important variable that handles the loading.
+	 * @param ignoreMods : It ignores mods, duh.
+	 * @return String : Returns string when possible.
+	 */
 	static public function getTextFromFile(key:String, ?ignoreMods:Bool = false):String
 	{
 		#if sys
@@ -278,6 +457,10 @@ class Paths
 		return Assets.getText(getPath(key, TEXT));
 	}
 
+	/**
+	 * Gets the font that you're loading.
+	 * @param key : Parameter to load the font i suppose.
+	 */
 	inline static public function font(key:String)
 	{
 		#if MODS_ALLOWED
@@ -409,6 +592,7 @@ class Paths
 	inline static public function mods(key:String = '') {
 		return 'mods/' + key;
 	}
+	
 
 	inline static public function modsFont(key:String) {
 		return modFolders('fonts/' + key);
@@ -519,6 +703,76 @@ class Paths
 			}
 		}
 		return list;
+	}
+	#end
+
+	#if flxanimate
+	public static function loadAnimateAtlas(spr:FlxAnimate, folderOrImg:Dynamic, spriteJson:Dynamic = null, animationJson:Dynamic = null)
+	{
+		var changedAnimJson = false;
+		var changedAtlasJson = false;
+		var changedImage = false;
+		
+		if(spriteJson != null)
+		{
+			changedAtlasJson = true;
+			spriteJson = File.getContent(spriteJson);
+		}
+
+		if(animationJson != null) 
+		{
+			changedAnimJson = true;
+			animationJson = File.getContent(animationJson);
+		}
+
+		// is folder or image path
+		if(Std.isOfType(folderOrImg, String))
+		{
+			var originalPath:String = folderOrImg;
+			for (i in 0...10)
+			{
+				var st:String = '$i';
+				if(i == 0) st = '';
+
+				if(!changedAtlasJson)
+				{
+					if (fileExists('images/$originalPath/spritemap$st.json', TEXT, false))
+					{
+						spriteJson = getTextFromFile('images/$originalPath/spritemap$st.json');
+						if(spriteJson != null)
+						{
+							//trace('found Sprite Json');
+							changedImage = true;
+							changedAtlasJson = true;
+							folderOrImg = image('$originalPath/spritemap$st');
+							break;
+						}
+					}
+				}
+				else if(fileExists('images/$originalPath/spritemap$st.png', IMAGE))
+				{
+					//trace('found Sprite PNG');
+					changedImage = true;
+					folderOrImg = image('$originalPath/spritemap$st');
+					break;
+				}
+			}
+
+			if(!changedImage)
+			{
+				//trace('Changing folderOrImg to FlxGraphic');
+				changedImage = true;
+				folderOrImg = image(originalPath);
+			}
+
+			if(!changedAnimJson)
+			{
+				//trace('found Animation Json');
+				changedAnimJson = true;
+				animationJson = getTextFromFile('images/$originalPath/Animation.json');
+			}
+		}
+		spr.loadAtlasEx(folderOrImg, spriteJson, animationJson);
 	}
 	#end
 }

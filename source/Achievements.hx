@@ -18,6 +18,7 @@ class Achievements {
 		["Missless Christmas",			"Beat Week 5 on Hard with no Misses.",				'week5_nomiss',			false],
 		["Highscore!!",					"Beat Week 6 on Hard with no Misses.",				'week6_nomiss',			false],
 		["God Effing Damn It!",			"Beat Week 7 on Hard with no Misses.",				'week7_nomiss',			false],
+		["Just a Friendly Sparring",			"Beat Weekend 1 on Hard with no Misses.",				'weekend1_nomiss',			false],
 		["What a Funkin' Disaster!",	"Complete a Song with a rating lower than 20%.",	'ur_bad',				false],
 		["Perfectionist",				"Complete a Song with a rating of 100%.",			'ur_good',				false],
 		["Roadkill Enthusiast",			"Watch the Henchmen die over 100 times.",			'roadkill_enthusiast',	false],
@@ -36,30 +37,17 @@ class Achievements {
 		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 	}
 
-	public static function isAchievementUnlocked(name:String) {
-		if(achievementsMap.exists(name) && achievementsMap.get(name)) {
-			return true;
-		}
-		return false;
-	}
+	public static function isAchievementUnlocked(name:String) return achievementsMap.exists(name) && achievementsMap.get(name);
 
 	public static function getAchievementIndex(name:String) {
-		for (i in 0...achievementsStuff.length) {
-			if(achievementsStuff[i][2] == name) {
-				return i;
-			}
-		}
+		for (i in 0...achievementsStuff.length) if(achievementsStuff[i][2] == name) return i;
 		return -1;
 	}
 
 	public static function loadAchievements():Void {
 		if(FlxG.save.data != null) {
-			if(FlxG.save.data.achievementsMap != null) {
-				achievementsMap = FlxG.save.data.achievementsMap;
-			}
-			if(henchmenDeath == 0 && FlxG.save.data.henchmenDeath != null) {
-				henchmenDeath = FlxG.save.data.henchmenDeath;
-			}
+			if(FlxG.save.data.achievementsMap != null) achievementsMap = FlxG.save.data.achievementsMap;
+			if(henchmenDeath == 0 && FlxG.save.data.henchmenDeath != null) henchmenDeath = FlxG.save.data.henchmenDeath;
 		}
 	}
 }
@@ -80,18 +68,15 @@ class AttachedAchievement extends FlxSprite {
 	}
 
 	public function reloadAchievementImage() {
-		if(Achievements.isAchievementUnlocked(tag)) {
-			loadGraphic(Paths.image('achievements/' + tag));
-		} else {
-			loadGraphic(Paths.image('achievements/lockedachievement'));
-		}
+		if(Achievements.isAchievementUnlocked(tag)) loadGraphic(Paths.image('achievements/' + tag));
+		else loadGraphic(Paths.image('achievements/lockedachievement'));
+
 		scale.set(0.7, 0.7);
 		updateHitbox();
 	}
 
 	override function update(elapsed:Float) {
-		if (sprTracker != null)
-			setPosition(sprTracker.x - 130, sprTracker.y + 25);
+		if (sprTracker != null) setPosition(sprTracker.x - 130, sprTracker.y + 25);
 
 		super.update(elapsed);
 	}
@@ -129,9 +114,7 @@ class AchievementObject extends FlxSpriteGroup {
 		add(achievementIcon);
 
 		var cam:Array<FlxCamera> = FlxCamera.defaultCameras;
-		if(camera != null) {
-			cam = [camera];
-		}
+		if(camera != null) cam = [camera];
 		alpha = 0;
 		achievementBG.cameras = cam;
 		achievementName.cameras = cam;
@@ -150,9 +133,7 @@ class AchievementObject extends FlxSpriteGroup {
 	}
 
 	override function destroy() {
-		if(alphaTween != null) {
-			alphaTween.cancel();
-		}
+		if(alphaTween != null) alphaTween.cancel();
 		super.destroy();
 	}
 }

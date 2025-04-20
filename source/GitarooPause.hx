@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 
 class GitarooPause extends MusicBeatState
 {
@@ -11,15 +10,11 @@ class GitarooPause extends MusicBeatState
 
 	var replaySelect:Bool = false;
 
-	public function new():Void
-	{
-		super();
-	}
+	public function new():Void super();
 
 	override function create()
 	{
-		if (FlxG.sound.music != null)
-			FlxG.sound.music.stop();
+		if (FlxG.sound.music != null) FlxG.sound.music.stop();
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('pauseAlt/pauseBG'));
 		add(bg);
@@ -52,22 +47,18 @@ class GitarooPause extends MusicBeatState
 
 	override function update(elapsed:Float)
 	{
-		if (controls.UI_LEFT_P || controls.UI_RIGHT_P)
-			changeThing();
+		if (controls.UI_LEFT_P || controls.UI_RIGHT_P) changeThing();
 
 		if (controls.ACCEPT)
 		{
-			if (replaySelect)
-			{
-				MusicBeatState.switchState(new PlayState());
-			}
+			if (replaySelect) MusicBeatState.switchState(new PlayState());
 			else
 			{
-				PlayState.usedPractice = false;
+				//PlayState.instance.usedPractice = false;
 				PlayState.changedDifficulty = false;
 				PlayState.seenCutscene = false;
 				PlayState.deathCounter = 0;
-				PlayState.cpuControlled = false;
+				PlayState.instance.cpuControlled = false;
 				MusicBeatState.switchState(new MainMenuState());
 				FlxG.sound.playMusic(Paths.music(TitleState.mustUpdate ? 'finalHours' : 'freakyMenu'));
 			}
@@ -84,9 +75,7 @@ class GitarooPause extends MusicBeatState
 		{
 			cancelButton.animation.curAnim.curFrame = 0;
 			replayButton.animation.curAnim.curFrame = 1;
-		}
-		else
-		{
+		} else {
 			cancelButton.animation.curAnim.curFrame = 1;
 			replayButton.animation.curAnim.curFrame = 0;
 		}

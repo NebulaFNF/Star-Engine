@@ -3,12 +3,12 @@ package;
 import Sys.sleep;
 import discord_rpc.DiscordRpc;
 
+using StringTools;
 #if LUA_ALLOWED
 import llua.Lua;
 import llua.State;
 #end
 
-using StringTools;
 
 class DiscordClient
 {
@@ -34,10 +34,7 @@ class DiscordClient
 		DiscordRpc.shutdown();
 	}
 	
-	public static function shutdown()
-	{
-		DiscordRpc.shutdown();
-	}
+	public static function shutdown() DiscordRpc.shutdown();
 	
 	static function onReady()
 	{
@@ -49,15 +46,9 @@ class DiscordClient
 		});
 	}
 
-	static function onError(_code:Int, _message:String)
-	{
-		trace('Uh oh! $_code : $_message');
-	}
+	static function onError(_code:Int, _message:String) trace('Uh oh! $_code : $_message');
 
-	static function onDisconnected(_code:Int, _message:String)
-	{
-		trace('Disconnected! $_code : $_message');
-	}
+	static function onDisconnected(_code:Int, _message:String) trace('Disconnected! $_code : $_message');
 
 	public static function initialize()
 	{
@@ -79,7 +70,7 @@ class DiscordClient
 			details: details,
 			state: state,
 			largeImageKey: 'icon',
-			largeImageText: "STE V" + MainMenuState.psychEngineVersion,
+			largeImageText: "SE v" + MainMenuState.psychEngineVersion,
 			smallImageKey : smallImageKey,
 			// Obtained times are in milliseconds so they are divided so Discord can use it
 			startTimestamp : Std.int(startTimestamp / 1000),

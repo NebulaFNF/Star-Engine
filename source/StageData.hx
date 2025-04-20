@@ -7,7 +7,6 @@ import sys.FileSystem;
 import openfl.utils.Assets;
 #end
 import haxe.Json;
-import haxe.format.JsonParser;
 import Song;
 
 using StringTools;
@@ -30,6 +29,9 @@ typedef StageFile = {
 
 class StageData {
 	public static var forceNextDirectory:String = null;
+	public static var instance:StageData;
+
+	var characters:Map<String, Character> = new Map<String, Character>();
 	public static function loadDirectory(SONG:SwagSong) {
 		var stage:String = '';
 		if(SONG.stage != null) {
@@ -92,4 +94,96 @@ class StageData {
 		}
 		return cast Json.parse(rawJson);
 	}
+
+	/**
+   * Retrieves a given character from the stage.
+   */
+   /*public function getCharacter(id:String):Character
+	{
+	  return this.characters.get(id);
+	}
+  
+	/**
+	 * Retrieve the Boyfriend character.
+	 * @param pop If true, the character will be removed from the stage as well.
+	 * @return The Boyfriend character.
+	public function getBoyfriend(pop:Bool = false):Character
+	{
+	  if (pop)
+	  {
+		var boyfriend:Character = getCharacter('bf');
+  
+		// Remove the character from the stage.
+		this.remove(boyfriend);
+		this.characters.remove('bf');
+  
+		return boyfriend;
+	  }
+	  else
+	  {
+		return getCharacter('bf');
+	  }
+	}
+  
+	/**
+	 * Retrieve the player/Boyfriend character.
+	 * @param pop If true, the character will be removed from the stage as well.
+	 * @return The player/Boyfriend character.
+	public function getPlayer(pop:Bool = false):Character
+	{
+	  return getBoyfriend(pop);
+	}
+  
+	/**
+	 * Retrieve the Girlfriend character.
+	 * @param pop If true, the character will be removed from the stage as well.
+	 * @return The Girlfriend character.
+	public function getGirlfriend(pop:Bool = false):Character
+	{
+	  if (pop)
+	  {
+		var girlfriend:Character = getCharacter('gf');
+  
+		// Remove the character from the stage.
+		this.remove(girlfriend);
+		this.characters.remove('gf');
+  
+		return girlfriend;
+	  }
+	  else
+	  {
+		return getCharacter('gf');
+	  }
+	}
+  
+	/**
+	 * Retrieve the Dad character.
+	 * @param pop If true, the character will be removed from the stage as well.
+	 * @return The Dad character.
+	public function getDad(pop:Bool = false):Character
+	{
+	  if (pop)
+	  {
+		var dad:Character = getCharacter('dad');
+  
+		// Remove the character from the stage.
+		this.remove(dad);
+		this.characters.remove('dad');
+  
+		return dad;
+	  }
+	  else
+	  {
+		return getCharacter('dad');
+	  }
+	}
+  
+	/**
+	 * Retrieve the opponent/Dad character.
+	 * @param pop If true, the character will be removed from the stage as well.
+	 * @return The opponent character.
+	public function getOpponent(pop:Bool = false):Character
+	{
+	  return getDad(pop);
+	}*/
 }

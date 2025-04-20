@@ -1,0 +1,8 @@
+{
+    // Template for your Away3D detector file
+    // This is a concept of it and it's not supposed to work (for now)
+    // And yeah, reminder that this should be worked on
+    "name": "flixel",
+    "type1": "obj",
+    "type2": "mtl"
+}

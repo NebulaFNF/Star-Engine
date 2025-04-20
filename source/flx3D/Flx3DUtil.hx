@@ -17,10 +17,7 @@ class Flx3DUtil
 	 * Returns the total amount of 3D stages (not exculding the ones in use)
 	 * @return Int
 	 */
-	public static inline function getTotal3D():Int
-	{
-		return FlxG.stage.stage3Ds.length;
-	}
+	public static inline function getTotal3D():Int return FlxG.stage.stage3Ds.length;
 
 	/**
 	 * Returns if a Stage3D is available
@@ -29,8 +26,7 @@ class Flx3DUtil
 	public static inline function is3DAvailable():Bool
 	{
 		@:privateAccess {
-			if (Stage3DManager._stageProxies == null)
-				return true;
+			if (Stage3DManager._stageProxies == null) return true;
 
 			return Stage3DManager._numStageProxies < Stage3DManager._stageProxies.length;
 		}
@@ -43,8 +39,7 @@ class Flx3DUtil
 	 */
 	public static inline function dispose<T:IAsset>(obj:Null<T>):T
 	{
-		if (obj != null)
-			obj.dispose();
+		if (obj != null) obj.dispose();
 
 		return null;
 	}

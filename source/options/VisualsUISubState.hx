@@ -33,6 +33,9 @@ class VisualsUISubState extends BaseOptionsMenu
 		'bool',
 		false);
 	    addOption(option);
+	
+		var option:Option = new Option('Show Watermark', 'If checked, the game will show the Star Engine watermark.', 'seWatermarkLmfao', 'bool', false);
+     	addOption(option);
 
 		var option:Option = new Option('Strums Offset',
 		'If checked, offsets the strums.',
@@ -64,7 +67,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'iconBounceBS',
 			'string',
 			'Vanilla',
-			['Vanilla', 'Golden Apple']);
+			['Vanilla', 'Plank Engine', 'Golden Apple', 'Psych', 'Strident Crisis', 'SB Engine']);
 		addOption(option);
 
 		var option:Option = new Option('Camera Zooms',
@@ -93,8 +96,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.decimals = 1;
 		addOption(option);
 
-		//var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy']);
-		//addOption(option);
+		var option:Option = new Option('Health Bar Style', 'How do you like your health bar?', 'healthBarStyle', 'string', 'Legacy', ['Psych', 'Legacy', 'Cooler']);
+		addOption(option);
 		
 		#if !mobile
 		var option:Option = new Option('FPS Counter',
@@ -116,11 +119,11 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangePauseMusic;
 
 		var option:Option = new Option('ScoreTxt Style: ',
-		"How would you like your ScoreTxt?",
-		'funnyScoreTextImVeryFunny',
-		'string',
-		'Vanilla',
-		['Psych Engine', 'Vanilla', 'Kade']);
+			"How would you like your ScoreTxt?",
+			'funnyScoreTextImVeryFunny',
+			'string',
+			'Vanilla',
+			['Default', 'Psych Engine', 'Vanilla', 'Kade']);
 	    addOption(option);
 
 		var option:Option = new Option('Smooth Health', 'If checked, enables smooth health.', 'smoothHealth', 'bool', true);
@@ -151,10 +154,8 @@ class VisualsUISubState extends BaseOptionsMenu
 	var changedMusic:Bool = false;
 	function onChangePauseMusic()
 	{
-		if(ClientPrefs.pauseMusic == 'None')
-			FlxG.sound.music.volume = 0;
-		else
-			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
+		if(ClientPrefs.pauseMusic == 'None') FlxG.sound.music.volume = 0;
+		else FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
 
 		changedMusic = true;
 	}
@@ -168,9 +169,10 @@ class VisualsUISubState extends BaseOptionsMenu
 	#if !mobile
 	function onChangeFPSCounter()
 	{
-		if(Main.fpsVar != null)
-			Main.fpsVar.visible = ClientPrefs.showFPS;
-		    Main.fpsBg.visible = ClientPrefs.showFPS;
+		if(Main.fpsVar == null) return;
+		
+		Main.fpsVar.visible = ClientPrefs.showFPS;
+		Main.fpsBg.visible = ClientPrefs.showFPS;
 	}
 	#end
 }

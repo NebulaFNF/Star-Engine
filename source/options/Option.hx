@@ -45,31 +45,22 @@ class Option
 		{
 			switch(type)
 			{
-				case 'bool':
-					defaultValue = false;
-				case 'int' | 'float':
-					defaultValue = 0;
-				case 'percent':
-					defaultValue = 1;
+				case 'bool': defaultValue = false;
+				case 'int' | 'float': defaultValue = 0;
+				case 'percent': defaultValue = 1;
 				case 'string':
 					defaultValue = '';
-					if(options.length > 0) {
-						defaultValue = options[0];
-					}
+					if(options.length > 0) defaultValue = options[0];
 			}
 		}
 
-		if(getValue() == null) {
-			setValue(defaultValue);
-		}
+		if(getValue() == null) setValue(defaultValue);
 
 		switch(type)
 		{
 			case 'string':
 				var num:Int = options.indexOf(getValue());
-				if(num > -1) {
-					curOption = num;
-				}
+				if(num > -1) curOption = num;
 	
 			case 'percent':
 				displayFormat = '%v%';
@@ -84,37 +75,22 @@ class Option
 	public function change()
 	{
 		//nothing lol
-		if(onChange != null) {
-			onChange();
-		}
+		if(onChange != null) onChange();
 	}
 
-	public function getValue():Dynamic
-	{
-		return Reflect.getProperty(ClientPrefs, variable);
-	}
-	public function setValue(value:Dynamic)
-	{
-		Reflect.setProperty(ClientPrefs, variable, value);
-	}
-
-	public function setChild(child:Alphabet)
-	{
-		this.child = child;
-	}
+	public function getValue():Dynamic return Reflect.getProperty(ClientPrefs, variable);
+	public function setValue(value:Dynamic) Reflect.setProperty(ClientPrefs, variable, value);
+	public function setChild(child:Alphabet) this.child = child;
 
 	private function get_text()
 	{
-		if(child != null) {
-			return child.text;
-		}
+		if(child != null) return child.text;
 		return null;
 	}
+
 	private function set_text(newValue:String = '')
 	{
-		if(child != null) {
-			child.text = newValue;
-		}
+		if(child != null) child.text = newValue;
 		return null;
 	}
 

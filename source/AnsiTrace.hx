@@ -49,25 +49,22 @@ class AnsiTrace
 		}
 
 		var pstr = infos.fileName + ":" + ansiWrap(infos.lineNumber, BOLD);
-		if (infos.customParams != null) for (v in infos.customParams) str += ", " + Std.string(v);
+		if (infos.customParams != null)
+			for (v in infos.customParams)
+				str += ", " + Std.string(v);
 		return pstr + ": " + str;
 	}
 
 	public static function traceBF()
 	{
-		for (line in ansiBF) Sys.stdout().writeString(line + "\n");
+		for (line in ansiBF)
+			Sys.stdout().writeString(line + "\n");
 		Sys.stdout().flush();
 	}
 
-	public static function ansiWrap(str:Dynamic, ansiCol:String)
-	{
-		return ansify(ansiCol) + str + ansify(NORMAL);
-	}
+	public static function ansiWrap(str:Dynamic, ansiCol:String) return ansify(ansiCol) + str + ansify(NORMAL);
 
-	public static function ansify(ansiCol:String)
-	{
-		return (colorSupported ? ansiCol : "");
-	}
+	public static function ansify(ansiCol:String) return (colorSupported ? ansiCol : "");
 
 	// generated using https://dom111.github.io/image-to-ansi/
 	public static var ansiBF:Array<String> = [

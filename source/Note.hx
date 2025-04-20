@@ -1,11 +1,6 @@
 package;
 
-import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.math.FlxMath;
-import flixel.util.FlxColor;
-import flash.display.BitmapData;
 import editors.ChartingState;
 
 using StringTools;
@@ -30,6 +25,7 @@ typedef PreloadedChartNote = {
 	noMissAnimation:Bool,
 	gfNote:Bool,
 	isSustainNote:Bool,
+	blockHit:Bool,
 	isSustainEnd:Bool,
 	sustainLength:Float,
 	sustainScale:Float,
@@ -127,7 +123,6 @@ class Note extends FlxSprite
 	private function set_multSpeed(value:Float):Float {
 		resizeByRatio(value / multSpeed);
 		multSpeed = value;
-		//trace('fuck cock');
 		return value;
 	}
 
@@ -225,7 +220,7 @@ class Note extends FlxSprite
 
 		// trace(prevNote);
 
-		if(prevNote!=null)
+		if (prevNote != null)
 			prevNote.nextNote = this;
 
 		if (isSustainNote && prevNote != null)
@@ -269,9 +264,9 @@ class Note extends FlxSprite
 				scale.y *= PlayState.daPixelZoom;
 				updateHitbox();
 			}
-		} else if(!isSustainNote) {
-			earlyHitMult = 1;
 		}
+		else if (!isSustainNote)
+			earlyHitMult = 1;
 		x += offsetX;
 	}
 
@@ -292,9 +287,8 @@ class Note extends FlxSprite
 		}
 
 		var animName:String = null;
-		if(animation.curAnim != null) {
+		if (animation.curAnim != null)
 			animName = animation.curAnim.name;
-		}
 
 		var arraySkin:Array<String> = skin.split('/');
 		arraySkin[arraySkin.length-1] = prefix + arraySkin[arraySkin.length-1] + suffix;
@@ -335,12 +329,11 @@ class Note extends FlxSprite
 			loadNoteAnims();
 			antialiasing = ClientPrefs.globalAntialiasing;
 		}
-		if(isSustainNote) {
+		if (isSustainNote)
 			scale.y = lastScaleY;
-		}
 		updateHitbox();
 
-		if(animName != null)
+		if (animName != null)
 			animation.play(animName, true);
 
 		if(inEditor) {
@@ -367,9 +360,9 @@ class Note extends FlxSprite
 		if(isSustainNote) {
 			animation.add(colArray[noteData] + 'holdend', [pixelInt[noteData] + 4]);
 			animation.add(colArray[noteData] + 'hold', [pixelInt[noteData]]);
-		} else {
-			animation.add(colArray[noteData] + 'Scroll', [pixelInt[noteData] + 4]);
 		}
+		else
+			animation.add(colArray[noteData] + 'Scroll', [pixelInt[noteData] + 4]);
 	}
 
 	override function update(elapsed:Float)
@@ -393,17 +386,12 @@ class Note extends FlxSprite
 			canBeHit = false;
 
 			if (strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * earlyHitMult))
-			{
-				if((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
+				if ((isSustainNote && prevNote.wasGoodHit) || strumTime <= Conductor.songPosition)
 					wasGoodHit = true;
-			}
 		}
 
-		if (tooLate && !inEditor)
-		{
-			if (alpha > 0.3)
-				alpha = 0.3;
-		}
+		if (tooLate && !inEditor && alpha > 0.3)
+			alpha = 0.3;
 	}
 
 	var firstOffX = false;
@@ -453,7 +441,8 @@ class Note extends FlxSprite
 			updateHitbox();
 			offsetX -= width / 2;
 		}
-		else {
+		else
+		{
 			animation.play(colArray[noteData % 4] + 'Scroll');
 			if (!copyAngle) copyAngle = true;
 			offsetX = 0; //Juuuust in case we recycle a sustain note to a regular note
@@ -461,10 +450,8 @@ class Note extends FlxSprite
 		angle = 0;
 
 		clipRect = null;
-		if (!mustPress) 
-		{
+		if (!mustPress)
 			visible = !ClientPrefs.opponentStrums ? false : true;
-		}
 		else
 		{
 			if (!visible) visible = true;

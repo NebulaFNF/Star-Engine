@@ -2,7 +2,6 @@ package;
 
 import Section.SwagSection;
 import haxe.Json;
-import haxe.format.JsonParser;
 import lime.utils.Assets;
 
 #if sys
@@ -14,6 +13,9 @@ using StringTools;
 
 typedef SwagSong =
 {
+	/**
+	 * Critical variables.
+	 */
 	var song:String;
 	var notes:Array<SwagSection>;
 	var events:Array<Dynamic>;
@@ -24,15 +26,24 @@ typedef SwagSong =
 	var player1:String;
 	var player2:String;
 	var gfVersion:String;
+	var gameOverChar:String;
+	var gameOverLoop:String;
+	var gameOverEnd:String;
+	var gameOverSound:String;
 	var stage:String;
 
 	var arrowSkin:String;
 	var splashSkin:String;
 	var validScore:Bool;
+	var specialAudioName:String;
+	var specialEventsName:String;
 }
 
 class Song
 {
+	/**
+	 * Critical variables.
+	 */
 	public var song:String;
 	public var notes:Array<SwagSection>;
 	public var events:Array<Dynamic>;
@@ -46,6 +57,10 @@ class Song
 	public var player2:String = 'dad';
 	public var gfVersion:String = 'gf';
 
+	/**
+	 * Converts old charts to the newest format.
+	 * @param songJson : Detects the Song JSON.
+	 */
 	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format
 	{
 		if(songJson.gfVersion == null)

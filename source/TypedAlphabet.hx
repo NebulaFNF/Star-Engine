@@ -2,12 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.group.FlxSpriteGroup;
-import flixel.math.FlxMath;
-import flixel.util.FlxTimer;
-import flixel.system.FlxSound;
-import flash.media.Sound;
 
 using StringTools;
 
@@ -45,10 +39,7 @@ class TypedAlphabet extends Alphabet
 			while(_timeToUpdate >= delay)
 			{
 				showCharacterUpTo(_curLetter + 1);
-				if(!playedSound && sound != '' && (delay > 0.025 || _curLetter % 2 == 0))
-				{
-					FlxG.sound.play(Paths.sound(sound), volume);
-				}
+				if(!playedSound && sound != '' && (delay > 0.025 || _curLetter % 2 == 0)) FlxG.sound.play(Paths.sound(sound), volume);
 				playedSound = true;
 
 				_curLetter++;
@@ -71,11 +62,7 @@ class TypedAlphabet extends Alphabet
 		var start:Int = _curLetter;
 		if(start < 0) start = 0;
 
-		for (i in start...(upTo+1))
-		{
-			if(letters[i] != null) letters[i].visible = true;
-			//trace('test, showing: $i');
-		}
+		for (i in start...(upTo+1)) if(letters[i] != null) letters[i].visible = true;
 	}
 
 	public function resetDialogue()

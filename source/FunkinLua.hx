@@ -10,13 +10,10 @@ import llua.Convert;
 
 import animateatlas.AtlasFrameMaker;
 import flixel.FlxG;
-import flixel.addons.effects.FlxTrail;
-import flixel.input.keyboard.FlxKey;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
 import flixel.text.FlxText;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 import flixel.util.FlxTimer;
 import flixel.FlxSprite;
@@ -24,15 +21,12 @@ import flixel.FlxCamera;
 import flixel.util.FlxColor;
 import flixel.FlxBasic;
 import flixel.FlxObject;
-import flixel.FlxSprite;
 import openfl.Lib;
 import openfl.display.BlendMode;
-import openfl.filters.BitmapFilter;
 import openfl.utils.Assets;
 import flixel.math.FlxMath;
 import flixel.util.FlxSave;
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.system.FlxAssets.FlxShader;
 import shaderslmfao.*;
 
 #if (!flash && sys)
@@ -45,13 +39,11 @@ import sys.io.File;
 #end
 
 import Type.ValueType;
-import Controls;
 import DialogueBoxPsych;
 
 #if hscript
-import hscript.Parser;
-import hscript.Interp;
-import hscript.Expr;
+import crowplexus.hscript.Parser;
+import crowplexus.hscript.Interp;
 #end
 
 #if desktop
@@ -279,9 +271,7 @@ class FunkinLua {
 
 			var killMe:Array<String> = obj.split('.');
 			var leObj:FlxSprite = getObjectDirectly(killMe[0]);
-			if(killMe.length > 1) {
-				leObj = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
-			}
+			if(killMe.length > 1) leObj = getVarInArray(getPropertyLoopThingWhatever(killMe), killMe[killMe.length-1]);
 
 			if(leObj != null) {
 				var arr:Array<String> = PlayState.instance.runtimeShaders.get(shader);
@@ -468,11 +458,7 @@ class FunkinLua {
 
 			// trace('bitmapdatapath: $bitmapdataPath');
 			var value = Paths.image(bitmapdataPath);
-			if(value != null && value.bitmap != null)
-			{
-				// trace('Found bitmapdata. Width: ${value.bitmap.width} Height: ${value.bitmap.height}');
-				shader.setSampler2D(prop, value.bitmap);
-			}
+			if(value != null && value.bitmap != null) shader.setSampler2D(prop, value.bitmap);
 			#else
 			luaTrace("setShaderSampler2D: Platform unsupported for Runtime Shaders!", false, false, FlxColor.RED);
 			#end
@@ -496,19 +482,19 @@ class FunkinLua {
 				#end
 				return;
 			}
-			if(args==null)args = [];
+			if(args==null) args = [];
 
-			if(exclusions==null)exclusions=[];
+			if(exclusions==null) exclusions=[];
 
 			Lua.getglobal(lua, 'scriptName');
 			var daScriptName = Lua.tostring(lua, -1);
 			Lua.pop(lua, 1);
-			if(ignoreSelf && !exclusions.contains(daScriptName))exclusions.push(daScriptName);
+			if(ignoreSelf && !exclusions.contains(daScriptName)) exclusions.push(daScriptName);
 			PlayState.instance.callOnLuas(funcName, args, ignoreStops, exclusions);
 		});
 
 		Lua_helper.add_callback(lua, "callScript", function(?luaFile:String, ?funcName:String, ?args:Array<Dynamic>){
-			if(luaFile==null){
+			if(luaFile == null) {
 				#if (linc_luajit >= "0.0.6")
 				LuaL.error(lua, "bad argument #1 to 'callScript' (string expected, got nil)");
 				#end
@@ -532,21 +518,14 @@ class FunkinLua {
 				cervix = Paths.modFolders(cervix);
 				doPush = true;
 			}
-			else if(FileSystem.exists(cervix))
-			{
-				doPush = true;
-			}
+			else if(FileSystem.exists(cervix)) doPush = true;
 			else {
 				cervix = Paths.getPreloadPath(cervix);
-				if(FileSystem.exists(cervix)) {
-					doPush = true;
-				}
+				if(FileSystem.exists(cervix)) doPush = true;
 			}
 			#else
 			cervix = Paths.getPreloadPath(cervix);
-			if(Assets.exists(cervix)) {
-				doPush = true;
-			}
+			if(Assets.exists(cervix)) doPush = true;
 			#end
 			if(doPush)
 			{
@@ -992,8 +971,7 @@ class FunkinLua {
 		Lua_helper.add_callback(lua, "getPropertyFromGroup", function(obj:String, index:Int, variable:Dynamic) {
 			var shitMyPants:Array<String> = obj.split('.');
 			var realObject:Dynamic = Reflect.getProperty(getInstance(), obj);
-			if(shitMyPants.length>1)
-				realObject = getPropertyLoopThingWhatever(shitMyPants, true, false);
+			if(shitMyPants.length > 1) realObject = getPropertyLoopThingWhatever(shitMyPants, true, false);
 
 
 			if(Std.isOfType(realObject, FlxTypedGroup))

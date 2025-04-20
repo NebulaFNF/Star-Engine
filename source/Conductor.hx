@@ -84,11 +84,9 @@ class Conductor
 		return lastChange.stepTime + Math.floor(time - lastChange.songTime) / lastChange.stepCrochet;
 	}
 
-	public static function getBeat(time:Float)
-		return getStep(time)/4;
+	public static function getBeat(time:Float) return getStep(time)/4;
 
-	public static function getBeatRounded(time:Float):Int
-		return Math.floor(getStepRounded(time)/4);
+	public static function getBeatRounded(time:Float):Int return Math.floor(getStepRounded(time)/4);
 
 	public static function mapBPMChanges(song:SwagSong)
 	{
@@ -125,8 +123,7 @@ class Conductor
 		return val != null ? val : 4;
 	}
 
-	inline public static function calculateCrochet(bpm:Float)
-		return (60/bpm)*1000;
+	inline public static function calculateCrochet(bpm:Float) return (60/bpm)*1000;
 
 	public static function changeBPM(newBpm:Float)
 	{
@@ -156,6 +153,5 @@ class Rating
 		if(hitWindow == null) hitWindow = 0;
 	}
 
-	public function increase(blah:Int = 1)
-		Reflect.setField(PlayState.instance, counter, Reflect.field(PlayState.instance, counter) + blah);
+	public function increase(blah:Int = 1) Reflect.setField(PlayState.instance, counter, Reflect.field(PlayState.instance, counter) + blah);
 }

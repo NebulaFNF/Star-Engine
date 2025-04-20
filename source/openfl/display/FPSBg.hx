@@ -14,10 +14,14 @@ class FPSBg extends Sprite
 
 		bgCard = new Sprite();
 		bgCard.graphics.beginFill(0x000000, 0.5);
-		bgCard.graphics.drawRect(0, 0, 187, 44);
+		if (ClientPrefs.fpsCounterThingie) {
+			bgCard.graphics.drawRect(0, 0, 142, 25);
+		} else {
+			bgCard.graphics.drawRect(0, 0, 187, 44);
+		}
 		bgCard.graphics.endFill();
 		addChild(bgCard);
-		//relocate(0, 0, ClientPrefs.data.wideScreen); // i don't think this is needed
+		//relocate(0, 0, wideScreen); // i don't think this is needed
     }
 
 	public inline function relocate(X:Float, Y:Float, isWide:Bool = false) {

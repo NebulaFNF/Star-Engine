@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
 
@@ -21,10 +20,7 @@ class MenuItem extends FlxSprite
 
 	private var isFlashing:Bool = false;
 
-	public function startFlashing():Void
-	{
-		isFlashing = true;
-	}
+	public function startFlashing():Void isFlashing = true;
 
 	// if it runs at 60fps, fake framerate will be 6
 	// if it runs at 144 fps, fake framerate will be like 14, and will update the graphic every 0.016666 * 3 seconds still???
@@ -37,8 +33,7 @@ class MenuItem extends FlxSprite
 		super.update(elapsed);
 		y = FlxMath.lerp(y, (targetY * 120) + 480, CoolUtil.boundTo(elapsed * 10.2, 0, 1));
 
-		if (isFlashing)
-			flashingInt += 1;
+		if (isFlashing) flashingInt += 1;
 
 		if (flashingInt % fakeFramerate >= Math.floor(fakeFramerate / 2))
 			color = 0xFF33ffff;

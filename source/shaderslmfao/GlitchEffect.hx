@@ -1,13 +1,12 @@
 package shaderslmfao;
 
-import flixel.system.FlxAssets.FlxShader;
-import openfl.display.BitmapData;
 import backend.FlxFixedShader;
-import openfl.display.ShaderInput;
 import flixel.FlxG;
-import shaderslmfao.Effect;
+import flixel.system.FlxAssets.FlxShader;
 import openfl.Lib;
-
+import openfl.display.BitmapData;
+import openfl.display.ShaderInput;
+import shaderslmfao.Effect;
 import shaderslmfao.WiggleEffect.WiggleEffectType;
 import shaderslmfao.WiggleEffect.WiggleShader;
 

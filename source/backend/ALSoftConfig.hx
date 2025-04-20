@@ -1,11 +1,12 @@
 package backend;
 
+import flixel.FlxG;
 import haxe.io.Path;
 
 /*
-A class that simply points OpenALSoft to a custom configuration file when the game starts up.
-The config overrides a few global OpenALSoft settings with the aim of improving audio quality on desktop targets.
-*/
+	A class that simply points OpenALSoft to a custom configuration file when the game starts up.
+	The config overrides a few global OpenALSoft settings with the aim of improving audio quality on desktop targets.
+ */
 @:keep class ALSoftConfig
 {
 	#if desktop
@@ -15,13 +16,12 @@ The config overrides a few global OpenALSoft settings with the aim of improving 
 
 		var configPath:String = Path.directory(Path.withoutExtension(origin));
 		#if windows
-		configPath += "/plugins/alsoft.ini";
+		configPath += "/alsoft.ini";
 		#elseif mac
-		configPath = Path.directory(configPath) + "/Resources/plugins/alsoft.conf";
+		configPath = Path.directory(configPath) + "/Resources/alsoft.conf";
 		#else
-		configPath += "/plugins/alsoft.conf";
+		configPath += "/alsoft.conf";
 		#end
-
 		Sys.putEnv("ALSOFT_CONF", configPath);
 	}
 	#end

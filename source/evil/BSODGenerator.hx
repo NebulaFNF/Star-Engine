@@ -2,11 +2,17 @@ package evil;
 
 import CoolUtil;
 
-class BSODGenerator {
+class BSODGenerator
+{
+	/**
+	 * A BSOD generator.
+	 * Returns "skibidi" when called.
+	 * Replace "trace(nothing)" to "CoolUtil.blueScreenTheComputer()" if you're making a source mod.
+	 */
+	var nothing:String = 'skibidi';
 
-    // uncomment CoolUtil.blueScreenTheComputer(); and comment return; if you wanna do a BSOD for your source mod
-
-    //CoolUtil.blueScreenTheComputer();
-
-    return;
+	function new()
+	{
+		trace(nothing);
+	}
 }

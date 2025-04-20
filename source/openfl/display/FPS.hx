@@ -53,8 +53,9 @@ class FPS extends TextField
 		defaultTextFormat = new TextFormat("Px437 IBM VGA 8x16", 16, color);
 		autoSize = LEFT;
 		multiline = true;
-		text = "FPS: ";
-		if (ClientPrefs.ffmpegMode) text += " (Rendering Mode)";
+		if (!ClientPrefs.fpsCounterThingie) text = "FPS: ";
+		else text = "";
+		if (ClientPrefs.ffmpegMode) text += " | Rendering Mode";
 		cacheCount = 0;
 		currentTime = 0;
 		times = [];
@@ -86,7 +87,9 @@ class FPS extends TextField
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
-			text = "FPS: " + currentFPS;
+			memoryShit = System.totalMemory;
+			if (!ClientPrefs.fpsCounterThingie) text = "FPS: " + currentFPS;
+			else text = "" + currentFPS + ' | ' + FlxStringUtil.formatBytes(memoryShit);
 			var memoryBytes:Float = 0;
 			var memoryMegas:Float = 0;
 			var memoryGigas:Float = 0;
@@ -97,9 +100,8 @@ class FPS extends TextField
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
 			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
-			
-			memoryShit = System.totalMemory;
-			text += "\nMemory: " + FlxStringUtil.formatBytes(memoryShit);
+			if (!ClientPrefs.fpsCounterThingie) text += "\nMEM: " + FlxStringUtil.formatBytes(memoryShit);
+			else text += "";
 			#end
 
 			textColor = 0xFFFFFFFF;

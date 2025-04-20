@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
 
 class TankmenBG extends FlxSprite
 {
@@ -51,15 +50,10 @@ class TankmenBG extends FlxSprite
 		if(animation.curAnim.name == "run")
 		{
 			var speed:Float = (Conductor.songPosition - strumTime) * tankSpeed;
-			if(goingRight)
-				x = (0.02 * FlxG.width - endingOffset) + speed;
-			else
-				x = (0.74 * FlxG.width + endingOffset) - speed;
+			if(goingRight) x = (0.02 * FlxG.width - endingOffset) + speed;
+			else x = (0.74 * FlxG.width + endingOffset) - speed;
 		}
-		else if(animation.curAnim.finished)
-		{
-			kill();
-		}
+		else if(animation.curAnim.finished) kill();
 
 		if(Conductor.songPosition > strumTime)
 		{

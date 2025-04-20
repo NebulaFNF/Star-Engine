@@ -5,17 +5,15 @@ package;
 import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxSubState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.input.keyboard.FlxKey;
 import flixel.system.FlxSound;
 import flixel.addons.display.FlxBackdrop;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
+import options.OptionsState;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
-import flixel.FlxCamera;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.util.FlxStringUtil;
 
@@ -24,17 +22,19 @@ class PauseSubState extends MusicBeatSubstate
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
 	var menuItems:Array<String> = [];
-	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Exit to menu'];
+	var menuItemsOG:Array<String> = ['Resume', 'Restart Song', 'Gameplay Changers', 'Change Difficulty', 'Options', 'Exit to menu'];
 	var grid:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0x33FFFFFF, 0x0));
 	var difficultyChoices = [];
 	var curSelected:Int = 0;
 
 	var pauseMusic:FlxSound;
+	public static var inPause:Bool = false;
 	var practiceText:FlxText;
 	var skipTimeText:FlxText;
 	var skipTimeTracker:Alphabet;
 	var curTime:Float = Math.max(0, Conductor.songPosition);
 	//var botplayText:FlxText;
+	public static var requireRestart:Bool = false;
 
 	public static var songName:String = '';
 
@@ -149,6 +149,11 @@ class PauseSubState extends MusicBeatSubstate
 	var cantUnpause:Float = 0.1;
 	override function update(elapsed:Float)
 	{
+		if(requireRestart) {
+			menuItemsOG.remove('Resume'); //technically that's the logical thing to do
+			regenMenu();
+			requireRestart = false;
+		}
 		cantUnpause -= elapsed;
 		if (pauseMusic.volume < 0.5)
 			pauseMusic.volume += 0.01 * elapsed;
@@ -237,6 +242,13 @@ class PauseSubState extends MusicBeatSubstate
 				case "Leave Charting Mode":
 					restartSong();
 					PlayState.chartingMode = false;
+				case "Gameplay Changers":
+					persistentUpdate = false;
+					openSubState(new GameplayChangersSubstate());
+					GameplayChangersSubstate.inThePauseMenu = true;
+				case "Options":
+					MusicBeatState.switchState(new OptionsState());
+					inPause = true;
 				case 'Skip Time':
 					if(curTime < Conductor.songPosition)
 					{

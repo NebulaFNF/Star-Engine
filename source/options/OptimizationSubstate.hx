@@ -39,7 +39,13 @@ class OptimizationSubstate extends BaseOptionsMenu
 		var option:Option = new Option('No Botplay Lag', 'Reduces botplay lag.', 'noBotLag', 'bool', false);
 		addOption(option);
 
-		var option:Option = new Option('No Strum Animation', 'If unchecked, disables note strum animation.', 'noLightStrum', 'bool', false);
+		var option:Option = new Option('Light Bot Strums', 'If unchecked, disables note strum animation for botplay.', 'botLightStrum', 'bool', false);
+		addOption(option);
+		
+		var option:Option = new Option('Light Player Strums', 'If unchecked, disables note strum animation.', 'playerLightStrum', 'bool', false);
+		addOption(option);
+
+		var option:Option = new Option('Light Opponent Strums', 'If unchecked, disables note strum animation.', 'oppoLightStrum', 'bool', false);
 		addOption(option);
 
 		var option:Option = new Option('Disable Note Combo Limits', 'It disables the Note Combo limit to prevent crashing.', 'deactivateComboLimit', 'bool', false);

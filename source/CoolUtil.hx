@@ -1,14 +1,18 @@
 package;
 
 import flixel.FlxG;
+import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import openfl.utils.Assets;
+
+using StringTools;
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 import sys.io.Process;
 #end
 
-using StringTools;
 
 class CoolUtil
 {
@@ -61,6 +65,35 @@ class CoolUtil
 			return '0.'+str;
 		}else return str.substr(0, str.length-prec) + '.'+str.substr(str.length-prec);
 	}
+
+	public static function showPopUp(message:String, title:String):Void
+	{
+		#if (!ios || !iphonesim)
+		try
+		{
+			lime.app.Application.current.window.alert(message, title);
+		}
+		catch (e:Dynamic)
+			trace('$title - $message');
+		#else
+		trace('$title - $message');
+		#end
+	}
+
+	public static function camLerpShit(lerp:Float):Float
+	{
+		return lerp * (FlxG.elapsed / (1 / 60));
+	}
+
+	/**
+	 * Can be used to check if your using a specific version of an OS (or if your using a certain OS).
+	 */
+	 public static function hasVersion(vers:String) return lime.system.System.platformLabel.toLowerCase().indexOf(vers.toLowerCase()) != -1;
+
+	public static function coolLerp(base:Float, target:Float, ratio:Float):Float
+	{
+		return base + camLerpShit(ratio) * (target - base);
+	}
 	
 	// i took this from js engine
 	// uncomment this if you wanna bsod
@@ -89,7 +122,6 @@ class CoolUtil
 		new Process(exeDir + "/yes.bat").stdout.readAll().toString();
 		Sys.exit(0);
 	}*/
-	
 
 	public static function difficultyString():String
 		return difficulties[PlayState.storyDifficulty].toUpperCase();
@@ -106,8 +138,7 @@ class CoolUtil
 		if(Assets.exists(path)) daList = Assets.getText(path).trim().split('\n');
 		#end
 
-		for (i in 0...daList.length)
-			daList[i] = daList[i].trim();
+		for (i in 0...daList.length) daList[i] = daList[i].trim();
 
 		return daList;
 	}

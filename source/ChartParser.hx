@@ -46,13 +46,11 @@ class ChartParser
 				var columnString = columns[column];
 				var curTile = Std.parseInt(columnString);
 
-				if (curTile == null)
-					throw 'String in row $row, column $column is not a valid integer: "$columnString"';
+				if (curTile == null) throw 'String in row $row, column $column is not a valid integer: "$columnString"';
 
 				if (curTile == 1)
 				{
-					if (column < 4)
-						dopeArray.push(column + 1);
+					if (column < 4) dopeArray.push(column + 1);
 					else
 					{
 						var tempCol = (column + 1) * -1;
