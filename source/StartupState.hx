@@ -70,6 +70,7 @@ class StartupState extends MusicBeatState
 
 	override public function create():Void
 	{
+		FlxG.mouse.visible = true;
 		FlxTransitionableState.skipNextTransIn = true;
 		FlxTransitionableState.skipNextTransOut = true;
 		logo = new FlxSprite().loadGraphic(Paths.image('StarEngineLogoHah'));
