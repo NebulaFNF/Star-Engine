@@ -3095,6 +3095,7 @@ class PlayState extends MusicBeatState
 			eventPushedMap.set(event.event, true);
 		}
 		stagesFunc(function(stage:BaseStage) stage.eventPushed(event));
+		stagesFunc(function(stage:BaseStage) stage.eventPushedUnique(event));
 	}
 
 	function eventNoteEarlyTrigger(event:EventNote):Float {
@@ -5181,6 +5182,7 @@ class PlayState extends MusicBeatState
 			}
 			vocals.volume = 0;
 		}
+		stagesFunc(function(stage:BaseStage) stage.noteMissPress(direction));
 		callOnLuas('noteMissPress', [direction]);
 	}
 
@@ -5226,7 +5228,10 @@ class PlayState extends MusicBeatState
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		note.hitByOpponent = true;
 
-		if (!ClientPrefs.noHitFuncs) callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
+		if (!ClientPrefs.noHitFuncs){
+			callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
+			stagesFunc(function(stage:BaseStage) (stage.opponentNoteHit(note)));
+		}
 
 		if (!note.isSustainNote)
 		{
@@ -5335,7 +5340,11 @@ class PlayState extends MusicBeatState
 			var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
 			var leData:Int = Math.round(Math.abs(note.noteData));
 			var leType:String = note.noteType;
-			if (!ClientPrefs.noHitFuncs) callOnLuas('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
+			if (!ClientPrefs.noHitFuncs)
+			{
+				callOnLuas('goodNoteHit', [notes.members.indexOf(note), leData, leType, isSus]);
+				stagesFunc(function(stage:BaseStage) (stage.goodNoteHit(note)));
+			}
 
 			if (!note.isSustainNote)
 			{

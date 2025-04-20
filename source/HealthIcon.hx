@@ -1,8 +1,8 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import openfl.utils.Assets as OpenFlAssets;
-import flixel.FlxG;
 
 using StringTools;
 
@@ -30,7 +30,13 @@ class HealthIcon extends FlxSprite
 	{
 		super.update(elapsed);
 
-		if (sprTracker != null) setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
+		if (sprTracker != null) {
+			if (ClientPrefs.iconBounceBS == 'Vanilla') {
+				setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
+			} else {
+				setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
+			}
+		}
 	}
 
 	public function swapOldIcon() {
@@ -80,12 +86,20 @@ class HealthIcon extends FlxSprite
 	override function updateHitbox()
 	{
 		super.updateHitbox();
-		offset.x = iconOffsets[0];
-		offset.y = iconOffsets[1];
-		if (initialWidth != (150 * animation.frames) || initialHeight != 150) //Fixes weird icon offsets when they're HUMONGUS (sussy)
-		{
+		if (ClientPrefs.iconBounceBS == 'Vanilla') {
+			// TODO: Make this more legacy-like.
+			width = Math.abs(scale.x) * frameWidth;
+			height = Math.abs(scale.y) * frameHeight;
+			offset.set(-0.5 * (width - frameWidth), -0.5 * (height - frameHeight));
+			centerOrigin();
+		} else {
 			offset.x = iconOffsets[0];
 			offset.y = iconOffsets[1];
+			if (initialWidth != (150 * animation.frames) || initialHeight != 150) //Fixes weird icon offsets when they're HUMONGUS (sussy)
+			{
+				offset.x = iconOffsets[0];
+				offset.y = iconOffsets[1];
+			}
 		}
 	}
 

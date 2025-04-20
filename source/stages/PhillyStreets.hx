@@ -10,6 +10,7 @@ import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxPieDial;
 import flixel.addons.display.FlxTiledSprite;
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.graphics.atlas.FlxAtlas;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
@@ -169,9 +170,9 @@ class PhillyStreets extends BaseStage
 			switch (songName)
 			{
 				case 'darnell':
-					if(!seenCutscene) theFunnyStageThingie.setStartCallback(videoCutscene.bind('darnellCutscene'));
+					if(!seenCutscene) setStartCallback(videoCutscene.bind('darnellCutscene'));
 				case '2hot':
-					/*setEndCallback(function()
+					setEndCallback(function()
 					{
 						game.endingSong = true;
 						game.inCutscene = true;
@@ -179,7 +180,7 @@ class PhillyStreets extends BaseStage
 						FlxG.camera.visible = false;
 						game.camHUD.visible = false;
 						game.startVideo('2hotCutscene');
-					});*/
+					});
 			}
 		}
 	}

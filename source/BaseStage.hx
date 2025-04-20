@@ -1,16 +1,15 @@
 package;
 
+import Character;
+import MusicBeatState;
+import Note.EventNote;
 import flixel.FlxBasic;
+import flixel.FlxCamera;
+import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
-import MusicBeatState;
 import flixel.group.FlxSpriteGroup;
-import flixel.FlxG;
-import flixel.FlxCamera;
 import flixel.math.FlxPoint;
-
-import Note.EventNote;
-import Character;
 
 enum Countdown
 {
@@ -90,6 +89,7 @@ class BaseStage extends FlxBasic
 	// Events
 	public function eventCalled(eventName:String, value1:String, value2:String) {}// NOTHING!! :pig_head_exploding: :pogchamp:
 	public function eventPushed(event:EventNote) {}// NOTHING!! :pig_head_exploding: :pogchamp:
+	public function eventPushedUnique(event:EventNote) {}
 
 	// Note Hit/Miss
 	public function goodNoteHit(note:Note) {}// NOTHING!! :pig_head_exploding: :pogchamp:
