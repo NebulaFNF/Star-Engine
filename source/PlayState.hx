@@ -414,9 +414,9 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		//theListBotplay = CoolUtil.coolTextFile(Paths.txt('botplayText'));
+		theListBotplay = CoolUtil.coolTextFile(Paths.txt('botplayText'));
 
-		//randomBotplayText = theListBotplay[FlxG.random.int(0, theListBotplay.length - 1)];
+		randomBotplayText = theListBotplay[FlxG.random.int(0, theListBotplay.length - 1)];
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
 
@@ -525,7 +525,7 @@ class PlayState extends MusicBeatState
 		//inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
 
 		curStage = SONG.stage;
-		trace('stage is: ' + curStage);
+		//trace('stage is: ' + curStage);
 		if(SONG.stage == null || SONG.stage.length < 1) {
 			switch (songName)
 			{
@@ -1696,10 +1696,10 @@ class PlayState extends MusicBeatState
 
 		super.create();
 
-		/*if(cpuControlled)
+		if (cpuControlled)
 		{
 			botplayTxt.text = theListBotplay[FlxG.random.int(0, theListBotplay.length - 1)];
-		}*/
+		}
 
 		cacheCountdown();
 		cachePopUpScore();
