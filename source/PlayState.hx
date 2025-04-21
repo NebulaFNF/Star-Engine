@@ -145,6 +145,8 @@ class PlayState extends MusicBeatState
 	public var GF_X:Float = 400;
 	public var GF_Y:Float = 130;
 
+	var randomBotplayText:String;
+
 	public var songSpeedTween:FlxTween;
 	public var songSpeed(default, set):Float = 1;
 	public var songSpeedType:String = "multiplicative";
@@ -396,6 +398,9 @@ class PlayState extends MusicBeatState
 	public var startCallback:Void->Void = null;
 	public var endCallback:Void->Void = null; // grr i am secret agian
 
+	var getTheBotplayText:Int = 0;
+	var theListBotplay:Array<String> = [];
+
 	override public function create()
 	{
 		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
@@ -408,6 +413,10 @@ class PlayState extends MusicBeatState
 				FlxG.drawFramerate = 1000;
 			}
 		}
+
+		theListBotplay = CoolUtil.coolTextFile(Paths.txt('botplayText'));
+
+		randomBotplayText = theListBotplay[FlxG.random.int(0, theListBotplay.length - 1)];
 		//trace('Playback Rate: ' + playbackRate);
 		Paths.clearStoredMemory();
 
@@ -1460,7 +1469,7 @@ class PlayState extends MusicBeatState
 		        add(scoreTxt);
 		}
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
+		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "", 32);
 		botplayTxt.setFormat(Paths.font("comic.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
@@ -1686,6 +1695,11 @@ class PlayState extends MusicBeatState
 		stagesFunc(function(stage:BaseStage) stage.createPost());
 
 		super.create();
+
+		if (cpuControlled)
+		{
+			botplayTxt.text = theListBotplay[FlxG.random.int(0, theListBotplay.length - 1)];
+		}
 
 		cacheCountdown();
 		cachePopUpScore();
