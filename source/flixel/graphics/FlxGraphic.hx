@@ -1,6 +1,5 @@
 package flixel.graphics;
 
-import openfl.display.BitmapData;
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.frames.FlxFrame;
@@ -11,6 +10,7 @@ import flixel.math.FlxRect;
 import flixel.system.FlxAssets;
 import flixel.util.FlxColor;
 import flixel.util.FlxDestroyUtil;
+import openfl.display.BitmapData;
 #if !FLX_DRAW_QUADS
 import flash.display.Tilesheet;
 #end
@@ -317,6 +317,12 @@ class FlxGraphic implements IFlxDestroyable
 	public var isLoaded(get, never):Bool;
 
 	/**
+	 * Whether `destroy` was called on this graphic
+	 * @since 5.6.0
+	 */
+	public var isDestroyed(get, never):Bool;
+
+	/**
 	 * Whether the `BitmapData` of this graphic object can be dumped for decreased memory usage,
 	 * but may cause some issues (when you need direct access to pixels of this graphic.
 	 * If the graphic is dumped then you should call `undump()` and have total access to pixels.
@@ -606,6 +612,11 @@ class FlxGraphic implements IFlxDestroyable
 	inline function get_isLoaded()
 	{
 		return bitmap != null && !bitmap.rect.isEmpty();
+	}
+
+	inline function get_isDestroyed()
+	{
+		return shader == null;
 	}
 
 	inline function get_canBeDumped():Bool

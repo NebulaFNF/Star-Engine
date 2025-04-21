@@ -1,26 +1,26 @@
 package;
 
-import flixel.tweens.FlxEase;
+import Section.SwagSection;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.effects.FlxTrail;
 import flixel.animation.FlxBaseAnimation;
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.tweens.FlxTween;
-import flxanimate.PsychFlxAnimate as FlxAnimate;
-import flixel.util.FlxSort;
-import flixel.util.FlxDestroyUtil;
 import flixel.math.FlxRect;
-import Section.SwagSection;
-#if MODS_ALLOWED
-import sys.io.File;
-import sys.FileSystem;
-#end
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxDestroyUtil;
+import flixel.util.FlxSort;
+import flxanimate.PsychFlxAnimate as FlxAnimate;
+import haxe.Json;
 import openfl.utils.AssetType;
 import openfl.utils.Assets;
-import haxe.Json;
 
 using StringTools;
+#if MODS_ALLOWED
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 typedef CharacterFile = {
 	var animations:Array<AnimArray>;
