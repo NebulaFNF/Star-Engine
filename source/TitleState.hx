@@ -37,6 +37,7 @@ using StringTools;
 import sys.FileSystem;
 import sys.io.File;
 #end
+
 typedef TitleData =
 {
 
@@ -47,7 +48,12 @@ typedef TitleData =
 	gfx:Float,
 	gfy:Float,
 	backgroundSprite:String,
-	bpm:Int
+	bpm:Int,
+	endY:Float
+}
+
+typedef ColorShit = {
+
 }
 class TitleState extends MusicBeatState
 {
@@ -62,9 +68,24 @@ class TitleState extends MusicBeatState
 	var credTextShit:Alphabet;
 	var textGroup:FlxGroup;
 	var ngSpr:FlxSprite;
+
+	var shouldShowBackground:Bool = true;
 	
 	var titleTextColors:Array<FlxColor> = [0xFF33FFFF, 0xFF3333CC];
 	var titleTextAlphas:Array<Float> = [1, .64];
+
+	var colorSwap:Array<FlxColor> = [
+		0xFFFF0000, 
+		0xFFFFE600, 
+		0xFF48FF00, 
+		0xFF00F7FF, 
+		0xFF0400FF, 
+		0xFFFF00D4, 
+		0xFFFF0000
+	];
+
+	var hue:Float = 0;
+	var bg:FlxSprite = new FlxSprite();
 
 	var curWacky:Array<String> = [];
 
@@ -261,6 +282,8 @@ class TitleState extends MusicBeatState
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
+	var evenSwaggierShader:ColorSwap = null;
+	var colorTween:FlxTween;
 
 	function startIntro()
 	{
@@ -274,17 +297,14 @@ class TitleState extends MusicBeatState
 		}
 		persistentUpdate = true;
 
-		var bg:FlxSprite = new FlxSprite();
-
-		if (titleJSON.backgroundSprite != null && titleJSON.backgroundSprite.length > 0 && titleJSON.backgroundSprite != "none")
-			bg.loadGraphic(Paths.image(titleJSON.backgroundSprite));
+		if (shouldShowBackground)
+			bg.loadGraphic(Paths.image("aboutMenu"));
 		else
 			bg.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		
-
-		// bg.antialiasing = ClientPrefs.globalAntialiasing;
-		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
+		bg.antialiasing = ClientPrefs.globalAntialiasing;
+		bg.setGraphicSize(Std.int(bg.width * 1));
+		bg.updateHitbox();
 		add(bg);
 
 		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
@@ -451,6 +471,12 @@ class TitleState extends MusicBeatState
 			titleTimer += CoolUtil.boundTo(elapsed, 0, 1);
 			if (titleTimer > 2) titleTimer -= 2;
 		}
+
+		hue += elapsed * 50;
+		if (hue > 360) hue -= 360;
+			
+		var color = FlxColor.fromHSB(Std.int(hue), 1, 1);
+		bg.color = color;
 
 		// EASTER EGG
 
