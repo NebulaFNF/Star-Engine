@@ -110,6 +110,7 @@ class Project extends HXProject {
     static final ACHIEVEMENTS_ALLOWED:FeatureFlag = "ACHIEVEMENTS_ALLOWED";
     static final CRASH_HANDLER:FeatureFlag = "CRASH_HANDLER";
     static final TITLE_SCREEN_EASTER_EGG:FeatureFlag = "TITLE_SCREEN_EASTER_EGG";
+	static final CHECK_FOR_UPDATES:FeatureFlag = "CHECK_FOR_UPDATES";
 
     public function new() {
         super();
@@ -144,7 +145,8 @@ class Project extends HXProject {
 	 * Apply basic project metadata, such as the game title and version number,
 	 * as well as info like the package name and company (used by various app stores).
 	 */
-	function configureApp() {
+	function configureApp()
+	{
 		this.meta.title = TITLE;
 		this.meta.version = VERSION;
 		this.meta.packageName = PACKAGE_NAME;
@@ -265,6 +267,7 @@ class Project extends HXProject {
 		VIDEOS_ALLOWED.apply(this, true);
         CRASH_HANDLER.apply(this, true);
         ACHIEVEMENTS_ALLOWED.apply(this, true);
+		CHECK_FOR_UPDATES.apply(this, true);
         //TITLE_SCREEN_EASTER_EGG.apply(this, true);
 
 		// Should be true only on web builds.
