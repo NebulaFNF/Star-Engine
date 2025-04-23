@@ -1,8 +1,8 @@
 package options;
 
+import Controls;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import Controls;
 
 class GameplaySettingsSubState extends BaseOptionsMenu
 {
@@ -40,12 +40,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
-		/*var option:Option = new Option('Note Combo',
-			'If checked, adds the Note Combo feature.',
-			'noteComboBullshit',
+		var option:Option = new Option('Enable Miss Sound',
+			"If checked, re-enables the miss sound when you miss a note.",
+			'missSoundShit',
 			'bool',
-			true);
-		addOption(option);*/
+			false);
+		addOption(option);
 
 		var option:Option = new Option('Ghost Tapping',
 			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",

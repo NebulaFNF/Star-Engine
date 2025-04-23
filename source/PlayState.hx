@@ -202,6 +202,8 @@ class PlayState extends MusicBeatState
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
 	public var playerStrums:FlxTypedGroup<StrumNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
+	public var laneunderlay:FlxSprite;
+	public var laneunderlayOpponent:FlxSprite;
 
 	public var camZooming:Bool = false;
 	public var camZoomingMult:Float = 1;
@@ -1278,6 +1280,24 @@ class PlayState extends MusicBeatState
 
 		Conductor.songPosition = -5000 / Conductor.songPosition;
 
+		laneunderlayOpponent = new FlxSprite(70, 0).makeGraphic(500, FlxG.height * 2, FlxColor.BLACK);
+		laneunderlayOpponent.alpha = ClientPrefs.laneUnderlayAlpha;
+		laneunderlayOpponent.scrollFactor.set();
+		laneunderlayOpponent.screenCenter(Y);
+		laneunderlayOpponent.visible = ClientPrefs.laneUnderlay;
+
+		laneunderlay = new FlxSprite(70 + (FlxG.width / 2), 0).makeGraphic(500, FlxG.height * 2, FlxColor.BLACK);
+		laneunderlay.alpha = ClientPrefs.laneUnderlayAlpha;
+		laneunderlay.scrollFactor.set();
+		laneunderlay.screenCenter(Y);
+		laneunderlay.visible = ClientPrefs.laneUnderlay;
+
+		if (ClientPrefs.laneUnderlay)
+		{
+			add(laneunderlayOpponent);
+			add(laneunderlay);
+		}
+
 		strumLine = new FlxSprite(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, 50).makeGraphic(FlxG.width, 10);
 		if(ClientPrefs.downScroll) strumLine.y = FlxG.height - 150;
 		strumLine.scrollFactor.set();
@@ -1483,6 +1503,8 @@ class PlayState extends MusicBeatState
 			botplayTxt.visible = false;
 		}
 
+		laneunderlayOpponent.cameras = [camHUD];
+		laneunderlay.cameras = [camHUD];
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -2520,6 +2542,12 @@ class PlayState extends MusicBeatState
 					playerStrums.members[i].x -= 55;
 					opponentStrums.members[i].x -= 55;
 				}
+			}
+
+			if (ClientPrefs.middleScroll)
+			{
+				laneunderlayOpponent.alpha = 0;
+				laneunderlay.screenCenter(X);
 			}
 
 			startedCountdown = true;
@@ -3842,6 +3870,10 @@ class PlayState extends MusicBeatState
 					{
 						if (daNote.mustPress && !cpuControlled &&!daNote.ignoreNote && !endingSong && (daNote.tooLate || !daNote.wasGoodHit)) {
 							noteMiss(daNote);
+							if (ClientPrefs.missSoundShit)
+							{
+								FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
+							}
 						}
 
 						daNote.active = false;

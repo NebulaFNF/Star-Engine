@@ -27,11 +27,14 @@ class ClientPrefs
 	public static var noHitFuncs:Bool = true;
 	public static var noSpawnFunc:Bool = true;
 	public static var camZooms:Bool = true;
+	public static var missSoundShit:Bool = false;
 	public static var hideHud:Bool = false;
 	public static var noBotLag:Bool = true;
 	public static var disableGC:Bool = true;
 	public static var smoothHealth:Bool = true;
 	public static var smoothHPBug:Bool = true;
+	public static var laneUnderlay:Bool = false;
+	public static var laneUnderlayAlpha:Float = 1;
 	public static var noteComboBullshit:Bool = false;
 	public static var fpsCounterThingie:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
@@ -175,6 +178,9 @@ class ClientPrefs
 		FlxG.save.data.noSpawnFunc = noSpawnFunc;
 		FlxG.save.data.healthBarStyle = healthBarStyle;
 		FlxG.save.data.iconBounceBS = iconBounceBS;
+		FlxG.save.data.laneUnderlay = laneUnderlay;
+		FlxG.save.data.laneUnderlayAlpha = laneUnderlayAlpha;
+		FlxG.save.data.missSoundShit = missSoundShit;
 		FlxG.save.data.seWatermarkLmfao = seWatermarkLmfao;
 		FlxG.save.data.playerLightStrum = playerLightStrum;
 		FlxG.save.data.oppoLightStrum = oppoLightStrum;
@@ -251,6 +257,18 @@ class ClientPrefs
 		if (FlxG.save.data.seWatermarkLmfao != null)
 		{
 			seWatermarkLmfao = FlxG.save.data.seWatermarkLmfao;
+		}
+		if (FlxG.save.data.laneUnderlay != null)
+		{
+			laneUnderlay = FlxG.save.data.laneUnderlay;
+		}
+		if (FlxG.save.data.laneUnderlayAlpha != null)
+		{
+			laneUnderlayAlpha = FlxG.save.data.laneUnderlayAlpha;
+		}
+		if (FlxG.save.data.missSoundShit != null)
+		{
+			missSoundShit = FlxG.save.data.missSoundShit;
 		}
 		if (FlxG.save.data.shakingScreen != null) {
 			shakingScreen = FlxG.save.data.shakingScreen;
