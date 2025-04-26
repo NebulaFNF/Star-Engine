@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="NOTE_assets-pmania.png">
+<SubTexture name="left press0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="left confirm0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="purple hold piece0000" x="350" y="84" width="157" height="64"/>
+<SubTexture name="pruple end hold0000" x="350" y="0" width="157" height="84"/>
+
+<SubTexture name="purple0000" x="175" y="0" width="157" height="155"/>
+<SubTexture name="arrowLEFT0000" x="0" y="0" width="157" height="155"/>
+
+
+<SubTexture name="down press0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="down confirm0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="blue hold piece0000" x="350" y="84" width="157" height="64"/>
+<SubTexture name="blue hold end0000" x="350" y="0" width="157" height="84"/>
+
+<SubTexture name="blue0000" x="175" y="0" width="157" height="155"/>
+<SubTexture name="arrowDOWN0000" x="0" y="0" width="157" height="155"/>
+
+
+<SubTexture name="up press0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="up confirm0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="green hold piece0000" x="350" y="84" width="157" height="64"/>
+<SubTexture name="green hold end0000" x="350" y="0" width="157" height="84"/>
+
+<SubTexture name="green0000" x="175" y="0" width="157" height="155"/>
+<SubTexture name="arrowUP0000" x="0" y="0" width="157" height="155"/>
+
+
+<SubTexture name="right press0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="right confirm0000" x="0" y="175" width="157" height="155"/>
+<SubTexture name="red hold piece0000" x="350" y="84" width="157" height="64"/>
+<SubTexture name="red hold end0000" x="350" y="0" width="157" height="84"/>
+
+<SubTexture name="red0000" x="175" y="0" width="157" height="155"/>
+<SubTexture name="arrowRIGHT0000" x="0" y="0" width="157" height="155"/>
+</TextureAtlas>

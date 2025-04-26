@@ -16,7 +16,8 @@ class DiscordClient
 	public function new()
 	{
 		trace("RPC starting...");
-		DiscordRpc.start({
+		DiscordRpc.start(
+		{
 			clientID: "1340383305974939730", // tu mama
 			onReady: onReady,
 			onError: onError,
@@ -38,7 +39,8 @@ class DiscordClient
 	
 	static function onReady()
 	{
-		DiscordRpc.presence({
+		DiscordRpc.presence(
+		{
 			details: "In the Main Menu", // it is not a plural mi brother.
 			state: null,
 			largeImageKey: 'icon',
@@ -66,7 +68,8 @@ class DiscordClient
 
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;
 
-		DiscordRpc.presence({
+		DiscordRpc.presence(
+		{
 			details: details,
 			state: state,
 			largeImageKey: 'icon',

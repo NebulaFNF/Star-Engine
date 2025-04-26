@@ -1,7 +1,7 @@
 package;
 
-import flixel.FlxSprite;
 import editors.ChartingState;
+import flixel.FlxSprite;
 
 using StringTools;
 
@@ -84,8 +84,10 @@ class Note extends FlxSprite
 
 	public static var swagWidth:Float = 160 * 0.7;
 	
-	private var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
+	public static var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
 	private var pixelInt:Array<Int> = [0, 1, 2, 3];
+
+	public static var defaultNoteSkin(default, never):String = 'NOTE_assets';
 
 	// Lua shit
 	public var noteSplashDisabled:Bool = false;
@@ -186,7 +188,13 @@ class Note extends FlxSprite
 		return value;
 	}
 
-	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inEditor:Bool = false)
+	public function new(
+		strumTime:Float,
+		noteData:Int, 
+		?prevNote:Note, 
+		?noteskin:String, 
+		?sustainNote:Bool = false, 
+		?inEditor:Bool = false)
 	{
 		super();
 
@@ -268,6 +276,19 @@ class Note extends FlxSprite
 		else if (!isSustainNote)
 			earlyHitMult = 1;
 		x += offsetX;
+	}
+
+	public function updateNoteSkin(noteskin:String)
+	{
+		if (noteskin != null && noteskin != '') texture = "noteskins/" + noteskin;
+	}
+
+	public static function getNoteSkinPostfix()
+	{
+		var skin:String = '';
+		if(ClientPrefs.noteSkin != 'Default')
+			skin = '-' + ClientPrefs.noteSkin.trim().toLowerCase().replace(' ', '_');
+		return skin;
 	}
 
 	var lastNoteOffsetXForPixelAutoAdjusting:Float = 0;
