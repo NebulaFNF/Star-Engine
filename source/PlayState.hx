@@ -1494,16 +1494,13 @@ class PlayState extends MusicBeatState
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
-		add(botplayTxt);
 
+		add(botplayTxt);
 		if(ClientPrefs.downScroll) {
 			botplayTxt.y = timeBarBG.y - 78;
 		}
-
-		if(!ClientPrefs.botplayWatermark && cpuControlled) {
+		if(!ClientPrefs.botplayWatermark) {
 			botplayTxt.visible = false;
-		} else {
-			botplayTxt.visible = cpuControlled;
 		}
 
 		laneunderlayOpponent.cameras = [camHUD];
@@ -3179,10 +3176,8 @@ class PlayState extends MusicBeatState
 				else if(ClientPrefs.middleScroll) targetAlpha = 0.35;
 			}
 
-			var noteSkinExists:Bool = FileSystem.exists('assets/images/' + "noteskins/" + (player == 0 ? dad.noteskin : boyfriend.noteskin));
 			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			babyArrow.downScroll = ClientPrefs.downScroll;
-			if (noteSkinExists) babyArrow.texture = "noteskins/";
 			if (!isStoryMode && !skipArrowStartTween)
 			{
 				//babyArrow.y -= 10;

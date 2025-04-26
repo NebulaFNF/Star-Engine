@@ -1,23 +1,23 @@
 package;
 
-import flixel.FlxG;
-import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
-import flxanimate.PsychFlxAnimate as FlxAnimate;
-import haxe.Json;
 import haxe.xml.Access;
-import lime.utils.Assets;
-import openfl.display.BitmapData;
-import openfl.media.Sound;
 import openfl.system.System;
+import flixel.FlxG;
+import flixel.graphics.frames.FlxAtlasFrames;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
+import lime.utils.Assets;
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
+import flixel.graphics.FlxGraphic;
+import openfl.display.BitmapData;
+import haxe.Json;
+import flxanimate.PsychFlxAnimate as FlxAnimate;
+import openfl.media.Sound;
 
 using StringTools;
-#if sys
-import sys.FileSystem;
-import sys.io.File;
-#end
 
 class Paths
 {
