@@ -38,7 +38,7 @@ class VisualsUISubState extends BaseOptionsMenu
      	addOption(option);
 
 		var option:Option = new Option('Strums Offset',
-		'If checked, offsets the strums.',
+		'If checked, offsets the strums like in Kade Engine.',
 		'strumsAreFuckingOffset',
 		'bool',
 		false);

@@ -5682,12 +5682,6 @@ class PlayState extends MusicBeatState
 			camHUD.zoom += 0.03 * camBopIntensity;
 		} /// WOOO YOU CAN NOW MAKE IT AWESOME
 
-		iconP1.setGraphicSize(Std.int(iconP1.width + 30));
-		iconP2.setGraphicSize(Std.int(iconP2.width + 30));
-
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();
-
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{
 			gf.dance();
@@ -5791,6 +5785,15 @@ class PlayState extends MusicBeatState
 			iconP1.centerOffsets();
 			iconP2.centerOffsets();
 		
+			iconP1.updateHitbox();
+			iconP2.updateHitbox();
+		}
+
+		if (ClientPrefs.iconBounceBS == 'Vanilla')
+		{
+			iconP1.setGraphicSize(Std.int(iconP1.width + 30));
+			iconP2.setGraphicSize(Std.int(iconP2.width + 30));
+	
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 		}
