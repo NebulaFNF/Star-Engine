@@ -38,7 +38,7 @@ class ClientPrefs
 	public static var noteComboBullshit:Bool = false;
 	public static var fpsCounterThingie:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
-	public static var strumsAreFuckingOffset:Bool = false;
+	public static var strumsAreFuckingOffset:Bool = true;
 	public static var peOGCrash:Bool = false;
 
 	// V-Slice compatitbility
@@ -95,7 +95,7 @@ class ClientPrefs
 	public static var arrowHSV:Array<Array<Int>> = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
 	public static var ghostTapping:Bool = true;
 	public static var shakingScreen:Bool = true;
-	public static var timeBarType:String = 'Time Left';
+	public static var timeBarType:String = 'Disabled';
 	public static var scoreZoom:Bool = true;
 	public static var noReset:Bool = false;
 	public static var healthBarAlpha:Float = 1;
@@ -361,11 +361,6 @@ class ClientPrefs
 			{
 				FlxG.updateFramerate = framerate;
 				FlxG.drawFramerate = framerate;
-			}
-			else
-			{
-				FlxG.drawFramerate = framerate;
-				FlxG.updateFramerate = framerate;
 			}
 		}
 		// rendering stuff
