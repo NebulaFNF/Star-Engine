@@ -346,14 +346,18 @@ class Character extends FlxSprite
 		if (getAnimationName().startsWith('sing')) holdTimer += elapsed;
 		else if(isPlayer) holdTimer = 0;
 
-		try {
+		try
+		{
 			if (!isPlayer && holdTimer >= Conductor.stepCrochet * (0.0011 #if FLX_PITCH / (FlxG.sound.music != null ? FlxG.sound.music.pitch : 1) #end) * singDuration * PlayState.instance.singDurMult)
 			{
 				dance();
 				holdTimer = 0;
 			}
-		} catch (e) {
-			dance(); holdTimer = 0;
+		}
+		catch (e)
+		{
+			dance();
+			holdTimer = 0;
 		}
 
 		anim = getAnimationName();
