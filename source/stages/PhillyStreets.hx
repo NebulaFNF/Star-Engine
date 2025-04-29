@@ -272,7 +272,7 @@ class PhillyStreets extends BaseStage
 			#end
 			return;
 		}
-		// if (isStoryMode && songName == 'darnell') darnellCutscene();
+		if (isStoryMode && songName == 'darnell') darnellCutscene();
 	}
 
 	var cutsceneHandler:CutsceneHandler;

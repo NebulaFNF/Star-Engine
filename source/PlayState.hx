@@ -549,8 +549,8 @@ class PlayState extends MusicBeatState
 					curStage = 'tank';
 				case 'darnell' | 'lit-up' | '2hot':
 					curStage = 'phillyStreets';
-				/*case 'blazin':
-					curStage = 'phillyBlazin';*/
+				case 'blazin':
+					curStage = 'phillyBlazin';
 				case 'score':
 					curStage = 'streetsScore';
 				default:
@@ -1045,8 +1045,8 @@ class PlayState extends MusicBeatState
 
 		    case 'phillyStreets': //Weekend 1 - Darnell, Lit Up, 2Hot
 				new stages.PhillyStreets();
-			/*case 'phillyBlazin': // Weekend 1 - Blazin'
-				new stages.PhillyBlazin();*/
+			case 'phillyBlazin': // Weekend 1 - Blazin'
+				new stages.PhillyBlazin();
 			// score bggg lets fucking go
 			case 'streetsScore':
 				var aprilBG:BGSprite = new BGSprite('bgScore', -1000, -700, 1, 1);
@@ -5897,7 +5897,7 @@ class PlayState extends MusicBeatState
 				camHUD.zoom += 0.03 * camBopIntensity;
 			}
 		}
-		
+		stagesFunc(function(stage:BaseStage) stage.sectionHit()); // ok
 		setOnLuas('curSection', curSection);
 		callOnLuas('onSectionHit', []);
 	}
