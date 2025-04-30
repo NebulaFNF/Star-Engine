@@ -130,8 +130,8 @@ class Project extends HXProject
 
 	function flair() {
 		// TODO: Implement this.
-		if (isDebug()) ENGINE_VERSION = '0.4.0 | PROTOTYPE';
-		else ENGINE_VERSION = '0.4.0';
+		if (isDebug()) ENGINE_VERSION = '0.4.1 | PROTOTYPE';
+		else ENGINE_VERSION = '0.4.1';
 		info("Friday Night Funkin': Star Engine");
 		info("Initializing build...");
 
