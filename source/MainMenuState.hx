@@ -38,6 +38,9 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+/**
+ * The main menu.
+ */
 class MainMenuState extends MusicBeatState
 {
 	public static var psychEngineVersion:String = '0.4.0'; // This is also used for Discord RPC
@@ -426,7 +429,7 @@ class MainMenuState extends MusicBeatState
 			MusicBeatState.switchState(new luapps.state.LuAppsState());
 		}
 
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
+		var lerpVal:Float = MathUtil.mathBound(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (!selectedSomethin)

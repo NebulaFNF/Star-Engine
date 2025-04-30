@@ -1,5 +1,6 @@
 package;
 
+import Song.SwagSong;
 import flixel.FlxG;
 
 /**
@@ -48,6 +49,18 @@ class MathUtil
 	public static function logBase(base:Float, value:Float):Float
 	{
 		return Math.log(value) / Math.log(base);
+	}
+
+	/**
+	 * Returns a MAX and MIN FLOAT value.
+	 * @param value : Your value
+	 * @param min : The mininum
+	 * @param max : The maximum
+	 * @return `Float`
+	 */
+	inline public static function mathBound(value:Float, min:Float, max:Float):Float
+	{
+		return Math.max(min, Math.min(max, value));
 	}
 
 	public static function easeInOutCirc(x:Float):Float
@@ -109,6 +122,23 @@ class MathUtil
 	public static function lerp(base:Float, target:Float, progress:Float):Float
 	{
 		return base + progress * (target - base);
+	}
+
+	public static function getNoteAmount(song:SwagSong, ?bothSides:Bool = true, ?oppNotes:Bool = false):Int
+	{
+		var total:Int = 0;
+		for (section in song.notes) {
+			if (bothSides) total += section.sectionNotes.length;
+			else
+			{
+				for (songNotes in section.sectionNotes)
+				{
+					if (!oppNotes && (songNotes[1] < 4 ? section.mustHitSection : !section.mustHitSection)) total += 1;
+					if (oppNotes && (songNotes[1] < 4 ? !section.mustHitSection : section.mustHitSection)) total += 1;
+				}
+			}
+		}
+		return total;
 	}
 
 	/**

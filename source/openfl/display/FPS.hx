@@ -1,11 +1,11 @@
 package openfl.display;
 
+import flixel.math.FlxMath;
+import flixel.util.FlxStringUtil;
 import haxe.Timer;
 import openfl.events.Event;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
-import flixel.math.FlxMath;
-import flixel.util.FlxStringUtil;
 #if gl_stats
 import openfl.display._internal.stats.Context3DStats;
 import openfl.display._internal.stats.DrawCallContext;
@@ -13,7 +13,6 @@ import openfl.display._internal.stats.DrawCallContext;
 #if flash
 import openfl.Lib;
 #end
-
 #if openfl
 import openfl.system.System;
 #end
@@ -53,9 +52,12 @@ class FPS extends TextField
 		defaultTextFormat = new TextFormat("Px437 IBM VGA 8x16", 16, color);
 		autoSize = LEFT;
 		multiline = true;
-		if (!ClientPrefs.fpsCounterThingie) text = "FPS: ";
-		else text = "";
-		if (ClientPrefs.ffmpegMode) text += " | Rendering Mode";
+		if (!ClientPrefs.fpsCounterThingie)
+			text = "FPS: ";
+		else
+			text = "";
+		if (ClientPrefs.ffmpegMode)
+			text += " | Rendering Mode";
 		cacheCount = 0;
 		currentTime = 0;
 		times = [];
@@ -83,25 +85,26 @@ class FPS extends TextField
 
 		var currentCount = times.length;
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
-		if (currentFPS > ClientPrefs.framerate) currentFPS = ClientPrefs.framerate;
+		if (currentFPS > ClientPrefs.framerate)
+			currentFPS = ClientPrefs.framerate;
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
 			memoryShit = System.totalMemory;
-			if (!ClientPrefs.fpsCounterThingie) text = "FPS: " + currentFPS;
-			else text = "" + currentFPS + ' | ' + FlxStringUtil.formatBytes(memoryShit);
-			var memoryBytes:Float = 0;
+			if (!ClientPrefs.fpsCounterThingie)
+				text = "FPS: " + currentFPS;
+			else
+				if (ClientPrefs.returnMemoryToFlxStringUtil) text = "" + currentFPS + ' | ' + FlxStringUtil.formatBytes(memoryShit);
+			    else text = "" + currentFPS + ' | ' + Memory.getMemory();
 			var memoryMegas:Float = 0;
-			var memoryGigas:Float = 0;
-			var memoryTeras:Float = 0;
-			
+
 			#if openfl
-			memoryBytes = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000, 1));
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
-			memoryGigas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000, 1));
-			memoryTeras = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000000000, 1));
-			if (!ClientPrefs.fpsCounterThingie) text += "\nMEM: " + FlxStringUtil.formatBytes(memoryShit);
-			else text += "";
+			if (!ClientPrefs.fpsCounterThingie)
+				if (ClientPrefs.returnMemoryToFlxStringUtil) text += "\nMEM: " + FlxStringUtil.formatBytes(memoryShit);
+			    else text += "\nMEM: " + FlxStringUtil.formatBytes(Memory.getMemory());
+			else
+				text += "";
 			#end
 
 			textColor = 0xFFFFFFFF;
@@ -120,5 +123,22 @@ class FPS extends TextField
 		}
 
 		cacheCount = currentCount;
+	}
+}
+
+/**
+ * Utility class with the ability to return the program's memory usage.
+ */
+class Memory
+{
+	inline public static function getMemory():Float
+	{
+		#if cpp
+		return cpp.vm.Gc.memInfo64(cpp.vm.Gc.MEM_INFO_USAGE);
+		#elseif hl
+		return hl.Gc.stats().currentMemory;
+		#else
+		return cast(openfl.system.System.totalMemory, UInt);
+		#end
 	}
 }

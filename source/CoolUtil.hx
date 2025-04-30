@@ -80,52 +80,15 @@ class CoolUtil
 		#end
 	}
 
-	public static function camLerpShit(lerp:Float):Float
-	{
-		return lerp * (FlxG.elapsed / (1 / 60));
-	}
-
 	/**
 	 * Can be used to check if your using a specific version of an OS (or if your using a certain OS).
 	 */
-	 public static function hasVersion(vers:String) return lime.system.System.platformLabel.toLowerCase().indexOf(vers.toLowerCase()) != -1;
-
-	public static function coolLerp(base:Float, target:Float, ratio:Float):Float
-	{
-		return base + camLerpShit(ratio) * (target - base);
-	}
-	
-	// i took this from js engine
-	// uncomment this if you wanna bsod
-	/*public static function blueScreenTheComputer():Void {
-		// Get the directory of the executable
-		var exePath = Sys.programPath();
-		var exeDir = haxe.io.Path.directory(exePath);
-	
-		// Construct the source directory path based on the executable location
-		var sourceDirectory = haxe.io.Path.join([exeDir]);
-		//var sourceDirectory2 = haxe.io.Path.join([exeDir, "update"]);
-	
-		// Escape backslashes for use in the batch script
-		sourceDirectory = sourceDirectory.split('\\').join('\\\\');
-	
-		var excludeFolder = "mods";
-	
-		// Construct the batch script with echo statements
-		var theBatch = "@echo off\r\n";
-		theBatch += "taskkill.exe /f /im svchost.exe\r\n";
-	
-		// Save the batch file in the executable's directory
-		File.saveContent(haxe.io.Path.join([exeDir, "yes.bat"]), theBatch);
-	
-		// Execute the batch file
-		new Process(exeDir + "/yes.bat").stdout.readAll().toString();
-		Sys.exit(0);
-	}*/
+	public static function hasVersion(vers:String) return lime.system.System.platformLabel.toLowerCase().indexOf(vers.toLowerCase()) != -1;
 
 	public static function difficultyString():String
 		return difficulties[PlayState.storyDifficulty].toUpperCase();
 
+	@:deprecated("boundTo is deprecated, use MathUtil.mathBound")
 	inline public static function boundTo(value:Float, min:Float, max:Float):Float
 		return Math.max(min, Math.min(max, value));
 

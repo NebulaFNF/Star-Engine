@@ -6,6 +6,9 @@ import flixel.graphics.FlxGraphic;
 import flixel.input.keyboard.FlxKey;
 import flixel.util.FlxSave;
 
+/**
+ * Handles settings.
+ */
 class ClientPrefs
 {
 	public static var downScroll:Bool = false;
@@ -37,6 +40,7 @@ class ClientPrefs
 	public static var laneUnderlayAlpha:Float = 1;
 	public static var noteComboBullshit:Bool = false;
 	public static var fpsCounterThingie:Bool = false;
+	public static var returnMemoryToFlxStringUtil:Bool = false;
 	public static var workInProgressThingHaha:String = "!";
 	public static var strumsAreFuckingOffset:Bool = true;
 	public static var peOGCrash:Bool = false;
@@ -220,6 +224,7 @@ class ClientPrefs
 		FlxG.save.data.badWindow = badWindow;
 		FlxG.save.data.safeFrames = safeFrames;
 		FlxG.save.data.gameplaySettings = gameplaySettings;
+		FlxG.save.data.returnMemoryToFlxStringUtil = returnMemoryToFlxStringUtil;
 		FlxG.save.data.controllerMode = controllerMode;
 		FlxG.save.data.hitsoundVolume = hitsoundVolume;
 		FlxG.save.data.pauseMusic = pauseMusic;
@@ -253,6 +258,10 @@ class ClientPrefs
 		if (FlxG.save.data.botplayWatermark != null)
 		{
 			botplayWatermark = FlxG.save.data.botplayWatermark;
+		}
+		if (FlxG.save.data.returnMemoryToFlxStringUtil != null)
+		{
+			returnMemoryToFlxStringUtil = FlxG.save.data.returnMemoryToFlxStringUtil;
 		}
 		if (FlxG.save.data.seWatermarkLmfao != null)
 		{

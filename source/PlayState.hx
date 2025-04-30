@@ -378,6 +378,7 @@ class PlayState extends MusicBeatState
 	var camTwistIntensity:Float = 0;
 	var camTwistIntensity2:Float = 3;
 	var camTwist:Bool = false;
+	var songThing:SwagSong;
 
 	// Debug buttons
 	private var debugKeysChart:Array<FlxKey>;
@@ -580,8 +581,16 @@ class PlayState extends MusicBeatState
 
 		var memoryUsageLmfao:Float = 0;
 		memoryUsageLmfao = ShitSystemLmfao.totalMemory;
-		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:\nSAFE FRAMES: ' + ClientPrefs.safeFrames + '\nZONE: ' + Conductor.safeZoneOffset + '\nTS: '
-		+ Conductor.timeScale + '\nBOTPLAY : ' + ClientPrefs.getGameplaySetting('botplay', false) + '\nMEMORY USAGE: ' + FlxStringUtil.formatBytes(memoryUsageLmfao));
+		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:
+		      \nSAFE FRAMES: ' 
+			  + ClientPrefs.safeFrames 
+			  + '\nZONE: ' 
+			  + Conductor.safeZoneOffset 
+			  + '\nTS: '
+			  + Conductor.timeScale 
+			  + '\nBOTPLAY : ' 
+			  + ClientPrefs.getGameplaySetting('botplay', false) 
+			  + '\nMEMORY USAGE: ' + FlxStringUtil.formatBytes(memoryUsageLmfao));
 
 		defaultCamZoom = stageData.defaultZoom;
 		isPixelStage = stageData.isPixelStage;
@@ -1440,8 +1449,7 @@ class PlayState extends MusicBeatState
 		}
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
-		if (ClientPrefs.iconBounceBS == 'Vanilla') iconP1.y = healthBar.y - (iconP1.height / 2);
-		else iconP1.y = healthBar.y - 75;
+		iconP1.y = healthBar.y - 75;
 		iconP1.visible = !ClientPrefs.hideHud;
 		iconP1.alpha = ClientPrefs.healthBarAlpha;
 		add(iconP1);
@@ -3057,6 +3065,7 @@ class PlayState extends MusicBeatState
 		generatedMusic = true;
 		sectionsLoaded++;
 		Sys.print('\rSection $sectionsLoaded loaded!');
+		//Sys.print('amount of notes: ' + MathUtil.getNoteAmount(songThing) + '\nlimit is 2,147,483,648');
 	}
 
 	function eventPushed(event:EventNote) {
@@ -3483,7 +3492,7 @@ class PlayState extends MusicBeatState
 							}
 
 						case 4:
-							bgLimo.x = FlxMath.lerp(bgLimo.x, -150, CoolUtil.boundTo(elapsed * 9, 0, 1));
+							bgLimo.x = FlxMath.lerp(bgLimo.x, -150, MathUtil.mathBound(elapsed * 9, 0, 1));
 							if(Math.round(bgLimo.x) == -150) {
 								bgLimo.x = -150;
 								limoKillingState = 0;
@@ -3508,7 +3517,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if(!inCutscene) {
-			var lerpVal:Float = CoolUtil.boundTo(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
+			var lerpVal:Float = MathUtil.mathBound(elapsed * 2.4 * cameraSpeed * playbackRate, 0, 1);
 			camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 			if(!startingSong && !endingSong && boyfriend.animation.curAnim != null && boyfriend.animation.curAnim.name.startsWith('idle')) {
 				boyfriendIdleTime += elapsed;
@@ -3547,8 +3556,8 @@ class PlayState extends MusicBeatState
 
 		if (ClientPrefs.iconBounceBS == 'Vanilla')
 		{
-			iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, 0.50)));
-			iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, 0.50)));
+			iconP1.setGraphicSize(Std.int(iconP1.width + 30));
+			iconP2.setGraphicSize(Std.int(iconP2.width + 30));
 	
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
@@ -3600,11 +3609,11 @@ class PlayState extends MusicBeatState
 		}
 	
 		if (ClientPrefs.iconBounceBS == 'Psych' || ClientPrefs.iconBounceBS == 'SB Engine') {
-			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, MathUtil.mathBound(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP1.scale.set(mult, mult);
 			iconP1.updateHitbox();
 		
-			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, MathUtil.mathBound(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
@@ -3722,8 +3731,8 @@ class PlayState extends MusicBeatState
 
 		if (camZooming)
 		{
-			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
-			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
+			FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, MathUtil.mathBound(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
+			camHUD.zoom = FlxMath.lerp(1, camHUD.zoom, MathUtil.mathBound(1 - (elapsed * 3.125 * camZoomingDecay * playbackRate), 0, 1));
 		}
 
 		FlxG.watch.addQuick("secShit", curSection);

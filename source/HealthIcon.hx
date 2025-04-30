@@ -33,14 +33,7 @@ class HealthIcon extends FlxSprite
 
 		if (sprTracker != null)
 		{
-			if (ClientPrefs.iconBounceBS == 'Vanilla')
-			{
-				setPosition(sprTracker.x + sprTracker.width + 10, sprTracker.y - 30);
-			}
-			else
-			{
-				setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
-			}
+			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
 		}
 	}
 
@@ -100,6 +93,7 @@ class HealthIcon extends FlxSprite
 			this.char = char;
 
 			antialiasing = ClientPrefs.globalAntialiasing;
+
 			if (char.endsWith('-pixel'))
 				antialiasing = false;
 		}
@@ -108,23 +102,13 @@ class HealthIcon extends FlxSprite
 	override function updateHitbox()
 	{
 		super.updateHitbox();
-		if (ClientPrefs.iconBounceBS == 'Vanilla')
-		{
-			// TODO: Make this more legacy-like.
-			width = Math.abs(scale.x) * frameWidth;
-			height = Math.abs(scale.y) * frameHeight;
-			offset.set(-0.5 * (width - frameWidth), -0.5 * (height - frameHeight));
-			centerOrigin();
-		}
-		else
+
+		offset.x = iconOffsets[0];
+		offset.y = iconOffsets[1];
+		if (initialWidth != (150 * animation.frames) || initialHeight != 150) // Fixes weird icon offsets when they're HUMONGUS (sussy)
 		{
 			offset.x = iconOffsets[0];
 			offset.y = iconOffsets[1];
-			if (initialWidth != (150 * animation.frames) || initialHeight != 150) // Fixes weird icon offsets when they're HUMONGUS (sussy)
-			{
-				offset.x = iconOffsets[0];
-				offset.y = iconOffsets[1];
-			}
 		}
 	}
 
