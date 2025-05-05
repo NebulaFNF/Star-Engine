@@ -296,9 +296,7 @@ class Project extends HXProject
 		if(!isDebug()) setHaxedef("no-deprecation-warnings"); // for nael grr
 		setHaxedef("LINC_LUA_RELATIVE_DYNAMIC_LIB"); // DISABLE THIS IF ISSUES ARE FOUND!
 
-		//setHaxedef("NO_PRECOMPILED_HEADERS");
-
-		setHaxedef("SHUT_THE_FUCK_UP");
+		setHaxedef("NO_PRECOMPILED_HEADERS");
 
 		// Allow memory to go above 1GB.
 		setHaxedef("HXCPP_GC_BIG_BLOCKS");
@@ -339,9 +337,7 @@ class Project extends HXProject
         addHaxelib('lime'); // Game engine backend
         addHaxelib('openfl'); // Game engine backend
 
-        /*if(flixelNeedsToShutUp()) addHaxelib('flixel'); // Game engine
-		else addHaxelib('flixel', '5.2.2'); // Game engine*/
-		addHaxelib('flixel');
+        addHaxelib('flixel'); // Game engine
 
         addHaxelib('flixel-addons'); // Additional utilities for Flixel
         addHaxelib('hscript-iris'); // Scripting
@@ -464,11 +460,6 @@ class Project extends HXProject
 
 	public function isConsole():Bool {
 		return this.platformType == PlatformType.CONSOLE;
-	}
-
-	public function flixelNeedsToShutUp():Bool
-	{
-		return this.haxedefs.SHUT_THE_FUCK_UP; //maybe???
 	}
 
 	public function is32Bit():Bool {
