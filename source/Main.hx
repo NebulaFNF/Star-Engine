@@ -1,5 +1,8 @@
 package;
 
+#if (flixel > "5.2.2")
+#error "Star Engine is not compatible with Flixel 5.3 or above!\nMake sure you're using Flixel 5.2.2!";
+#end
 import AnsiTrace;
 import flixel.FlxG;
 import flixel.FlxGame;
@@ -39,7 +42,8 @@ class Main extends Sprite
 
 	public static var luversion:String = '0.0.1';
 
-	public static final __superCoolErrorMessagesArray:Array<String> = [
+	public static final __superCoolErrorMessagesArray:Array<String> = 
+	[
 		"A fatal error has occ- wait what?",
 		"missigno.",
 		"oopsie daisies!! you did a fucky wucky!!",
