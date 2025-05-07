@@ -1,8 +1,11 @@
 package openfl.display;
 
-import openfl.display.Sprite;
 import flixel.FlxG;
+import openfl.display.Sprite;
 
+/**
+ * The FPS background!
+ */
 class FPSBg extends Sprite
 {
 	// Credits to HRK_EXEX
@@ -17,13 +20,18 @@ class FPSBg extends Sprite
 		if (ClientPrefs.fpsCounterThingie) {
 			bgCard.graphics.drawRect(0, 0, 142, 25);
 		} else {
-			bgCard.graphics.drawRect(0, 0, 187, 44);
+			bgCard.graphics.drawRect(0, 0, 238, 44);
 		}
 		bgCard.graphics.endFill();
 		addChild(bgCard);
-		//relocate(0, 0, wideScreen); // i don't think this is needed
     }
 
+	/**
+	 * Relocates to X and Y
+	 * @param X Value (Float)
+	 * @param Y Value (Float)
+	 * @param isWide Bool (true or false!)
+	 */
 	public inline function relocate(X:Float, Y:Float, isWide:Bool = false) {
 		if (isWide) {
 			x = X; y = Y;

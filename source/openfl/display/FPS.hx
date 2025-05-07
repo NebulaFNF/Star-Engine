@@ -35,6 +35,8 @@ class FPS extends TextField
 	public var memoryUsage:String = '';
 	public var memoryShit:Float;
 
+	public var memPeak:Float;
+
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
@@ -85,29 +87,35 @@ class FPS extends TextField
 
 		var currentCount = times.length;
 		currentFPS = Math.round((currentCount + cacheCount) / 2);
+
 		if (currentFPS > ClientPrefs.framerate)
 			currentFPS = ClientPrefs.framerate;
+
+		if (Memory.getMemory() > memPeak) memPeak = Memory.getMemory();
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
 			memoryShit = System.totalMemory;
+
 			if (!ClientPrefs.fpsCounterThingie)
 				text = "FPS: " + currentFPS;
 			else
-				if (ClientPrefs.returnMemoryToFlxStringUtil) text = "" + currentFPS + ' | ' + FlxStringUtil.formatBytes(memoryShit);
-			    else text = "" + currentFPS + ' | ' + Memory.getMemory();
+				if (ClientPrefs.returnMemoryToFlxStringUtil) text = "" + currentFPS + ' | ' + FlxStringUtil.formatBytes(memoryShit) + " / " + FlxStringUtil.formatBytes(memPeak);
+			    else text = "" + currentFPS + ' | ' + Memory.getMemory() + " / " + FlxStringUtil.formatBytes(memPeak);
 			var memoryMegas:Float = 0;
 
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
+
 			if (!ClientPrefs.fpsCounterThingie)
-				if (ClientPrefs.returnMemoryToFlxStringUtil) text += "\nMEM: " + FlxStringUtil.formatBytes(memoryShit);
-			    else text += "\nMEM: " + FlxStringUtil.formatBytes(Memory.getMemory());
+				if (ClientPrefs.returnMemoryToFlxStringUtil) text += "\nMEM: " + FlxStringUtil.formatBytes(memoryShit) + " / " + FlxStringUtil.formatBytes(memPeak);
+			    else text += "\nMEM: " + FlxStringUtil.formatBytes(Memory.getMemory()) + " / " + FlxStringUtil.formatBytes(memPeak);
 			else
 				text += "";
 			#end
 
 			textColor = 0xFFFFFFFF;
+
 			if (memoryMegas > 3072 || currentFPS <= ClientPrefs.framerate / 2)
 			{
 				textColor = 0xFFFF0000;

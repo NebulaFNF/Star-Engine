@@ -5245,6 +5245,7 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+	var canPlay = true;
 	function goodNoteHit(note:Note):Void
 	{
 		if (!note.wasGoodHit)
