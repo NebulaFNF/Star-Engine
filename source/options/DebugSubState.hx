@@ -25,6 +25,17 @@ class DebugSubState extends BaseOptionsMenu {
 			'returnMemoryToFlxStringUtil', 
 			'bool', 
 		false);
+		add(option);
+
+		var option:Option = new Option
+		(
+			'V-Slice Note Delay',
+			'If checked, delays the BOTPLAY and OPPONENT end animation like in V-Slice',
+			'vSliceNoteDelay'
+			'bool',
+			false
+		);
+		add(option);
 
 		super();
 	}

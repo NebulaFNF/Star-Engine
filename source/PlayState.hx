@@ -857,58 +857,6 @@ class PlayState extends MusicBeatState
 				}
 
 			case 'schoolErect': // Week 6 - Erect Stage
-			    /*var character:Character;
-			    var rim = new DropShadowShader();
-		        rim.setAdjustColor(-66, -10, 24, -23);
-                rim.color = 0xFF52351d;
-		        rim.antialiasAmt = 0;
-		        rim.attachedSprite = character;
-		        rim.distance = 5;
-
-				if (SONG.player1 == 'bf-pixel') {
-					rim.angle = 90;
-					character.shader = rim;
-	
-					rim.loadAltMask('assets/week6/images/weeb/erect/masks/bfPixel_mask.png'); // why don't they use "Paths"????? now it sounds stupid
-					rim.maskThreshold = 1;
-					rim.useAltMask = true;
-	
-					character.animation.callback = function() {
-						if (getBoyfriend() != null)
-						{
-					        rim.updateFrameInfo(getBoyfriend().frame);
-						}
-				    };
-				}
-
-				if (SONG.gfVersion == 'gf-pixel') {
-					rim.setAdjustColor(-42, -10, 5, -25);
-					rim.angle = 90;
-					character.shader = rim;
-					rim.distance = 3;
-					rim.threshold = 0.3;
-	
-					rim.loadAltMask('assets/week6/images/weeb/erect/masks/gfPixel_mask.png');
-					rim.maskThreshold = 1;
-					rim.useAltMask = true;
-	
-					character.animation.callback = function() { rim.updateFrameInfo(getGirlfriend().frame); };
-				}
-
-				if (SONG.player2 == 'senpai' || SONG.player2 == 'senpai-angry') {
-					rim.angle = 90;
-					character.shader = rim;
-	
-					rim.loadAltMask('assets/week6/images/weeb/erect/masks/senpai_mask.png');
-					rim.maskThreshold = 1;
-					rim.useAltMask = true;
-	
-					character.animation.callback = function() {
-				    rim.updateFrameInfo(getDad().frame); };
-				}
-
-				if (rim != null) trace('Applied stage shader to ' + SONG.player1 + 'and ' + SONG.player2 + 'and ' + SONG.gfVersion);*/
-			
 			    GameOverSubstate.deathSoundName = 'fnf_loss_sfx-pixel';
 				GameOverSubstate.loopSoundName = 'gameOver-pixel';
 				GameOverSubstate.endSoundName = 'gameOverEnd-pixel';
@@ -5274,8 +5222,10 @@ class PlayState extends MusicBeatState
 			if (!ffmpegMode) vocals.volume = 1;
 
 		var time:Float = 0.15;
+		if (ClientPrefs.vSliceNoteDelay) time = 0.2;
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
-			time += 0.15;
+			if (!ClientPrefs.vSliceNoteDelay) time += 0.15;
+			else time += 1; // :P
 		}
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		note.hitByOpponent = true;
