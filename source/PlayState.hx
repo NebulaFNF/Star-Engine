@@ -5328,7 +5328,18 @@ class PlayState extends MusicBeatState
 			if(cpuControlled) {
 				if (ClientPrefs.botLightStrum) {
 					var time:Float = 0.15;
-					if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 0.15;
+					if (ClientPrefs.vSliceNoteDelay) time = 0.2;
+
+					// V-Slice note delay on BOTPLAY.
+					if (ClientPrefs.vSliceNoteDelay)
+					{
+						if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 1;	
+					}
+					else
+					{
+						if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 0.15;
+					}
+
 					StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
 				}
 			} else {
