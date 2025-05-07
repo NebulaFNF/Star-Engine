@@ -296,7 +296,7 @@ class Project extends HXProject
 		if(!isDebug()) setHaxedef("no-deprecation-warnings"); // for nael grr
 		setHaxedef("LINC_LUA_RELATIVE_DYNAMIC_LIB"); // DISABLE THIS IF ISSUES ARE FOUND!
 
-		setHaxedef("NO_PRECOMPILED_HEADERS");
+		//setHaxedef("NO_PRECOMPILED_HEADERS");
 
 		// Allow memory to go above 1GB.
 		setHaxedef("HXCPP_GC_BIG_BLOCKS");
