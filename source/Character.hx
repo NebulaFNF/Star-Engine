@@ -343,8 +343,7 @@ class Character extends FlxSprite
 				if(isAnimationFinished()) playAnim(animation.curAnim.name, false, false, animation.curAnim.frames.length - 3);
 		}
 
-		if (getAnimationName().startsWith('sing')) holdTimer += elapsed;
-		else if(isPlayer) holdTimer = 0;
+		if (getAnimationName().startsWith('sing') && !isPlayer) holdTimer += elapsed;
 
 		try
 		{
