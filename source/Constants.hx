@@ -63,6 +63,12 @@ class Constants
 	public static final VERSION_SUFFIX:String = #if debug ' PROTOTYPE' #else '' #end;
 
 	/**
+	 * The engine codename.
+	 * Adds a suffix to prototype builds and remove it for releases.
+	 */
+	public static final CODENAME_SUFFIX:String = "Cloudy";
+
+	/**
 	 * Each step of the preloader has to be on screen at least this long.
 	 *
 	 * 0 = The preloader immediately moves to the next step when it's ready.

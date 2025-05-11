@@ -138,7 +138,7 @@ class TitleState extends MusicBeatState
 		if (ClientPrefs.checkForUpdates && !closedState)
 		{
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/SyncGit12/Star-Engine/main/gitVersion.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/NebulaFNF/Star-Engine/main/gitVersion.txt");
 
 			http.onData = function(data:String)
 			{

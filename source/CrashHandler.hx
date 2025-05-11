@@ -145,8 +145,7 @@ class Crash extends FlxState
 			+ Main.__superCoolErrorMessagesArray[FlxG.random.int(0, Main.__superCoolErrorMessagesArray.length)]
 			+ '\n\n'
 			+ stripClub
-			+ '\n\nCrash Handler by YoshiCrafter29, Ne_Eo. MAJigsaw77 and mcagabe19
-		Crash UI State by Nael2xd and lunaruniv
+			+ '\n\nCrash Handler by YoshiCrafter29, Ne_Eo. MAJigsaw77 and mcagabe19Crash UI State by Nael2xd and lunaruniv
 		If you are reporting this bug, Go to crash/ folder and copy the contents from the recent file.
 		Press any key to continue (Press ENTER to report this bug)');
 
@@ -168,7 +167,7 @@ class Crash extends FlxState
 		super.create();
 	}
 
-	// Do note that if you use "resetGame" star engine will be in a crash loop because music is missing.
+	// Do note that if you use "resetGame" cloudy (star engine) will be in a crash loop because music is missing.
 	// Even with my coding skills and trying to make it work it just doesn't, i'm probably stupid.
 	// Also yes i tried FlxG.sound.playMusic and yet it doesn't do what it's suppose to do.
 	// -nael2xd

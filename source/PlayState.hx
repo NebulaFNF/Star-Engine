@@ -1177,7 +1177,7 @@ class PlayState extends MusicBeatState
 		#end
 		EngineWatermark.scrollFactor.set();
 		#if debug
-		EngineWatermark.text = SONG.song + " " + CoolUtil.difficultyString() + " | SE " + MainMenuState.psychEngineVersion + ' |' + Constants.VERSION_SUFFIX; // Funny thingie
+		EngineWatermark.text = SONG.song + " " + CoolUtil.difficultyString() + " | " + Constants.CODENAME_SUFFIX + ' ' + MainMenuState.psychEngineVersion + ' |' + Constants.VERSION_SUFFIX; // Funny thingie
 		#else
 		EngineWatermark.text = SONG.song + " " + CoolUtil.difficultyString() + " | SE " + MainMenuState.psychEngineVersion;
 		#end

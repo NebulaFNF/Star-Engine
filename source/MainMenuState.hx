@@ -256,7 +256,9 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Star Engine : " + psychEngineVersion, 12);
+		var cloudyString:String = #if debug 'Project ' + Constants.CODENAME_SUFFIX + ' : ' #else 'Star Engine : ' #end;
+		//var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Star Engine : " + psychEngineVersion, 12);
+		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, cloudyString + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("Comic Sans MS Bold", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
