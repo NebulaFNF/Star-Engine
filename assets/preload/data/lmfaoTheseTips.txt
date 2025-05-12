@@ -21,5 +21,6 @@ press 7 to open the debug menu
 BAL_7.ogg
 BAL_3.ogg
 five big booms, boom! boom! boom! boom! boom!!!!!!!!!!!
+Uncaught Error: [file_contents,assets/data/lmfaoTheseTips.txt]
 nahiara aguirre es chupapollas
 lmfaoTheseTips.txt: No such file or directory
