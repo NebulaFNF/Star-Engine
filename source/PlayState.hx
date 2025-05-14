@@ -3303,6 +3303,7 @@ class PlayState extends MusicBeatState
 		Conductor.songPosition = FlxG.sound.music.time;
 		if (Conductor.songPosition <= vocals.length)
 		{
+			trace('Resyncing vocals to ${Conductor.songPosition}');
 			vocals.time = Conductor.songPosition;
 			vocals.pitch = playbackRate;
 		}
@@ -5100,6 +5101,7 @@ class PlayState extends MusicBeatState
 
 	function noteMiss(daNote:Note):Void { //You didn't hit the key and let it go offscreen, also used by Hurt Notes
 		//Dupe note remove
+		trace('Missed note! ${daNote.noteData}');
 		notes.forEachAlive(function(note:Note) {
 			if (daNote != note && daNote.mustPress && daNote.noteData == note.noteData && daNote.isSustainNote == note.isSustainNote && Math.abs(daNote.strumTime - note.strumTime) < 1) {
 				note.kill();
@@ -5615,6 +5617,7 @@ class PlayState extends MusicBeatState
 			if (Math.abs(FlxG.sound.music.time - timeSub) > syncTime ||
 			(vocals.length > 0 && vocals.time < vocals.length && Math.abs(vocals.time - timeSub) > syncTime))
 			{
+				trace("Vocals aren't synchronized!");
 				resyncVocals();
 			}
 		}
