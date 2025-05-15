@@ -5334,6 +5334,7 @@ class PlayState extends MusicBeatState
 					if (ClientPrefs.vSliceNoteDelay) time = 0.2;
 
 					// V-Slice note delay on BOTPLAY.
+					// Esto es tonto
 					if (ClientPrefs.vSliceNoteDelay)
 					{
 						if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 1;	

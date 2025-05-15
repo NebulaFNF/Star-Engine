@@ -1,7 +1,7 @@
 package options;
 
-import flixel.FlxG;
 import Controls;
+import flixel.FlxG;
 
 using StringTools;
 

@@ -139,10 +139,9 @@ class Project extends HXProject
 	{
 		// TODO: Implement this.
 		var cloudyStringTwo:String = if (isDebug()) "Friday Night Funkin': Project Cloudy" else "Friday Night Funkin': Star Engine";
-		if (isDebug())
-			ENGINE_VERSION = '0.4.1 | PROTOTYPE';
-		else
-			ENGINE_VERSION = '0.4.1';
+		if (isDebug()) ENGINE_VERSION = '0.4.1 | PROTOTYPE';
+		else ENGINE_VERSION = '0.4.1';
+
 		info(cloudyStringTwo);
 		info("Initializing build...");
 
@@ -345,8 +344,7 @@ class Project extends HXProject
 		setHaxedef("HXCPP_STACK_LINE");
 		setHaxedef("HXCPP_STACK_TRACE");
 		setHaxedef("hscriptPos");
-		if (!isDebug())
-			setHaxedef("no-deprecation-warnings"); // for nael grr
+		if (!isDebug()) setHaxedef("no-deprecation-warnings"); // for nael grr
 		setHaxedef("LINC_LUA_RELATIVE_DYNAMIC_LIB"); // DISABLE THIS IF ISSUES ARE FOUND!
 
 		// setHaxedef("NO_PRECOMPILED_HEADERS");

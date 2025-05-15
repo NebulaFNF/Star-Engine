@@ -132,6 +132,7 @@ class Main extends Sprite
 
 	public static function changeWindowName(name:String = "")
 	{
+		// kinda dumb but whatev
 		Application.current.window.title = "Friday Night Funkin'" + ": " + "Star Engine - LuApps v" + luversion + '${name != "" ? '- $name' : ''}';
 	}
 

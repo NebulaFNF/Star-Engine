@@ -1,13 +1,12 @@
 package shaderslmfao;
 
-import flixel.system.FlxAssets.FlxShader;
-import openfl.display.BitmapData;
 import backend.FlxFixedShader;
-import openfl.display.ShaderInput;
 import flixel.FlxG;
-import shaderslmfao.Effect;
+import flixel.system.FlxAssets.FlxShader;
 import openfl.Lib;
-
+import openfl.display.BitmapData;
+import openfl.display.ShaderInput;
+import shaderslmfao.Effect;
 import shaderslmfao.WiggleEffect.WiggleEffectType;
 import shaderslmfao.WiggleEffect.WiggleShader;
 
@@ -42,18 +41,19 @@ class ChromaticAberrationShader extends FlxShader
 class ChromaticAberrationEffect extends Effect
 {
 	public var shader:ChromaticAberrationShader;
-  public function new(offset:Float = 0.00){
-	shader = new ChromaticAberrationShader();
-    shader.rOffset.value = [offset];
-    shader.gOffset.value = [0.0];
-    shader.bOffset.value = [-offset];
-  }
-	
+
+	public function new(offset:Float = 0.00)
+	{
+		shader = new ChromaticAberrationShader();
+		shader.rOffset.value = [offset];
+		shader.gOffset.value = [0.0];
+		shader.bOffset.value = [-offset];
+	}
+
 	public function setChrome(chromeOffset:Float):Void
 	{
 		shader.rOffset.value = [chromeOffset];
 		shader.gOffset.value = [0.0];
 		shader.bOffset.value = [chromeOffset * -1];
 	}
-
 }

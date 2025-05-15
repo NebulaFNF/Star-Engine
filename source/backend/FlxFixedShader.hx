@@ -1,43 +1,46 @@
 package backend;
 
-import openfl.display3D.Program3D;
 import flixel.system.FlxAssets.FlxShader;
+import openfl.display3D.Program3D;
 
 using StringTools;
 
 // goddamn prefix
-
 @:access(openfl.display3D.Context3D)
 @:access(openfl.display3D.Program3D)
 @:access(openfl.display.ShaderInput)
 @:access(openfl.display.ShaderParameter)
-class FlxFixedShader extends FlxShader {
-    public var custom:Bool = false;
-    public override function new() {
-        super();
-    }
-    @:noCompletion private override function __initGL():Void
-    {
-        if (__glSourceDirty || __paramBool == null)
-        {
-            __glSourceDirty = false;
-            program = null;
+class FlxFixedShader extends FlxShader
+{
+	public var custom:Bool = false;
 
-            __inputBitmapData = new Array();
-            __paramBool = new Array();
-            __paramFloat = new Array();
-            __paramInt = new Array();
+	public override function new()
+	{
+		super();
+	}
 
-            __processGLData(glVertexSource, "attribute");
-            __processGLData(glVertexSource, "uniform");
-            __processGLData(glFragmentSource, "uniform");
-        }
+	@:noCompletion private override function __initGL():Void
+	{
+		if (__glSourceDirty || __paramBool == null)
+		{
+			__glSourceDirty = false;
+			program = null;
 
-        if (__context != null && program == null)
-        {
-            var prefix = "#version 120\n";
+			__inputBitmapData = new Array();
+			__paramBool = new Array();
+			__paramFloat = new Array();
+			__paramInt = new Array();
 
-            var gl = __context.gl;
+			__processGLData(glVertexSource, "attribute");
+			__processGLData(glVertexSource, "uniform");
+			__processGLData(glFragmentSource, "uniform");
+		}
+
+		if (__context != null && program == null)
+		{
+			var prefix = "#version 120\n";
+
+			var gl = __context.gl;
 
 			prefix += "#ifdef GL_ES
 				"
@@ -122,6 +125,6 @@ class FlxFixedShader extends FlxShader {
 					}
 				}
 			}
-        }
-    }
+		}
+	}
 }

@@ -30,7 +30,7 @@ class WindowBackend
         UpdateWindow(window);
     ')
 	public static function setWindowColorMode(isDarkMode:Bool) {}
-	
+
 	@:functionCode('
         HWND window = GetActiveWindow();
 		auto finalColor = RGB(color[0], color[1], color[2]);
@@ -41,7 +41,7 @@ class WindowBackend
         UpdateWindow(window);
     ')
 	public static function setWindowBorderColor(color:Array<Int>, setHeader:Bool = true, setBorder:Bool = false) {}
-	
+
 	@:functionCode('
         HWND window = GetActiveWindow();
 		auto finalColor = RGB(color[0], color[1], color[2]);
@@ -50,7 +50,7 @@ class WindowBackend
         UpdateWindow(window);
     ')
 	public static function setWindowTitleColor(color:Array<Int>) {}
-	
+
 	@:functionCode('UpdateWindow(GetActiveWindow());')
 	public static function updateWindow() {}
 	#end
