@@ -16,7 +16,9 @@
     "editor.formatOnPaste": false,
     "editor.codeActionsOnSave": {
       "source.sortImports": "explicit"
-    }
+    },
+    "editor.defaultFormatter": "nadako.vshaxe",
+    "editor.tabSize": 2
   },
   "haxe.enableExtendedIndentation": true
 }
