@@ -12,35 +12,33 @@ import shaderslmfao.WiggleEffect.WiggleShader;
 
 /*STOLE FROM DAVE AND BAMBI
 
-I LOVE BANUUU I LOVE BANUUU
-   ________
-  /        \
-_/__________\_
- ||  o||  o||
- |//--  --//|
-  \____O___/
-   |      |
-   |______|
-   |   |  |
-   |___|__|
-    
+	I LOVE BANUUU I LOVE BANUUU
+	  ________
+	 /        \
+	_/__________\_
+	||  o||  o||
+	|//--  --//|X
+	 \____O___/
+	  |      |
+	  |______|
+	  |   |  |
+	  |___|__|
+		
 
-*/
-
+ */
 /*typedef ShaderEffect = {
-    var shader:Dynamic;
-}
-*/
-
+	var shader:Dynamic;
+	}
+ */
 class GlitchEffect extends Effect
 {
-    public var shader:GlitchShader = new GlitchShader();
+	public var shader:GlitchShader = new GlitchShader();
 
-    public var waveSpeed(default, set):Float = 0;
+	public var waveSpeed(default, set):Float = 0;
 	public var waveFrequency(default, set):Float = 0;
 	public var waveAmplitude(default, set):Float = 0;
 
-	public function new(waveSpeed:Float,waveFrequency:Float,waveAmplitude:Float):Void
+	public function new(waveSpeed:Float, waveFrequency:Float, waveAmplitude:Float):Void
 	{
 		shader.uTime.value = [0];
 		this.waveSpeed = waveSpeed;
@@ -49,36 +47,36 @@ class GlitchEffect extends Effect
 		PlayState.instance.shaderUpdates.push(update);
 	}
 
-    public function update(elapsed:Float):Void
-    {
-        shader.uTime.value[0] += elapsed;
-    }
+	public function update(elapsed:Float):Void
+	{
+		shader.uTime.value[0] += elapsed;
+	}
 
-    function set_waveSpeed(v:Float):Float
-    {
-        waveSpeed = v;
-        shader.uSpeed.value = [waveSpeed];
-        return v;
-    }
-    
-    function set_waveFrequency(v:Float):Float
-    {
-        waveFrequency = v;
-        shader.uFrequency.value = [waveFrequency];
-        return v;
-    }
-    
-    function set_waveAmplitude(v:Float):Float
-    {
-        waveAmplitude = v;
-        shader.uWaveAmplitude.value = [waveAmplitude];
-        return v;
-    }
+	function set_waveSpeed(v:Float):Float
+	{
+		waveSpeed = v;
+		shader.uSpeed.value = [waveSpeed];
+		return v;
+	}
+
+	function set_waveFrequency(v:Float):Float
+	{
+		waveFrequency = v;
+		shader.uFrequency.value = [waveFrequency];
+		return v;
+	}
+
+	function set_waveAmplitude(v:Float):Float
+	{
+		waveAmplitude = v;
+		shader.uWaveAmplitude.value = [waveAmplitude];
+		return v;
+	}
 }
 
 class GlitchShader extends FlxShader
 {
-    @:glFragmentSource('
+	@:glFragmentSource('
     #pragma header
     //uniform float tx, ty; // x,y waves phase
 
@@ -118,9 +116,8 @@ class GlitchShader extends FlxShader
         vec2 uv = sineWave(openfl_TextureCoordv);
         gl_FragColor = texture2D(bitmap, uv);
     }')
-
-    public function new()
-    {
-       super();
-    }
+	public function new()
+	{
+		super();
+	}
 }

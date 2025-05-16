@@ -277,14 +277,16 @@ class StickerSubState extends MusicBeatSubstate
 
 	override public function close():Void
 	{
-		if (switchingState) return;
+		if (switchingState)
+			return;
 		super.close();
 	}
 
 	override public function destroy():Void
 	{
 		// controls.isInSubstate = false;
-		if (switchingState) return;
+		if (switchingState)
+			return;
 		super.destroy();
 	}
 }

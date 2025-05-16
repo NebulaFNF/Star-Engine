@@ -16,6 +16,7 @@ import Section.SwagSection;
 import Song.SwagSong;
 import StageData;
 import animateatlas.AtlasFrameMaker;
+import backend.Memory;
 import crowplexus.iris.Iris;
 import editors.CharacterEditorState;
 import editors.ChartingState;
@@ -580,7 +581,7 @@ class PlayState extends MusicBeatState
 		}
 
 		var memoryUsageLmfao:Float = 0;
-		memoryUsageLmfao = ShitSystemLmfao.totalMemory;
+		memoryUsageLmfao = Memory.getMemory();
 		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:
 		      \nSAFE FRAMES: ' 
 			  + ClientPrefs.safeFrames 
