@@ -1,5 +1,6 @@
 package;
 
+import Note.EventNote;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.tweens.FlxTween;

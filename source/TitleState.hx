@@ -137,24 +137,28 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if (ClientPrefs.checkForUpdates && !closedState)
 		{
-			trace('checking for update');
+			trace('Checking for a engine update...');
 			var http = new haxe.Http("https://raw.githubusercontent.com/NebulaFNF/Star-Engine/main/gitVersion.txt");
 
 			http.onData = function(data:String)
 			{
 				updateVersion = data.split('\n')[0].trim();
 				var curVersion:String = MainMenuState.psychEngineVersion.trim();
-				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
+				trace('Version online: ' + updateVersion + ', Current version: ' + curVersion);
 				if (updateVersion != curVersion)
 				{
-					trace('versions arent matching!');
+					trace('[WARN] Versions arent matching!');
 					mustUpdate = true;
+				}
+				else
+				{
+					trace('Versions match!');
 				}
 			}
 
 			http.onError = function(error)
 			{
-				trace('error: $error');
+				trace('[ERROR] $error');
 			}
 
 			http.request();

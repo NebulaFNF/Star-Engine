@@ -1,23 +1,23 @@
 package;
 
-import haxe.xml.Access;
-import openfl.system.System;
 import flixel.FlxG;
+import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxAtlasFrames;
+import flxanimate.PsychFlxAnimate as FlxAnimate;
+import haxe.Json;
+import haxe.xml.Access;
+import lime.utils.Assets;
+import openfl.display.BitmapData;
+import openfl.media.Sound;
+import openfl.system.System;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
-import lime.utils.Assets;
-#if sys
-import sys.io.File;
-import sys.FileSystem;
-#end
-import flixel.graphics.FlxGraphic;
-import openfl.display.BitmapData;
-import haxe.Json;
-import flxanimate.PsychFlxAnimate as FlxAnimate;
-import openfl.media.Sound;
 
 using StringTools;
+#if sys
+import sys.FileSystem;
+import sys.io.File;
+#end
 
 class Paths
 {
@@ -415,10 +415,10 @@ class Paths
 	inline static public function scripts(script:String, ?library:AssetType) {
 		var path = getPath('scripts/$script.hx', library);
 		if(FileSystem.exists(path)) {
-			trace('Script loaded! :' + path);
+			trace('Script loaded!:' + path);
 			return path;
 		} else {
-			trace('Invalid or missing script :' + path);
+			trace('[ERROR] Invalid or missing script:' + path);
 			return path;
 		}
 	}
@@ -553,7 +553,7 @@ class Paths
 			localTrackedAssets.push(path);
 			return currentTrackedAssets.get(path);
 		}
-		trace('oh no its returning null NOOOO : $path');
+		trace('Cannot load graphic!: $path');
 		return null;
 	}
 

@@ -1,7 +1,7 @@
 package;
 
-import flixel.FlxSprite;
 import editors.ChartingState;
+import flixel.FlxSprite;
 
 using StringTools;
 

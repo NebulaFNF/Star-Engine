@@ -246,7 +246,7 @@ class PhillyStreets extends BaseStage
 
 	function videoCutscene(?videoName:String = null)
 	{
-		trace('VIDEO NAME AND PATH: ' + videoName);
+		//trace('VIDEO NAME AND PATH: ' + videoName);
 		game.inCutscene = true;
 		if (!videoEnded && videoName != null)
 		{

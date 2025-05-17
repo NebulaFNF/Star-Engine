@@ -15,14 +15,14 @@ class DiscordClient
 	public static var isInitialized:Bool = false;
 	public function new()
 	{
-		trace("RPC starting...");
+		trace("[DISCORD] RPC starting...");
 		DiscordRpc.start({
 			clientID: "1340383305974939730", // tu mama
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
 		});
-		trace("RPC Started.");
+		trace("[DISCORD] RPC Started.");
 
 		while (true)
 		{
@@ -56,12 +56,13 @@ class DiscordClient
 		{
 			new DiscordClient();
 		});
-		trace("RPC initialized...");
+		trace("[DISCORD] RPC initialized...");
 		isInitialized = true;
 	}
 
 	public static function changePresence(details:String, state:Null<String>, ?smallImageKey : String, ?hasStartTimestamp : Bool, ?endTimestamp: Float)
 	{
+		trace("[DISCORD] Performing client update...");
 		var startTimestamp:Float = if(hasStartTimestamp) Date.now().getTime() else 0;
 
 		if (endTimestamp > 0) endTimestamp = startTimestamp + endTimestamp;

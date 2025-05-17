@@ -582,16 +582,16 @@ class PlayState extends MusicBeatState
 
 		var memoryUsageLmfao:Float = 0;
 		memoryUsageLmfao = Memory.getMemory();
-		trace('INFORMATION ABOUT WHAT U PLAYIN WIT:
-		      \nSAFE FRAMES: ' 
+		trace('Information:
+		      \nSafe frames: ' 
 			  + ClientPrefs.safeFrames 
-			  + '\nZONE: ' 
+			  + '\nZone: ' 
 			  + Conductor.safeZoneOffset 
 			  + '\nTS: '
 			  + Conductor.timeScale 
 			  + '\nBOTPLAY : ' 
 			  + ClientPrefs.getGameplaySetting('botplay', false) 
-			  + '\nMEMORY USAGE: ' + FlxStringUtil.formatBytes(memoryUsageLmfao));
+			  + '\nMemory usage: ' + FlxStringUtil.formatBytes(memoryUsageLmfao));
 
 		defaultCamZoom = stageData.defaultZoom;
 		isPixelStage = stageData.isPixelStage;
@@ -1323,7 +1323,7 @@ class PlayState extends MusicBeatState
 		if (SONG.song == '2hot' && !FreeplayState.scoreSongUnlocked && !cpuControlled) {
 			FreeplayState.scoreSongUnlocked = true;
 			trace('Set scoreSongUnlocked to true!');
-		} else trace('Could not set scoreSongUnlocked to true!' + '\nSong: ' + daSong);
+		} else trace('[ERROR] Could not set scoreSongUnlocked to true!' + '\nSong: ' + daSong);
 		// After all characters being loaded, it makes then invisible 0.01s later so that the player won't freeze when you change characters
 		// add(strumLine);
 
@@ -2889,6 +2889,7 @@ class PlayState extends MusicBeatState
 			{
 				for (i in 0...event[1].length)
 				{
+					//trace('[ALT] Found ${event[1].length} event(s) to activate.');
 					var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
 					var subEvent:EventNote = {
 						strumTime: newEventNote[0] + ClientPrefs.noteOffset,
@@ -2990,6 +2991,7 @@ class PlayState extends MusicBeatState
 		{
 			for (i in 0...event[1].length)
 			{
+				//trace('Found ${event[1].length} event(s) to activate.');
 				var newEventNote:Array<Dynamic> = [event[0], event[1][i][0], event[1][i][1], event[1][i][2]];
 				var subEvent:EventNote = {
 					strumTime: newEventNote[0] + ClientPrefs.noteOffset,
@@ -3556,11 +3558,11 @@ class PlayState extends MusicBeatState
 		}
 	
 		if (ClientPrefs.iconBounceBS == 'Psych' || ClientPrefs.iconBounceBS == 'SB Engine') {
-			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, MathUtil.mathBound(1 - (elapsed * 9 * playbackRate), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP1.scale.set(mult, mult);
 			iconP1.updateHitbox();
 		
-			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, MathUtil.mathBound(1 - (elapsed * 9 * playbackRate), 0, 1));
+			var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9 * playbackRate), 0, 1));
 			iconP2.scale.set(mult, mult);
 			iconP2.updateHitbox();
 		}
@@ -3975,6 +3977,7 @@ class PlayState extends MusicBeatState
 				value2 = eventNotes[0].value2;
 
 			triggerEventNote(eventNotes[0].event, value1, value2);
+			//trace('Found ${eventNotes[0]} event(s) to activate.');
 			eventNotes.shift();
 		}
 	}
@@ -4398,16 +4401,24 @@ class PlayState extends MusicBeatState
 				} else {
 					FunkinLua.setVarInArray(this, value1, value2);
 				}
-		}
+			}
 		stagesFunc(function(stage:BaseStage) stage.eventCalled(eventName, value1, value2));
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
 
+	var cameraAlreadyMovedGF:Bool = false;
+	var cameraAlreadyMovedDad:Bool = false;
+	var cameraAlreadyMovedPlayer:Bool = false;
 	public function moveCameraSection():Void {
 		if(SONG.notes[curSection] == null) return;
 
 		if (gf != null && SONG.notes[curSection].gfSection)
 		{
+			if (!cameraAlreadyMovedGF)
+			{
+				trace('Focusing camera on girlfriend.');
+			}
+			cameraAlreadyMovedGF = true;
 			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
@@ -4415,15 +4426,28 @@ class PlayState extends MusicBeatState
 			callOnLuas('onMoveCamera', ['gf']);
 			return;
 		}
+		cameraAlreadyMovedGF = false;
 
 		if (!SONG.notes[curSection].mustHitSection)
 		{
+			cameraAlreadyMovedPlayer = false;
 			moveCamera(true);
+			if (!cameraAlreadyMovedDad)
+			{
+				trace('Focusing camera on opponent.');
+			}
+			cameraAlreadyMovedDad = true;
 			callOnLuas('onMoveCamera', ['dad']);
 		}
 		else
 		{
+			cameraAlreadyMovedDad = false;
 			moveCamera(false);
+			if (!cameraAlreadyMovedPlayer)
+			{
+				trace('Focusing camera on player.');
+			}
+			cameraAlreadyMovedPlayer = true;
 			callOnLuas('onMoveCamera', ['boyfriend']);
 		}
 	}
@@ -4592,7 +4616,7 @@ class PlayState extends MusicBeatState
 				{
 					var difficulty:String = CoolUtil.getDifficultyFilePath();
 
-					trace('LOADING NEXT SONG');
+					trace('Loading next song');
 					trace(Paths.formatToSongPath(PlayState.storyPlaylist[0]) + difficulty);
 
 					var winterHorrorlandNext = (Paths.formatToSongPath(SONG.song) == "eggnog");
@@ -4629,7 +4653,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				trace('WENT BACK TO FREEPLAY??');
+				trace('Going back to Freeplay...');
 				WeekData.loadTheFirstEnabledMod();
 				cancelMusicFadeTween();
 				if(FlxTransitionableState.skipNextTransIn) {
@@ -5771,6 +5795,12 @@ class PlayState extends MusicBeatState
 	
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
+		}
+
+		if (ClientPrefs.iconBounceBS == 'Psych')
+		{
+			iconP1.scale.set(1.2, 1.2);
+			iconP2.scale.set(1.2, 1.2);
 		}
 
 		if (ClientPrefs.iconBounceBS == 'Strident Crisis') {
