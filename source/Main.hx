@@ -120,10 +120,6 @@ class Main extends Sprite
 
 		CrashHandler.init();
 
-		#if DEBUG_TRACY
-		CoolUtil.initTracy();
-		#end
-
 		if (stage != null)
 		{
 			init();
