@@ -27,6 +27,16 @@ class Constants
 	public static final SITE_LOCK_DESC:String = "Go play Star Engine on here:";
 
 	/**
+	 * The generatedBy string embedded in the chart files made by this application.
+	 */
+	public static var GENERATED_BY(get, never):String;
+
+	static function get_GENERATED_BY():String
+	{
+		return '${Constants.TITLE} - ${Constants.VERSION}';
+	}
+
+	/**
 	 * Color for the preloader background
 	 */
 	public static final COLOR_PRELOADER_BG:FlxColor = 0xFF000000;
@@ -45,6 +55,18 @@ class Constants
 	 * Color for the preloader site lock foreground
 	 */
 	public static final COLOR_PRELOADER_LOCK_FG:FlxColor = 0xB96F10;
+
+	/**
+	 * The title of the game, for debug printing purposes.
+	 * Change this if you're making an engine.
+	 */
+	public static final TITLE:String = "Friday Night Funkin': Star Engine";
+
+	/**
+	 * The current version number of the game.
+	 * Modify this in the `project.hxp` file.
+	 */
+	public static var VERSION(get, never):String;
 
 	/**
 	 * Color for the preloader site lock text
