@@ -32,6 +32,30 @@ class CoolUtil
 		trace(snap);
 		return (m / snap);
 	}
+
+	#if DEBUG_TRACY
+  /**
+   * Initialize Tracy.
+   * NOTE: Call this from the main thread ONLY!
+   */
+  public static function initTracy():Void
+  {
+    // Apply a marker to indicate frame end for the Tracy profiler.
+    // Do this only if Tracy is configured to prevent lag.
+    openfl.Lib.current.stage.addEventListener(openfl.events.Event.EXIT_FRAME, (e:openfl.events.Event) -> {
+      cpp.vm.tracy.TracyProfiler.frameMark();
+    });
+
+    var appInfoMessage = CrashHandler.buildSystemInfo();
+
+    trace("Friday Night Funkin' Star Engine: Connection to Tracy profiler successful.");
+
+    // Post system info like Git hash
+    cpp.vm.tracy.TracyProfiler.messageAppInfo(appInfoMessage);
+
+    cpp.vm.tracy.TracyProfiler.setThreadName("main");
+  }
+  #end
 	
 	public static function getDifficultyFilePath(num:Null<Int> = null)
 	{
@@ -106,6 +130,7 @@ class CoolUtil
 
 		return daList;
 	}
+	
 	public static function listFromString(string:String):Array<String>
 	{
 		var daList:Array<String> = [];

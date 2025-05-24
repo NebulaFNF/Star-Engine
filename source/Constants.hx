@@ -19,6 +19,18 @@ class Constants
 	];
 
 	/**
+   * The title of the game, for debug printing purposes.
+   * Change this if you're making an engine.
+   */
+  public static final TITLE:String = "Friday Night Funkin': Star Engine";
+
+  /**
+   * The current version number of the game.
+   * Modify this in the `project.hxp` file.
+   */
+  public static var VERSION(get, never):String;
+
+	/**
 	 * LANGUAGE
 	 */
 	// ==============================
@@ -76,6 +88,16 @@ class Constants
 	 *     The progress bare is automatically rescaled to match.
 	 */
 	public static final PRELOADER_MIN_STAGE_TIME:Float = 0.1;
+
+	/**
+   * The generatedBy string embedded in the chart files made by this application.
+   */
+  public static var GENERATED_BY(get, never):String;
+
+  static function get_GENERATED_BY():String
+  {
+    return '${Constants.TITLE} - ${Constants.VERSION}';
+  }
 
 	public function getGitCommit():String
 	{
