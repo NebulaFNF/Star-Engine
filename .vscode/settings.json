@@ -20,5 +20,35 @@
     "editor.defaultFormatter": "nadako.vshaxe",
     "editor.tabSize": 2
   },
+  "lime.targetConfigurations": [
+    {
+      "label": "Windows / Debug (Official build)",
+      "target": "windows",
+      "args": ["-debug", "-DofficialBuild"]
+    }
+  ],
+
+  "lime.buildTypes": [
+    {
+      "label": "Debug",
+      "args": ["-debug"]
+    },
+    {
+      "label": "Debug (Tracy)",
+      "args": ["-debug", "-DFEATURE_DEBUG_TRACY"]
+    },
+    {
+      "label": "Debug (Tracy, official build)",
+      "args": ["-debug", "-DFEATURE_DEBUG_TRACY", "-DofficialBuild"]
+    },
+    {
+      "label": "Release",
+      "args": ["-release"]
+    },
+    {
+      "label": "Release (official build)",
+      "args": ["-release", "-DofficialBuild"]
+    }
+  ],
   "haxe.enableExtendedIndentation": true
 }
