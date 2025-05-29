@@ -185,6 +185,4 @@ class MusicBeatState extends FlxUIState
 			val = PlayState.SONG.notes[curSection].sectionBeats;
 		return val == null ? 4 : val;
 	}
-
-	public function updateStrumHoldTime(elapsed:Float) {}
 }

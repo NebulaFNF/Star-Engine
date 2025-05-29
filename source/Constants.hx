@@ -42,11 +42,6 @@ class Constants
 	public static final COLOR_PRELOADER_BG:FlxColor = 0xFF000000;
 
 	/**
-	 * How long to continue the hold note animation after a note is pressed.
-	 */
-	public static final CONFIRM_HOLD_TIME:Float = 0.1;
-
-	/**
 	 * Color for the preloader progress bar
 	 */
 	public static final COLOR_PRELOADER_BAR:FlxColor = 0xFFA4FF11;

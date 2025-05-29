@@ -93,7 +93,7 @@ class CoolUtil
 
 		var appInfoMessage = CrashHandler.buildSystemInfo();
 
-		trace("Friday Night Funkin': Connection to Tracy profiler successful.");
+		trace("Friday Night Funkin' Star Engine: Connection to Tracy profiler successful.");
 
 		// Post system info like Git hash
 		cpp.vm.tracy.TracyProfiler.messageAppInfo(appInfoMessage);

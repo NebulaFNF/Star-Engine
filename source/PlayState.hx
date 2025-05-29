@@ -166,12 +166,6 @@ class PlayState extends MusicBeatState
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
 
-	/**
-   * How long the hold note animation has been playing after a note is pressed.
-	 * For ClientPrefs.vSliceNoteDelay
-   */
-  var confirmHoldTimer:Float = -1;
-
 	public static var useDownscroll:Bool;
 	public static var scrollSpeed:Float;
 	public static var botPlay:Bool;
@@ -3344,8 +3338,6 @@ class PlayState extends MusicBeatState
 		callOnLuas('onUpdate', [elapsed]);
 		super.update(elapsed);
 
-		//updateStrumHoldTime(elapsed);
-
 		switch (curStage)
 		{
 			case 'tank':
@@ -5259,14 +5251,15 @@ class PlayState extends MusicBeatState
 			if (!ffmpegMode) vocals.volume = 1;
 
 		var time:Float = 0.15;
-		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')){
+		if (ClientPrefs.vSliceNoteDelay) time = 0.2;
+		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
 			if (!ClientPrefs.vSliceNoteDelay) time += 0.15;
-			else confirmHoldTimer += 0.15;
+			else time += 1; // :P
 		}
-		if (!ClientPrefs.vSliceNoteDelay) StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
+		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		note.hitByOpponent = true;
 
-		if (!ClientPrefs.noHitFuncs) {
+		if (!ClientPrefs.noHitFuncs){
 			callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
 			stagesFunc(function(stage:BaseStage) (stage.opponentNoteHit(note)));
 		}
@@ -5363,26 +5356,20 @@ class PlayState extends MusicBeatState
 			if(cpuControlled) {
 				if (ClientPrefs.botLightStrum) {
 					var time:Float = 0.15;
-					if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')){
-			      if (!ClientPrefs.vSliceNoteDelay) time += 0.15;
-			      else confirmHoldTimer += 0.15;
-		      }
-					var elapsed:Float;
-					elapsed = time;
-		      if (!ClientPrefs.vSliceNoteDelay) StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
-		      else {
-						if (confirmHoldTimer >= 0)
-            {
-              confirmHoldTimer += elapsed;
+					if (ClientPrefs.vSliceNoteDelay) time = 0.2;
 
-              // Ensure the opponent stops holding the key after a certain amount of time.
-              if (confirmHoldTimer >= Constants.CONFIRM_HOLD_TIME)
-              {
-                confirmHoldTimer = -1;
-                StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), confirmHoldTimer);
-              }
-            }
+					// V-Slice note delay on BOTPLAY.
+					// Esto es tonto
+					if (ClientPrefs.vSliceNoteDelay)
+					{
+						if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 1;	
 					}
+					else
+					{
+						if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 0.15;
+					}
+
+					StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
 				}
 			} else {
 				if (ClientPrefs.playerLightStrum) {
