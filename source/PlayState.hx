@@ -5195,7 +5195,16 @@ class PlayState extends MusicBeatState
 			RecalculateRating(true);
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
-			FlxG.log.add('Played miss sound!');
+			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
+			FlxG.log.add('played imss note');
+
+			/*boyfriend.stunned = true;
+
+			// get stunned for 1/60 of a second, makes you able to
+			new FlxTimer().start(1 / 60, function(tmr:FlxTimer)
+			{
+				boyfriend.stunned = false;
+			});*/
 
 			if(boyfriend.hasMissAnimations) {
 				boyfriend.playAnim(singAnimations[Std.int(Math.abs(direction))] + 'miss', true);
@@ -5242,8 +5251,10 @@ class PlayState extends MusicBeatState
 			if (!ffmpegMode) vocals.volume = 1;
 
 		var time:Float = 0.15;
+		if (ClientPrefs.vSliceNoteDelay) time = 0.2;
 		if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
-			time += 0.15;
+			if (!ClientPrefs.vSliceNoteDelay) time += 0.15;
+			else time += 1; // :P
 		}
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		note.hitByOpponent = true;
@@ -5345,8 +5356,19 @@ class PlayState extends MusicBeatState
 			if(cpuControlled) {
 				if (ClientPrefs.botLightStrum) {
 					var time:Float = 0.15;
-					time = 0.2;
-					if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 0.15;
+					if (ClientPrefs.vSliceNoteDelay) time = 0.2;
+
+					// V-Slice note delay on BOTPLAY.
+					// Esto es tonto
+					if (ClientPrefs.vSliceNoteDelay)
+					{
+						if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 1;	
+					}
+					else
+					{
+						if (note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) time += 0.15;
+					}
+
 					StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
 				}
 			} else {
@@ -5919,11 +5941,8 @@ class PlayState extends MusicBeatState
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float) {
 		var spr:StrumNote = null;
 		if(isDad) {
-			StrumNote.strumlineIsDad = true;
 			spr = strumLineNotes.members[id];
-		}
-		else {
-			StrumNote.strumlineIsDad = false;
+		} else {
 			spr = playerStrums.members[id];
 		}
 

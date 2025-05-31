@@ -176,7 +176,7 @@
       "props": {
         "requireParams": true,
         "fieldType": "BOTH",
-        "requireReturn": false,
+        "requireReturn": true,
         "ignoreOverride": true,
         "tokens": ["ABSTRACT_DEF", "CLASS_DEF", "ENUM_DEF", "INTERFACE_DEF"],
         "modifier": "PUBLIC",
@@ -494,7 +494,7 @@
       "props": {
         "enforceReturnTypeForAnonymous": false,
         "allowEmptyReturn": true,
-        "enforceReturnType": false
+        "enforceReturnType": true
       },
       "type": "Return"
     },
