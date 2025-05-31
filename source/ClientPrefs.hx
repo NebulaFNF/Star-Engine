@@ -280,7 +280,8 @@ class ClientPrefs
 		{
 			missSoundShit = FlxG.save.data.missSoundShit;
 		}
-		if (FlxG.save.data.shakingScreen != null) {
+		if (FlxG.save.data.shakingScreen != null)
+		{
 			shakingScreen = FlxG.save.data.shakingScreen;
 		}
 		if (FlxG.save.data.funnyScoreTextImVeryFunny != null)
