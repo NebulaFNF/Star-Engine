@@ -472,7 +472,7 @@ class Project extends HXProject
 		addAssetPath("assets/fonts", null, "default", ["*"], exclude, shouldEmbedFonts);
 
 		// 3D assets
-		addAssetPath("assets/preload/models", "assets/models", "default", ["*"], exclude, shouldEmbedFonts)
+		addAssetPath("assets/preload/models", "assets/models", "default", ["*"], exclude, shouldEmbedFonts);
 
 		// Shared asset libraries
 		addAssetLibrary("songs", shouldEmbed, shouldPreload);
