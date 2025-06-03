@@ -471,6 +471,9 @@ class Project extends HXProject
 		var shouldEmbedFonts = true;
 		addAssetPath("assets/fonts", null, "default", ["*"], exclude, shouldEmbedFonts);
 
+		// 3D assets
+		addAssetPath("assets/preload/models", "assets/models", "default", ["*"], exclude, shouldEmbedFonts)
+
 		// Shared asset libraries
 		addAssetLibrary("songs", shouldEmbed, shouldPreload);
 		addAssetPath("assets/songs", "assets/songs", "songs", ["*"], exclude, shouldEmbed);
