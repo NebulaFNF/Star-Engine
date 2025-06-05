@@ -38,10 +38,10 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
-  //"haxecheckstyle.sourceFolders": ["src", "source"],
-  //"haxecheckstyle.externalSourceRoots": [],
-  //"haxecheckstyle.configurationFile": "checkstyle.json",
-  //"haxecheckstyle.codeSimilarityBufferSize": 100,
+  "haxecheckstyle.sourceFolders": ["src", "source"],
+  "haxecheckstyle.externalSourceRoots": [],
+  "haxecheckstyle.configurationFile": "checkstyle.json",
+  "haxecheckstyle.codeSimilarityBufferSize": 100,
 
   "[jsonc]": {
     // Automatically keep JSONC files formatted.
