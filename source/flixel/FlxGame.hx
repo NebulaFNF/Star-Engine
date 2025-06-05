@@ -1,14 +1,15 @@
 package flixel;
 
+import flixel.graphics.tile.FlxDrawBaseItem;
+import flixel.system.FlxSplash;
+import flixel.util.FlxArrayUtil;
+import funkin.prefs.ClientPrefs;
+import openfl.Assets;
 import openfl.Lib;
 import openfl.display.Sprite;
 import openfl.display.StageAlign;
 import openfl.display.StageScaleMode;
 import openfl.events.Event;
-import flixel.graphics.tile.FlxDrawBaseItem;
-import flixel.system.FlxSplash;
-import flixel.util.FlxArrayUtil;
-import openfl.Assets;
 import openfl.filters.BitmapFilter;
 #if desktop
 import openfl.events.FocusEvent;
@@ -244,11 +245,11 @@ class FlxGame extends Sprite
 	 * Instantiate a new game object.
 	 *
 	 * @param gameWidth        The width of your game in pixels. If `0`, the `Project.xml` width is used.
-	 *                         If the demensions don't match the `Project.xml`, 
+	 *                         If the demensions don't match the `Project.xml`,
 	 *                         [`scaleMode`](https://api.haxeflixel.com/flixel/system/scaleModes/index.html)
 	 *                         will determine the actual display size of the game.
 	 * @param gameHeight       The height of your game in pixels. If `0`, the `Project.xml` height is used.
-	 *                         If the demensions don't match the `Project.xml`, 
+	 *                         If the demensions don't match the `Project.xml`,
 	 *                         [`scaleMode`](https://api.haxeflixel.com/flixel/system/scaleModes/index.html)
 	 *                         will determine the actual display size of the game.
 	 * @param initialState     The class name of the state you want to create and switch to first (e.g. `MenuState`).

@@ -14,11 +14,6 @@
   // Automatically enforce Linux style line endings.
   "files.eol": "\n",
 
-  "haxecheckstyle.sourceFolders": ["src", "source"],
-  "haxecheckstyle.externalSourceRoots": [],
-  "haxecheckstyle.configurationFile": "checkstyle.json",
-  "haxecheckstyle.codeSimilarityBufferSize": 100,
-
   "haxe.displayPort": "auto",
   "haxe.enableCompilationServer": true,
   "haxe.enableServerView": true,
@@ -42,6 +37,11 @@
     "editor.formatOnPaste": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+
+  //"haxecheckstyle.sourceFolders": ["src", "source"],
+  //"haxecheckstyle.externalSourceRoots": [],
+  //"haxecheckstyle.configurationFile": "checkstyle.json",
+  //"haxecheckstyle.codeSimilarityBufferSize": 100,
 
   "[jsonc]": {
     // Automatically keep JSONC files formatted.

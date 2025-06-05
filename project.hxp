@@ -61,7 +61,7 @@ class Project extends HXProject
 	 * The fully qualified class path for the game's preloader.
 	 * Particularly important on HTML5 but we use it on all platforms.
 	 */
-	static final PRELOADER:String = "preloader.FunkinPreloader";
+	static final PRELOADER:String = "funkin.ui.preloader.FunkinPreloader";
 
 	/**
 	 * A package name used for identifying the app on various app stores.
@@ -137,7 +137,7 @@ class Project extends HXProject
 	{
 		super();
 
-		flair();
+		//flair();
 		configureApp();
 
 		displayTarget();
@@ -388,7 +388,7 @@ class Project extends HXProject
 			setHaxedef("NAPE_RELEASE_BUILD");
 
 		// Cleaner looking compiler errors.
-		setHaxedef("message.reporting", "pretty");
+		//setHaxedef("message.reporting", "pretty");
 
 		if (FEATURE_DEBUG_TRACY.isEnabled(this)) {
 			setHaxedef("HXCPP_TELEMETRY"); // Enable telemetry

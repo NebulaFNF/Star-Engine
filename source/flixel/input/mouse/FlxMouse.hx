@@ -1,7 +1,6 @@
 package flixel.input.mouse;
 
 #if FLX_MOUSE
-import Paths;
 import flash.Lib;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
@@ -17,13 +16,14 @@ import flixel.input.mouse.FlxMouseButton.FlxMouseButtonID;
 import flixel.system.FlxAssets;
 import flixel.system.replay.MouseRecord;
 import flixel.util.FlxDestroyUtil;
+import funkin.utils.Paths;
 #if FLX_NATIVE_CURSOR
-import Paths;
 import flash.Vector;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.ui.MouseCursor;
 import flash.ui.MouseCursorData;
+import funkin.utils.Paths;
 #end
 
 @:bitmap("art/cursor.png")

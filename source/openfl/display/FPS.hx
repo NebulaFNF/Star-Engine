@@ -1,8 +1,9 @@
 package openfl.display;
 
-import backend.Memory;
 import flixel.math.FlxMath;
 import flixel.util.FlxStringUtil;
+import funkin.backend.memory.Memory;
+import funkin.prefs.ClientPrefs;
 import haxe.Timer;
 import openfl.events.Event;
 import openfl.text.TextField;

@@ -1,6 +1,6 @@
 package;
 
-import backend.WindowBackend;
+import funkin.backend.window.WindowBackend;
 
 class WindowColorMode
 {
