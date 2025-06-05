@@ -1,6 +1,6 @@
 # Code Style Guide
 
-Code style is enforced using Visual Studio Code extensions.
+Code style is enforced using Visual Studio Code extensions. (specifically for JSONs)
 
 ## .hx
 Formatting is handled by the `nadako.vshaxe` extension, which includes the Haxe Formatter.
