@@ -137,7 +137,7 @@ class Project extends HXProject
 	{
 		super();
 
-		//flair();
+		flair();
 		configureApp();
 
 		displayTarget();
@@ -388,7 +388,7 @@ class Project extends HXProject
 			setHaxedef("NAPE_RELEASE_BUILD");
 
 		// Cleaner looking compiler errors.
-		//setHaxedef("message.reporting", "pretty");
+		setHaxedef("message.reporting", "pretty");
 
 		if (FEATURE_DEBUG_TRACY.isEnabled(this)) {
 			setHaxedef("HXCPP_TELEMETRY"); // Enable telemetry
