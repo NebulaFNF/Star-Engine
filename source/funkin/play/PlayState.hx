@@ -2745,18 +2745,17 @@ class PlayState extends MusicBeatState
 				if (cpuControlled) {
 					scoreTxt.text = 'Bot Play Enabled';
 				}
-				else scoreTxt.text = 'Score: ' + songScore;
+				else {
+					var commaSeparated:Bool = true;
+          scoreTxt.text = 'Score: ${FlxStringUtil.formatMoney(songScore, false, commaSeparated)}';
+				}
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
-		/*scoreTxt.text = 'Score: ' + songScore
-		+ ' | Misses: ' + songMisses
-		+ ' | Rating: ' + ratingName*/
-		//+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 
-		/*if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
+		if (ClientPrefs.scoreZoom && !miss && !cpuControlled && ClientPrefs.funnyScoreTextImVeryFunny == 'Psych Engine')
 		{
-			if(scoreTxtTween != null) {
+			if (scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
 			scoreTxt.scale.x = 1.075;
@@ -2766,7 +2765,7 @@ class PlayState extends MusicBeatState
 					scoreTxtTween = null;
 				}
 			});
-		}*/
+		}
 		callOnLuas('onUpdateScore', [miss]);
 	}
 
@@ -4788,12 +4787,14 @@ class PlayState extends MusicBeatState
 
 		//tryna do MS based judgment due to popular demand
 		var daRating:Rating = Conductor.judgeNote(note, noteDiff / playbackRate);
-
+		var PBOT1Score = Conductor.scoreNotePBOT1(noteDiff / playbackRate);
+		//trace('PBOT1 currentScore ' + PBOT1Score);
 		totalNotesHit += daRating.ratingMod;
 		note.ratingMod = daRating.ratingMod;
 		if(!note.ratingDisabled) daRating.increase();
 		note.rating = daRating.name;
-		score = daRating.score;
+		//trace('using daRating as the score');
+		score = PBOT1Score;
 
 		if(daRating.noteSplash && !note.noteSplashDisabled)
 			spawnNoteSplashOnNote(note);
@@ -5071,7 +5072,7 @@ class PlayState extends MusicBeatState
 			if(spr != null)
 			{
 				spr.playAnim('static');
-				spr.confirmHoldTimer = 0;
+				//spr.confirmHoldTimer = 0;
 			}
 			callOnLuas('onKeyRelease', [key]);
 		}
