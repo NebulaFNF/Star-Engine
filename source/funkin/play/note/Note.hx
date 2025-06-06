@@ -13,6 +13,28 @@ typedef EventNote = {
 	value2:String
 }
 
+/*enum abstract NoteDirection(Int) from Int to Int
+{
+	public var colorName(get, never):String;
+
+	function get_colorName(theDataOfTheNote:Int):String
+  {
+    return switch (theDataOfTheNote) //real
+    {
+      case 0:
+        'purple';
+      case 1:
+        'blue';
+      case 2:
+        'green';
+      case 3:
+        'red';
+      default:
+        'unknown';
+    }
+  }
+}*/
+
 typedef PreloadedChartNote = {
 	strumTime:Float,
 	noteData:Int,

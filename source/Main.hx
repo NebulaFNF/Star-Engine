@@ -177,7 +177,17 @@ class Main extends Sprite
 
 		ClientPrefs.loadDefaultKeys();
 		inline cpp.vm.Gc.enable(!ClientPrefs.disableGC);
-		addChild(new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen));
+
+		final funkinGame:FlxGame = new FlxGame(gameWidth, gameHeight, initialState, #if (flixel < "5.0.0") zoom, #end framerate, framerate, skipSplash, startFullscreen);
+		// Literally just from Vanilla FNF but I implemented it my own way. -Torch
+		// torch is my friend btw :3 -moxie
+		@:privateAccess {
+			final soundFrontEnd:flixel.system.frontEnds.SoundFrontEnd = new funkin.ui.volumebox.FunkinSoundTray.CustomSoundFrontEnd();
+			FlxG.sound = soundFrontEnd;
+			funkinGame._customSoundTray = funkin.ui.volumebox.FunkinSoundTray.FunkinSoundTray;
+		}
+
+		addChild(funkinGame);
 
 		#if !mobile
 		fpsBg = new FPSBg();

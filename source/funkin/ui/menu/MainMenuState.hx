@@ -126,12 +126,14 @@ class MainMenuState extends MusicBeatState
 			vidSprite = new VideoSprite(fileName, false, canSkip, loop);
 
 			// Finish callback
-			function onVideoEnd() Sys.exit(0);
+			function onVideoEnd()
+				Sys.exit(0);
 			vidSprite.finishCallback = (callback != null) ? callback.bind() : onVideoEnd;
 			vidSprite.onSkip = (callback != null) ? callback.bind() : onVideoEnd;
 			insert(0, vidSprite);
 
-			if (playOnLoad) vidSprite.videoSprite.play();
+			if (playOnLoad)
+				vidSprite.videoSprite.play();
 			return vidSprite;
 		}
 		else
@@ -264,7 +266,7 @@ class MainMenuState extends MusicBeatState
 		FlxG.camera.follow(camFollowPos, null, 1);
 
 		var cloudyString:String = #if debug 'Project ' + Constants.CODENAME_SUFFIX + ' : ' #else 'Star Engine : ' #end;
-		//var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Star Engine : " + psychEngineVersion, 12);
+		// var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Star Engine : " + psychEngineVersion, 12);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, cloudyString + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("Comic Sans MS Bold", 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
@@ -544,7 +546,8 @@ class MainMenuState extends MusicBeatState
 				var add:Float = 0;
 				if (menuItems.length > 4)
 					add = menuItems.length * 8;
-				camFollow.setPosition(spr.getGraphicMidpoint().x, spr.getGraphicMidpoint().y - add);
+				camFollow.setPosition(menuItems.members[curSelected].getGraphicMidpoint().x,
+					menuItems.members[curSelected].getGraphicMidpoint().y - (menuItems.length > 4 ? menuItems.length * 8 : 0));
 				spr.centerOffsets();
 			}
 		});

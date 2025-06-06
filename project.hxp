@@ -471,6 +471,10 @@ class Project extends HXProject
 		var shouldEmbedFonts = true;
 		addAssetPath("assets/fonts", null, "default", ["*"], exclude, shouldEmbedFonts);
 
+		// Volume stuff
+		var shouldEmbedVolume = true;
+		addAssetPath("assets/soundtray", null, "default", ["*"], exclude, shouldEmbedVolume);
+
 		// 3D assets
 		addAssetPath("assets/preload/models", "assets/models", "default", ["*"], exclude, shouldEmbedFonts);
 

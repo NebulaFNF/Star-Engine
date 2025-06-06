@@ -621,7 +621,7 @@ class EditorPlayState extends MusicBeatState
 			if(spr != null && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
-				spr.resetAnim = 0;
+				spr.confirmHoldTimer = 0;
 			}
 		}
 	}
@@ -646,7 +646,7 @@ class EditorPlayState extends MusicBeatState
 			if(spr != null)
 			{
 				spr.playAnim('static');
-				spr.resetAnim = 0;
+				spr.confirmHoldTimer = 0;
 			}
 		}
 		//trace('released: ' + controlArray);
@@ -1006,7 +1006,7 @@ class EditorPlayState extends MusicBeatState
 
 		if(spr != null) {
 			spr.playAnim('confirm', true);
-			spr.resetAnim = time;
+			spr.confirmHoldTimer = time;
 		}
 	}
 

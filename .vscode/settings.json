@@ -132,6 +132,10 @@
     {
       "label": "Release (official build)",
       "args": ["-release", "-DofficialBuild"]
+    },
+    {
+      "label": "Release (Tracy, official build)",
+      "args": ["-release", "-DofficialBuild", "-DFEATURE_DEBUG_TRACY"]
     }
   ],
   "haxe.enableExtendedIndentation": true,

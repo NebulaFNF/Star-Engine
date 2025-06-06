@@ -1443,28 +1443,35 @@ class PlayState extends MusicBeatState
 				scoreTxt.borderSize = 1.25;
 				scoreTxt.scrollFactor.set();
 				scoreTxt.antialiasing = ClientPrefs.globalAntialiasing;
-		        scoreTxt.visible = !ClientPrefs.hideHud;
+		    scoreTxt.visible = !ClientPrefs.hideHud;
 				add(scoreTxt);
 			case 'Psych Engine':
 				scoreTxt = new FlxText(0, healthBarBG.y + 36, FlxG.width, "", 20);
-		        scoreTxt.setFormat(Paths.font("comic.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		        scoreTxt.scrollFactor.set();
-		        scoreTxt.borderSize = 1.25;
+		    scoreTxt.setFormat(Paths.font("comic.ttf"), 20, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    scoreTxt.scrollFactor.set();
+		    scoreTxt.borderSize = 1.25;
 				scoreTxt.antialiasing = ClientPrefs.globalAntialiasing;
-		        scoreTxt.visible = !ClientPrefs.hideHud;
-		        add(scoreTxt);
+		    scoreTxt.visible = !ClientPrefs.hideHud;
+		    add(scoreTxt);
 			case 'Vanilla':
 				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		        scoreTxt.scrollFactor.set();
+		    scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    scoreTxt.scrollFactor.set();
 				scoreTxt.visible = !ClientPrefs.hideHud;
-		        add(scoreTxt);
+		    add(scoreTxt);
 			case 'Kade':
 				scoreTxt = new FlxText(0, healthBarBG.y + 50, FlxG.width, "", 20);
-		        scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		        scoreTxt.scrollFactor.set();
-		        scoreTxt.visible = !ClientPrefs.hideHud;
-		        add(scoreTxt);
+		    scoreTxt.setFormat(Paths.font("vcryey.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		    scoreTxt.scrollFactor.set();
+		    scoreTxt.visible = !ClientPrefs.hideHud;
+		    add(scoreTxt);
+			case 'V-Slice':
+				scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, '', 20);
+        scoreTxt.setFormat(Paths.font('vcryey.ttf'), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        scoreTxt.scrollFactor.set();
+        //scoreTxt.zIndex = 802;
+				scoreTxt.visible = !ClientPrefs.hideHud;
+        add(scoreTxt);
 		}
 
 		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
@@ -2734,6 +2741,11 @@ class PlayState extends MusicBeatState
 				scoreTxt.text = "Score:" + songScore;
 			case 'Kade':
 				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks:' + songMisses + ' | Accuracy:${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | $ratingFC ' + ratingName;
+			case 'V-Slice':
+				if (cpuControlled) {
+					scoreTxt.text = 'Bot Play Enabled';
+				}
+				else scoreTxt.text = 'Score: ' + songScore;
 			default:
 				scoreTxt.text = "Score:" + songScore;
 		}
@@ -3527,10 +3539,19 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.NINE) iconP1.swapOldIcon();
 
+		if (ClientPrefs.iconBounceBS == 'V-Slice')
+		{
+			iconP1.setGraphicSize(Std.int(MathUtil.coolLerp(iconP1.width, 150, 0.15)));
+		  iconP2.setGraphicSize(Std.int(MathUtil.coolLerp(iconP2.width, 150, 0.15)));
+
+		  iconP1.updateHitbox();
+		  iconP2.updateHitbox();
+		}
+
 		if (ClientPrefs.iconBounceBS == 'Vanilla')
 		{
 			iconP1.setGraphicSize(Std.int(FlxMath.lerp(iconP1.frameWidth, iconP1.width, MathUtil.mathBound(1 - (elapsed * 30 * playbackRate), 0, 1))), Std.int(FlxMath.lerp(iconP1.frameHeight, iconP1.height, MathUtil.mathBound(1 - (elapsed * 30 * playbackRate), 0, 1))));
-		    iconP2.setGraphicSize(Std.int(FlxMath.lerp(iconP2.frameWidth, iconP2.width, MathUtil.mathBound(1 - (elapsed * 30 * playbackRate), 0, 1))), Std.int(FlxMath.lerp(iconP2.frameHeight, iconP2.height, MathUtil.mathBound(1 - (elapsed * 30 * playbackRate), 0, 1))));
+		  iconP2.setGraphicSize(Std.int(FlxMath.lerp(iconP2.frameWidth, iconP2.width, MathUtil.mathBound(1 - (elapsed * 30 * playbackRate), 0, 1))), Std.int(FlxMath.lerp(iconP2.frameHeight, iconP2.height, MathUtil.mathBound(1 - (elapsed * 30 * playbackRate), 0, 1))));
 		}
 
 		if (ClientPrefs.iconBounceBS == 'Plank Engine')
@@ -5023,7 +5044,7 @@ class PlayState extends MusicBeatState
 			if(strumsBlocked[key] != true && spr != null && ClientPrefs.playerLightStrum && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
-				spr.resetAnim = 0;
+				//spr.confirmHoldTimer = 0;
 			}
 			callOnLuas('onKeyPress', [key]);
 		}
@@ -5050,7 +5071,7 @@ class PlayState extends MusicBeatState
 			if(spr != null)
 			{
 				spr.playAnim('static');
-				spr.resetAnim = 0;
+				spr.confirmHoldTimer = 0;
 			}
 			callOnLuas('onKeyRelease', [key]);
 		}
@@ -5809,7 +5830,7 @@ class PlayState extends MusicBeatState
 			iconP2.updateHitbox();
 		}
 
-		if (ClientPrefs.iconBounceBS == 'Vanilla')
+		if (ClientPrefs.iconBounceBS == 'Vanilla' || ClientPrefs.iconBounceBS == 'V-Slice')
 		{
 			iconP1.setGraphicSize(Std.int(iconP1.width + 30));
 			iconP2.setGraphicSize(Std.int(iconP2.width + 30));
@@ -5974,7 +5995,7 @@ class PlayState extends MusicBeatState
 				spr.playAnim('confirm', true);
 			}
 
-			spr.resetAnim = time;
+			// spr.confirmHoldTimer = time; // why do we need this when we got our OWN delay at funkin.play.note.StrumNote?
 		}
 	}
 

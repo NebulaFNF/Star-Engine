@@ -53,6 +53,21 @@ class Constants
 	public static final COLOR_PRELOADER_LOCK_BG:FlxColor = 0xFF1B1717;
 
 	/**
+	 * The horizontal offset of the strumline from the left edge of the screen.
+	 */
+	public static final STRUMLINE_X_OFFSET:Float = 48;
+
+	/**
+	 * The vertical offset of the strumline from the top edge of the screen.
+	 */
+	public static final STRUMLINE_Y_OFFSET:Float = 24;
+
+	/**
+   * The amount, in percent, to scale the icon by when bopping.
+   */
+  static final BOP_SCALE:Float = 0.2;
+
+	/**
 	 * Color for the preloader site lock foreground
 	 */
 	public static final COLOR_PRELOADER_LOCK_FG:FlxColor = 0xB96F10;
