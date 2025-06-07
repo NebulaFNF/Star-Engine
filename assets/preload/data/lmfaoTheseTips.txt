@@ -9,7 +9,7 @@ psych engine 3d edition
 star > jse > psych > kade
 boom boom chk chk boom
 tip: don't rage quit
-source/MainMenuState.hx:69: Press something cool come on!!!!!1!!!!!!!!11!
+source/funkin/ui/menu/MainMenuState.hx:69: Press something cool come on!!!!!1!!!!!!!!11!
 nael2xd says if you go to main menu and press 7 2 times in the span of 2 seconds, something cool happens
 source/Main.hx:89: hxcpp_debug_server is disabled! You can not connect to the game with a debugger.
 This engine is meant to replace JSE and try to replicate the old style of FNF engines in 2021!

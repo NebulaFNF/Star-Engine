@@ -324,7 +324,7 @@ class Project extends HXProject
 	function configureFeatureFlags()
 	{
 		// You can explicitly override any of these.
-		// For example, `-DMODS` or `-DVIDEO_PLAYBACK`
+		// For example, `-DMODS_ALLOWED` or `-DVIDEOS_ALLOWED`
 
 		// Should be true unless explicitly requested.
 		MODS_ALLOWED.apply(this, true);
@@ -385,7 +385,11 @@ class Project extends HXProject
 		 */
 
 		if (isRelease())
+		{
+			// Improve performance on Nape
+			// TODO: Do we even use Nape?
 			setHaxedef("NAPE_RELEASE_BUILD");
+		}
 
 		// Cleaner looking compiler errors.
 		setHaxedef("message.reporting", "pretty");
@@ -405,7 +409,14 @@ class Project extends HXProject
 	{
 		// Set the output directory. Depends on the target platform and build type.
 
-		var buildDir = 'export/${isDebug() ? 'debug' : 'release'}/';
+		var buildDir = 'export/${isDebug() ? 'debug' : 'release'}';
+
+		// we use a dedicated 'tracy' folder, since it generally needs a recompile when in use
+		if (FEATURE_DEBUG_TRACY.isEnabled(this))
+			buildDir += "-tracy";
+
+		// trailing slash might not be needed, works fine on macOS without it, but I haven't tested on Windows!
+		buildDir += "/";
 
 		info('Output directory: $buildDir');
 		// setenv('BUILD_DIR', buildDir);

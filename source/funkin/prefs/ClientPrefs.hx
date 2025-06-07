@@ -36,6 +36,7 @@ class ClientPrefs
 	public static var camZooms:Bool = true;
 	public static var missSoundShit:Bool = false;
 	public static var hideHud:Bool = false;
+	public static var botplayScoreTxt:Bool = true;
 	public static var noBotLag:Bool = true;
 	public static var disableGC:Bool = true;
 	public static var smoothHealth:Bool = true;
@@ -214,6 +215,7 @@ class ClientPrefs
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.timeBarType = timeBarType;
 		FlxG.save.data.scoreZoom = scoreZoom;
+		FlxG.save.data.botplayScoreTxt = botplayScoreTxt;
 		FlxG.save.data.noReset = noReset;
 		FlxG.save.data.healthBarAlpha = healthBarAlpha;
 		FlxG.save.data.shakingScreen = shakingScreen;
@@ -412,7 +414,10 @@ class ClientPrefs
 		{
 			noCapture = FlxG.save.data.noCapture;
 		}
-
+		if (FlxG.save.data.botplayScoreTxt != null)
+		{
+			botplayScoreTxt = FlxG.save.data.botplayScoreTxt
+		}
 		if (FlxG.save.data.camZooms != null)
 		{
 			camZooms = FlxG.save.data.camZooms;
@@ -563,4 +568,8 @@ class ClientPrefs
 		}
 		return copiedArray;
 	}
+	/*public static function saveSetting(name:String)
+		{
+			FlxG.save.data.name = name;
+	}*/
 }

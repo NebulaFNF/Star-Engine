@@ -24,3 +24,20 @@ vscode-project.hxml
 ### Miscellaneous
 # File used to detect how much time your build has taken. Should not be shared with others.
 .build_time
+
+# A part of FunkinCrew/Funkin .gitignore
+.DS_STORE
+.haxelib/
+.vs/
+dump/
+project/
+RECOVER_*.fla
+shitAudio/
+.swp
+NewgroundsCredentials.hx
+
+# Exclude JS stuff
+node_modules/
+package.json
+package-lock.json
+.aider*

@@ -2742,10 +2742,11 @@ class PlayState extends MusicBeatState
 			case 'Kade':
 				scoreTxt.text = 'Score:' + songScore + ' | Combo Breaks:' + songMisses + ' | Accuracy:${Highscore.floorDecimal(ratingPercent * 100, 2)}%' + ' | $ratingFC ' + ratingName;
 			case 'V-Slice':
-				if (cpuControlled) {
+				if (cpuControlled && ClientPrefs.botplayScoreTxt) {
 					scoreTxt.text = 'Bot Play Enabled';
 				}
 				else {
+					// TODO: Add an option for this maybe?
 					var commaSeparated:Bool = true;
           scoreTxt.text = 'Score: ${FlxStringUtil.formatMoney(songScore, false, commaSeparated)}';
 				}
