@@ -416,7 +416,7 @@ class ClientPrefs
 		}
 		if (FlxG.save.data.botplayScoreTxt != null)
 		{
-			botplayScoreTxt = FlxG.save.data.botplayScoreTxt
+			botplayScoreTxt = FlxG.save.data.botplayScoreTxt;
 		}
 		if (FlxG.save.data.camZooms != null)
 		{
