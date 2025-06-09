@@ -30,9 +30,14 @@ class Conductor
 	public static var crochet:Float = ((60 / bpm) * 1000); // beats in milliseconds
 
 	/**
-	 * The amount of steps in milliseconds
+	 * The amount of steps in milliseconds.
 	 */
 	public static var stepCrochet:Float = crochet / 4; // steps in milliseconds
+
+	/**
+   * Current position in the song, in beats.
+   */
+  public var currentBeat(default, null):Int = 0;
 
 	/**
 	 * Unused variables.

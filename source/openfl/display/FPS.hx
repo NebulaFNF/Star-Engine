@@ -2,6 +2,7 @@ package openfl.display;
 
 import flixel.math.FlxMath;
 import flixel.util.FlxStringUtil;
+import funkin.api.mem.GetTotalMemory;
 import funkin.backend.memory.Memory;
 import funkin.prefs.ClientPrefs;
 import haxe.Timer;
@@ -36,8 +37,6 @@ class FPS extends TextField
 
 	public var memoryUsage:String = '';
 	public var memoryShit:Float;
-
-	public var memPeak:Float;
 
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
@@ -93,7 +92,7 @@ class FPS extends TextField
 		if (currentFPS > ClientPrefs.framerate)
 			currentFPS = ClientPrefs.framerate;
 
-		if (Memory.getMemory() > memPeak) memPeak = Memory.getMemory();
+		// if (Memory.getMemory() > memPeak) memPeak = GetTotalMemory.getPeakRSS();
 
 		if (currentCount != cacheCount /*&& visible*/)
 		{
@@ -102,16 +101,17 @@ class FPS extends TextField
 			if (!ClientPrefs.fpsCounterThingie)
 				text = "FPS: " + currentFPS;
 			else
-				if (ClientPrefs.returnMemoryToFlxStringUtil) text = "" + currentFPS + ' | ' + FlxStringUtil.formatBytes(memoryShit) + " / " + FlxStringUtil.formatBytes(memPeak);
-			    else text = "" + currentFPS + ' | ' + Memory.getMemory() + " / " + FlxStringUtil.formatBytes(memPeak);
+				text = "" + currentFPS + ' | ' + Memory.getMemory() + " / " + FlxStringUtil.formatBytes(GetTotalMemory.getCurrentRSS());
 			var memoryMegas:Float = 0;
 
 			#if openfl
 			memoryMegas = Math.abs(FlxMath.roundDecimal(System.totalMemory / 1000000, 1));
 
 			if (!ClientPrefs.fpsCounterThingie)
-				if (ClientPrefs.returnMemoryToFlxStringUtil) text += "\nMEM: " + FlxStringUtil.formatBytes(memoryShit) + " / " + FlxStringUtil.formatBytes(memPeak);
-			    else text += "\nMEM: " + FlxStringUtil.formatBytes(Memory.getMemory()) + " / " + FlxStringUtil.formatBytes(memPeak);
+				text += "\nMEM: "
+					+ FlxStringUtil.formatBytes(GetTotalMemory.getCurrentRSS())
+					+ " / "
+					+ FlxStringUtil.formatBytes(GetTotalMemory.getPeakRSS());
 			else
 				text += "";
 			#end

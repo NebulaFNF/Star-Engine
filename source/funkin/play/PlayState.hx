@@ -89,10 +89,9 @@ import funkin.video.VideoSprite;
 #end
 
 
-/******         PlayState            ******/
-/* The most essential and important class */
-/**           In the game.               **/
-
+/**
+ * The gameplay state, where all the rhythm gaming happens.
+ */
 class PlayState extends MusicBeatState
 {
 	public static var STRUM_X = 42;
@@ -1379,7 +1378,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
-		healthBarBG.alpha = ClientPrefs.healthBarAlpha; //ok
+		//healthBarBG.alpha = 0; //ok
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
 		add(healthBarBG);
@@ -1413,11 +1412,13 @@ class PlayState extends MusicBeatState
 				healthCooler.scrollFactor.set();
 				healthCooler.setGraphicSize(Std.int(healthBarBG.width * 1.2));
 				healthCooler.visible = !ClientPrefs.hideHud;
-				healthCooler.alpha = ClientPrefs.healthBarAlpha;
+				healthCooler.alpha = healthBar.alpha;
 				healthCooler.antialiasing = ClientPrefs.globalAntialiasing;
 				healthCooler.screenCenter(X);
 				add(healthCooler);
 		}
+
+		healthBarBG.alpha = healthBar.alpha;
 
 		iconP1 = new HealthIcon(boyfriend.healthIcon, true);
 		iconP1.y = healthBar.y - 75;
@@ -1487,6 +1488,8 @@ class PlayState extends MusicBeatState
 		}
 		if(!ClientPrefs.botplayWatermark) {
 			botplayTxt.visible = false;
+		} else {
+			botplayTxt.visible = cpuControlled;
 		}
 
 		laneunderlayOpponent.cameras = [camHUD];
@@ -1499,7 +1502,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
-		if(ClientPrefs.botplayWatermark) botplayTxt.cameras = [camHUD];
+		botplayTxt.cameras = [camHUD];
 		if (EngineWatermark != null) EngineWatermark.cameras = [camHUD];
 		if (ClientPrefs.healthBarStyle == 'Cooler') healthCooler.cameras = [camHUD];
 		timeBar.cameras = [camHUD];

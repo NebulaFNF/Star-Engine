@@ -22,7 +22,7 @@ class StartupState extends MusicBeatState
 	var logo:FlxSprite;
 	var skipTxt:FlxText;
 
-	var theIntro:Int = FlxG.random.int(0, 1);
+	var theIntro:Int = FlxG.random.int(0, 2);
 
 	private var vidSprite:VideoSprite = null;
 
@@ -105,6 +105,10 @@ class StartupState extends MusicBeatState
 				case 1:
 					#if VIDEOS_ALLOWED
 					startVideo('startupAltLmao');
+					#end
+				case 2:
+					#if VIDEOS_ALLOWED
+					startVideo('coinStart');
 					#end
 			}
 		});
