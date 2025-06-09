@@ -21,7 +21,7 @@ vscode-project.hxml
 !.vscode/launch.json
 !.vscode/extensions.json
 
-### Miscellaneous
+### Miscallaneous
 # File used to detect how much time your build has taken. Should not be shared with others.
 .build_time
 

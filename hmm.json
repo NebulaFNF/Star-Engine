@@ -1,0 +1,126 @@
+{
+  // Does not really work for some strange reason...
+  // Most of the display3D stuff on OpenFL is being removed by Haxe Module Manager.
+  // I do not recommend using this hmm.json file and instead use either setup/windows.bat or
+  // setup/unix.sh.
+  // -lunaruniv
+  "dependencies": [
+    {
+      "name": "away3d",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/moxie-coder/away3d"
+    },
+    {
+      "name": "discord_rpc",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/Aidan63/linc_discord-rpc"
+    },
+    {
+      "name": "flixel",
+      "type": "haxelib",
+      "version": "5.2.2"
+    },
+    {
+      "name": "flixel-addons",
+      "type": "haxelib",
+      "version": "2.11.0"
+    },
+    {
+      "name": "flixel-ui",
+      "type": "haxelib",
+      "version": "2.4.0"
+    },
+    {
+      "name": "flxanimate",
+      "type": "git",
+      "dir": null,
+      "ref": "768740a56b26aa0c072720e0d1236b94afe68e3e",
+      "url": "https://github.com/Dot-Stuff/flxanimate"
+    },
+    {
+      "name": "format",
+      "type": "haxelib",
+      "version": "3.5.0"
+    },
+    {
+      "name": "funkin.vis",
+      "type": "git",
+      "dir": null,
+      "ref": "22b1ce089dd924f15cdc4632397ef3504d464e90",
+      "url": "https://github.com/FunkinCrew/funkVis"
+    },
+    {
+      "name": "grig.audio",
+      "type": "git",
+      "dir": null,
+      "ref": "cbf91e2180fd2e374924fe74844086aab7891666",
+      "url": "https://gitlab.com/haxe-grig/grig.audio.git"
+    },
+    {
+      "name": "hscript-iris",
+      "type": "git",
+      "dir": null,
+      "ref": "dev",
+      "url": "https://github.com/pisayesiwsi/hscript-iris"
+    },
+    {
+      "name": "hxcpp",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/HaxeFoundation/hxcpp"
+    },
+    {
+      "name": "hxp",
+      "type": "haxelib",
+      "version": "1.3.0"
+    },
+    {
+      "name": "hxvlc",
+      "type": "haxelib",
+      "version": "1.9.2"
+    },
+    {
+      "name": "lime",
+      "type": "git",
+      "dir": null,
+      "ref": "fe3368f611a84a19afc03011353945ae4da8fffd",
+      "url": "https://github.com/FunkinCrew/lime"
+    },
+    {
+      "name": "linc_luajit",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/superpowers04/linc_luajit"
+    },
+    {
+      "name": "openfl",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/SyncGit12/openfl"
+    },
+    {
+      "name": "flixel-text-input",
+      "type": "git",
+      "dir": null,
+      "ref": "951a0103a17bfa55eed86703ce50b4fb0d7590bc",
+      "url": "https://github.com/FunkinCrew/flixel-text-input"
+    },
+    {
+      "name": "thx.core",
+      "type": "haxelib",
+      "version": null
+    },
+    {
+      "name": "thx.semver",
+      "type": "haxelib",
+      "version": null
+    }
+  ]
+}

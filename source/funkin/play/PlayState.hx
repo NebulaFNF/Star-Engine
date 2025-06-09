@@ -48,7 +48,7 @@ import funkin.play.icons.HealthIcon;
 import funkin.play.note.Note.EventNote;
 import funkin.play.note.Note;
 import funkin.play.note.NoteSplash;
-import funkin.play.note.StrumNote;
+import funkin.play.note.StrumlineNote;
 import funkin.play.stages.*;
 import funkin.play.stages.BaseStage.Countdown;
 import funkin.play.stages.BaseStage;
@@ -214,9 +214,9 @@ class PlayState extends MusicBeatState
 	private static var prevCamFollow:FlxPoint;
 	private static var prevCamFollowPos:FlxObject;
 
-	public var strumLineNotes:FlxTypedGroup<StrumNote>;
-	public var opponentStrums:FlxTypedGroup<StrumNote>;
-	public var playerStrums:FlxTypedGroup<StrumNote>;
+	public var strumLineNotes:FlxTypedGroup<StrumlineNote>;
+	public var opponentStrums:FlxTypedGroup<StrumlineNote>;
+	public var playerStrums:FlxTypedGroup<StrumlineNote>;
 	public var grpNoteSplashes:FlxTypedGroup<NoteSplash>;
 	public var laneunderlay:FlxSprite;
 	public var laneunderlayOpponent:FlxSprite;
@@ -1315,7 +1315,7 @@ class PlayState extends MusicBeatState
 		add(timeTxt);
 		timeBarBG.sprTracker = timeBar;
 
-		strumLineNotes = new FlxTypedGroup<StrumNote>();
+		strumLineNotes = new FlxTypedGroup<StrumlineNote>();
 		add(strumLineNotes);
 		add(grpNoteSplashes);
 
@@ -1329,8 +1329,8 @@ class PlayState extends MusicBeatState
 		grpNoteSplashes.add(splash);
 		splash.alpha = 0.0;
 
-		opponentStrums = new FlxTypedGroup<StrumNote>();
-		playerStrums = new FlxTypedGroup<StrumNote>();
+		opponentStrums = new FlxTypedGroup<StrumlineNote>();
+		playerStrums = new FlxTypedGroup<StrumlineNote>();
 
 		// startCountdown();
 
@@ -1379,6 +1379,7 @@ class PlayState extends MusicBeatState
 		healthBarBG.screenCenter(X);
 		healthBarBG.scrollFactor.set();
 		healthBarBG.visible = !ClientPrefs.hideHud;
+		healthBarBG.alpha = ClientPrefs.healthBarAlpha; //ok
 		healthBarBG.xAdd = -4;
 		healthBarBG.yAdd = -4;
 		add(healthBarBG);
@@ -3169,7 +3170,7 @@ class PlayState extends MusicBeatState
 				else if(ClientPrefs.middleScroll) targetAlpha = 0.35;
 			}
 
-			var babyArrow:StrumNote = new StrumNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
+			var babyArrow:StrumlineNote = new StrumlineNote(ClientPrefs.middleScroll ? STRUM_X_MIDDLESCROLL : STRUM_X, strumLine.y, i, player);
 			babyArrow.downScroll = ClientPrefs.downScroll;
 			if (!isStoryMode && !skipArrowStartTween)
 			{
@@ -3787,7 +3788,7 @@ class PlayState extends MusicBeatState
 						}
 					}
 
-					var strumGroup:FlxTypedGroup<StrumNote> = playerStrums;
+					var strumGroup:FlxTypedGroup<StrumlineNote> = playerStrums;
 					if(!daNote.mustPress) strumGroup = opponentStrums;
 
 					var strumX:Float = strumGroup.members[daNote.noteData].x;
@@ -5042,7 +5043,7 @@ class PlayState extends MusicBeatState
 				Conductor.songPosition = lastTime;
 			}
 
-			var spr:StrumNote = playerStrums.members[key];
+			var spr:StrumlineNote = playerStrums.members[key];
 			if(strumsBlocked[key] != true && spr != null && ClientPrefs.playerLightStrum && spr.animation.curAnim.name != 'confirm')
 			{
 				spr.playAnim('pressed');
@@ -5069,7 +5070,7 @@ class PlayState extends MusicBeatState
 		var key:Int = getKeyFromEvent(eventKey);
 		if(!cpuControlled && ClientPrefs.playerLightStrum && startedCountdown && !paused && key > -1)
 		{
-			var spr:StrumNote = playerStrums.members[key];
+			var spr:StrumlineNote = playerStrums.members[key];
 			if(spr != null)
 			{
 				spr.playAnim('static');
@@ -5445,7 +5446,7 @@ class PlayState extends MusicBeatState
 
 	public function spawnNoteSplashOnNote(note:Note) {
 		if(ClientPrefs.noteSplashes && note != null) {
-			var strum:StrumNote = playerStrums.members[note.noteData];
+			var strum:StrumlineNote = playerStrums.members[note.noteData];
 			if(strum != null) spawnNoteSplash(strum.x, strum.y, note.noteData, note);
 		}
 	}
@@ -5983,7 +5984,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function StrumPlayAnim(isDad:Bool, id:Int, time:Float) {
-		var spr:StrumNote = null;
+		var spr:StrumlineNote = null;
 		if(isDad) {
 			spr = strumLineNotes.members[id];
 		} else {
@@ -5997,7 +5998,7 @@ class PlayState extends MusicBeatState
 				spr.playAnim('confirm', true);
 			}
 
-			// spr.confirmHoldTimer = time; // why do we need this when we got our OWN delay at funkin.play.note.StrumNote?
+			// spr.confirmHoldTimer = time; // why do we need this when we got our OWN delay at funkin.play.note.StrumlineNote?
 		}
 	}
 

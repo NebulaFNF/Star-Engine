@@ -10,13 +10,16 @@ using StringTools;
 /**
  * The actual receptor that you see on screen.
  */
-class StrumNote extends FlxSprite
+class StrumlineNote extends FlxSprite
 {
+	/**
+	 * The shader that handles the colors of the note.
+	 */
 	private var colorSwap:ColorSwap;
 
 	/**
-   * How long the hold note animation has been playing after a note is pressed.
-   */
+	 * How long the hold note animation has been playing after a note is pressed.
+	 */
 	public var confirmHoldTimer:Float = -1;
 
 	/**
@@ -30,8 +33,8 @@ class StrumNote extends FlxSprite
 	private var noteData:Int = 0;
 
 	/**
-   * The direction which this strumline note is facing.
-   */
+	 * The direction which this strumline note is facing.
+	 */
 	public var direction:Float = 90;
 
 	/**
@@ -81,10 +84,13 @@ class StrumNote extends FlxSprite
 		var skin:String = 'NOTE_assets';
 		if (PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1)
 			skin = PlayState.SONG.arrowSkin;
+
 		texture = skin; // Load texture and anims
 
 		this.animation.onFrameChange.add(onAnimationFrame);
 		this.animation.onFinish.add(onAnimationFinished);
+
+		this.active = true;
 
 		scrollFactor.set();
 	}

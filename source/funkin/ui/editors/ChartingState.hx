@@ -36,7 +36,7 @@ import funkin.play.characters.Character.CharacterFile;
 import funkin.play.characters.Character;
 import funkin.play.icons.HealthIcon;
 import funkin.play.note.Note;
-import funkin.play.note.StrumNote;
+import funkin.play.note.StrumlineNote;
 import funkin.song.Conductor.BPMChangeEvent;
 import funkin.song.Section.SwagSection;
 import funkin.song.Song.SwagSong;
@@ -122,7 +122,7 @@ class ChartingState extends MusicBeatState
 	var camPos:FlxObject;
 	var strumLine:FlxSprite;
 	var quant:AttachedSprite;
-	var strumLineNotes:FlxTypedGroup<StrumNote>;
+	var strumLineNotes:FlxTypedGroup<StrumlineNote>;
 	var curSong:String = 'Test';
 	var amountSteps:Int = 0;
 	var bullshitUI:FlxGroup;
@@ -360,9 +360,9 @@ class ChartingState extends MusicBeatState
 		quant.yAdd = 8;
 		add(quant);
 
-		strumLineNotes = new FlxTypedGroup<StrumNote>();
+		strumLineNotes = new FlxTypedGroup<StrumlineNote>();
 		for (i in 0...8){
-			var note:StrumNote = new StrumNote(GRID_SIZE * (i+1), strumLine.y, i % 4, 0);
+			var note:StrumlineNote = new StrumlineNote(GRID_SIZE * (i+1), strumLine.y, i % 4, 0);
 			note.setGraphicSize(GRID_SIZE, GRID_SIZE);
 			note.updateHitbox();
 			note.playAnim('static', true);
@@ -2987,7 +2987,7 @@ class ChartingState extends MusicBeatState
 		}
 
 		var beats:Float = getSectionBeats(isNextSection ? 1 : 0);
-		note.y = getYfromStrumNotes(daStrumTime - sectionStartTime(), beats);
+		note.y = getYfromStrumlineNotes(daStrumTime - sectionStartTime(), beats);
 		//if(isNextSection) note.y += gridBG.height;
 		if(note.y < -150) note.y = -150;
 		return note;
@@ -3206,7 +3206,7 @@ class ChartingState extends MusicBeatState
 		return FlxMath.remapToRange(strumTime, 0, 16 * Conductor.stepCrochet, gridBG.y, gridBG.y + gridBG.height * leZoom);
 	}
 
-	function getYfromStrumNotes(strumTime:Float, beats:Float):Float
+	function getYfromStrumlineNotes(strumTime:Float, beats:Float):Float
 	{
 		var value:Float = strumTime / (beats * 4 * Conductor.stepCrochet);
 		return GRID_SIZE * beats * 4 * zoomList[curZoom] * value + gridBG.y;

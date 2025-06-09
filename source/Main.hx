@@ -1,11 +1,11 @@
 package;
 
-import AnsiTrace;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxState;
 import funkin.crash.CrashHandler;
 import funkin.prefs.ClientPrefs;
+import funkin.utils.AnsiTrace;
 import funkin.utils.CoolUtil;
 import openfl.Lib;
 import openfl.display.FPS;
@@ -117,8 +117,8 @@ class Main extends Sprite
 		super();
 
 		#if debug
-		haxe.Log.trace = AnsiTrace.trace;
-		AnsiTrace.traceBF();
+		haxe.Log.trace = funkin.utils.AnsiTrace.trace;
+		funkin.utils.AnsiTrace.traceBF();
 		#end
 
 		CrashHandler.init();

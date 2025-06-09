@@ -118,6 +118,7 @@ class Project extends HXProject
 	static final CRASH_HANDLER:FeatureFlag = "CRASH_HANDLER";
 	static final TITLE_SCREEN_EASTER_EGG:FeatureFlag = "TITLE_SCREEN_EASTER_EGG";
 	static final CHECK_FOR_UPDATES:FeatureFlag = "CHECK_FOR_UPDATES";
+
 	/**
 	 * `-DFEATURE_DEBUG_TRACY`
 	 * If this flag is enabled, the game will have the necessary hooks for the Tracy profiler.
