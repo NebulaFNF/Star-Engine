@@ -61,7 +61,7 @@ class Song
 
 	/**
 	 * Converts old charts to the newest format.
-	 * @param songJson : Detects the Song JSON.
+	 * @param songJson - Detects the Song JSON.
 	 */
 	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format
 	{
