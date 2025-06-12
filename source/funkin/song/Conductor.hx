@@ -22,23 +22,23 @@ typedef BPMChangeEvent =
  */
 enum abstract ScoringSystem(String)
 {
-  /**
-   * The scoring system used in versions of the game Week 6 and older.
-   * Scores the player based on judgement, represented by a step function.
-   */
-  var LEGACY;
+	/**
+	 * The scoring system used in versions of the game Week 6 and older.
+	 * Scores the player based on judgement, represented by a step function.
+	 */
+	var LEGACY;
 
-  /**
-   * The scoring system used in Week 7. It has tighter scoring windows than Legacy.
-   * Scores the player based on judgement, represented by a step function.
-   */
-  var WEEK7;
+	/**
+	 * The scoring system used in Week 7. It has tighter scoring windows than Legacy.
+	 * Scores the player based on judgement, represented by a step function.
+	 */
+	var WEEK7;
 
-  /**
-   * Points based on timing scoring system, version 1
-   * Scores the player based on the offset based on timing, represented by a sigmoid function.
-   */
-  var PBOT1;
+	/**
+	 * Points based on timing scoring system, version 1
+	 * Scores the player based on the offset based on timing, represented by a sigmoid function.
+	 */
+	var PBOT1;
 }
 
 class Conductor
@@ -59,9 +59,9 @@ class Conductor
 	public static var stepCrochet:Float = crochet / 4; // steps in milliseconds
 
 	/**
-   * Current position in the song, in beats.
-   */
-  public var currentBeat(default, null):Int = 0;
+	 * Current position in the song, in beats.
+	 */
+	public var currentBeat(default, null):Int = 0;
 
 	/**
 	 * Unused variables.
@@ -72,9 +72,10 @@ class Conductor
 	public static var offset:Float = 0;
 
 	/**
-   * The score a note receives when missed.
-   */
-  public static final LEGACY_MISS_SCORE:Int = -10;
+	 * The score a note receives when missed.
+	 */
+	public static final LEGACY_MISS_SCORE:Int = -10;
+
 	public static final WEEK7_MISS_SCORE:Int = -10;
 
 	/**
@@ -179,7 +180,7 @@ class Conductor
 
 		return switch (absTiming)
 		{
-			//case(_ < PBOT1_KILLER_THRESHOLD) => true:
+			// case(_ < PBOT1_KILLER_THRESHOLD) => true:
 			//  'killer';
 			case(_ < PBOT1_SICK_THRESHOLD) => true:
 				'sick';
@@ -196,17 +197,17 @@ class Conductor
 	}
 
 	public static function getMissScore(scoringSystem:ScoringSystem = PBOT1):Int
-  {
-    return switch (scoringSystem)
-    {
-      case LEGACY: LEGACY_MISS_SCORE;
-      case WEEK7: WEEK7_MISS_SCORE;
-      case PBOT1: PBOT1_MISS_SCORE;
-      default:
-        FlxG.log.error('Unknown scoring system: ${scoringSystem}');
-        0;
-    }
-  }
+	{
+		return switch (scoringSystem)
+		{
+			case LEGACY: LEGACY_MISS_SCORE;
+			case WEEK7: WEEK7_MISS_SCORE;
+			case PBOT1: PBOT1_MISS_SCORE;
+			default:
+				FlxG.log.error('Unknown scoring system: ${scoringSystem}');
+				0;
+		}
+	}
 
 	// old judging (real!111rER5YE NT6KOPUJIOPSR)
 	public static function judgeNote(note:Note, diff:Float = 0):Rating // die

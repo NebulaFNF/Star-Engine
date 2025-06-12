@@ -5196,7 +5196,8 @@ class PlayState extends MusicBeatState
 		//trace(daNote.missHealth);
 		songMisses++;
 		vocals.volume = 0;
-		if(!practiceMode) songScore -= 10;
+		var penalizeScoreCount:Int = Conductor.getMissScore();
+		if(!practiceMode) songScore += penalizeScoreCount;
 
 		totalPlayed++;
 		RecalculateRating(true);
@@ -5235,7 +5236,8 @@ class PlayState extends MusicBeatState
 			}
 			combo = 0;
 
-			if(!practiceMode) songScore -= 10;
+			var penalizeScoreCount = Conductor.getMissScore();
+		  if(!practiceMode) songScore += penalizeScoreCount;
 			if(!endingSong) {
 				songMisses++;
 			}
