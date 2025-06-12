@@ -164,7 +164,8 @@ class Crash extends FlxState
 			+ Main.__superCoolErrorMessagesArray[FlxG.random.int(0, Main.__superCoolErrorMessagesArray.length)]
 			+ '\n\n'
 			+ stripClub
-			+ '\n\nCrash Handler by YoshiCrafter29, Ne_Eo. MAJigsaw77 and mcagabe19Crash UI State by Nael2xd and lunaruniv
+			+ '\n\nCrash Handler by YoshiCrafter29, Ne_Eo. MAJigsaw77 and mcagabe19'
+			+ '\nCrash UI State by Nael2xd and lunaruniv
 		If you are reporting this bug, Go to crash/ folder and copy the contents from the recent file.
 		Press any key to continue (Press ENTER to report this bug)');
 
