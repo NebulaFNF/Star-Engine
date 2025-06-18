@@ -1396,13 +1396,13 @@ class PlayState extends MusicBeatState
 				healthBarBG.sprTracker = healthBar;
 			case 'Legacy':
 				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this, 'displayedHealth', 0, maxHealth);
-		        healthBar.scrollFactor.set();
+		    healthBar.scrollFactor.set();
 				healthBar.visible = !ClientPrefs.hideHud;
 				healthBar.alpha = ClientPrefs.healthBarAlpha;
 				add(healthBar);
 			case 'Cooler':
 				healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this, 'displayedHealth', 0, maxHealth);
-		        healthBar.scrollFactor.set();
+		    healthBar.scrollFactor.set();
 				healthBar.visible = !ClientPrefs.hideHud;
 				healthBar.alpha = ClientPrefs.healthBarAlpha;
 				add(healthBar);
