@@ -32,6 +32,7 @@ If you're interested in helping out, feel free to fork the repository, submit pu
 ### Core Developers
 - **[@lunaruniv69](https://github.com/SyncGit12)** – Lead Developer, Logo Designer
 - **[@ShadowMario](https://github.com/ShadowMario)** – Lead Developer of Psych Engine
+- **[@HaxePixel](https://www.youtube.com/@HaxePixel)** – Programmer
 - **[@moxie-coder](https://github.com/moxie-coder)** – Programmer
 - **[@mcagabe19](https://github.com/mcagabe19)** – Mobile Port Developer, Programmer
 - **[@cyklusiguess](https://github.com/cyklusiguess)** – Developer
