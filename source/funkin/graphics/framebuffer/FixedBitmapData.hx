@@ -26,8 +26,8 @@ class FixedBitmapData extends BitmapData
 
   /**
    * Never, EVER, use `BitmapData.fromTexture`, always use this.
-   * @param texture the texture
-   * @return the bitmap data
+   * @param texture The texture.
+   * @return The bitmap data.
    */
   public static function fromTexture(texture:TextureBase):FixedBitmapData
   {
