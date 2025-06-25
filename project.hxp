@@ -173,13 +173,15 @@ class Project extends HXProject
 	 */
 	function configureApp()
 	{
-		this.meta.title = TITLE;
+		if (!officialBuild.isEnabled(this)) this.meta.title = "Friday Night Funkin'";
+		else this.meta.title = TITLE;
 		this.meta.version = VERSION;
 		this.meta.packageName = PACKAGE_NAME;
 		this.meta.company = COMPANY;
 
 		this.app.main = MAIN_CLASS;
-		this.app.file = EXECUTABLE_NAME;
+		if (!officialBuild.isEnabled(this)) this.app.file = "Funkin";
+		else this.app.file = EXECUTABLE_NAME;
 		this.app.preloader = PRELOADER;
 
 		// Tell Lime where to look for the game's source code.
@@ -379,12 +381,6 @@ class Project extends HXProject
 		// Disable the built in pause screen when unfocusing the game.
 		setHaxedef("FLX_NO_FOCUS_LOST_SCREEN");
 
-		// HaxeUI configuration. I hate HaxeUI.
-		/*setHaxedef("haxeui_no_mouse_reset");
-			setHaxedef("haxeui_focus_out_on_click"); // Unfocus a dialog when clicking out of it
-			setHaxedef("haxeui_dont_impose_base_class"); // Suppress a macro error
-		 */
-
 		if (isRelease())
 		{
 			// Improve performance on Nape
@@ -544,10 +540,17 @@ class Project extends HXProject
 	 */
 	function configureIcons()
 	{
-		addIcon("art/icon16.png", 16);
-		addIcon("art/icon32.png", 32);
-		addIcon("art/icon64.png", 64);
-		addIcon("art/iconOG.png");
+		if (!officialBuild.isEnabled(this)) {
+			addIcon("art/icon16OG.png", 16);
+		  addIcon("art/icon32OG.png", 32);
+		  addIcon("art/icon64OG.png", 64);
+		  addIcon("art/iconOGOld.png");
+		} else {
+			addIcon("art/icon16.png", 16);
+		  addIcon("art/icon32.png", 32);
+		  addIcon("art/icon64.png", 64);
+		  addIcon("art/iconOG.png");
+		}
 	}
 
 	//
