@@ -1,5 +1,5 @@
 name: Feature Request
-description: 'No, I am not going to add 6K/etc notes to the engine, this will break noteskins.'
+description: 'No, I am not going to add note multipliers to the engine. It will ruin the entire purpose of it.'
 labels: [enhancement]
 body:
   - type: textarea
